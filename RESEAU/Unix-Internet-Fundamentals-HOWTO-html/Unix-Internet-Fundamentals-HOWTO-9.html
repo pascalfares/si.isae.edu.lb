@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>The Unix and Internet Fundamentals HOWTO: Comment fonctionnent les langages d'ordinateur ?</TITLE>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-10.html" REL=next>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-8.html" REL=previous>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc9" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-10.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-8.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc9"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s9">9. Comment fonctionnent les langages d'ordinateur ?</A></H2>
+
+<P>Nous avons d&eacute;j&agrave; &eacute;voqu&eacute; 
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-4.html#run">comment les programmes sont      ex&eacute;cut&eacute;s</A>. Chaque programme en fin de compte doit ex&eacute;cuter une
+succession d'octets qui sont les instructions dans le <EM>langage
+machine</EM> de votre ordinateur. Les humains ne pratiquent pas
+tr&egrave;s bien le langage machine&nbsp;; cela est devenu rare, art obscur m&ecirc;me
+parmi les hackers.
+<P>La plupart du code du noyau d'Unix except&eacute; une petite partie de l'interface
+avec le mat&eacute;riel est de nos jours &eacute;crite dans un <EM>langage de
+haut niveau</EM>. (Le terme 'haut niveau' est un h&eacute;ritage du pass&eacute;
+afin de le distinguer du 'bas-niveau' des <EM>langages
+assembleur</EM>, qui sont de maigres "couches" autour du code
+machine.
+<P>
+<P>Il y plusieurs types diff&eacute;rents de langages de haut niveau. Afin de parler
+d'eux, vous trouverez utile que j'attire votre attention sur le fait
+que le <EM>code source</EM> d'un programme (la cr&eacute;ation
+humaine, la version &eacute;ditable) est pass&eacute; &agrave; travers plusieurs types de
+traductions pour arriver en code machine, que la machine peut
+effectivement ex&eacute;cuter. 
+<P>
+<H2><A NAME="ss9.1">9.1 Langages compil&eacute;s</A>
+</H2>
+
+<P>Le type le plus classique de langage est un <EM>langage
+compil&eacute;</EM>. Les langages compil&eacute;s sont traduits en fichiers
+ex&eacute;cutables de code machine binaire par un programme sp&eacute;cial appel&eacute;
+(assez logiquement) un <EM>compilateur</EM>. Lorsque le
+binaire est g&eacute;n&eacute;r&eacute;, vous pouvez l'ex&eacute;cuter directement sans regarder
+&agrave; nouveau dans le code source. (La plupart des logiciels d&eacute;livr&eacute;s
+sous forme de binaires compil&eacute;s sont faits &agrave; partir d'un source
+auquel vous n'avez pas acc&egrave;s.)
+<P>Les langages compil&eacute;s tendent &agrave; fournir une excellente performance et ont
+un acc&egrave;s le plus complet au syst&egrave;me d'exploitation, mais il difficile
+de programmer avec.
+<P>Le langage C, langage dans lequel chaque Unix est lui-m&ecirc;me &eacute;crit, est de
+tous le plus important (avec sa variante C++). FORTRAN est un autre
+langage compil&eacute; qui reste utilis&eacute; par de nombreux ing&eacute;nieurs et
+scientifiques mais plus vieux et plus primitif. Dans le monde Unix
+aucun autre langage compil&eacute; n'est autant utilis&eacute;. En dehors de lui,
+COBOL est tr&egrave;s largement utilis&eacute; pour les logiciels de finance et
+comptabilit&eacute;.
+<P>Il y a bien d'autres compilateurs de langages, mais la plupart sont en voie
+d'extinction ou sont strictement des outils de recherche. Si vous &ecirc;tes
+un nouveau d&eacute;veloppeur Unix qui utilise un langage compil&eacute;, il est
+incontournable que ce soit C ou C++. 
+<P>
+<P>
+<H2><A NAME="ss9.2">9.2 Langages interpr&eacute;t&eacute;s</A>
+</H2>
+
+<P>Un <EM>langage interpr&eacute;t&eacute;</EM> d&eacute;pend d'un programme
+interpr&eacute;teur qui lit le code source et traduit &agrave; la vol&eacute;e en calculs
+et appels syst&egrave;me. Le source doit &ecirc;tre r&eacute;-interpr&eacute;t&eacute; (et
+l'interpr&eacute;teur pr&eacute;sent) &agrave; chaque fois que le programme est ex&eacute;cut&eacute;.
+<P>Les langages interpr&eacute;t&eacute;s tendent &agrave; &ecirc;tre plus lents que les langages
+compil&eacute;s, et limitent souvent les acc&egrave;s au syst&egrave;me d'exploitation ou
+au mat&eacute;riel sous-jacent. D'un autre c&ocirc;t&eacute;, il est plus facile de
+programmer et ils tol&egrave;rent plus d'erreurs de codage que les langages
+compil&eacute;s.
+<P>
+<P>Quelques utilitaires Unix, incluant le shell et bc(1) et sed(1) et awk(1),
+sont effectivement des petits langages interpr&eacute;t&eacute;s. Les BASICs sont
+g&eacute;n&eacute;ralement interpr&eacute;t&eacute;s. Ainsi est Tcl. Historiquement, le langage 
+le plus interpr&eacute;t&eacute; &eacute;tait LISP (une am&eacute;lioration &eacute;norme sur la plupart
+de ses successeurs). Aujourd'hui, Perl est tr&egrave;s largement utilis&eacute; et
+devient r&eacute;solument plus populaire.
+<P>
+<P>
+<H2><A NAME="ss9.3">9.3 Langages P-code</A>
+</H2>
+
+<P>Depuis 1990 un type de langage hybride qui utilise la compilation et
+l'interpr&eacute;tation est devenu incroyablement important. Les langages
+P-code sont comme des langages compil&eacute;s dans le sens o&ugrave; le code est
+traduit dans une forme binaire compacte qui est celle que vous
+ex&eacute;cutez, mais cette forme n'est pas du code machine. Au lieu de cela,
+c'est du <EM>pseudo-code</EM> (ou
+<EM>p-code</EM>), qui est g&eacute;n&eacute;ralement un peu plus simple
+mais plus puissant qu'un langage machine r&eacute;el. Lorsque vous ex&eacute;cutez
+le programme, vous interpr&eacute;tez du p-code.
+<P>
+<P>Le p-code peut s'ex&eacute;cuter pratiquement aussi rapidement que du binaire
+compil&eacute; (les interpr&eacute;teurs de p-code peuvent &ecirc;tre relativement
+simples, petits et rapides). Mais les langages p-code peuvent garder
+la flexibilit&eacute; et la puissance d'un bon interpr&eacute;teur.
+<P>D'importants langages p-code sont Python et Java.
+<P>
+<HR>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-10.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-8.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc9"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

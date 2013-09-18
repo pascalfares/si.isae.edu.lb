@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>R&eacute;seau sous Linux :: Routage avec Linux-2.2</TITLE>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-9.html" REL=next>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html" REL=previous>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc8" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-9.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc8"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s8">8. Routage avec Linux-2.2</A></H2>
+
+<P>Le noyau 2.2 a accru les possibilit&eacute;s de routage de Linux de mani&egrave;re certaine.
+Malheureusement la documentation pour exploiter ces nouvelles possibilit&eacute;s
+est presque impossible &agrave; trouver, m&ecirc;me si elle existe.
+<P>
+<P>J'y ai pass&eacute; un peu de temps et ai &eacute;t&eacute; en mesure de faire un petit quelque chose.
+J'en mettrai plus quand j'aurai le temps et l'aide n&eacute;cessaire pour comprendre
+tout ce qui a &eacute;t&eacute; dit.
+<P>Dans les versions du noyau 2.0 et ant&eacute;rieures, Linux utilise la commande
+<EM>route</EM> standard pour positionner les routes dans une seule table de
+routage. Si vous aviez tap&eacute; <EM>netstat -rn</EM> &agrave; l'invite vous auriez pu
+voir un exemple.
+<P>Dans les noyaux r&eacute;cents (2.1 et au-del&agrave;) vous avez une autre option.
+Cette option est autoris&eacute;e et vous permet d'avoir plusieurs tables de routage.
+Les nouvelles r&egrave;gles donnent beaucoup plus de souplesse sur la fa&ccedil;on de manipuler
+les paquets. Vous pouvez choisir entre des routes bas&eacute;es non seulement sur
+l'adresse de destination, mais aussi l'adresse de d&eacute;part, TOS, ou un p&eacute;riph&eacute;rique
+de r&eacute;ception.
+<P>
+<H2><A NAME="ss8.1">8.1 Les bases</A>
+</H2>
+
+<P><B>Afficher la table de routage :</B>
+<P>ip route
+<P>Maintenant sur ma machine cela donne la sortie suivante :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+207.149.43.62 dev eth0  scope link
+207.149.43.0/24 dev eth0  proto kernel  scope link  src 207.149.43.62
+default via 207.149.43.1 dev eth0
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>La premi&egrave;re ligne :
+<P><B>207.149.43.62 dev eth0 scope link</B> est la route vers l'interface
+<P>La deuxi&egrave;me :
+<P><B>207.149.43.0/24 dev eth0 proto kernel scope link src 207.149.43.62</B>
+est la route qui dit <EM>tout ce qui va vers 207.149.43.0 doit aller vers
+207.149.43.62</EM>.
+<P>La troisi&egrave;me :
+<P><B>default via 207.149.43.1 dev eth0</B> est la route par d&eacute;faut.
+<P>
+<H3>Utiliser les informations</H3>
+
+<P>Maintenant que nous avons vu une table de routage de base, voyons comment l'utiliser. Tout d'abord lisez
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.compendium.com.ar/policy-routing.txt">the Policy routing text.</A> Si vous &ecirc;tes emb&ecirc;t&eacute;s, ne vous en faites pas -- c'est un texte
+confus. Il vous donne tout ce que les nouvelles tables de routage peuvent faire.
+<P>
+<H2><A NAME="ss8.2">8.2 Ajouter une route avec les nouveaux outils ip</A>
+</H2>
+
+<P>Dans la section pr&eacute;c&eacute;dente, nous avons mentionn&eacute; comment afficher la table de
+routage et comment comprendre les bases. Impeccable, la sortie ressemble
+de tr&egrave;s pr&egrave;s &agrave; la syntaxe que nous devons utiliser pour mettre en place la table
+de routage correspondant exactement &agrave; nos besoins.
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+ip route add 207.149.43.62 dev eth0  scope link
+ip route add 207.149.43.0/24 dev eth0 proto kernel scope link src 207.149.43.62
+ip route add 127.0.0.0/8 dev lo  scope link
+ip route add default via 207.149.43.1 dev eth0
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Comme vous pouvez le constater, les entr&eacute;es et sorties sont presque les m&ecirc;mes,
+sauf le <EM>ip route add</EM> au d&eacute;but de chaque ligne.
+<P><B>Note:</B> Je suis conscient que la documentation sur le routage avec les
+noyaux 2.2 fait cruellement d&eacute;faut. Dans les faits, je pense que TOUT LE MONDE
+en est conscient. Si vous avez une petite exp&eacute;rience, contactez-nous s'il vous
+pla&icirc;t &agrave;
+<A HREF="index.php?ref=Net-HOWTO-html/mailto:poet@linuxports.com">poet@linuxports.com</A> 
+nous aimerions obtenir les informations que vous avez pour l'inclure plus
+tard dans ce document.
+<P>
+<H2><A NAME="ss8.3">8.3 Utiliser NAT avec le noyau 2.2</A>
+</H2>
+
+<P>
+<P>Le syst&egrave;me de traduction d'adresse r&eacute;seau (NAT: Network Address Translation)
+ressemble plut&ocirc;t au grand fr&egrave;re standardis&eacute; du syst&egrave;me de masquage IP de Linux.
+Il est d&eacute;crit en d&eacute;tail dans la RFC-1631 sur votre archive RFC la plus proche.
+NAT fournit des possibilt&eacute;s que IP Masquerade ne sait pas faire, ce qui le
+rend plus apte &agrave; une utilsation de routeur pare-feu pour un r&eacute;seau d'entreprise
+et des installations de plus grande dimension.
+<P>Une impl&eacute;mentation alpha de NAT pour le noyau 2.0.29 de Linux a &eacute;t&eacute; d&eacute;velopp&eacute;e
+par
+Michael.Hasenstein, <CODE>Michael.Hasenstein@informatik.tu-chemnitz.de</CODE>. 
+La documentation et l'impl&eacute;mentation de Michael se trouve sur :
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.csn.tu-chemnitz.de/HyperNews/get/linux-ip-nat.html">Linux IP Network Address Web Page</A>
+L'empilement TCP/IP du noyau 2.2, qui a &eacute;t&eacute; grandement am&eacute;lior&eacute;, inclut
+les fonctionnalit&eacute;s de NAT. Ce syst&egrave;me semble rendre obsol&egrave;te le travail de
+Michael Hasenstein (Michael@informatik.tu-chemnitz.de).
+<P>
+<P>Pour le rendre op&eacute;rationnel vous devez activer dans le noyau
+CONFIG_IP_ADVANCED_ROUTER, CONFIG_IP_MULTIPLE_TABLES (pour le syst&egrave;me
+de routage) et CONFIG_IP_ROUTE_NAT (pour un NAT rapide). De plus, si vous
+voulez utiliser un r&eacute;glage plus fin de NAT, vous devez activer
+le pare-feu (CONFIG_IP_FIREWALL) et CONFIG_IP_ROUTE_FWMARK.
+Pour faire fonctionner effectivement ces possibilit&eacute;s incluses dans le noyau,
+vous aurez besoin du programme «ip» de Alexey Kuznyetsov 
+r&eacute;cup&eacute;r&eacute; sur ftp://ftp.inr.ac.ru/ip-routing/.
+<P>Datagrammes NAT entrants
+<P>Maintenant pour traduire les adresses des datagrammes entrants, on utilise
+la commande suivante :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+           ip route add nat &lt;ext-addr>[/&lt;masklen>] via &lt;int-addr>
+        
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Ceci fait qu'un paquet entrant destin&eacute; &agrave; l'adresse "ext-addr" 
+(l'adresse visible sur l'internet ext&eacute;rieur) aura son champ d'adresse 
+converti en "int-addr" (l'adresse de votre r&eacute;seau interne, derri&egrave;re votre
+passerelle ou pare-feu). Le paquet est alors rout&eacute; suivant la table de routage locale. Vous pouvez traduire soit une adresse h&ocirc;te unique, soit des blocs complets.
+<B>Exemples:</B>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  
+        ip route add nat 195.113.148.34 via 192.168.0.2
+        ip route add nat 195.113.148.32/27 via 192.168.0.0
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>La premi&egrave;re commande rend l'adresse interne 192.168.0.2 accessible en tant que
+195.113.148.34. Le second exemple montre une r&eacute;allocation du bloc
+192.168.0.0-31 en 195.113.148.32-63.
+<P>
+<P>
+<HR>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-9.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc8"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

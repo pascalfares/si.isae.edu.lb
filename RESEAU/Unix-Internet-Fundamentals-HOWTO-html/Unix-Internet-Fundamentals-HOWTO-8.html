@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>The Unix and Internet Fundamentals HOWTO: Comment mon ordinateur stocke des choses sur le disque ?</TITLE>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-9.html" REL=next>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-7.html" REL=previous>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc8" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-9.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-7.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc8"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s8">8. Comment mon ordinateur stocke des choses sur le disque ?</A></H2>
+
+<P>Sur votre disque dur sous Unix, vous voyez un arbre de r&eacute;pertoires
+nomm&eacute;s et des fichiers. Normalement vous ne devriez pas &agrave; chercher &agrave; en
+savoir plus, mais cela peut s'av&eacute;rer utile de savoir ce qu'il y a
+dessous si vous avez un crash disque et besoin d'essayer de nettoyer
+des fichiers. Malheureusement il n'y a pas de bon moyen de d&eacute;crire
+l'organisation du disque en partant du niveau fichier et en descendant,
+c'est pour cela que je le d&eacute;crirai en remontant &agrave; partir du niveau
+mat&eacute;riel.
+<P>
+<H2><A NAME="ss8.1">8.1 Bas niveau du disque et structure du syst&egrave;me de fichiers</A>
+</H2>
+
+<P>La surface de votre disque , sur laquelle il stocke les donn&eacute;es est divis&eacute;e
+comme une cible de jeu de fl&eacute;chettes --&nbsp;en pistes circulaires qui sont
+partag&eacute;es en secteurs. Parce que les pistes de l'ext&eacute;rieur contiennent
+plus de surface que celles pr&egrave;s de l'axe de rotation, au centre du
+disque, les pistes externes ont plus de secteurs que celles de
+l'int&eacute;rieur. Chaque secteur (ou <EM>bloc disque</EM>) a la
+m&ecirc;me taille, qui est g&eacute;n&eacute;ralement de 1Ko (1024 mots de 8 bits). Chaque
+bloc disque a une adresse unique ou un  <EM>num&eacute;ro de bloc
+disque</EM>.
+<P>
+<P>Unix divise le disque en <EM>partitions disque</EM>. Chaque
+partition est une succession de blocs qui est utilis&eacute;e ind&eacute;pendamment
+des autres partitions, comme un syst&egrave;me de fichiers ou un espace
+d'&eacute;change (swap space). La partition ayant le plus petit num&eacute;ro est
+souvent trait&eacute;e sp&eacute;cialement, telle la <EM>partition de boot</EM> dans laquelle vous pouvez mettre un noyau pour booter.
+<P>
+<P>Chaque partition est soit un <EM>espace de swap</EM> (utilis&eacute;
+pour impl&eacute;menter la 
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-7.html#vm">m&eacute;moire virtuelle</A>) soit un
+<A NAME="syst&egrave;me de fichiers"></A> <EM>syst&egrave;me de
+fichiers</EM> pour stocker des fichiers. Les partitions de swap
+sont trait&eacute;es comme une s&eacute;quence lin&eacute;aire de blocs. Les syst&egrave;mes de
+fichiers d'un autre cot&eacute;, ont besoin de relier les noms de fichiers &agrave;
+des s&eacute;quences de blocs disque. Parce que les fichiers grossissent,
+diminuent, et changent tout le temps, les blocs de donn&eacute;es d'un
+fichier ne seront pas une s&eacute;quence lin&eacute;aire mais pourront &ecirc;tre
+dispers&eacute;s sur toute la partition (tant que le syst&egrave;me d'exploitation
+pourra trouver un bloc libre).
+<P>
+<P>
+<H2><A NAME="ss8.2">8.2 Noms de fichiers et r&eacute;pertoires</A>
+</H2>
+
+<P>Dans chaque syst&egrave;me de fichiers, la liaison entre les noms et les blocs est
+r&eacute;alis&eacute;e gr&acirc;ce &agrave; une structure appel&eacute;e <EM>i-node (noeud
+d'index)</EM>. Il y en a tout un tas proche de la "base" (num&eacute;ro de
+bloc les plus faibles) du syst&egrave;me de fichiers (les tout premiers sont
+utilis&eacute;s pour des besoins d'int&eacute;grit&eacute; et de label que nous ne d&eacute;crirons
+pas ici). Chaque i-node d&eacute;crit un fichier. Les blocs de donn&eacute;es des
+fichiers sont au dessus des i-nodes (conceptuellement).
+<P>Chaque i-node contient la liste des num&eacute;ros des blocs du
+fichier (r&eacute;ellement c'est une demi-v&eacute;rit&eacute;, c'est seulement valable
+pour les petits fichiers, mais le reste de ces d&eacute;tails ne sont pas
+importants ici). Notez que l'i-node <EM>ne contient pas</EM> le nom du
+fichier.
+<P>Les noms des fichiers r&eacute;sident dans les <EM>structures de
+r&eacute;pertoires</EM>. Une structure de r&eacute;pertoire contient juste
+une table des noms et des num&eacute;ros d'i-node associ&eacute;s. C'est la raison
+pour laquelle, sous Unix, un fichier peut avoir plusieurs noms r&eacute;els
+(ou <EM>liens forts (hard links)</EM>)&nbsp;; Il y a juste
+plusieurs entr&eacute;es dans un r&eacute;pertoire qui pointent vers le m&ecirc;me i-node.
+<P>
+<H2><A NAME="ss8.3">8.3 Points de montage</A>
+</H2>
+
+<P>Dans le cas le plus simple, votre syst&egrave;me de fichiers Unix tient sur une
+seule partition disque. Cependant vous verrez que cette disposition
+sur des petits syst&egrave;mes Unix n'est pas pratique. Typiquement il est
+r&eacute;parti sur plusieurs partitions disque voire  sur plusieurs
+disques physiques. Ainsi par exemple, votre syst&egrave;me peut avoir une
+petite partition o&ugrave; le noyau r&eacute;side, une un peu plus grande pour les
+utilitaires du syst&egrave;me et une beaucoup plus grosse pour les
+r&eacute;pertoires des utilisateurs.
+<P>La seule partition &agrave; laquelle vous aurez acc&egrave;s imm&eacute;diatement apr&egrave;s le boot
+est votre <EM>partition racine (root partition)</EM>, qui
+est (presque toujours) celle  &agrave; partir de laquelle vous avez
+boot&eacute;. Elle contient le r&eacute;pertoire racine du syst&egrave;me de fichiers, le
+noeud le plus haut &agrave; partir duquel tout est raccroch&eacute;.
+<P>Les autres partitions du syst&egrave;me doivent &ecirc;tre attach&eacute;es &agrave; cette racine afin
+que votre syst&egrave;me de fichiers unique ou multi-partition soit
+accessible. Au milieu du processus de boot, votre Unix rendra ces
+partitions 'non root' accessibles. Il devra <EM>monter</EM>
+chacune d'elles sur un r&eacute;pertoire de la partition racine.
+<P>Par exemple, si votre Unix a un r&eacute;pertoire appel&eacute; '/usr', c'est
+probablement un point de montage d'une partition qui contient un tas
+de programmes install&eacute;s avec votre Unix mais qui ne sont pas
+n&eacute;cessaires durant la phase initiale de boot.
+<P>
+<H2><A NAME="ss8.4">8.4 Comment un fichier est retrouv&eacute; ?</A>
+</H2>
+
+<P>Maintenant nous pouvons consid&eacute;rer le syst&egrave;me de fichiers dans une d&eacute;marche
+descendante. Lorsque vous ouvrez un fichier (tel que
+/home/esr/WWW/ldp/fundamentals.sgml) voici ce qu'il
+arrive&nbsp;:
+<P>Votre noyau d&eacute;marre de la racine de votre syst&egrave;me de fichiers Unix (dans la
+partition root). Il cherche un r&eacute;pertoire appel&eacute;
+`home'. Habituellement `home' est un point de montage d'une grande
+partition pour les utilisateurs, il descend &agrave; l'int&eacute;rieur. Au sommet
+de la structure du r&eacute;pertoire de cette partition utilisateur, il va
+chercher une entr&eacute;e nomm&eacute;e `esr' et en extraire le num&eacute;ro d'i-node. Il
+ira &agrave; cette i-node, notez que c'est une structure de r&eacute;pertoire, et
+retrouvera `WWW'. En exploitant <EM>cet</EM> i-node, il ira au sous
+r&eacute;pertoire correspondant et retrouvera `ldp'. Ce qui lui donnera 
+encore un autre i-node r&eacute;pertoire. En ouvrant ce dernier, il trouvera
+un num&eacute;ro d'i-node pour `fundamentals.sgml'. Cet i-node n'est pas un
+r&eacute;pertoire mais fournit la liste des blocs associ&eacute;s au fichier.
+<P>
+<P>
+<P>
+<H2><A NAME="ss8.5">8.5 Comment les choses peuvent d&eacute;g&eacute;n&eacute;rer ?</A>
+</H2>
+
+<P>
+<A NAME="fsck"></A> Plus haut, nous avons laiss&eacute; entendre que les syst&egrave;mes de
+fichiers &eacute;taient fragiles. 
+Maintenant nous savons que pour acc&eacute;der &agrave; un fichier vous devez
+parcourir une longue cha&icirc;ne arbitraire de r&eacute;f&eacute;rences &agrave; des r&eacute;pertoires
+et &agrave; des inodes. A pr&eacute;sent, supposons que votre disque dur poss&egrave;de une
+zone d&eacute;fectueuse.
+<P>Si vous &ecirc;tes chanceux, il d&eacute;truira quelques donn&eacute;es d'un fichier. Si vous
+&ecirc;tes malchanceux, il va corrompre une structure de r&eacute;pertoire ou un
+num&eacute;ro d'inode et laissera un sous arbre entier de votre syst&egrave;me dans
+l'oubli --&nbsp;ou, pire, cela a donn&eacute; une structure corrompue qui pointe
+par plusieurs chemins au m&ecirc;me bloc disque ou inode. Une telle
+corruption peut s'&eacute;tendre par des op&eacute;rations courantes sur les
+fichiers qui ne se trouvent pas au point d'origine.
+<P>Heureusement, ce genre de d'impr&eacute;vu devient de plus en plus rare car les
+disques sont de plus en plus fiables. Malgr&eacute; tout, cela veut dire que
+votre Unix voudra v&eacute;rifier p&eacute;riodiquement l'int&eacute;grit&eacute; du syst&egrave;me de
+fichiers afin de s'assurer que rien ne cloche. Les Unix modernes font
+une v&eacute;rification rapide sur chaque partition au moment du boot, juste
+avant de les monter. Au bout d'un certain nombre de red&eacute;marrages
+(reboot), la v&eacute;rification sera plus approfondie et durera quelques
+minutes. 
+<P>Si tout cela vous parait, comme Unix, terriblement complexe et pr&eacute;dispos&eacute; aux
+d&eacute;faillances, au contraire, c'est rassurant de savoir que ces
+v&eacute;rifications faites au d&eacute;marrage de la machine, d&eacute;tectent et
+corrigent les probl&egrave;mes courants <EM>avant</EM> qu'ils ne deviennent
+r&eacute;ellement d&eacute;sastreux. D'autres syst&egrave;mes d'exploitation ne disposent
+pas de ces fonctionnalit&eacute;s, qui acc&eacute;l&egrave;rent  un petit peu le d&eacute;marrage,
+mais peuvent vous laisser tout 'bousiller' en essayant de r&eacute;cup&eacute;rer &agrave;
+la main (et en supposant que vous ayez une copie des Utilitaires Norton
+ou autre &agrave; port&eacute;e de main...).
+<P>
+<P>
+<HR>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-9.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-7.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc8"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

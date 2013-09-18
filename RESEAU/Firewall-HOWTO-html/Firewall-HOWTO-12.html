@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Le HOWTO du pare-feu et des serveurs mandataires: Configurations avanc&eacute;es</TITLE>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-13.html" REL=next>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-11.html" REL=previous>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc12" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-13.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-11.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc12"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s12">12. Configurations avanc&eacute;es</A></H2>
+
+<P>Je voudrais aborder une configuration particuli&egrave;re avant de refermer ce
+document.
+Celle que j'ai soulign&eacute;e pr&eacute;c&eacute;demment suffira probablement pour de nombreux
+cas.
+N&eacute;ammoins, je pense que la situation suivante montrera une configuration
+plus avanc&eacute;e qui &eacute;claircira certains points d'ombre.
+S'il vous reste des questions apr&egrave;s ce que je viens de d&eacute;crire, ou
+simplement que l'adaptabilit&eacute; des serveurs mandataires et des pare-feux vous
+int&eacute;resse, lisez encore.
+<P>
+<H2><A NAME="ss12.1">12.1 Un grand r&eacute;seau avec s&eacute;curit&eacute; renforc&eacute;e</A>
+</H2>
+
+<P>Disons, par exemple, que vous &ecirc;tes le gourou de la secte de la 23&egrave;me
+Cabale de la Discorde de Milwaukee.
+Vous souhaitez mettre votre site en r&eacute;seau.
+Vous avez cinquante ordinateurs et un sous-r&eacute;seau de trente-deux
+adresses IP (sur cinq bits).
+Vous avez diff&eacute;rents niveaux d'acc&egrave;s parce que vous dites &agrave; vos
+disciples diff&eacute;rentes choses en fonction de leur niveau.
+C'est pourquoi vous devez prot&eacute;ger certaines parties du r&eacute;seau du reste.
+<P>(NdT&nbsp;: Le traducteur a conserv&eacute; la 23&egrave;me Cabale de la Discorde
+de Milwaukee, issue du texte initial, contrairement &agrave; ce que contiennent
+les nouvelles versions (millisha&nbsp;: version militaris&eacute;e) qui
+serait moins explicite du principe pour un public francophone).
+<P>Les niveaux sont les suivants&nbsp;:
+<OL>
+<LI>Le niveau ext&eacute;rieur.
+C'est celui qui est montr&eacute; &agrave; tout un chacun.
+En gros, c'est l'histoire et les ragots sur Eris,
+la divinit&eacute; de la Discorde, et tout le reste du dogme&nbsp;;
+</LI>
+<LI>Sage.
+C'est le niveau des gens qui ont pass&eacute; le niveau ext&eacute;rieur.
+C'est l&agrave; que vous leur dites que la discorde et la
+structure ne font qu'un, et qu'Eris est aussi le Dieu
+tout-puissant&nbsp;;
+</LI>
+<LI>Adepte.
+C'est l&agrave; que se trouve le plan r&eacute;el.
+Dans ce niveau sont stock&eacute;es toutes les informations sur la
+mani&egrave;re dont la secte des Discordiens prendra le pouvoir sur
+le monde, &agrave; l'aide d'un plan d&eacute;viationniste, mais humoristique,
+impliquant PetitMou, HAL, R2D2, Nounours et cinq cents
+cristaux, tous marqu&eacute;s "80585,9999999997" par erreur.</LI>
+</OL>
+<P>
+<H3>La configuration du r&eacute;seau</H3>
+
+<P>Les num&eacute;ros IP sont arrang&eacute;s ainsi&nbsp;:
+<P>
+<UL>
+<LI>l'adresse 192.168.2.255 est l'adresse de diffusion,
+et n'est pas disponible&nbsp;;</LI>
+<LI>23 des 32 adresses IP sont allou&eacute;es &agrave; 23 machines
+qui seront accessibles depuis InterNet&nbsp;;</LI>
+<LI>Une adresse IP suppl&eacute;mentaire va &agrave; une machine Linux
+sur ce r&eacute;seau&nbsp;;</LI>
+<LI>Une autre va &agrave; une autre machine Linux de ce r&eacute;seau&nbsp;;</LI>
+<LI>2 num&eacute;ros IP vont au routeur&nbsp;;</LI>
+<LI>4 sont laiss&eacute;es libres, mais recoivent les noms de
+domaine paul, ringo, george et john, juste pour
+compliquer un peu les choses&nbsp;;</LI>
+<LI>Les r&eacute;seaux prot&eacute;g&eacute;s ont tous deux des adresses 192.168.2.xxx.</LI>
+</UL>
+<P>Puis, deux r&eacute;seaux s&eacute;par&eacute;s sont construits, chacun dans une pi&egrave;ce diff&eacute;rente.
+Ils sont rout&eacute;s par Ethernet infrarouge pour les rendre compl&egrave;tement
+invisibles de la pi&egrave;ce ext&eacute;rieure.
+Par chance, l'Ethernet infrarouge fonctionne tout &agrave; fait comme l'Ethernet
+normal, donc il nous suffit de les consid&eacute;rer comme normaux.
+<P>Ces r&eacute;seaux sont connect&eacute;s chacun &agrave; sa machine Linux avec une adresse IP
+suppl&eacute;mentaire.
+<P>Un serveur de fichiers relie les deux r&eacute;seaux prot&eacute;g&eacute;s.
+C'est parce que les plans pour prendre le pouvoir sur le monde prennent en
+compte certains des sages les plus &eacute;lev&eacute;s.
+Le serveur de fichiers a les adresses 192.168.2.17 pour le r&eacute;seau des sages
+et 192.168.2.23 pour le r&eacute;seau des adeptes.
+Il doit avoir des adresses IP diff&eacute;rentes, car il doit avoir deux cartes
+Ethernet diff&eacute;rentes.
+La transmission IP y est d&eacute;sactiv&eacute;e.
+<P>La transmission IP est aussi d&eacute;sactiv&eacute;e sur les deux machines Linux.
+Le routeur ne transmettra pas les paquets destin&eacute;s &agrave; 192.168.2.xxx sauf
+si on lui demande explicitement de le faire, donc InterNet ne pourra pas
+entrer.
+La raison de la d&eacute;sactivation de la transmission IP ici est d'emp&ecirc;cher les
+paquets du r&eacute;seau des sages d'atteindre le r&eacute;seau des adeptes, et vice versa.
+<P>Le serveur NFS peut aussi &ecirc;tre configur&eacute; pour pr&eacute;senter diff&eacute;rents fichiers
+aux diff&eacute;rents r&eacute;seaux.
+Cela peut devenir pratique, et assez astucieux d'utiliser les liens
+symboliques pour partager les fichiers communs.
+Cette configuration associ&eacute;e &agrave; une autre carte Ethernet peut ainsi
+permettre l'usage d'un seul serveur de fichiers pour les trois r&eacute;seaux.
+<P>
+<H3>La configuration du bastion</H3>
+
+<P>Maintenant, puisque les trois niveaux doivent &ecirc;tre capables de piloter le
+r&eacute;seau pour leurs propres besoins d&eacute;viationnistes, tous les trois ont
+besoin d'un acc&egrave;s InterNet.
+Le r&eacute;seau ext&eacute;rieur est connect&eacute; directement &agrave; celui-ci, donc nous
+n'avons pas &agrave; nous pr&eacute;occuper d'un serveur mandataire ici.
+Les r&eacute;seaux des sages et des adeptes sont derri&egrave;re des pare-feux, il est
+donc n&eacute;cessaire de leur configurer des serveurs mandataires.
+<P>Les deux r&eacute;seaux seront configur&eacute;s de mani&egrave;re similaire.
+Tous deux ont les m&ecirc;mes adresses IP assign&eacute;es.
+Je vais ajouter quelques param&egrave;tres, afin de rendre les choses encore plus
+int&eacute;ressantes&nbsp;:
+<P>
+<OL>
+<LI>Personne ne peut utiliser le serveur de fichiers pour
+l'acc&egrave;s Internet.
+Cela exposerait le serveur de fichiers aux virus et
+autres choses d&eacute;sagr&eacute;ables, et il est tr&egrave;s important,
+donc il est derri&egrave;re les limites&nbsp;;</LI>
+<LI>Nous ne voulons pas donner aux sages l'acc&egrave;s au web.
+Il sont encore en entra&icirc;nement, et cette puissance
+de recherche d'informations peut se r&eacute;v&eacute;ler dangereuse.</LI>
+</OL>
+<P>Ainsi, le fichier sockd.conf de la machine Linux des sages contiendra cette
+ligne&nbsp;:
+<P>
+<PRE>
+        deny 192.168.2.17 255.255.255.255
+</PRE>
+<P>Et sur la machine des adeptes&nbsp;:
+<P>
+<PRE>
+        deny 192.168.2.23 255.255.255.255
+</PRE>
+<P>Et la machine Linux des sages contiendra cette ligne&nbsp;:
+<P>
+<PRE>
+        deny 0.0.0.0 0.0.0.0 eq 80
+</PRE>
+<P>Cela indique l'interdiction d'acc&egrave;s pour toutes les machines tentant
+d'acc&eacute;der au port 80, le port http.
+Cela laisse l'acc&egrave;s &agrave; tous les autres services, et interdit juste l'acc&egrave;s Web.
+<P>Ensuite, les deux fichiers auront&nbsp;:
+<P>
+<PRE>
+        permit 192.168.2.0 255.255.255.0
+</PRE>
+<P>pour permettre &agrave; tous les ordinateurs du r&eacute;seau 192.168.2.xxx d'utiliser ce
+serveur mandataire sauf pour ceux &agrave; qui cela a d&eacute;j&agrave; &eacute;t&eacute; interdit (i.e. le serveur
+de fichiers et l'acc&egrave;s Web pour le r&eacute;seau des sages).
+<P>Le fichier sockd.conf du r&eacute;seau des sages aura l'allure suivante&nbsp;:
+<P>
+<PRE>
+        deny 192.168.2.17 255.255.255.255
+        deny 0.0.0.0 0.0.0.0 eq 80
+        permit 192.168.2.0 255.255.255.0
+</PRE>
+<P>et le fichier des adeptes aura celle-ci&nbsp;:
+<PRE>
+        deny 192.168.2.23 255.255.255.255
+        permit 192.168.2.0 255.255.255.0
+</PRE>
+<P>Cela doit tout configurer correctement.
+Chaque r&eacute;seau est isol&eacute; comme il faut, avec le niveau d'interaction
+appropri&eacute;.
+Chacun peut &ecirc;tre heureux.
+Maintenant, prenez le pouvoir sur le monde&nbsp;!
+<P>
+<HR>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-13.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-11.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc12"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

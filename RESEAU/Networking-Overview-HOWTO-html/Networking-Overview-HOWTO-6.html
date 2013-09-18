@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.7">
+ <TITLE>Possibilit&eacute;s r&eacute;seau de Linux HOWTO: Internet/Intranet</TITLE>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-7.html" REL=next>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-5.html" REL=previous>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc6" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-7.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-5.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc6"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s6">6. Internet/Intranet</A></H2>
+
+<P>Linux est une tr&egrave;s bonne plate-forme pour agir en tant que serveur Internet / Intranet. Le terme Intranet se r&eacute;f&egrave;re &agrave; l'application des technologies d'Internet au sein d'une entreprise pour la diffusion d'informations dans l'entreprise. Les services Internet et Intranet offerts par Linux incluent Mail, News, serveur WWW, et bien plus encore qui seront d&eacute;taill&eacute;s dans les sections suivantes.
+<P>
+<H2><A NAME="ss6.1">6.1 Mail </A>
+</H2>
+
+<P>
+<H3>Serveurs de Mail</H3>
+
+<P>Sendmail est de facto, le serveur de mail standard pour les plate-formes UNIX. Il est robuste, extensible, et proprement configur&eacute; avec le mat&eacute;riel n&eacute;cessaire, peut supporter une charge de plusieurs milliers d'utilisateurs sans ciller. D'autres serveurs de mails (MTA Mail Transport Agents) existent, comme smail et qmail qui sont des produits de remplacement pour sendmail.
+<P>
+<UL>
+<LI>Le 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.sendmail.org/">Site de Sendmail</A></LI>
+<LI>La 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.sbay.org/smail-faq.html">FAQ de Smail</A></LI>
+<LI>Le 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.qmail.org">Site de Qmail</A></LI>
+</UL>
+
+HowTo Mail :
+<UL>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/Mail-HOWTO.html">http://sunsite.unc.edu/mdw/HOWTO/Mail-HOWTO.html</A></LI>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/Qmail+MH.html">http://sunsite.unc.edu/mdw/HOWTO/mini/Qmail+MH.html</A></LI>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/Sendmail+UUCP.html">http://sunsite.unc.edu/mdw/HOWTO/mini/Sendmail+UUCP.html</A></LI>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/Mail-Queue.html">http://sunsite.unc.edu/mdw/HOWTO/mini/Mail-Queue.html</A></LI>
+</UL>
+<P>
+<H3>Acc&egrave;s distant aux mails</H3>
+
+<P>Dans une entreprise ou chez un FAI, les utilisateurs acc&eacute;deront &agrave; leur boite &agrave; lettres &eacute;lectronique depuis leur bureau. Plusieurs alternatives existent sous Linux, incluant des serveurs POP (Post Office Protocol) et IMAP (Internet Message Access Protocol). Le protocole POP est g&eacute;n&eacute;ralement utilis&eacute; pour transf&eacute;rer les messages du serveur au client. IMAP permet la manipulation des messages sur le serveur, cr&eacute;ation et suppression &agrave; distance de r&eacute;pertoires sur le serveur, acc&egrave;s &agrave; des dossiers de mails partag&eacute;s, etc.
+<P>
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.imap.org/imap.vs.pop.brief.html">Br&egrave;ve comparaison de IMAP et POP</A></LI>
+</UL>
+
+HowTo en rapports avec le courrier &eacute;lectronique :
+<UL>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/Mail-HOWTO.html">http://sunsite.unc.edu/mdw/HOWTO/Mail-HOWTO.html</A></LI>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/Cyrus-IMAP.html">http://sunsite.unc.edu/mdw/HOWTO/mini/Cyrus-IMAP.html</A></LI>
+</UL>
+<P>
+<H3>Lecteurs de Mail</H3>
+
+<P>Il y a un bon nombre de lecteurs de mail sous Linux, soit en mode graphique, soit en mode texte. Les plus utilis&eacute;s son pine, elm, mutt et Netscape.
+<P>
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.linuxlinks.com/Software/Internet/Mail/">Liste des logiciels en rapport avec le courrier &eacute;lectronique</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/TkRat.html">http://sunsite.unc.edu/mdw/HOWTO/mini/TkRat.html</A></LI>
+</UL>
+<P>
+<H3>Logiciels de liste de diffusion</H3>
+
+<P>Il y a beaucoup de programmes de gestion de listes de diffusion disponibles pour UNIX en g&eacute;n&eacute;ral et pour Linux en particulier.
+<P>
+<UL>
+<LI>Une bonne comparaison des gestionnaires de listes peut &ecirc;tre trouv&eacute; &agrave; : 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/ftp://ftp.uu.net/usenet/news.answers/mail/list-admin/">ftp://ftp.uu.net/usenet/news.answers/mail/list-admin/</A></LI>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.lsoft.com/">Listserv</A></LI>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.greatcircle.com/majordomo/">Majordomo</A></LI>
+</UL>
+<P>
+<H3>Fetch-mail</H3>
+
+<P>L'un des utilitaires tr&egrave;s pratique pour la gestion du courrier &eacute;lectronique est fetchmail. Fetchmail est un programme de r&eacute;cup&eacute;ration et de reroutage de mails gratuit, robuste, complet et tr&egrave;s bien document&eacute;, fait pour &ecirc;tre utilis&eacute; avec une connection TCP/IP &agrave; la demande (comme des connections SLIP ou PPP). Il supporte tous les protocoles de mail distants en vigueur de nos jours sur Internet. Il supporte m&ecirc;me IPv6 et IP-SEC.
+<P>Fetchmail r&eacute;cup&egrave;re les mails depuis des serveurs de mails distants et les reroute via SMTP, par cons&eacute;quent, ils peuvent &ecirc;tre normalement lus par des clients mails normaux tels mutt, elm ou BSD Mail. Il permet &agrave; tous les syst&egrave;mes de filtrage, de reroutage et d'aliasing des serveurs mail de fonctionner comme s'il s'agissait de mails normaux.
+<P>Fetchmail peut &ecirc;tre utilis&eacute; en tant que passerelle POP/IMAP-vers-SMTP pour un domaine DNS entier, r&eacute;cup&eacute;rant les mails d'une seule boite aux lettres chez le FAI, et transf&eacute;rant le tout en se basant sur les en-t&ecirc;tes.
+<P>Une petite entreprise peut centraliser tous ses comptes mails dans une seule boite, et programmer fetchmail pour r&eacute;cup&eacute;rer tous les mails en partance, les envoyer sur Internet et r&eacute;cup&eacute;rer les messages arrivant d'un seul coup.
+<UL>
+<LI>La 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sagan.earthspace.net/~esr/fetchmail/">page de Fetch-mail</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss6.2">6.2 Serveurs Web</A>
+</H2>
+
+<P>La majorit&eacute; des distributions Linux incluent 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.apache.org">Apache</A>. D'apr&egrave;s 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.netcraft.co.uk/survey/">http://www.netcraft.co.uk/survey/</A> Apache est le premier serveur Web sur internet, plus de la moiti&eacute; des sites internet utilisent Apache, ou un de ses d&eacute;riv&eacute;s. Les avantages d'Apache incluent sa conception modulaire, sa stabilit&eacute;, et sa vitesse. Avec une configuration appropri&eacute;e et un mat&eacute;riel ad&eacute;quat, il peut supporter les plus grosses charges : Yahoo, Altavista, GeoCities, Hotmail sont bas&eacute;s sur des versions customis&eacute;es de ce serveur.
+<P>Un support optionnel des SSL (qui permettent des transactions crypt&eacute;es) est aussi disponible &agrave; :
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.apache-ssl.org/">http://www.apache-ssl.org/</A> </LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://raven.covalent.net/">http://raven.covalent.net/</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.c2.net/">http://www.c2.net/</A></LI>
+</UL>
+<P>HowTo en relation :
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/WWW-HOWTO.html">http://sunsite.unc.edu/mdw/HOWTO/WWW-HOWTO.html</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/Virtual-Services-HOWTO.html">http://sunsite.unc.edu/mdw/HOWTO/Virtual-Services-HOWTO.html</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/Intranet-Server-HOWTO.html">http://sunsite.unc.edu/mdw/HOWTO/Intranet-Server-HOWTO.html</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.linuxlinks.com/Software/Internet/WebServers/">Serveurs Web pour Linux</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss6.3">6.3 Navigateurs Web</A>
+</H2>
+
+<P>Un bon nombre de navigateurs WWW existent pour les plate-formes Linux. Netscape Navigator est l'un des choix du d&eacute;but, et 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.mozilla.org">Mozilla</A> aura une version Linux. Un autre navigateur en mode texte populaire est lynx. Il est rapide et pratique quand aucun environnement graphique n'est disponible.
+<P>
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.linuxlinks.com/Software/Internet/WebBrowsers/">Navigateurs pour Linux</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/Public-Web-Browser.html">http://sunsite.unc.edu/mdw/HOWTO/mini/Public-Web-Browser.html</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss6.4">6.4 Serveurs et clients FTP</A>
+</H2>
+
+<P>FTP signifie File Transfer Protocol, protocole de transfert de fichier. Un serveur FTP permet aux clients de se connecter et de r&eacute;cup&eacute;rer des fichiers. Il y a beaucoup de clients et de serveurs FTP qui existent pour Linux et sont, la plupart du temps inclus dans les distributions. Il y a des clients en mode texte ainsi que des clients avec une interface graphique. Les logiciels en rapport avec le FTP peuvent &ecirc;tre trouv&eacute;s &agrave; : 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/pub/Linux/system/network/file-transfer/">http://sunsite.unc.edu/pub/Linux/system/network/file-transfer/</A><P>
+<H2><A NAME="ss6.5">6.5 Services de News</A>
+</H2>
+
+<P>Usenet (aussi appel&eacute; news) est un &eacute;norme BBS qui couvre tous les sujets possibles et qui est organis&eacute; hi&eacute;rarchiquement. Un r&eacute;seau d'ordinateurs au travers d'Internet (Usenet) &eacute;change des articles gr&acirc;ce au protocole NNTP. Plusieurs impl&eacute;mentations existent pour Linux, que ce soit pour un site tr&egrave;s charg&eacute; ou un petit site recevant peu de groupes.
+<UL>
+<LI>La 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.isc.org/">page de INN</A></LI>
+<LI>Les 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.linuxlinks.com/Software/Internet/News/">logiciels en rapport avec les news</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss6.6">6.6 Noms de domaines (DNS)</A>
+</H2>
+
+<P>Un serveur DNS a pour t&acirc;che de traduire les noms (compr&eacute;hensibles par les humains) en adresses IP. Un serveur de DNS ne conna&icirc;t pas toutes les adresses IP du monde, mais, il est capable de demander &agrave; un autre serveur une adresse inconnue. Le serveur de DNS retournera alors, soit l'IP demand&eacute;e, ou r&eacute;pondra qu'il ne trouve pas ce nom dans ses tables.
+<P>Les serveurs de noms sous Unix (et majoritairement sur Internet) sont g&eacute;r&eacute;s par un programme appel&eacute; named. Il fait partie du paquetage bind de l'Internet Software Consortium.
+<UL>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.isc.org/">BIND</A></LI>
+<LI>Le 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/DNS-HOWTO.html">HowTo DNS</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss6.7">6.7 DHCP, bootp</A>
+</H2>
+
+<P>DHCP et bootp sont des protocoles qui permettent &agrave; une machine cliente d'obtenir des informations sur le r&eacute;seau (comme son adresse IP) depuis un serveur. Beaucoup d'entreprises commencent &agrave; l'utiliser car cela rend plus facile l'administration des r&eacute;seaux, sp&eacute;cialement dans les cas de grands r&eacute;seaux ou de r&eacute;seaux avec beaucoup d'utilisateurs mobiles.
+<P>Documents en relation :
+<UL>
+<LI>Le 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/DHCP.html">HowTo DHCP</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss6.8">6.8 NIS </A>
+</H2>
+
+<P>NIS est l'abr&eacute;viation de Service d'Information R&eacute;seau (Network Information Service). Il fournit un simple service de consultation comprenant bases de donn&eacute;es et processus. Son objectif est de fournir des informations qui doivent &ecirc;tre connues &agrave; travers le r&eacute;seau par toutes les machines qui s'y trouvent. Les informations distribu&eacute;es par NIS sont :
+<P>
+<UL>
+<LI>nom de login, mots de passe, r&eacute;pertoires parents (<CODE>/etc/passwd</CODE>)&nbsp;;</LI>
+<LI>renseignements sur le groupe d'utilisateurs (<CODE>/etc/group</CODE>).</LI>
+</UL>
+<P>Par exemple, si votre mot de passe est enregistr&eacute; dans la base de donn&eacute;es NIS, vous pourrez vous loger sur n'importe quelle machine situ&eacute;e sur le r&eacute;seau qui poss&egrave;de les clients NIS.
+<P>
+<P>HowTo en relation :
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/NIS-HOWTO.html">NIS How-to</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss6.9">6.9 Authentification</A>
+</H2>
+
+<P>Il y a aussi plusieurs m&eacute;thodes pour authentifier des utilisateurs dans un r&eacute;seau h&eacute;t&eacute;rog&egrave;ne. 
+<P>
+<P>Pour Linux/Windows NT : 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.mindware.com.au/ftp/smb-NT-verify.1.1.tar.gz">http://www.mindware.com.au/ftp/smb-NT-verify.1.1.tar.gz</A>.
+<P>
+<P>Le PAM (pluggable authentication module) qui est une m&eacute;thode flexible d'authentification sous UNIX : 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.kernel.org/pub/linux/libs/pam/index.html">librairie PAM</A>. 
+<P>Et enfin, 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.umich.edu/~dirsvcs/ldap/index.html">LDAP pour Linux</A><P>
+<HR>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-7.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-5.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc6"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

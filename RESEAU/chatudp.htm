@@ -1,0 +1,444 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Chating par UDP</title>
+  </head>
+
+  <body>
+    <h1>Chating par UDP: programme testé avec Mandrake 7.1 et RH7.0</h1>
+<p> Utilitaires</p>
+<pre>#include "soct.h" 
+
+/*Ecriture sur une socket */
+/*
+	$Id: wrsock.c,v 2.4 2000/07/06 09:53:04 pfares Exp $ 
+	$Log: wrsock.c,v $
+	Revision 2.4  2000/07/06 09:53:04  pfares
+	commentaires
+
+	Revision 2.3  2000/07/05 21:35:02  root
+	commentaires pour le cours reseau B.
+
+	Revision 2.2  2000/07/05 21:09:21  root
+	Avant de demarrer test de ci co cvs
+
+ * Revision 1.2  1997/03/22  06:40:48  pascal
+ * Ajout de commentaires
+ *
+ * Revision 1.1  1997/03/22  06:26:10  pascal
+ * Initial revision
+ * */
+
+/******************************************************************/
+/* writes : Fonction pour l'exriture en mode connecte sur un stream*/
+/* INPUT:	                                                      */
+/*    IN sock : identifiant d'E/S fid                             */
+/*    IN pbuf : Le buffer utiliser pour l'écriture                */
+/*    IN noc : Le nobre d'actets à transmettre                    */
+/* OUTPUT                                                         */
+/*    OUT : Le nombre d'octets rééllement envoyés ou une erreur (<0)*/
+/* Description:                                                   */
+/*    Dans certains cas la primitive système write n'envoie pas   */
+/*    tous les actets demandés (elle retourne le nombre d'octets  */
+/*    rééllement emis). On relance alors l'émisson jusqua épuisement */
+/*    de tous les actets que l'on souhaite émettre                 */
+/* Alogirithme:                                                    */
+/*    tanque il reste des octets à emettre                         */
+/*        Emmetre les octets restants                              */
+/******************************************************************/
+int writes(int sock, char *pbuf, int noc)
+{
+	int nreste, /* nombre d'octats restant à emmetre */ 
+	    necrit; /* Variable qui contiendra le nb d'octets rééllement émis par write */
+
+	/* Initialement le nb d'octets restant a éméttre est noc */	
+	nreste = noc;
+	while(nreste > 0)
+	{ 
+		necrit = write(sock, pbuf, nreste);
+		/* si necrit < 0 alors pb */
+		if (necrit < 0) return (necrit);
+		nreste -= necrit;
+		pbuf += necrit;
+	}
+	return(noc-nreste);
+}
+
+/******************************************************************/
+/* Fonction pour la lecture en mode connecte                      */
+/******************************************************************/
+int reads(int sock, char *pbuf, int noc)
+{
+	int nreste, nlit;
+	
+	nreste = noc;
+	while(nreste > 0)
+	{ 
+		nlit = read(sock, pbuf, nreste);
+		if (nlit < 0) return (nlit);
+		nreste -= nlit;
+		pbuf += nlit;
+	}
+	return(noc-nreste);
+}
+/**/
+/*****************************************************************/
+/* Fonction pour la creation d'une adresse (service) pour la     */
+/* Communication par socket                                      */
+/*                                                               */
+/* Entree : name : nom de la machine                              */
+/*          port : numero de port pour le service                */
+/* Sortie :                                                      */
+/*         La fonction retourne (et alloue) un objet de type    */
+/*                  struct sockaddr_in (internet adresse)       */
+/*****************************************************************/
+   
+
+struct sockaddr_in *CreerSockAddr(char *name, int port) {
+  struct sockaddr_in *adsock =(struct sockaddr_in *) 
+    malloc(sizeof(struct sockaddr_in));
+
+  struct hostent *haddr=NULL;
+  struct in_addr **pptr;
+  char str[32];
+#ifdef DEBUG
+  printf("IN CreerSockAddr %s,%d\n", name, port);
+#endif
+  bzero(adsock, sizeof(adsock));
+  if (name) {
+    haddr = gethostbyname(name);
+    if (haddr <= 0) {
+      perror("Nom de machine inconnu");
+    }
+    else {
+      pptr = (struct in_addr **) haddr->h_addr_list;
+      memcpy(&adsock->sin_addr, *pptr, sizeof(struct in_addr));
+      inet_ntop(haddr->h_addrtype, *pptr, str, sizeof(str));
+#ifdef DEBUG      
+      printf("%s", str);
+#endif
+    }
+  }
+  else {
+    adsock->sin_addr.s_addr=INADDR_ANY;
+  }
+
+  adsock->sin_family=AF_INET;
+  adsock->sin_port = htons(port);
+#ifdef DEBUG
+  printf("fin\n");
+#endif
+    return (adsock);
+}
+
+/* ======================================================================
+ * Creation d'une socket serveur UDP en l'associant au service definit 
+ * Par numport                                                 
+ * INPUT:
+ *  IN nom : nom DNS de l'adresse
+ *  IN numport : le numéro de port pour l'écoute UDP
+ * ======================================================================
+ */
+	
+int SockUdp(char *nom, int numport) {
+  int sock;
+  int r=1;
+  /* adsock : adresse de la socket d'écoute */
+  struct sockaddr_in *adsock = (struct sockaddr_in *) 
+    CreerSockAddr(nom, numport);
+
+  if ((sock=socket(AF_INET,SOCK_DGRAM,0)) <= 0) {
+    perror("\n pb creation socket \n");
+  }
+  /*	sock=dup(sock);
+	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &r, sizeof(r));
+  */
+#ifdef DEBUG
+  printf("La socket num %d\n", sock);
+#endif
+  if (bind(sock,(struct sockaddr *) adsock, sizeof(*adsock)) <0) {
+		perror("\n pb bind");
+  }
+  return(sock);
+}
+
+</pre>
+
+<pre>
+#include "soct.h"
+
+/* $Id: client.c,v 1.2 2000/07/06 09:51:59 pfares Exp $
+ * $Log: client.c,v $
+ * Revision 1.2  2000/07/06 09:51:59  pfares
+ * Amélioration du protocole entre client et serveur (recupération du
+ * port client par recvfrom
+ *
+ * Revision 1.1  2000/07/05 20:51:16  root
+ * Initial revision
+ *
+ */
+
+/* L'adresse du serveur et port 
+ */
+struct sockaddr_in *autre;
+
+int len = sizeof (struct sockaddr_in);
+
+/*
+ * TraitementClavier : Lit la console (fd = 0) et transmet la chaine lu au serveur
+ * ===============
+ *
+ * Entree : sock : la socket d'Etree/Sortie
+ * Sortie  : void
+ *
+ * Remarque : 
+ */
+void 
+TraitementClavier (int sock)	/* Socket E/S */
+{
+  char buf[256];
+  int taillemessage;
+  int i;
+
+
+  taillemessage = read(0, buf, 256);
+  /* Envoyer a tous les client la taille du message puis le message */
+  sendto (sock, &taillemessage, sizeof (taillemessage), 0,
+	  (struct sockaddr *) autre, sizeof (struct sockaddr));
+
+  sendto (sock, buf, taillemessage, 0,
+	  (struct sockaddr *) autre, sizeof (struct sockaddr));
+
+}
+
+/*
+ * TraitementSock  : Traitement de l'arrive d'information sur la socket
+ * =============
+ *
+ * Entree : Sock : La socket d'E/S
+ * Sortie  : void
+ *
+ * PSeudoCode :
+ * ----------
+ * Debut
+ *     Lire taillemessage sur la socket d'entree en provenance du serveur 
+ *     Lire message 
+ *     Afficher le message a l'ecran
+ * Fin
+ *
+ * Remarques:
+ * L'adresse du serveur est definie par la variable globale autre
+ */
+void 
+TraitementSock (int sock) {
+  char buf[256];        /* Buffer de reception
+			 */
+  
+  int  taillemessage;   /* Taille du message a recevoir
+			 * Chaque emetteur commence par envoyer la taille du
+			 * message
+			 */
+  
+  /* On recoit la taile du message puis le message 
+     */
+  recvfrom (sock, &taillemessage, sizeof (taillemessage), 0,
+	    (struct sockaddr *) NULL, NULL);
+
+  recvfrom (sock, buf, taillemessage, 0,
+	    (struct sockaddr *) NULL, NULL);
+
+  /* Ecriture du message recu a l'ecran
+   */
+  write (1, buf, taillemessage);
+}
+
+/*
+ * Un client possede un numero : qu'il lit dans argv                   
+ * ce numero est envoyer au serveur qui l'tilisera pour repondre        
+ */
+
+main (int argc, char **argv) {
+  int sockrec;      /* Socket d'emission reception */
+
+  fd_set readf;     /* L'ensemble de descripteur en lecture a utilise avec select */
+  int num;
+
+  if (argc != 3) {
+    printf("Utilisation : <nom serveur> <port client sur machine locale>\n");
+    exit(1);
+  }
+  num = atoi (argv[2]); /* L'identifiant client : donné par l'utilisateur */
+
+#ifdef DEBUG
+  printf ("\n : Info : Client numero => %d \n", num);
+#endif
+  /*Creartion de la socket du client 2000+numero client */
+  sockrec = SockUdp (NULL, 2000 + num);
+
+  /* autre adresse du serveur de chating */
+  autre = (struct sockaddr_in *) CreerSockAddr (argv[1], 2001);
+
+  /* utilisation du select pour attendre une lecture de plusieurs entrés
+   */
+  for (;;) {
+    FD_SET (sockrec, &readf);
+    FD_SET (0, &readf);
+    
+    switch (select (sockrec + 1, &readf, 0, 0, 0)) {
+    default:
+      if (FD_ISSET (0, &readf)){
+	TraitementClavier (sockrec);
+      }
+      else if (FD_ISSET (sockrec, &readf)) {
+	TraitementSock (sockrec);
+      }
+    } /*switch*/
+  }/*for*/
+}/*main*/
+</pre>
+<pre>
+#include "soct.h"
+/*
+	$Id: serveur.c,v 1.2 2000/07/06 09:52:41 pfares Exp $
+	$Log: serveur.c,v $
+	Revision 1.2  2000/07/06 09:52:41  pfares
+	 Amélioration du protocole entre client et serveur (recupération du
+	 port client par recvfrom
+	 .
+
+	Revision 1.1  2000/07/05 20:52:04  root
+	Initial revision
+
+ * Revision 1.2  1997/03/22  06:15:04  pascal
+ * Ajout des controles et entete
+ *
+*/
+struct sockaddr_in *autre[100]; /* Table des clients qui ont contacte
+                                    le serveur */
+int len = sizeof(struct sockaddr_in);
+ 
+void TraitementClavier(int sock) { /* Socket E/S */
+  char buf[256];
+  int taillemessage;
+  int  i;
+         
+  taillemessage=read(0, buf, 256);               
+  for (i=0; i< 100; i++)
+    if (autre[i]) { /* Si un client est enregistre */
+      /* Envoyer a tous les client la taille du message puis le message */
+      sendto(sock,&taillemessage, sizeof(taillemessage), 0,
+	     (struct sockaddr *)autre[i], sizeof(struct sockaddr));
+      
+      sendto(sock,buf, taillemessage, 0, 
+	     (struct sockaddr *)autre[i], sizeof(struct sockaddr));
+    }  
+  
+}                         
+
+/*
+ * Traitement de reception sur la socket du serveur
+ * On recipere dans l'ordre
+ * 	=> Le numero du client
+ *	=> La taille du message
+ * Le message est alors trace a l'ecran (pour controle)
+ * et enfin il est redistribué atous les clients connus
+ *
+ * Entree: sock : la socket d'ecoute
+ * Sortie : NEANT
+ */ 
+void TraitementSock(int sock) {
+  char buf[256];
+  int numappelant;
+  int taillemessage;
+  int i;
+  int len;
+  struct sockaddr_in *appellant= (struct sockaddr_in *) 
+    malloc(sizeof(struct sockaddr_in));;
+  /* Le client commance par envoyer la taille du message : que le serveur recupere */
+  /* On recupère aussi dans appellant l'adresse du client */
+  recvfrom(sock, &taillemessage, sizeof(taillemessage), 0, 
+	   (struct sockaddr *) appellant, &len);
+
+  numappelant=ntohs(appellant->sin_port)-2000;
+#ifdef DEBUG
+  printf("port appelant = %d\n", numappelant);
+#endif
+
+  /* Si c'est la premiere fois le client est enregistre 
+   */
+  if (autre[numappelant] == NULL) {
+    autre[numappelant] = appellant;
+  }    
+  
+  /* Quant toutes les information sont récupéré (l'adresse client et la taille du message)
+   * On recupère le message proprement dit
+   */
+  recvfrom(sock, buf,  taillemessage, 0, 
+	   (struct sockaddr *) NULL, NULL);
+
+  write(1,buf, taillemessage);
+
+  for (i=0; i< 100; i++)
+    if (autre[i]) {
+      /* Envoyer a tous les client la taille du message puis le message */
+      sendto(sock,&taillemessage, sizeof(taillemessage), 0,
+	     (struct sockaddr *)autre[i], sizeof(struct sockaddr));
+      sendto(sock,buf, taillemessage, 0, 
+	     (struct sockaddr *)autre[i], sizeof(struct sockaddr));
+    }
+  
+}
+
+
+/*
+ * 
+ */
+
+main () {
+  int 	sockrec;  /* Socket de reception / Emission    */
+  fd_set 	readf;    /* L'esemble de descripteur d'entree */
+  int 	i;
+  
+  
+  /* Initialisation des client (au depart aucun)
+   * Il faut amélioré (par liste chaînée ou autre (ne pas mettre 100 ici)
+   */
+  for (i=0; i< 100; i++) autre[i] = NULL; 
+  
+  /* Le service du serveur est le 2001
+   */
+  sockrec = SockUdp(NULL, 2001);
+  
+  /*
+   *     autre = (struct sockaddr_in *) CreerSockAddr("ghadir", 2001);
+   */
+  for(;;) {
+    FD_SET(sockrec, &readf);
+    FD_SET(0, &readf);
+    
+    switch (select (sockrec+1, &readf, 0,0,0)) {
+    default :
+      if (FD_ISSET(0, &readf)) {          /* STDIN*/
+	
+	TraitementClavier(sockrec);  
+      }
+      else if (FD_ISSET(sockrec, &readf)) {/*SOCKET*/
+	    
+	TraitementSock(sockrec);
+      }
+      
+    }
+  }
+}	
+
+</pre>
+
+
+    <hr>
+    <address><a href="mailto:auteur@isae.edu.lb"></a></address>
+<!-- Created: Thu Feb  8 15:51:44 EET 2001 -->
+<!-- hhmts start -->
+Last modified: Thu Feb  8 15:54:03 EET 2001
+<!-- hhmts end -->
+  </body>
+</html>

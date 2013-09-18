@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Linux Ethernet-Howto: Trucs et astuces &agrave; propos des performances</TITLE>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html" REL=next>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html" REL=previous>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc4" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc4"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="perf"></A> <A NAME="s4">4. Trucs et astuces &agrave; propos des performances</A></H2>
+
+<P>Voici quelques `trucs' que vous pouvez utiliser si vous souffrez d'un
+faible taux de transfert sur Ethernet, ou pour gagner encore un peu de
+vitesse sur ces fameux transferts FTP.
+<P>Le programme <CODE>ttcp.c</CODE> est un bon test pour mesurer la vitesse de
+transfert brute. Un autre truc classique est de faire un <CODE>ftp> get
+mon_gros_fichier /dev/null</CODE> o&ugrave; <CODE>mon_gros_fichier</CODE> fait plus
+d'un&nbsp;Mo et r&eacute;side dans le cache disque de la machine qui transmet.
+(Faites le `get' au moins deux fois, car la premi&egrave;re fois ce cache sera
+vide.) Vous avez besoin que le fichier soit dans le cache car il faut
+&eacute;viter que le temps d'acc&egrave;s au fichier influe sur votre mesure. C'est
+pour la m&ecirc;me raison que vous envoyez les donn&eacute;es qui arrivent vers
+<CODE>/dev/null</CODE> plut&ocirc;t que vers le disque.
+<P>
+<P>
+<H2><A NAME="ss4.1">4.1 Concepts g&eacute;n&eacute;riques</A>
+</H2>
+
+<P>M&ecirc;me une carte 8&nbsp;bits est capable de recevoir des paquets qui se suivent
+(<I>back-to-back paquets</I> en anglais) sans aucun probl&egrave;me. Les
+difficult&eacute;s apparaissent quand l'ordinateur n'enl&egrave;ve pas suffisamment
+rapidement de la carte les paquets re&ccedil;us pour faire de la place pour
+d'autres paquets entrants. Si l'ordinateur ne supprime pas rapidement
+les paquets d&eacute;j&agrave; re&ccedil;us de la m&eacute;moire de la carte , celle-ci n'aura pas
+assez de place pour mettre les nouveaux paquets.
+<P>Dans ce cas, soit la carte d&eacute;truit le nouveau paquet, soit elle r&eacute;&eacute;crit
+sur un paquet d&eacute;j&agrave; re&ccedil;u. Les deux solutions interrompent brutalement le
+flux du trafic, n&eacute;cessitent des re-transmissions et peuvent s&eacute;rieusement
+d&eacute;grader les performances d'un facteur qui va jusqu'&agrave; 5&nbsp;!
+<P>Les cartes qui poss&egrave;dent plus de m&eacute;moire sont capables de conserver plus
+de paquets, et peuvent donc supporter de gros pics de paquets successifs
+sans d&eacute;truire de paquets. Par cons&eacute;quent cela signifie que la carte
+n'exige pas de l'ordinateur un temps de latence aussi faible pour
+enlever les paquets sans avoir &agrave; en d&eacute;truire.
+<P>La plupart des cartes 8&nbsp;bits ont un tampon de 8&nbsp;Ko, et la plupart des
+cartes 16&nbsp;bits ont un tampon de 16&nbsp;Ko. La plupart des pilotes sous Linux
+r&eacute;serveront 3&nbsp;Ko de ce tampon (pour deux tampons de transmission),
+laissant 5&nbsp;Ko d'espace de r&eacute;ception pour une carte 8&nbsp;bits. Cela ne
+laisse de la place que pour 3 paquets Ethernet de pleine taille (1500
+octets).
+<P>
+<H2><A NAME="ss4.2">4.2 La vitesse des cartes et du bus ISA</A>
+</H2>
+
+<P>Comme indiqu&eacute; pr&eacute;c&eacute;demment, si les paquets sont enlev&eacute;s de la carte
+suffisamment rapidement, le probl&egrave;me de destruction ou de surcharge
+n'appara&icirc;t pas m&ecirc;me si la taille m&eacute;moire du tampon de r&eacute;ception est
+petite. Le facteur qui d&eacute;termine la rapidit&eacute; avec laquelle les paquets
+sont enlev&eacute;s de la carte pour &ecirc;tre plac&eacute;s dans la m&eacute;moire de
+l'ordinateur est la vitesse du chemin que devront suivre les donn&eacute;es
+entre les deux --&nbsp;c'est-&agrave;-dire la vitesse du bus ISA. (Si le processeur
+est un 386sx-16 poussif, cela jouera aussi un r&ocirc;le.)
+<P>La vitesse d'horloge recommand&eacute;e pour un bus ISA est de 8&nbsp;MHz, mais de
+nombreuses cartes-m&egrave;res et de nombreux p&eacute;riph&eacute;riques peuvent &ecirc;tre
+utilis&eacute;s &agrave; des fr&eacute;quences plus &eacute;lev&eacute;es. La vitesse d'horloge du bus ISA
+peut en g&eacute;n&eacute;ral &ecirc;tre modifi&eacute;e dans la configuration CMOS, en choisissant
+le rapport entre la fr&eacute;quence du processeur et celle de la
+carte-m&egrave;re. Certaines cartes-m&egrave;res n'auront pas cette option, et vous
+serez coinc&eacute;s avec la valeur par d&eacute;faut.
+<P>Par exemple, voici quelques vitesses de r&eacute;ception mesur&eacute;es par le
+programme TTCP sur un 486 &agrave; 40&nbsp;MHz, avec une carte 8&nbsp;bits WD8003EP, pour
+des vitesses diff&eacute;rentes du bus ISA.
+<P>
+<PRE>
+        Vitesse du bus ISA (MHz)        TTCP - r&eacute;ception (Ko/s)
+        ------------------------        -----------------------
+        6.7                             740
+        13.4                            970
+        20.0                            1030
+        26.7                            1075
+</PRE>
+<P>Vous auriez du mal &agrave; faire mieux que 1075&nbsp;Ko/s avec <EM>n'importe
+quelle</EM> carte Ethernet 10&nbsp;Mo/s, en utilisant TCP/IP. N&eacute;anmoins ne
+vous attendez pas &agrave; ce que tous les syst&egrave;mes puissent travailler &agrave; des
+vitesses de bus ISA rapides. La plupart des syst&egrave;mes ne fonctionneront
+pas correctement &agrave; des vitesses au-dessus de 13&nbsp;MHz. (De m&ecirc;me, certains
+syst&egrave;mes&nbsp;PCI fixent la vitesse du bus ISA &agrave; 8&nbsp;MHz, afin que
+l'utilisateur final n'ait pas la possibilit&eacute; de pouvoir l'augmenter.)
+<P>En plus de vitesses de transferts sup&eacute;rieures, vous profiterez aussi en
+g&eacute;n&eacute;ral d'une r&eacute;duction de l'utilisation du processeur due &agrave; la dur&eacute;e
+plus courte des cycles m&eacute;moires et d'E/S. (Notez que les disques durs et
+les cartes vid&eacute;o situ&eacute;es sur le bus ISA afficheront aussi de meilleures
+performances avec une vitesse du bus ISA plus &eacute;lev&eacute;e.)
+<P>Soyez s&ucirc;r de sauvegarder toutes vos donn&eacute;es avant de faire des
+exp&eacute;riences avec des vitesses du bus ISA au-dessus de 8&nbsp;MHz, et de
+tester attentivement que tous les p&eacute;riph&eacute;riques ISA fonctionnent
+correctement apr&egrave;s toute augmentation de vitesse.
+<P>
+<H2><A NAME="ss4.3">4.3 Modifier la fen&ecirc;tre de r&eacute;ception TCP</A>
+</H2>
+
+<P>Une fois encore, les cartes qui poss&egrave;dent peu de m&eacute;moire et un trajet
+des donn&eacute;es entre la carte et la m&eacute;moire de l'ordinateur plut&ocirc;t lent
+provoquent des probl&egrave;mes. La fen&ecirc;tre de r&eacute;ception TCP est r&eacute;gl&eacute;e par
+d&eacute;faut &agrave; 32&nbsp;Ko, ce qui signifie qu'un ordinateur rapide situ&eacute; sur le
+m&ecirc;me sous-r&eacute;seau que vous pourra vous inonder de 32&nbsp;Ko de donn&eacute;es sans
+s'arr&ecirc;ter pour regarder si vous en avez re&ccedil;u le moindre morceau.
+<P>Les versions r&eacute;centes de la commande <CODE>route</CODE> donnent la possibilit&eacute;
+de r&eacute;gler la largeur de cette fen&ecirc;tre &agrave; la vol&eacute;e. En g&eacute;n&eacute;ral, cette
+fen&ecirc;tre ne doit &ecirc;tre r&eacute;duite que pour le r&eacute;seau local, puisque les
+ordinateurs qui sont &agrave; quelques routeurs ou passerelles de distance ont
+suffisamment de `tampons' interm&eacute;diaires pour ne pas poser de
+probl&egrave;me. Un exemple d'utilisation est&nbsp;:
+<HR>
+<PRE>
+        route add &lt;comme_d_habitude> ... window &lt;largeur_de_fenetre>
+</PRE>
+<HR>
+
+o&ugrave; <CODE>largeur_de_fenetre</CODE> est la largeur de la fen&ecirc;tre que vous
+voulez utiliser (en octets). Une carte 8&nbsp;bits 3c503 sur un bus ISA
+fonctionnant &agrave; une vitesse de 8&nbsp;MHz ou moins tournera correctement avec
+une fen&ecirc;tre d'environ 4&nbsp;Ko. Une fen&ecirc;tre trop large causera des
+surcharges et des pertes de paquets, et une diminution drastique du
+d&eacute;bit Ethernet. Vous pouvez v&eacute;rifier les conditions de travail de la
+carte en faisant un <CODE>cat /proc/net/dev</CODE> qui affichera si des
+pertes de paquets ou des surcharges sont apparues.
+<P>
+<H2><A NAME="ss4.4">4.4 Augmenter les performances de NFS</A>
+</H2>
+
+<P>Des personnes ont remarqu&eacute; que l'utilisation de cartes 8&nbsp;bits sur des
+clients NFS donne des performances moins bonnes que celles attendues, en
+utilisant une taille de paquet NFS de 8Ko (celle donn&eacute;e &agrave; l'origine par
+Sun).
+<P>La raison possible de tout cela pourrait &ecirc;tre la diff&eacute;rence entre la
+taille des tampons des cartes 8&nbsp;bits et celle des cartes 16&nbsp;bits. La
+taille maximale d'un paquet Ethernet est d'environ 1500
+octets. Maintenant que nous faisons du NFS, des paquets NFS de 8&nbsp;Ko vont
+arriver sous la forme de 6 paquets de taille maximale &agrave; la
+queue-leu-leu. Ni les cartes 8&nbsp;bits ni les cartes 16&nbsp;bits n'ont de
+probl&egrave;me &agrave; recevoir ces paquets les uns derri&egrave;re les autres. Le probl&egrave;me
+se produit parce que la machine n'enl&egrave;ve pas les paquets &agrave; temps de la
+carte, et que le tampon d&eacute;borde. Le fait que les cartes 8&nbsp;bits
+n&eacute;cessitent un cycle du bus ISA suppl&eacute;mentaire pour chaque transfert
+n'aide pas beaucoup, par ailleurs. Ce que vous <EM>pouvez</EM> faire si
+vous avez une carte 8bits est soit de diminuer la taille de transfert
+NFS &agrave; 2&nbsp;Ko (voire 1&nbsp;Ko), soit d'essayer d'augmenter la vitesse du bus
+ISA afin que les tampons de la carte soient vid&eacute;s plus rapidement. J'ai
+trouv&eacute; qu'une vieille carte WD8003E &agrave; 8&nbsp;MHz (sans autre charge syst&egrave;me)
+peut soutenir une r&eacute;ception de taille importante avec une taille NFS de
+2&nbsp;Ko, mais pas &agrave;&nbsp;4&nbsp;Ko, auquel cas les performances &eacute;taient d&eacute;grad&eacute;es
+d'un facteur trois.
+<P>D'un autre cot&eacute;, si l'option par d&eacute;faut est d'utiliser des blocs de
+1&nbsp;Ko, et que vous avez au moins une carte ISA 16&nbsp;bits, vous aurez
+certainement de meilleures performances en passant a 4&nbsp;Ko (ou m&ecirc;me
+8&nbsp;Ko).
+<P>
+<P>
+<HR>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc4"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

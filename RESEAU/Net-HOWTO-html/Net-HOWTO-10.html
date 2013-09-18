@@ -1,0 +1,671 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>R&eacute;seau sous Linux :: Autres technologies r&eacute;seau</TITLE>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-11.html" REL=next>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-9.html" REL=previous>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc10" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-11.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-9.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc10"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s10">10. Autres technologies r&eacute;seau</A></H2>
+
+<P>Les paragraphes suivants traitent de sujets sp&eacute;cifiques concernant
+des technologies li&eacute;es au r&eacute;seau. Les informations qui y sont contenues
+ne s'appliquent pas forc&eacute;ment aux autres types de technologies r&eacute;seau.
+Les sujets sont trait&eacute;s par ordre alphab&eacute;tique.
+<P>
+<P>
+<H2><A NAME="ss10.1">10.1 ARCNet</A>
+</H2>
+
+<P>Les noms de fichier p&eacute;riph&eacute;riques de ARCNet sont `<CODE>arc0e</CODE>', 
+`<CODE>arc1e</CODE>', `<CODE>arc2e</CODE>' ... ou bien `<CODE>arc0s</CODE>', `<CODE>arc1s</CODE>', `<CODE>arc2s</CODE>', etc. La premi&egrave;re carte d&eacute;tect&eacute;e par le noyau devient
+`<CODE>arc0e</CODE>' ou `<CODE>arc0s</CODE>' et les autres sont nomm&eacute;es en suivant dans 
+l'ordre de leur d&eacute;tection.
+La lettre finale d&eacute;pend de votre choix : soit un format d'encapsulation 
+de paquets Ethernet, soit un format de paquets suivant RFC1051.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Network device support  --->
+    [*] Network device support
+    &lt;*> ARCnet support
+    [ ]   Enable arc0e (ARCnet "Ether-Encap" packet format)
+    [ ]   Enable arc0s (ARCnet RFC1051 packet format)
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Si vous avez construit convenablement votre noyau pour supporter 
+votre carte Ethernet, alors la configuration de la carte est facile.
+<P>Typiquement vous devriez utiliser quelque chose comme ceci :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# ifconfig arc0e 192.168.0.1 netmask 255.255.255.0 up
+root# route add -net 192.168.0.0 netmask 255.255.255.0 arc0e
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Merci de vous r&eacute;f&eacute;rer aux documents
+<CODE>/usr/src/linux/Documentation/networking/arcnet.txt</CODE> et
+<CODE>/usr/src/linux/Documentation/networking/arcnet-hardware.txt</CODE>
+pour d'autres informations.
+<P>Le support ARCNet fut d&eacute;velopp&eacute; par Avery Pennarun, 
+<CODE>apenwarr@foxnet.net</CODE>.
+<P>
+<P>
+<H2><A NAME="ss10.2">10.2 Appletalk (<CODE>AF_APPLETALK</CODE>)</A>
+</H2>
+
+<P>Le support Appletalk ne poss&egrave;de pas de noms de 
+p&eacute;riph&eacute;riques sp&eacute;cifiques car il utilise les p&eacute;riph&eacute;riques r&eacute;seau existants.
+<P><B>Options de compilation noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Networking options  --->
+    &lt;*> Appletalk DDP
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Le support Appletalk permet &agrave; votre machine Linux de dialoguer avec 
+les r&eacute;seaux Apple.
+Son utilisation principale est de pouvoir partager des ressources, 
+comme les imprimantes et 
+les disques, entre vos ordinateurs Linux et Apple. Un logiciel 
+suppl&eacute;mentaire est requis, il s'appelle
+<EM>netatalk</EM>. Wesley Craig <CODE>netatalk@umich.edu</CODE> repr&eacute;sente
+une &eacute;quipe appel&eacute;e le
+`Research Systems Unix Group' &agrave; l'universit&eacute; du Michigan. 
+Celle-ci a &eacute;labor&eacute; le paquetage
+<EM>netatalk</EM>, qui fournit un logiciel impl&eacute;mentant la pile protocole 
+Appletalk et quelques utilitaires.
+Soit ce paquetage <EM>netatalk</EM> vous a &eacute;t&eacute; fourni avec votre 
+distribution Linux, soit vous pouvez le r&eacute;cup&eacute;rer 
+par ftp depuis le site
+<A HREF="index.php?ref=Net-HOWTO-html/ftp://terminator.rs.itd.umich.edu/unix/netatalk/">University of Michigan</A><P>Pour construire et installer le paquetage, vous faites :
+<BLOCKQUOTE><CODE>
+<PRE>
+user% cd /usr/src
+user% tar xvfz .../netatalk-1.4b2.tar.Z
+- Vous pouvez &eacute;diter le fichier `Makefile' &agrave; ce stade, plus 
+pr&eacute;cis&eacute;ment pour changer la valeur de la variable
+ DESTDIR qui d&eacute;finit l'endroit o&ugrave; les fichiers seront 
+install&eacute;s plus tard.
+ Le r&eacute;pertoire par d&eacute;faut, /usr/local/atalk, semble
+ tr&egrave;s raisonnable.
+user% make
+- puis, en temps que root :
+root# make install
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>
+<H3>Configurer le support Appletalk.</H3>
+
+<P>La premi&egrave;re chose &agrave; faire pour que tout fonctionne est de v&eacute;rifier que 
+les entr&eacute;es ad&eacute;quates sont pr&eacute;sentes dans le fichier
+<CODE>/etc/services</CODE>. Ces entr&eacute;es sont :
+<BLOCKQUOTE><CODE>
+<PRE>
+rtmp    1/ddp   # Routing Table Maintenance Protocol
+nbp     2/ddp   # Name Binding Protocol
+echo    4/ddp   # AppleTalk Echo Protocol
+zip     6/ddp   # Zone Information Protocol
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>L'&eacute;tape suivante consiste &agrave; cr&eacute;er les fichiers de 
+configuration Appletalk dans le r&eacute;pertoire
+<CODE>/usr/local/atalk/etc</CODE> (ou bien &agrave; l'endroit o&ugrave; vous avez 
+install&eacute; le paquetage). 
+<P>Le premier fichier &agrave; cr&eacute;er est <CODE>/usr/local/atalk/etc/atalkd.conf</CODE>.
+Initialement ce fichier ne n&eacute;cessite qu'une ligne qui indique le 
+p&eacute;riph&eacute;rique supportant le r&eacute;seau sur lequel sont vos 
+machines Apple : 
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+eth0
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Le programme d&eacute;mon Appletalk ajoutera d'autres d&eacute;tails quand il tournera.
+<P>
+<P>
+<H3>Exporter un syst&egrave;me de fichiers Linux avec Appletalk.</H3>
+
+<P>Vous pouvez exporter des syst&egrave;mes de fichiers depuis votre machine Linux 
+vers le r&eacute;seau en sorte qu'une machine Apple puisse les partager.
+<P>Pour cela vous devez configurer le fichier
+<CODE>/usr/local/atalk/etc/AppleVolumes.system</CODE>. Il y a une autre fichier de 
+configuration appel&eacute;
+<CODE>/usr/local/atalk/etc/AppleVolumes.default</CODE>
+qui a exactement le m&ecirc;me format et qui d&eacute;crit quels 
+syst&egrave;mes de fichiers les utilisateurs connect&eacute;s pourront recevoir 
+avec des privil&egrave;ges d'invit&eacute;s.
+<P>Tous les d&eacute;tails, qui vous diront comment configurer ces fichiers et avec 
+quelles options, peuvent &ecirc;tre trouv&eacute;s dans la page de manuel
+de <EM>afpd</EM>.
+<P>Un simple exemple :
+<BLOCKQUOTE><CODE>
+<PRE>
+/tmp Scratch
+/home/ftp/pub "Public Area"
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Ce qui exportera votre syst&egrave;me de fichiers <CODE>/tmp</CODE> comme volume 
+AppleShare 
+`Scratch' et votre r&eacute;pertoire public ftp comme volume AppleShare
+`Public Area'.
+Les noms de volume ne sont pas obligatoires, le programme d&eacute;mon 
+pouvant les choisir pour vous, mais &ccedil;a ne co&ucirc;te rien de les 
+sp&eacute;cifier quand m&ecirc;me.
+<P>
+<P>
+<H3>Tester Appletalk.</H3>
+
+<P>Pour tester si le programme fonctionne correctement, allez sur une des 
+machines Apple, d&eacute;roulez le menu Pomme, cliquez sur AppleShare, 
+et votre bo&icirc;te Linux devrait appara&icirc;tre.
+<P>
+<P>
+<H3>Autres informations</H3>
+
+<P>Pour en savoir plus sur la configuration de Appletalk pour Linux, 
+r&eacute;f&eacute;rez vous &agrave; la page de 
+Anders Brownworth <EM>Linux Netatalk-HOWTO</EM> disponible &agrave; l'url
+<A HREF="index.php?ref=Net-HOWTO-html/http://thehamptons.com/anders/netatalk/">thehamptons.com</A>.
+<P>
+<P>
+<H2><A NAME="ss10.3">10.3 ATM</A>
+</H2>
+
+<P>Werner Almesberger <CODE>&lt;werner.almesberger@lrc.di.epfl.ch&gt;</CODE> dirige 
+un projet en vue de fournir un support Mode de Transfert Asynchrone
+(Asynchronous Transfer Mode) pour Linux.
+Les informations sur l'&eacute;tat du projet se trouvent sur :
+<A HREF="index.php?ref=Net-HOWTO-html/http://lrcwww.epfl.ch/linux-atm/">lrcwww.epfl.ch</A>.
+<P>
+<P>
+<H2><A NAME="ss10.4">10.4 AX25 (<CODE>AF_AX25</CODE>)</A>
+</H2>
+
+<P>Les noms de p&eacute;riph&eacute;riques AX.25 sont `<CODE>sl0</CODE>', `<CODE>sl1</CODE>', etc. avec les noyaux <CODE>2.0.*</CODE> ou
+`<CODE>ax0</CODE>', `<CODE>ax1</CODE>', etc. avec les noyaux <CODE>2.1.*</CODE>.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Networking options  --->
+    [*] Amateur Radio AX.25 Level 2
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Les protocoles AX25, Netrom et Rose sont couverts par le document
+<A HREF="index.php?ref=Net-HOWTO-html/AX25-HOWTO.html">AX25-HOWTO</A>.
+Ces protocoles sont utilis&eacute;s par les radio-amateurs du monde entier 
+pour l'exp&eacute;rimentation packet-radio.
+<P>L'essentiel du travail d'impl&eacute;mentation de ces protocoles a 
+&eacute;t&eacute; r&eacute;alis&eacute; par
+Jonathon Naylor, <CODE>jsn@cs.nott.ac.uk</CODE>.
+<P>
+<P>
+<H2><A NAME="ss10.5">10.5 DECNet</A>
+</H2>
+
+<P>Le support pour DECNet est en cours d'&eacute;laboration. Vous devriez le voir 
+apparaitre dans l'un des prochains noyaux
+<CODE>2.1.*</CODE>.
+<P>
+<P>
+<H2><A NAME="ss10.6">10.6 FDDI (Fiber Distributed Data Interface)</A>
+</H2>
+
+<P>Les noms de p&eacute;riph&eacute;riques FDDI sont `<CODE>fddi0</CODE>', `<CODE>fddi1</CODE>', 
+`<CODE>fddi2</CODE>' etc. La premi&egrave;re carte d&eacute;tect&eacute;e par le noyau 
+s'appelle
+`<CODE>fddi0</CODE>' et le reste est nomm&eacute; dans l'ordre de d&eacute;tection.
+<P>Larry Stefani, <CODE>lstefani@ultranet.com</CODE>, a d&eacute;velopp&eacute; un 
+gestionnaire pour les cartes
+Digital Equipment Corporation FDDI EISA et PCI.
+<P><B>Options de compilation noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Network device support  --->
+    [*] FDDI driver support
+    [*] Digital DEFEA and DEFPA adapter support
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Lorsque vous avez construit et install&eacute; votre noyau pour supporter 
+le gestionnaire FDDI, la configuration de l'interface FDDI est presque 
+identique &agrave; celle d'une interface Ethernet. Vous devez sp&eacute;cifier 
+le nom de l'interface FDDI appropri&eacute;e dans les commandes 
+<EM>ifconfig</EM> et <EM>route</EM>.
+<P>
+<P>
+<H2><A NAME="ss10.7">10.7 Relais de trames (Frame Relay)</A>
+</H2>
+
+<P>Les noms de p&eacute;riph&eacute;riques de `relais de trames' sont `<CODE>dlci00</CODE>', 
+`<CODE>dlci01</CODE>' etc pour les syst&egrave;mes d'encapsulation
+DLCI et  `<CODE>sdla0</CODE>', `<CODE>sdla1</CODE>' etc pour les FRAD(s) (Frame Relay Access 
+Device).
+<P>Le relais de trames est une nouvelle technologie r&eacute;seau con&ccedil;ue pour 
+s'adapter au trafic de transmission de donn&eacute;es `par &agrave; coups' 
+ou de nature intermittente.
+Vous vous connectez &agrave; un r&eacute;seau de ce type
+en utilisant un dispositif d'acc&egrave;s par relais de trames (FRAD).
+Les supports Linux relais de trames supportent IP par-dessus celui-ci comme 
+d&eacute;crit dans la RFC-1490.
+<P><B>Options de compilation noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Network device support  --->
+    &lt;*> Frame relay DLCI support (EXPERIMENTAL)
+    (24)   Max open DLCI
+    (8)   Max DLCI per device
+    &lt;*>   SDLA (Sangoma S502/S508) support
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Mike McLagan, <CODE>mike.mclagan@linux.org</CODE>, a d&eacute;velopp&eacute; le support Frame 
+Relay et les outils de configuration.
+<P>&Agrave; l'heure actuelle le seul FRAD support&eacute; est, &agrave; ma connaissance,
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.sangoma.com/">Sangoma Technologies</A>
+<CODE>S502A</CODE>, <CODE>S502E</CODE> et <CODE>S508</CODE>.
+et Emerging Technologies. Leur site se trouve sur
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.etinc.com/">ici</A>.
+<P><EM>Je voudrais dire quelquechose. J'ai une exp&eacute;rience personnelle avec
+Emerging Technologies et je vous les recommande pas. Je les ai trouv&eacute;s
+absolument pas professionnels et tr&egrave;s grossiers. Si  quelqu'un d'autre
+a eu une bonne exp&eacute;rience avec eux, faites le moi savoir. A leur d&eacute;charge,
+leur produit est souple d'utilisation et para&icirc;t stable.</EM>
+<P>Pour configurer les syst&egrave;mes FRAD et DLCI apr&egrave;s avoir reconstruit
+votre noyau, vous aurez besoin des outils de configuration. Ils sont 
+disponibles sur
+<A HREF="index.php?ref=Net-HOWTO-html/ftp://ftp.invlogic.com/pub/linux/fr/frad-0.15.tgz">ftp.invlogic.com</A>.
+Compiler et installer les outils est tr&egrave;s facile, mais le manque de 
+fichier Makefile au premier niveau oblige &agrave; le faire &agrave; la main :
+<BLOCKQUOTE><CODE>
+<PRE>
+user% tar xvfz .../frad-0.15.tgz
+user% cd frad-0.15
+user% for i in common dlci frad; make -C $i clean; make -C $i; done
+root# mkdir /etc/frad
+root# install -m 644 -o root -g root bin/*.sfm /etc/frad
+root# install -m 700 -o root -g root frad/fradcfg /sbin
+root# install -m 700 -o root -g root dlci/dlcicfg /sbin
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Notez que ces commandes utilisent la syntaxe du shell <EM>sh</EM>, et si
+vous utilisez <EM>csh</EM> (comme <EM>tcsh</EM>), la boucle <EM>for</EM> sera 
+diff&eacute;rente.
+Apr&egrave;s l'installation vous devez cr&eacute;er un fichier 
+<CODE>/etc/frad/router.conf</CODE>
+Vous pouvez utiliser cet exemple, qui est une version modifi&eacute;e de l'un 
+des fichiers donn&eacute; en exemple :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# /etc/frad/router.conf
+# C'est un mod&egrave;le de configuration pour relais de trames.
+# Tout y est inclus. Les valeurs par d&eacute;faut sont fond&eacute;es sur le code
+# fourni avec les gestionnaires DOS de la carte Sangoma S502A.
+#
+# Une ligne avec '#' est un commentaire
+# Les blancs sont ignor&eacute;s (vous pouvez utiliser des tabulations aussi).
+# Les sections [] inconnues et les entr&eacute;es inconnues sont ignor&eacute;es.
+#
+
+[Devices]
+Count=1                 # nombre de p&eacute;riph&eacute;riques &agrave; configurer
+Dev_1=sdla0             # nom d'un p&eacute;riph&eacute;rique
+#Dev_2=sdla1            # nom d'un p&eacute;riph&eacute;rique
+
+# Ce qui est sp&eacute;cifie ici s'applique &agrave; tous les p&eacute;riph&eacute;riques, et peut &ecirc;tre 
+# mis &agrave; jour pour chaque carte individuelle.
+#
+Access=CPE
+Clock=Internal
+KBaud=64
+Flags=TX
+#
+# MTU=1500              # Taille maximum de l'unit&eacute; de transfert 4096 par d&eacute;faut
+# T391=10               # valeur de T391  5 - 30, 10 par d&eacute;faut
+# T392=15               # valeur de T392  5 - 30, 15 par d&eacute;faut
+# N391=6                # valeur de N391  1 - 255, 6 par d&eacute;faut
+# N392=3                # valeur de N392  1 - 10,  3 par d&eacute;faut
+# N393=4                # valeur de N393  1 - 10,  4 par d&eacute;faut
+
+# On sp&eacute;cifie ici les valeurs par d&eacute;faut pour toutes les cartes
+# CIRfwd=16             # CIR forward   1 - 64
+# Bc_fwd=16             # Bc forward    1 - 512 
+# Be_fwd=0              # Be forward    0 - 511
+# CIRbak=16             # CIR backward  1 - 64
+# Bc_bak=16             # Bc backward   1 - 512
+# Be_bak=0              # Be backward   0 - 511
+
+
+#
+#
+# Configurations sp&eacute;cifiques
+#
+#
+
+#
+#  Sangoma S502E
+#
+[sdla0]
+Type=Sangoma            # Type de p&eacute;riph&eacute;rique &agrave; configurer, actuellement seul 
+                        # SANGOMA est reconnu
+#
+# Sp&eacute;cifique des types 'Sangoma'
+#
+# cartes S502A, S502E, S508
+Board=S502E
+#
+# Le nom du logiciel de carte en essai pour Sangoma
+# Testware=/usr/src/frad-0.10/bin/sdla_tst.502
+#
+# Le nom du logiciel de carte FR 
+# Firmware=/usr/src/frad-0.10/bin/frm_rel.502
+#
+Port=360                # Port pour cette carte particuli&egrave;re
+Mem=C8                  # Adresse de fen&ecirc;tre m&eacute;moire, A0-EE, d&eacute;pend de la carte
+IRQ=5                   # num&eacute;ro d'IRQ, pas n&eacute;cessaire pour S502A
+DLCIs=1                 # Nombre de DLCI attach&eacute;s &agrave; ce p&eacute;riph&eacute;rique
+DLCI_1=16               # num&eacute;ro du premier DLCI, de 16 &agrave; 991
+# DLCI_2=17
+# DLCI_3=18
+# DLCI_4=19
+# DLCI_5=20
+#
+# Ce qui est sp&eacute;cifie ici s'applique au p&eacute;riph&eacute;rique seulement, 
+# et remplace les valeurs par d&eacute;faut
+#
+# Access=CPE            # CPE ou NODE,  CPE par d&eacute;faut
+# Flags=TXIgnore,RXIgnore,BufferFrames,DropAborted,Stats,MCI,AutoDLCI
+# Clock=Internal        # Externe ou Interne, Interne par d&eacute;faut
+# Baud=128              # D&eacute;bit sp&eacute;cifi&eacute; du CSU/DSU attach&eacute;
+# MTU=2048              # Taille maximum de l'unit&eacute; de transfert 4096 par d&eacute;faut
+# T391=10               # valeur de T391   5 - 30, 10 par d&eacute;faut
+# T392=15               # valeur de T392   5 - 30, 15 par d&eacute;faut
+# N391=6                # valeur de N391   1 - 255, 6 par d&eacute;faut
+# N392=3                # valeur de N392   1 - 10,  3 par d&eacute;faut
+# N393=4                # valeur de N393   1 - 10,  4 par d&eacute;faut
+
+#
+# Le second periph&eacute;rique est une autre carte
+#
+# [sdla1]
+# Type=FancyCard        # Type de p&eacute;riph&eacute;rique &agrave; configurer.
+# Board=                # Type de carte Sangoma
+# Key=Value             # valeurs sp&eacute;cifiques pour ce type de p&eacute;riph&eacute;rique
+
+
+#
+# Param&egrave;tres de configuration DLCI par d&eacute;faut.
+# Peuvent &ecirc;tre &eacute;cras&eacute;s par des configurations sp&eacute;cifiques
+#
+CIRfwd=64               # CIR forward   1 - 64
+# Bc_fwd=16             # Bc forward    1 - 512 
+# Be_fwd=0              # Be forward    0 - 511
+# CIRbak=16             # CIR backward  1 - 64
+# Bc_bak=16             # Bc backward   1 - 512
+# Be_bak=0              # Be backward   0 - 511
+
+#
+# Configuration DLCI
+# Optionnel. La convention d'appellation est
+# [DLCI_D&lt;devicenum>_&lt;DLCI_Num>]
+#
+
+[DLCI_D1_16]
+# IP=
+# Net=
+# Mask=
+# Drapeaux d&eacute;finis par Sangoma: TXIgnore,RXIgnore,BufferFrames
+# DLCIFlags=TXIgnore,RXIgnore,BufferFrames
+# CIRfwd=64
+# Bc_fwd=512
+# Be_fwd=0
+# CIRbak=64
+# Bc_bak=512
+# Be_bak=0
+
+[DLCI_D2_16]
+# IP=
+# Net=
+# Mask=
+# Drapeaux d&eacute;finis par Sangoma: TXIgnore,RXIgnore,BufferFrames
+# DLCIFlags=TXIgnore,RXIgnore,BufferFrames
+# CIRfwd=16
+# Bc_fwd=16
+# Be_fwd=0
+# CIRbak=16
+# Bc_bak=16
+# Be_bak=0
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Lorsque vous avez construit votre fichier <CODE>/etc/frad/router.conf</CODE>,
+la seule &eacute;tape restante est de configurer les p&eacute;riph&eacute;riques eux-m&ecirc;mes.
+C'est un tout petit peu plus compliqu&eacute; que la configuration normale d'un 
+p&eacute;riph&eacute;rique r&eacute;seau; vous devez vous souvenir de monter 
+le p&eacute;riph&eacute;rique FRAD avant les p&eacute;riph&eacute;riques d'encapsulation DLCI.
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+#!/bin/sh
+# Configure le materiel frad et les parametres DLCI 
+/sbin/fradcfg /etc/frad/router.conf || exit 1
+/sbin/dlcicfg file /etc/frad/router.conf
+#
+# Montage du dispositif FRAD
+ifconfig sdla0 up
+#
+# Configure les interfaces d'encapsulation DLCI et le routage
+ifconfig dlci00 192.168.10.1 pointopoint 192.168.10.2 up
+route add -net 192.168.10.0 netmask 255.255.255.0 dlci00
+#
+ifconfig dlci01 192.168.11.1 pointopoint 192.168.11.2 up
+route add -net 192.168.11.0 netmask 255.255.255.0 dlci00
+#
+route add default dev dlci00
+#
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>
+<H2><A NAME="ss10.8">10.8 IPX (<CODE>AF_IPX</CODE>)</A>
+</H2>
+
+<P>Le protocole IPX est la plupart du temps utilis&eacute; dans les environnements
+r&eacute;seaux locaux Novell NetWare(tm).
+Linux offre un support pour ce protocole, et peut &ecirc;tre 
+configur&eacute; pour agir comme extr&eacute;mit&eacute; r&eacute;seau, ou 
+comme routeur pour les environnements r&eacute;seaux IPX.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Networking options  --->
+    [*] The IPX protocol
+    [ ] Full internal IPX network
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Le protocole IPX et le NCPFS sont trait&eacute;s en d&eacute;tail dans le 
+document 
+<A HREF="index.php?ref=Net-HOWTO-html/IPX-HOWTO.html">IPX-HOWTO</A>.
+<P>
+<P>
+<H2><A NAME="ss10.9">10.9 NetRom (<CODE>AF_NETROM</CODE>)</A>
+</H2>
+
+<P>Les noms de p&eacute;riph&eacute;riques NetRom sont `<CODE>nr0</CODE>', `<CODE>nr1</CODE>', etc.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Networking options  --->
+    [*] Amateur Radio AX.25 Level 2
+    [*] Amateur Radio NET/ROM
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Les protocoles AX25, Netrom et Rose sont d&eacute;crits dans le document
+<A HREF="index.php?ref=Net-HOWTO-html/AX25-HOWTO.html">AX25-HOWTO</A>.
+Ces protocoles sont utilis&eacute;s par les radio-amateurs dans le monde 
+entier pour l'exp&eacute;rimentation du packet-radio.
+<P>L'essentiel du travail d'impl&eacute;mentation a &eacute;t&eacute; fait par
+Jonathon Naylor, <CODE>jsn@cs.not.ac.uk</CODE>.
+<P>
+<H2><A NAME="ss10.10">10.10 Protocole Rose (<CODE>AF_ROSE</CODE>)</A>
+</H2>
+
+<P>Les noms de p&eacute;riph&eacute;riques Rose sont `<CODE>rs0</CODE>', `<CODE>rs1</CODE>', etc. 
+.
+Rose est disponible dans la s&eacute;rie des noyaux <CODE>2.1.*</CODE>.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Networking options  --->
+    [*] Amateur Radio AX.25 Level 2
+    &lt;*> Amateur Radio X.25 PLP (Rose)
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Les protocoles AX25, Netrom et Rose sont expliqu&eacute;s dans le
+<A HREF="index.php?ref=Net-HOWTO-html/AX25-HOWTO.html">AX25-HOWTO</A>.
+Ces protocoles sont utilis&eacute;s par les op&eacute;rateurs radio-amateur du 
+monde entier pour l'exp&eacute;rimentation du packet-radio.
+<P>L'essentiel du travail d'impl&eacute;mentation de ces protocoles a 
+&eacute;t&eacute; r&eacute;alis&eacute; par
+Jonathon Naylor, <CODE>jsn@cs.not.ac.uk</CODE>.
+<P>
+<P>
+<H2><A NAME="ss10.11">10.11 Support SAMBA - `NetBEUI', `NetBios', `CIFS'.</A>
+</H2>
+
+<P>SAMBA est une impl&eacute;mentation du protocole Session Management Block. Samba
+permet aux Syst&egrave;mes Microsoft et autres de monter et d'utiliser 
+vos disques et imprimantes.
+<P>SAMBA et sa configuration sont d&eacute;crits en d&eacute;tail dans le
+<A HREF="index.php?ref=Net-HOWTO-html/SMB-HOWTO.html">SMB-HOWTO</A>.
+<P>
+<P>
+<H2><A NAME="ss10.12">10.12 Support STRIP (Starmode Radio IP)</A>
+</H2>
+
+<P>Les noms de p&eacute;riph&eacute;riques STRIP sont `<CODE>st0</CODE>', `<CODE>st1</CODE>', etc.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Network device support  --->
+        [*] Network device support
+        ....
+        [*] Radio network interfaces
+        &lt; > STRIP (Metricom starmode radio IP)
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>STRIP est un protocole con&ccedil;u sp&eacute;cialement pour un certain type
+de modems radio Metricom dans le cadre d'un projet de recherche conduit par
+l'Universit&eacute; de Stanford appel&eacute;
+<A HREF="index.php?ref=Net-HOWTO-html/http://mosquitonet.Stanford.EDU/mosquitonet.html">MosquitoNet Project</A>.
+Il y a un tas de choses int&eacute;ressantes &agrave; lire, m&ecirc;me si vous 
+n'&ecirc;tes pas directement concern&eacute; par le projet.
+<P>Les radios Metricom se connectent sur un port s&eacute;rie et emploient
+la technologie &agrave; large bande spectrale et peuvent aller jusqu'&agrave;
+100kbps.
+Des informations sur ceux-ci sont disponibles sur :
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.metricom.com/">Le serveur web de Metricom</A>.
+<P>&Agrave; l'heure actuelle, les outils r&eacute;seau habituels ne 
+supportent pas le gestionnaire
+STRIP, vous devez donc t&eacute;l&eacute;charger des outils 
+personnalis&eacute;s &agrave; partir du serveur web MosquitoNet. Pour avoir
+des d&eacute;tails sur les logiciels &agrave; utiliser allez voir :
+<A HREF="index.php?ref=Net-HOWTO-html/http://mosquitonet.Stanford.EDU/strip.html">MosquitoNet STRIP Page</A>.
+<P>En r&eacute;sum&eacute; la configuration consiste &agrave; utiliser un
+programme <EM>slattach</EM> modifi&eacute; pour r&eacute;gler la discipline
+de ligne d'un p&eacute;riph&eacute;rique s&eacute;rie pour SLIP,
+puis &agrave; configurer le p&eacute;riph&eacute;rique `<CODE>st[0-9]</CODE>'
+r&eacute;sultant comme vous le feriez pour Ethernet avec une exception
+importante : pour des raisons techniques STRIP ne supporte pas le protocole
+ARP , vous devez alors configurer manuellement les entr&eacute;es ARP pour 
+chacun des h&ocirc;tes de votre sous-r&eacute;seau. Cela ne devrait pas 
+&ecirc;tre trop contraignant.
+<P>
+<P>
+<H2><A NAME="ss10.13">10.13 Token Ring</A>
+</H2>
+
+<P>Le noms de p&eacute;riph&eacute;riques Token ring sont `<CODE>tr0</CODE>', `<CODE>tr1</CODE>'
+etc. Token Ring est un protocole LAN standard IBM en vue d'&eacute;viter
+les collisions en fournissant un m&eacute;canisme qui n'autorise qu'une
+seule station du LAN &agrave; transmettre &agrave; un moment donn&eacute;.
+Un `jeton' est d&eacute;tenu par une station &agrave; un moment donn&eacute;,
+et celle-ci est la seule autoris&eacute;e &agrave; &eacute;mettre. Lorque c'est
+fait, elle passe le jeton &agrave; la station suivante. Le jeton fait
+le tour de toutes les stations actives, d'o&ugrave; le nom de `Token Ring'
+(anneau &agrave; jeton).
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Network device support  --->
+        [*] Network device support
+        ....
+        [*] Token Ring driver support
+        &lt; > IBM Tropic chipset based adaptor support
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>La configuration de token ring est identique &agrave; celle de l'Ethernet
+&agrave; l'exception du nom de p&eacute;riph&eacute;rique r&eacute;seau &agrave; configurer.
+<P>
+<P>
+<H2><A NAME="ss10.14">10.14 X.25</A>
+</H2>
+
+<P>X.25 est un protocole de circuit bas&eacute; sur la commutation de paquets
+d&eacute;fini par le
+<CODE>C.C.I.T.T.</CODE> (un groupe de normalisation reconnu par les compagnies de 
+t&eacute;l&eacute;communications dans la plupart du monde). Une 
+impl&eacute;mentation de X.25 et LAPB est en cours dans les noyaux 
+r&eacute;cents <CODE>2.1.*</CODE>.
+<P>Jonathon Naylor <CODE>jsn@cs.nott.ac.uk</CODE> dirige le d&eacute;veloppement
+et une liste de diffusion a &eacute;t&eacute; cr&eacute;&eacute;e pour discuter
+des affaires relatives &agrave; X.25 pour Linux. Pour y souscrire, envoyez
+un message &agrave; :
+<CODE>majordomo@vger.rutgers.edu</CODE> avec le texte
+"<CODE>subscribe linux-x25</CODE>" dans le corps du message.
+<P>Les derni&egrave;res versions des outils de configuration peuvent &ecirc;tre
+obtenues sur le site ftp de Jonathon &agrave;
+<A HREF="index.php?ref=Net-HOWTO-html/ftp://ftp.cs.nott.ac.uk/jsn/">ftp.cs.nott.ac.uk</A>.
+<P>
+<P>
+<H2><A NAME="ss10.15">10.15 Carte WaveLan </A>
+</H2>
+
+<P>Les noms de p&eacute;riph&eacute;riques Wavelan sont `<CODE>eth0</CODE>', `<CODE>eth1</CODE>', 
+etc.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Network device support  --->
+        [*] Network device support
+        ....
+        [*] Radio network interfaces
+        ....
+        &lt;*> WaveLAN support
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>La carte WaveLAN est une carte LAN sans-fil &agrave; large bande. Elle ressemble
+beaucoup en pratique &agrave; une carte Ethernet et se configure presque de la
+m&ecirc;me mani&egrave;re.
+<P>Vous pouvez avoir des informations sur la carte Wavelan sur
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.wavelan.com/">Wavelan.com</A>.
+<P>
+<P>
+<HR>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-11.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-9.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc10"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

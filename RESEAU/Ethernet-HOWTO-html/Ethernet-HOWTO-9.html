@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Linux Ethernet-Howto: Faire du r&eacute;seau avec un portable</TITLE>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html" REL=next>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html" REL=previous>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc9" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc9"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="notebook"></A> <A NAME="s9">9. Faire du r&eacute;seau avec un portable</A></H2>
+
+<P>Il existe plusieurs fa&ccedil;ons de mettre votre portable en r&eacute;seau. Vous
+pouvez utiliser le code SLIP (et tourner aux vitesses d'une liaison
+s&eacute;rie). Vous pouvez employer un portable avec un slot PCMCIA int&eacute;gr&eacute;, ou
+bien avec une station d'accueil et y mettre une carte Ethernet ISA.
+Vous pouvez encore utiliser un adaptateur Ethernet sur port parall&egrave;le.
+<P>
+<H2><A NAME="ss9.1">9.1 Utiliser SLIP (Serial Line IP, IP sur liaison s&eacute;rie)</A>
+</H2>
+
+<P>C'est la solution la moins ch&egrave;re, mais de loin la plus difficile. En
+plus, vous n'obtiendrez pas des taux de transfert tr&egrave;s &eacute;lev&eacute;s. Comme
+SLIP n'est pas vraiment li&eacute; aux cartes Ethernet, nous n'en parlerons pas
+plus ici. Consultez le <I>NET-2 Howto</I>.
+<P>
+<H2><A NAME="pcmcia"></A> <A NAME="ss9.2">9.2 Support PCMCIA</A>
+</H2>
+
+<P>Essayez de d&eacute;terminer exactement de quel mat&eacute;riel vous disposez
+(c'est-&agrave;-dire le fabricant de la carte, celui du contr&ocirc;leur de puces
+PCMCIA) puis demandez sur la liste LAPTOPS. En tout &eacute;tat de cause, ne
+vous attendez pas &agrave; ce que les choses soient tr&egrave;s simples.
+Attendez-vous &agrave; chercher et &agrave; tourner un peu en rond, &agrave; patcher les
+noyaux, etc. Peut-&ecirc;tre qu'un jour vous serez capable de taper `make
+config'&nbsp;8-).
+<P>A l'heure actuelle, les deux jeux de puces PCMCIA qui sont utilisables
+avec Linux sont le TCIC/2 de Databook et l'i82365 d'Intel.
+<P>Il existe un certain nombre de programmes sur <CODE>tsx-11.mit.edu</CODE> dans
+le r&eacute;pertoire <CODE>/pub/linux/packages/laptops/</CODE> qui pourront se
+r&eacute;v&eacute;ler utiles.
+<P>(NDT&nbsp;: Bien entendu, le lecteur fran&ccedil;ais se rapportera &agrave; l'un des
+miroirs de tsx-11, comme par exemple
+<CODE>ftp://ftp.lip6.fr/pub/linux/tsx-11/packages/laptops/</CODE>.)
+<P>Cela va des pilotes pour cartes Ethernet PCMCIA aux programmes qui
+communiquent avec la puce du contr&ocirc;leur PCMCIA. Notez que ces pilotes
+sont en g&eacute;n&eacute;ral li&eacute;s &agrave; une puce PCMCIA sp&eacute;cifique (c'est-&agrave;-dire la 82365
+d'Intel ou la TCIC/2).
+<P>Pour les cartes compatibles NE2000, certaines personnes ont r&eacute;ussi juste
+en configurant la carte sous DOS, puis en d&eacute;marrant Linux depuis
+l'invite de commande DOS via <CODE>loadlin</CODE>.
+<P>Les choses &eacute;voluent pour les utilisateurs de Linux qui souhaitent un
+support PCMCIA, car des progr&egrave;s substantiels ont &eacute;t&eacute; r&eacute;alis&eacute;s. Le
+dernier paquetage de David Hinds, qui en est l'un des artisans, se
+trouve sur
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/ftp://cb-iris.stanford.edu/pub/pcmcia">PCMCIA Package</A></BLOCKQUOTE>
+<P>Cherchez un fichier comme <CODE>pcmcia-cs-X.Y.Z.tgz</CODE> o&ugrave; <CODE>X.Y.Z</CODE> est
+le dernier num&eacute;ro de version. Vous devriez aussi pouvoir le trouver sur
+le site FTP <CODE>tsx-11.mit.edu</CODE> (ou son miroir le plus proche, NDT).
+<P>Notez que le logiciel d'acc&egrave;s PCMCIA de Donald fonctionne en tant que
+processus utilisateur, alors que David Hinds propose une solution au
+niveau du noyau. Vous serez certainement mieux servi(e) par le paquetage
+de David car il est plus couramment employ&eacute;, et en constant
+d&eacute;veloppement.
+<P>
+<H2><A NAME="ss9.3">9.3 Carte Ethernet ISA dans la station d'accueil.</A>
+</H2>
+
+<P>Les stations d'accueil (<I>docking stations</I> en anglais, ou encore
+<I>dock</I>, NDT) co&ucirc;tent typiqement environ 1500 francs et fournissent
+deux slots ISA standard, deux ports s&eacute;rie et un port parall&egrave;le. La
+plupart d'entre elles sont aliment&eacute;es par les batteries du portable, et
+quelques unes permettent d'en ajouter dans la station m&ecirc;me, pour peu que
+vous utilisiez des cartes ISA courtes.  Ainsi, vous pouvez utiliser une
+carte r&eacute;seau &eacute;conomique et profiter des performances d'Ethernet &agrave; pleine
+vitesse.
+<P>
+<H2><A NAME="ss9.4">9.4 Adaptateurs de poche et sur port parall&egrave;le.</A>
+</H2>
+
+<P>Les adaptateurs Ethernet `de poche' peuvent aussi r&eacute;pondre &agrave; vos
+besoins. Notez que la vitesse de transfert ne sera pas aussi importante
+que &ccedil;a (peut-&ecirc;tre 200&nbsp;Ko/s en pointe&nbsp;?) &agrave; cause des limitations du port
+parall&egrave;le.
+<P>La plupart d'entre eux vont vous entraver avec une alimentation qui
+ressemble a un gros pav&eacute;. Vous pourrez parfois vous passer du pav&eacute; des
+adaptateurs en achetant ou en fabriquant un c&acirc;ble qui prend
+l'alimentation sur le port clavier du portable (voir&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#aep-100">alimentation du clavier</A>).
+<P>Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#de-600">DE-600 / DE-620</A> et&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#aep-100">RealTek</A> pour deux adaptateurs de poche utilisables sous Linux.
+<P>
+<HR>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc9"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

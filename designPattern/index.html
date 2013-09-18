@@ -1,0 +1,844 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+  <title>Design Patterns du Gang of Four appliqués à Java - Club d'entraide des d&#233;veloppeurs francophones</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <meta name="generator" content="developpez-com" />
+  <link rel="stylesheet" type="text/css" media="screen" href="./article.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="./code.css" />
+  <script src="js/fonctions-kit.js" type="text/javascript"></script>
+  
+  <style type="text/css">
+<!--
+body {
+	background-color : #DDEEFF;
+	background: #DDEEFF;
+	font: normal;
+    font-family: Verdana;
+    font-weight: normal;    
+    margin: 0
+}
+
+img {
+    border:0
+}
+form {
+    margin : 0
+}
+td {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size : 10pt;
+	font-weight: normal;
+}
+td.iongl {
+	width : 1px;
+}
+td.bgongl {
+	background-image : url(./images/kitint.gif);
+	text-align : center;
+}
+td.bgmarron{
+    background-image : url(./images/kitMarronInt.gif);
+    background-repeat: repeat-x;  
+    text-align : center;
+
+}
+td.bgjaune{
+    background-image : url(./images/kitJauneInt.gif);
+    background-repeat: repeat-x;
+    text-align : center;
+}
+td.bgvert{
+    background-image : url(./images/kitVertInt.gif);
+    background-repeat: repeat-x;  
+    text-align : center;
+}
+
+.ntdrub:link {
+	color : #000000;
+	font-weight : bold;
+    font-size : 8pt;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.ntdrub:visited {
+    color : #000000;
+    font-weight : bold;
+    font-size : 8pt;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.ntdrub:active {
+	color : #000000;
+	font-weight : bold;
+    font-size : 8pt;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.ntdrub:hover {
+    color : #FF0000;
+    font-weight : bold;
+	font-size : 8pt;
+	text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+td.trbleu {
+	background-color:#6389D8;
+	text-align : center;
+    margin: 0 ;
+	border: 0;
+	padding-top : 3px;
+	padding-bottom : 3px;
+	height : 34px;
+}
+td.fondart {
+    background-color:#FFFFFF;
+    
+}
+
+table.tbnoir{
+	background-color:#000000;
+}
+.titrepied {
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	font-size : 10pt;
+	font: normal;
+	font-weight: normal
+}
+
+-->
+</style>
+  
+  
+</head>
+<body>
+<table width="100%" cellspacing="4">
+	<tr>
+	<td align="center">
+		<table width="100%" cellspacing="0" cellpadding="0">
+			<tr>
+				<td>
+				  <table width="100%" cellspacing="11">
+					<tr>
+						<td>
+						<a href="http://www.developpez.com"><img src="images/kitlogo.gif" alt="Accueil" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+
+  				<tr>
+    				<td>
+    					<table class="cachee" cellpadding="0" cellspacing="0" width="100%">
+    						<tr>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://blog.developpez.com/?blog=18" class="ntdrub">Club</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://emploi.developpez.com" class="ntdrub">Emploi</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://blog.developpez.com" class="ntdrub">Blogs</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://www.developpez.tv" class="ntdrub">&nbsp;&nbsp;TV&nbsp;&nbsp;</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://web.developpez.com" class="ntdrub">Dév.&nbsp;Web</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://php.developpez.com" class="ntdrub">PHP</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://xml.developpez.com" class="ntdrub">XML</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://python.developpez.com" class="ntdrub">Python</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://general.developpez.com/cours/" class="ntdrub">Autres</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://jeux.developpez.com" class="ntdrub">2D-3D-Jeux</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://securite.developpez.com" class="ntdrub">Sécurité</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://windows.developpez.com" class="ntdrub">Windows</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://linux.developpez.com" class="ntdrub">Linux</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://hardware.developpez.com" class="ntdrub">PC</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://mac.developpez.com" class="ntdrub">Mac</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+   							</tr>
+   						</table>
+   					</td>	
+   				</tr>
+   				<tr>
+   					<td>
+    					<table class="cachee" cellpadding="0" cellspacing="0" width="100%">
+  							<tr>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://www.developpez.com" class="ntdrub">Accueil</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://conception.developpez.com" class="ntdrub">Conception</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://java.developpez.com" class="ntdrub">Java</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://dotnet.developpez.com" class="ntdrub">DotNET</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://vb.developpez.com" class="ntdrub">Visual&nbsp;Basic</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://c.developpez.com" class="ntdrub">&nbsp;C&nbsp;</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://cpp.developpez.com" class="ntdrub">C++</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://delphi.developpez.com" class="ntdrub">Delphi</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://eclipse.developpez.com" class="ntdrub">Eclipse</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://office.developpez.com" class="ntdrub">MS-Office</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://sgbd.developpez.com" class="ntdrub">SQL&nbsp;&amp;&nbsp;SGBD</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://oracle.developpez.com" class="ntdrub">Oracle</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://4d.developpez.com" class="ntdrub">&nbsp;4D&nbsp;</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://Business-Intelligence.developpez.com" class="ntdrub">Business&nbsp;Intelligence</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+  							</tr>
+   						</table>
+   					</td>
+   				</tr>
+
+				<tr>
+					<td class="trbleu">
+					</td>
+				</tr>
+
+				<tr valign="top">
+					<td valign="top" class="fondart">
+						<table cellspacing="1" width="100%" class="tbnoir">
+							<tr>
+								<td class="fondart">
+									<div style="text-align:center;">
+									<table class="cadrearticle" width="90%" cellpadding="10" cellspacing="0">
+										<tr>
+											<td align="center" style="text-align:left">
+
+		<h1>Design Patterns du Gang of Four appliqués à Java</h1><div class="soustitre">
+		<a href="http://www.uml.org/"><img src="./images/icone_uml_small.png" alt="UML"/></a>
+	</div><p class="dateArticle">Date de publication : 16/09/2008</p><p style="text-align: center;">
+		Par
+		<a class="auteur" href="http://www.developpez.net/forums/member.php?u=239428">Régis POUILLER</a> <a class="homepage" href="http://rpouiller.developpez.com/" title="Home"><img src="./images/magritte_mini.jpg" alt="Home"/></a> <a class="homepage" href="http://www.viadeo.com/fr/profile/regis.pouiller" title="Viadeo"><img src="./images/viadeo_logo22x22.png" alt="Viadeo"/></a> <a class="homepage" href="http://fr.linkedin.com/in/regispouiller" title="LinkedIn"><img src="./images/logo_linkedin_mini.png" alt="LinkedIn"/></a> <a class="homepage" href="http://www.blackbeltfactory.com/UserView.wwa?userId=10722049" title="JavaBlackBelt"><img src="./images/belt5_M.gif" alt="JavaBlackBelt"/></a><br/>&nbsp;</p><div class="synopsis">
+        <div class="paragraph">
+            Cet article a pour objectif de présenter les <a href="http://dico.developpez.com/html/1574-Conception-design-pattern.php" class="lienDico" title="Dictionnaire des développeurs">Design Patterns</a> du "Gang of Four" avec des exemples concis appliqués à Java.<br />
+			Chaque Design Pattern est présenté avec son <a href="http://dico.developpez.com/html/985-Conception-diagramme-de-classes.php" class="lienDico" title="Dictionnaire des développeurs">diagramme de classes</a>, ses objectifs, les motivations pour l'utiliser, les responsabilités des classes le constituant, puis une <a href="http://dico.developpez.com/html/1538-Generalites-implementation.php" class="lienDico" title="Dictionnaire des développeurs">implémentation</a> simple.<br />
+			Un discussion a été ouverte pour la publication de cet article, pour les commentaires. <a href="http://www.developpez.net/forums/showthread.php?t=847011" class="lienforum">
+					Commentez
+				</a>
+        </div>
+	</div><div class="cachee"><hr/><div class="barreNavigation"><div style="float: left;">
+			 
+			<span class="lientelechargement"><a class="lientelechargement" href="#sommaire">Sommaire</a></span>
+			 
+			<span class="lientelechargement"><a class="lientelechargement" href="page_1.html">Suivant</a></span></div><br/>
+			 
+		</div><hr/></div><div class="sommaire">
+		<a class="summaryIndent0" href="page_1.html">Page 1<br/></a><a class="summaryIndent1" href="page_1.html#LI">I. INTRODUCTION<br/></a>
+			
+			
+			
+			
+			
+			
+			
+			
+		<a class="summaryIndent1" href="page_1.html#LII">II. BIBLIOGRAPHIE<br/></a>
+			
+			
+            
+		<a class="summaryIndent1" href="page_1.html#LIII">III. AUTRES RESSOURCES SUR DEVELOPPEZ.COM<br/></a>
+			
+			
+			
+			
+		
+		<a class="summaryIndent0" href="page_2.html">Page 2<br/></a><a class="summaryIndent1" href="page_2.html#LIV">IV. CREATIONNELS (CREATIONAL PATTERNS)<br/></a>
+			
+    		<a class="summaryIndent2" href="page_2.html#LIV-A">IV-A. Fabrique abstraite (Abstract Factory ou Kit)<br/></a>
+    			
+				
+        		
+        		
+        		
+        		
+        		
+    			
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_2.html#LIV-B">IV-B. Monteur (Builder)<br/></a>
+    			
+				
+        		
+        		
+        		
+        		
+        		
+                
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_2.html#LIV-C">IV-C. Fabrique (Factory Method ou Virtual Constructor)<br/></a>
+    			
+				
+        		
+				
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_2.html#LIV-D">IV-D. Prototype (Prototype)<br/></a>
+    			
+				
+        		
+				
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_2.html#LIV-E">IV-E. Singleton (Singleton)<br/></a>
+    			
+				
+        		
+        		
+        		
+        		
+        		
+        		
+    			
+				
+				
+				
+				
+				
+				
+				
+				
+				
+                
+    		
+		
+		<a class="summaryIndent0" href="page_3.html">Page 3<br/></a><a class="summaryIndent1" href="page_3.html#LV">V. STRUCTURAUX (STRUCTURAL PATTERNS)<br/></a>
+			
+    		<a class="summaryIndent2" href="page_3.html#LV-A">V-A. Adaptateur (Adapter ou Wrapper)<br/></a>
+    			
+                
+                
+   				
+                
+   				
+        		
+        		
+        		
+        		
+        		
+    			
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_3.html#LV-B">V-B. Pont (Bridge ou Handle/Body)<br/></a>
+    			
+				
+        		
+    			
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_3.html#LV-C">V-C. Composite (Composite)<br/></a>
+    			
+				
+        		
+        		
+        		
+    			
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_3.html#LV-D">V-D. Décorateur (Decorator ou Wrapper)<br/></a>
+    			
+				
+        		
+        		
+        		
+    			
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_3.html#LV-E">V-E. Façade (Facade)<br/></a>
+    			
+				
+        		
+        		
+        		
+        		
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_3.html#LV-F">V-F. Poids-Mouche (Flyweight)<br/></a>
+    			
+				
+        		
+        		
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_3.html#LV-G">V-G. Proxy (Proxy ou Surrogate)<br/></a>
+    			
+				
+        		
+        		
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+    		
+		
+		<a class="summaryIndent0" href="page_4.html">Page 4<br/></a><a class="summaryIndent1" href="page_4.html#LVI">VI. COMPORTEMENTAUX (BEHAVIORAL PATTERNS)<br/></a>
+			
+    		<a class="summaryIndent2" href="page_4.html#LVI-A">VI-A. Chaîne de responsabilité (Chain of responsibility)<br/></a>
+    			
+				
+        		
+    			
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_4.html#LVI-B">VI-B. Commande (Command, Action ou Transaction)<br/></a>
+    			
+				
+        		
+        		
+        		
+                
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_4.html#LVI-C">VI-C. Interpréteur (Interpreter)<br/></a>
+    			
+				
+        		
+                
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_4.html#LVI-D">VI-D. Itérateur (Iterator ou Cursor)<br/></a>
+    			
+				
+        		
+        		
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_4.html#LVI-E">VI-E. Médiateur (Mediator)<br/></a>
+    			
+				
+        		
+				
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_4.html#LVI-F">VI-F. Memento (Memento)<br/></a>
+    			
+				
+        		
+        		
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_4.html#LVI-G">VI-G. Observateur (Observer, Dependents ou Publish-Subscribe)<br/></a>
+    			
+				
+        		
+        		
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_4.html#LVI-H">VI-H. Etat (State ou Objects for States)<br/></a>
+    			
+				
+        		
+        		
+        		
+        		
+        		
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_4.html#LVI-I">VI-I. Stratégie (Strategy ou Policy)<br/></a>
+    			
+				
+        		
+                
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_4.html#LVI-J">VI-J. Patron de méthode (Template Method)<br/></a>
+    			
+				
+        		
+        		
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+    		
+    		<a class="summaryIndent2" href="page_4.html#LVI-K">VI-K. Visiteur (Visitor)<br/></a>
+    			
+				
+        		
+        		
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+                
+                
+                
+    		
+		
+		<a class="summaryIndent0" href="page_5.html">Page 5<br/></a><a class="summaryIndent1" href="page_5.html#LVII">VII. REMERCIEMENTS<br/></a>
+			
+			
+			
+		<a class="summaryIndent1" href="page_5.html#LVIII">VIII. ANNEXES<br/></a>
+			
+			
+		
+	</div><br/><br/><div class="cachee"><hr/><div class="barreNavigation"><div style="float: left;">
+			 
+			<span class="lientelechargement"><a class="lientelechargement" href="#sommaire">Sommaire</a></span>
+			 
+			<span class="lientelechargement"><a class="lientelechargement" href="page_1.html">Suivant</a></span></div><br/>
+			 
+		</div><hr/></div><p class="licence">Copyright &copy;2008 Régis POUILLER.
+			Aucune reproduction, même partielle, ne peut être faite
+			de ce site et de l'ensemble de son contenu : textes, documents, images, etc
+			sans l'autorisation expresse de l'auteur. Sinon vous encourez selon la loi jusqu'à 3 ans de prison et jusqu'à 300 000 E
+			de dommages et intérêts. Droits de diffusion permanents accordés à Developpez LLC. Cette page est déposée à la <a href="http://www.sacd.fr/" >SACD</a>.</p>
+												</td>
+										</tr>
+									</table></div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<table width="100%" cellpadding="4" class="cachee">
+				<tr>
+					<td class="titrepied">
+			  Vos questions techniques : <b><a href="http://www.developpez.net/forums/" >forum d'entraide Accueil</a></b> - Publiez vos articles, tutoriels, cours
+			  et rejoignez-nous dans l'&eacute;quipe de r&eacute;daction du club d'entraide des d&eacute;veloppeurs francophones. <a href="http://club.developpez.com/contacts/">Nous contacter</a>
+	
+			  - Copyright 2000..2005 www.developpez.com
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</body>
+</html>
+
+	

@@ -1,0 +1,1092 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>R&eacute;seau sous Linux :: Informations relatives &agrave; l'IP</TITLE>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-8.html" REL=next>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-6.html" REL=previous>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc7" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-8.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-6.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc7"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s7">7. Informations relatives &agrave; l'IP</A></H2>
+
+<P>Cette section traite d'informations sp&eacute;cifiques &agrave; l'IP. 
+<H2><A NAME="ss7.1">7.1 DHCP et DHCPD</A>
+</H2>
+
+<P>DHCP est l'acronyme de «Dynamic Host Configuration Protocol» (Protocole
+de configuration dynamique d'un h&ocirc;te). La cr&eacute;ation de DHCP a rendu 
+la configuration du r&eacute;seau avec plusieurs h&ocirc;tes extr&ecirc;mement simple.
+Au lieu de configurer chaque h&ocirc;te s&eacute;par&eacute;ment vous pouvez assigner tous
+les param&egrave;tres communs &agrave; l'ensemble des h&ocirc;tes utilisant un serveur DHCP.
+<P>
+<P>Chaque fois qu'un h&ocirc;te d&eacute;marre il diffuse un paquet sur le r&eacute;seau. Ce paquet
+est un appel vers tous les serveurs DHCP situ&eacute;s sur le m&ecirc;me segment pour
+configurer l'h&ocirc;te.
+<P>DHCP est extr&ecirc;mement utile pour assigner des choses comme l'adresse IP, le
+masque de r&eacute;seau et la passerelle de chaque h&ocirc;te.
+<P>
+<H2><A NAME="ss7.2">7.2 R&eacute;glage d'un client DHCP pour les utilisateurs de LinuxConf</A>
+</H2>
+
+<P>Sous linux,  d&eacute;marrez le programme linuxconf en tant que
+super-utilisateur.
+Ce programme est disponible avec toutes les versions de redhat et
+fonctionne sous X aussi bien qu'en mode console. Il fonctionne &eacute;galement avec
+les distributions Suse et Caldera.
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+Select Networking
+----------------->Basic Host Information
+----------------->Select Enable
+----------------->Set Config Mode DHCP
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<H2><A NAME="ss7.3">7.3 R&eacute;glage d'un serveur DHCP sous Linux</A>
+</H2>
+
+<P><B>R&eacute;cup&eacute;rez DHCPD s'il n'est pas d&eacute;j&agrave; install&eacute; sur votre machine.</B>
+<A HREF="index.php?ref=Net-HOWTO-html/ftp://ftp.isc.org/isc/dhcp/">T&eacute;l&eacute;charger DHCPD</A><P><B><EM>Note Br&egrave;ve: SOYEZ CERTAINS D'AVOIR L'OPTION MULTICAST INSTALL&Eacute;E
+DANS LE NOYAU.</EM></B>
+<P><EM>Si vous n'avez pas de distribution binaire pour votre version de linux, vous devrez compiler DHCPD.</EM>
+<P>&Eacute;ditez /etc/rc.d/rc.local pour prendre en compte l'ajout d'une route vers
+255.255.255.255.
+<P><B><EM>Extrait du fichier README de DHCPd :</EM></B>
+<P>
+<P>
+<P>Afin que dhcpd fonctionne correctement avec des clients difficiles
+(par exemple Windows 95), il doit &ecirc;tre en mesure d'envoyer des paquets
+vers l'adresse 255.255.255.255. Malheureusement, Linux insiste pour
+changer l'adresse 255.255.255.255 en l'adresse de diffusion du sous-r&eacute;seau
+local (ici, 192.5.5.223). Il en r&eacute;sulte une violation du protocole
+DHCP, et alors que de nombreux clients DHCP ne s'aper&ccedil;oive pas de ce 
+probl&egrave;me, d'autres (par ex, tous les clients DHCP Microsoft) le font.
+Les clients ayant ce probl&egrave;me appara&icirc;tront comme ne voyant pas les messages
+DHCPOFFER venant du serveur.
+<P>
+<P>Sous le compte root, tapez ce qui suit :
+<P>route add -host 255.255.255.255 dev eth0
+<P>Si le message suivant apparait :
+<P>255.255.255.255: Unknown host
+<P>Essayez d'ajouter la ligne suivante &agrave; votre fichier /etc/hosts :
+<P>255.255.255.255 dhcp
+<P>Puis r&eacute;essayez :
+<P>route add -host dhcp dev eth0
+<P>
+<H3>Options de DHCPD</H3>
+
+<P>Maintenant vous devez configurer DHCPd. Pour cela vous devez cr&eacute;er ou &eacute;diter
+le fichier /etc/dhcpd.conf. Il existe une interface graphique pour la
+configuration de dhcpd sous 
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.solucorp.qc.ca">linuxconf</A>. On configure et r&egrave;gle ainsi DHCPD tr&egrave;s facilement.
+<P>Si vous voulez le configurer &agrave; la main, suivez les instructions qui suivent.
+Je sugg&egrave;re de le faire au moins une fois &agrave; la main. Cela vous aidera pour
+faire des diagnostiques, ce qu'une interface graphique ne peut vous offrir.
+Malheureusement Microsoft n'y croit pas.
+<P>Le plus facile est d'assigner des adresses IP de mani&egrave;re al&eacute;atoire.
+Ci-dessous un exemple de fichier de configuration montrant le type 
+de r&eacute;glage.
+<P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# Sample /etc/dhcpd.conf
+# (add your comments here)
+default-lease-time 1200;
+max-lease-time 9200;
+option subnet-mask 255.255.255.0;
+option broadcast-address 192.168.1.255;
+option routers 192.168.1.254;
+option domain-name-servers 192.168.1.1, 192.168.1.2;
+option domain-name "mydomain.org";
+
+subnet 192.168.1.0 netmask 255.255.255.0 {
+range 192.168.1.10 192.168.1.100;
+range 192.168.1.150 192.168.1.200;
+}
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Cela permet au serveur DHCP d'assigner au client une adresse IP comprise
+entre 192.168.1.10 et 192.168.1.100 ou bien 192.168.1.150 et 192.168.1.200. 
+<P>
+<P>Une adresse IP sera allou&eacute;e pendant 1200 secondes si le client ne demande pas
+plus. Autrement l'allocation maximum permise sera 9200 secondes. Le serveur 
+envoie les param&egrave;tres suivants au client : 
+<P>
+<PRE>
+Utilisez 255.255.255.0 comme masque de sous-r&eacute;seau
+Utilisez 192.168.1.255 comme adresse de diffusion
+Utilisez 192.168.1.254 comme passerelle par d&eacute;faut 
+Utilisez 192.168.1.1 et 192.168.1.2 comme serveurs DNS.
+</PRE>
+<P>Si vous sp&eacute;cifiez un serveur WINS pour vos clients Windows, vous devez ins&eacute;rer
+l'option suivante dans le fichier dhcpd.conf.
+<P>option netbios-name-servers 192.168.1.1;
+<P>Vous pouvez aussi assigner des adresses IP sp&eacute;cifiques bas&eacute;es sur une adresse
+ethernet <B>MAC</B>, par exemple
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  host haagen {
+     hardware ethernet 08:00:2b:4c:59:23;
+     fixed-address 192.168.1.222;
+}
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Cela assignera l'adresse IP 192.168.1.222 au client ayant une adresse ethernet
+<B>MAC</B> de 08:00:2b:4c:59:23.
+<P>
+<H3>D&eacute;marrage du serveur</H3>
+
+<P>Dans la plupart des cas, l'installation de DHCP ne cr&eacute;e pas le fichier
+dhcpd.leases. D&egrave;s lors, avant de d&eacute;marrer le serveur, vous devez cr&eacute;er un 
+fichier vide :
+<P><EM>touch /var/state/dhcp/dhcpd.leases</EM>
+<P>Pour d&eacute;marrer le serveur DHCP, tapez simplement (ou bien ins&eacute;rez-le dans
+les scripts de d&eacute;marrage)
+<P><EM> /usr/sbin/dhcpd</EM>
+<P>Cela d&eacute;marre dhcpd sur le dispositif eth0. Si vous devez le d&eacute;marrer sur un
+autre dispositif, tapez simplement
+<P><EM> /usr/sbin/dhcpd eth1</EM>
+<P>Si vous voulez tester une configuration bizarre vous pouvez d&eacute;marrer
+dhcpd en mode d&eacute;bogage. En tapant la commande suivante, vous pourrez voir
+exactement ce qui se passe sur le serveur.
+<P><EM>  /usr/sbin/dhcpd -d -f</EM>
+<P><B>D&eacute;marrez un client</B> et jetez un coup d'oeil sur la console du serveur.
+Vous verrez appara&icirc;tre un grand nombre de messages de d&eacute;bogage. 
+<P><B><EM>C'est fini</EM></B>
+<P>
+<P>
+<P>
+<P>
+<H2><A NAME="ss7.4">7.4 EQL - &eacute;galiseur de charge &agrave; lignes multiples</A>
+</H2>
+
+<P>Le nom du p&eacute;riph&eacute;rique EQL est `<CODE>eql</CODE>'. Avec les sources 
+standards du noyau vous ne pouvez avoir qu'un seul p&eacute;riph&eacute;rique 
+EQL par machine. EQL permet d'utiliser plusieurs lignes point &agrave; point 
+telles que PPP, SLIP ou PLIP comme si c'&eacute;tait un seul lien logique de 
+transport tcp/ip. C'est souvent moins cher d'utiliser plusieurs lignes 
+&agrave; faible d&eacute;bit que d'avoir une ligne &agrave; haut d&eacute;bit.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Network device support --->
+    [*] Network device support
+    &lt;*> EQL (serial line load balancing) support
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Pour supporter ce m&eacute;canisme la machine &agrave; l'autre bout de la ligne
+doit &eacute;galement supporter EQL.
+Linux, Livingstone Portmasters et de nouveaux serveurs de ligne supportent 
+des syst&egrave;mes compatibles.
+<P>Pour configurer EQL vous avez besoin des outils eql, disponibles sur :
+<A HREF="index.php?ref=Net-HOWTO-html/ftp://metalab.unc.edu/pub/linux/system/Serial/eql-1.2.tar.gz">metalab.unc.edu</A>.
+<P>La configuration est plut&ocirc;t directe. Vous commencez par configurer 
+l'interface eql. C'est exactement comme un autre p&eacute;riph&eacute;rique 
+r&eacute;seau. Vous configurez l'adresse IP et le mtu en utilissant l'outil
+<EM>ifconfig</EM> , comme ceci :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# ifconfig eql 192.168.10.1 mtu 1006
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Ensuite vous devez initialiser manuellement chacune des lignes que vous allez 
+utiliser. Ce peut &ecirc;tre toute combinaison de p&eacute;riph&eacute;riques 
+r&eacute;seau point &agrave; point. La fa&ccedil;on d'initialiser les 
+connexions d&eacute;pend du type de lien, voyez les paragraphes 
+appropri&eacute;s pour d'autres informations.
+<P>Enfin vous devez associer le lien s&eacute;rie et le dispositif EQL, cela 
+s'appelle `asservissement' (enslaving) et est r&eacute;alis&eacute; avec la 
+commande
+<EM>eql_enslave</EM> comme suit :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# eql_enslave eql sl0 28800
+root# eql_enslave eql ppp0 14400
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Le param&egrave;tre `<EM>estimated speed</EM>' que vous fournissez &agrave;  
+<EM>eql_enslave</EM> ne fait rien directement. Il est utilis&eacute; par le gestionnaire 
+EQL pour d&eacute;terminer comment les datagrammes vont se r&eacute;partir 
+sur ce p&eacute;riph&eacute;rique, aussi vous pouvez r&eacute;gler 
+l'&eacute;quilibrage des lignes en jouant avec cette valeur.
+<P>Pour lib&eacute;rer une ligne d'un p&eacute;riph&eacute;rique EQL,  
+utilisez la commande <EM>eql_emancipate</EM> comme ci-dessous :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# eql_emancipate eql sl0
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Vous ajoutez le routage comme vous le feriez pour tout lien point 
+&agrave; point, sauf que vos routes doivent se rapporter au dispositif
+<CODE>eql</CODE> plut&ocirc;t qu'aux p&eacute;riph&eacute;riques s&eacute;ries 
+eux-m&ecirc;mes. Ainsi vous devriez utiliser :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# route add default eql
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Le gestionnaire EQL fut d&eacute;velopp&eacute; par Simon Janes, <CODE>simon@ncm.com</CODE>.
+<P>
+<P>
+<H2><A NAME="ss7.5">7.5 Enregistrement IP (IP Accounting) (pour Linux-2.0)</A>
+</H2>
+
+<P>Les possibilit&eacute;s d'enregistrement IP du noyau Linux vous permettent 
+de recueillir et d'analyser les donn&eacute;es d'utilisation du r&eacute;seau.
+Les donn&eacute;es collect&eacute;es comprennent le nombre de paquets et le 
+nombre d'octets en cumul depuis la derni&egrave;re remise &agrave; z&eacute;ro. 
+Vous avez &agrave; votre disposition une grande vari&eacute;t&eacute; de 
+r&eacute;glages pour obtenir les donn&eacute;es que vous d&eacute;sirez. Cette option a &eacute;t&eacute;
+enlev&eacute;e du 2.1.102, car l'ancien dispositif pare-feu bas&eacute; sur
+ipfwadm a &eacute;t&eacute; remplac&eacute; par ``ipfwchains''.
+<P><B>Options de compilation noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Networking options  --->
+    [*] IP: accounting
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Apr&egrave;s avoir compil&eacute; et install&eacute; le noyau vous devez 
+utiliser la commande
+<EM>ipfwadm</EM> pour configurer l'enregistrement IP. Il y a diff&eacute;rentes 
+possibilit&eacute;s pour choisir les informations &agrave; enregistrer. 
+J'ai pris un exemple simplifi&eacute; qui pourrait vous &ecirc;tre utile;
+lisez plut&ocirc;t la page de manuel <EM>ipfwadm</EM> pour plus d'informations.
+<P>Scenario : Vous avez un r&eacute;seau Ethernet qui est reli&eacute; &agrave; 
+l'Internet via une liaison PPP.
+Sur l'Ethernet vous avez une machine qui offre un grand nombre de services et 
+vous voulez savoir quel trafic est engendr&eacute; par le trafic 
+ftp et ww, aussi bien que le trafic total tcp et udp. 
+<P>Vous pouvez utiliser une commande qui ressemble &agrave; ceci, qui se pr&eacute;sente
+comme un script shell :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+        #!/bin/sh
+        #
+        # Donne les r&eacute;glages d'enregistrement
+        ipfwadm -A -f
+        #
+        # Met en place les raccourcis
+        localnet=44.136.8.96/29
+        any=0/0
+        # Ajoute des r&eacute;glages pour le segment Ethernet local
+        ipfwadm -A in  -a -P tcp -D $localnet ftp-data
+        ipfwadm -A out -a -P tcp -S $localnet ftp-data
+        ipfwadm -A in  -a -P tcp -D $localnet www
+        ipfwadm -A out -a -P tcp -S $localnet www
+        ipfwadm -A in  -a -P tcp -D $localnet
+        ipfwadm -A out -a -P tcp -S $localnet
+        ipfwadm -A in  -a -P udp -D $localnet
+        ipfwadm -A out -a -P udp -S $localnet
+        #
+        # R&eacute;glages par d&eacute;faut
+        ipfwadm -A in  -a -P tcp -D $any ftp-data
+        ipfwadm -A out -a -P tcp -S $any ftp-data
+        ipfwadm -A in  -a -P tcp -D $any www
+        ipfwadm -A out -a -P tcp -S $any www
+        ipfwadm -A in  -a -P tcp -D $any
+        ipfwadm -A out -a -P tcp -S $any
+        ipfwadm -A in  -a -P udp -D $any
+        ipfwadm -A out -a -P udp -S $any
+        #
+        # Liste les r&eacute;glages
+        ipfwadm -A -l -n
+        #
+        
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Les noms ``ftp-data'' et ``www'' se r&eacute;f&egrave;rent aux lignes du fichier
+<CODE>/etc/services</CODE>.
+La derni&egrave;re commande liste chacune des r&egrave;gles d'enregistrement et 
+affiche le total.
+<P>Il est important de noter, lorsque l'on analyse les 
+enregistrement IP,  
+que <B>les totaux sont incr&eacute;ment&eacute;s &agrave; chaque fois</B>, 
+donc pour connaitre les diff&eacute;rences vous devez ex&eacute;cuter les 
+op&eacute;rations math&eacute;matiques n&eacute;cessaires.
+Par exemple si je veux savoir combien de donn&eacute;es ne venaient pas de 
+ftp, telnet, rlogin ou www je dois soustraire les totaux individuels  
+correspondant &agrave; chaque port.
+<BLOCKQUOTE><CODE>
+<PRE>
+root# ipfwadm -A -l -n
+IP accounting rules
+ pkts bytes dir prot source               destination          ports
+    0     0 in  tcp  0.0.0.0/0            44.136.8.96/29       * -> 20
+    0     0 out tcp  44.136.8.96/29       0.0.0.0/0            20 -> *
+   10  1166 in  tcp  0.0.0.0/0            44.136.8.96/29       * -> 80
+   10   572 out tcp  44.136.8.96/29       0.0.0.0/0            80 -> *
+  252 10943 in  tcp  0.0.0.0/0            44.136.8.96/29       * -> *
+  231 18831 out tcp  44.136.8.96/29       0.0.0.0/0            * -> *
+    0     0 in  udp  0.0.0.0/0            44.136.8.96/29       * -> *
+    0     0 out udp  44.136.8.96/29       0.0.0.0/0            * -> *
+    0     0 in  tcp  0.0.0.0/0            0.0.0.0/0            * -> 20
+    0     0 out tcp  0.0.0.0/0            0.0.0.0/0            20 -> *
+   10  1166 in  tcp  0.0.0.0/0            0.0.0.0/0            * -> 80
+   10   572 out tcp  0.0.0.0/0            0.0.0.0/0            80 -> *
+  253 10983 in  tcp  0.0.0.0/0            0.0.0.0/0            * -> *
+  231 18831 out tcp  0.0.0.0/0            0.0.0.0/0            * -> *
+    0     0 in  udp  0.0.0.0/0            0.0.0.0/0            * -> *
+    0     0 out udp  0.0.0.0/0            0.0.0.0/0            * -> *
+# 
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>
+<H3>Enregistrement IP (IP Accounting) (pour Linux-2.2)</H3>
+
+<P>On acc&egrave;de au nouveau code d'enregistrement par des ``cha&icirc;nes IP pare-feu''.
+Voir 
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.adelaide.net.au/~rustcorp/ipfwchains/ipfwchains.html">La page d'accueil des cha&icirc;nes IP</A> pour plus d'informations. Entre autres
+vous devrez utiliser <EM>ipchains</EM> au lieu de <EM>ipfwadm</EM> pour configurer
+vos filtres. (d'apr&egrave;s <CODE>Documentations/Changes</CODE> dans les sources du
+dernier noyau).
+<P>
+<P>
+<P>
+<H2><A NAME="ss7.6">7.6 IP Aliasing</A>
+</H2>
+
+<P>Il y a des applications o&ugrave; &ecirc;tre en mesure d'affecter 
+plusieurs adresses IP &agrave; un seul p&eacute;riph&eacute;rique r&eacute;seau pourrait &ecirc;tre utile.
+Certains fournisseurs d'acc&egrave;s &agrave; l'Internet utilise souvent cette 
+possibilit&eacute; pour fournir des offres www et ftp `&agrave; la carte' pour 
+leurs clients. Vous pouvez vous r&eacute;f&eacute;rer au mini-HOWTO IP-Aliasing
+pour plus d'informations.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Networking options  --->
+    ....
+    [*] Network aliasing
+    ....
+    &lt;*> IP: aliasing support
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Apr&egrave;s avoir compil&eacute; et install&eacute; le noyau avec le support 
+IP_Alias, la configuration est tr&egrave;s simple. Les alias sont ajout&eacute;s 
+aux p&eacute;riph&eacute;riques r&eacute;seau virtuels  associ&eacute;s au p&eacute;riph&eacute;rique r&eacute;seau r&eacute;el.
+Une simple convention de noms s'applique pour p&eacute;riph&eacute;riques : 
+<CODE>&lt;nom de p&eacute;riph&eacute;rique> : &lt;num&eacute;ro de p&eacute;riph&eacute;rique virtuel&gt;</CODE>, par ex. <CODE>eth0:0</CODE>,
+<CODE>ppp0:10</CODE> etc. Notez que le gestionnaire de p&eacute;riph&eacute;rique ifname:number
+ne peut &ecirc;tre configur&eacute; <EM>qu'apr&egrave;s</EM> le r&eacute;glage de l'interface principale.
+<P>Par exemple, supposons que vous ayez un r&eacute;seau Ethernet avec 
+simultan&eacute;ment deux sous-r&eacute;seaux IP et que vous vouliez que votre 
+machine ait un acc&egrave;s direct aux deux, vous pouvez faire quelque chose 
+comme ceci :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+        root# ifconfig eth0 192.168.1.1 netmask 255.255.255.0 up
+        root# route add -net 192.168.1.0 netmask 255.255.255.0 eth0
+
+        root# ifconfig eth0:0 192.168.10.1 netmask 255.255.255.0 up
+        root# route add -net 192.168.10.0 netmask 255.255.255.0 eth0:0
+        
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Pour supprimer un alias vous ajoutez simplement un `<CODE>-</CODE>' au bout de son nom 
+et et vous faites aussi simplement que &ccedil;a :
+<BLOCKQUOTE><CODE>
+<PRE>
+       root# ifconfig eth0:0- 0
+       
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Toutes les routes associ&eacute;es avec cet alias seront enlev&eacute;es 
+automatiquement.
+<P>
+<H2><A NAME="ss7.7">7.7 IP Pare-feu (Firewall) (pour Linux-2.0)</A>
+</H2>
+
+<P>Le pare-feu IP et les publications le concernant sont trait&eacute;s de
+mani&egrave;re plus approfondie dans le 
+<A HREF="index.php?ref=Net-HOWTO-html/Firewall-HOWTO.html">Firewall-HOWTO</A>. Le pare-feu IP vous 
+permet de s&eacute;curiser votre machine contre les acc&egrave;s r&eacute;seau 
+non-autoris&eacute;s en filtrant, ou acceptant, des datagrammes venant de, ou 
+allant vers, des adresses IP de votre choix.
+Il y a diff&eacute;rentes r&egrave;gles : le filtrage en entr&eacute;e, le 
+filtrage en sortie, et le filtrage en retransmission. Les r&egrave;gles en 
+entr&eacute;e s'appliquent aux datagrammes qui sont re&ccedil;us par un 
+dispositif r&eacute;seau. Les r&egrave;gles en sortie s'appliquent aux 
+datagrammes qui sont &eacute;mis par un dispositif r&eacute;seau. Les 
+r&egrave;gles en retransmission s'appliquent aux datagrammes qui ne sont pas 
+pour cette machine, c'est &agrave; dire les datagrammes qui seront 
+rerout&eacute;s.
+<P><B>Options de compilation noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Networking options  --->
+    [*] Network firewalls
+    ....
+    [*] IP: forwarding/gatewaying
+    ....
+    [*] IP: firewalling
+    [ ] IP: firewall packet logging
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>La configuration du pare-feu IP est r&eacute;alis&eacute;e en utilisant la 
+commande  <EM>ipfwadm</EM>.
+Comme mentionn&eacute; plus haut, la s&eacute;curit&eacute; n'est pas ma 
+sp&eacute;cialit&eacute;, aussi, bien que je vous pr&eacute;sente un exemple 
+utilisable par vous-m&ecirc;me, faites des recherches et 
+mettez au point vos propres r&egrave;glages si la s&eacute;curit&eacute; est 
+importante pour vous.
+<P>Vraisemblablement l'utilisation la plus courante du pare-feu IP est lorsque 
+vous utilisez votre machine Linux comme routeur et passerelle pare-feu et que
+vous voulez 
+prot&eacute;ger votre r&eacute;seau local contre les acc&egrave;s 
+ext&eacute;rieurs non autoris&eacute;s.
+<P>La configuration suivante est due &agrave; Arnt Gulbrandsen,
+<CODE>&lt;agulbra@troll.no&gt;</CODE>.
+<P>L'exemple d&eacute;crit une configuration de pare-feu pour une machine Linux 
+/pare-feu/routeur illustr&eacute;e par ce diagramme :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+-                                   -
+ \                                  | 172.16.37.0
+  \                                 |   /255.255.255.0
+   \                 ---------      |
+    |  172.16.174.30 | Linux |      |
+NET =================|  f/w  |------|    ..37.19
+    |    PPP         | router|      |  --------
+   /                 ---------      |--| Mail |
+  /                                 |  | /DNS |
+ /                                  |  --------
+-                                   -
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Les commandes suivantes doivent &ecirc;tre normalement plac&eacute;es dans un 
+fichier <CODE>rc</CODE> de telle sorte qu'elles seront d&eacute;marr&eacute;es 
+automatiquement &agrave; chaque red&eacute;marrage du syst&egrave;me. Pour une 
+s&eacute;curit&eacute; maximum, elles devront &ecirc;tre effectu&eacute;es
+apr&egrave;s la configuration des interfaces r&eacute;seau,  
+mais avant le montage de ces interfaces pour 
+&eacute;viter que quelqu'un puisse se connecter pendant que la machine 
+pare-feu reboute.
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+        #!/bin/sh
+
+        # Nettoie la table des r&egrave;gles de 'Forwarding'
+        # Change le r&eacute;glage par d&eacute;faut en 'accept'
+        #
+        /sbin/ipfwadm -F -f
+        /sbin/ipfwadm -F -p accept
+        #
+        # .. et pour 'Incoming'
+        #
+        /sbin/ipfwadm -I -f
+        /sbin/ipfwadm -I -p accept
+
+        # En premier, d&eacute;v&eacute;rouille l'interface PPP 
+        # J'aimerais bien utiliser '-a deny' au lieu de '-a reject -y' mais
+        # il serait alors impossible d'&eacute;tablir des connexions &eacute;galement sur
+        # cette interface. L'utilisation de -o fait en sorte que tous
+        # les datagrammes rejet&eacute;s sont enregistr&eacute;s. Cela occupe de l'espace
+        # disque avec pour compensation la connaissance sur l'attaque due
+        # &agrave; une erreur de configuration.
+        #
+        /sbin/ipfwadm -I -a reject -y -o -P tcp -S 0/0 -D 172.16.174.30
+
+        # Rejette certains types de paquets visiblement faux:
+        # Rien ne doit venir des adresses multicast/anycast/broadcast s
+        #
+        /sbin/ipfwadm -F -a deny -o -S 224.0/3 -D 172.16.37.0/24
+        #
+        # et aucune chose venant du r&eacute;seau loopback ne doit &ecirc;tre vu sur l'air
+        #
+        /sbin/ipfwadm -F -a deny -o -S 127.0/8 -D 172.16.37.0/24
+
+        # accepte les connexions entrantes SMTP et DNS, mais seules pour
+        # le serveur  de courrier et le serveur de noms
+        #
+        /sbin/ipfwadm -F -a accept -P tcp -S 0/0 -D 172.16.37.19 25 53
+        #
+        # DNS utilise UDP aussi bien que TCP, ce qui l'autorise donc quand
+        # le serveur de noms est interrog&eacute;
+        #
+        /sbin/ipfwadm -F -a accept -P udp -S 0/0 -D 172.16.37.19 53
+        #
+        # mais pas de "r&eacute;ponses" arrivant sur les ports dangereux tels que
+        # NFS et l'extension NFS de Larry McVoy. Si vous utilisez squid
+        # ajoutez son port ici.
+        #
+        /sbin/ipfwadm -F -a deny -o -P udp -S 0/0 53 \
+                -D 172.16.37.0/24 2049 2050
+
+        # les r&eacute;ponses aux autres ports utilisateurs sont autoris&eacute;es
+        #
+        /sbin/ipfwadm -F -a accept -P udp -S 0/0 53 \
+                -D 172.16.37.0/24 53 1024:65535
+
+        # Rejette les connexions entrantres vers identd
+        # Nous utilisons 'reject' dans ce cas en sorte qu'il soit dit &agrave; l'h&ocirc;te
+        # entrant de ne pas pers&eacute;v&eacute;rer, sinon nous devrons attendre que
+        # identd s'arr&ecirc;te.
+        #
+        /sbin/ipfwadm -F -a reject -o -P tcp -S 0/0 -D 172.16.37.0/24 113
+
+        # Accepte des connexions sur des services en provenance des r&eacute;seaux
+        # 192.168.64 et 192.168.65, qui sont des amis de confiance.
+        #
+        /sbin/ipfwadm -F -a accept -P tcp -S 192.168.64.0/23 \
+                -D 172.16.37.0/24 20:23
+
+        # accepte et laisse passer tout ce qui vient de l'int&eacute;rieur
+        #
+        /sbin/ipfwadm -F -a accept -P tcp -S 172.16.37.0/24 -D 0/0
+
+        # rejette la plupart des autres connexions TCP entrantes et les
+        # enregistre (ajoutez 1:1023 si ftp ne fonctionne pas)
+        #
+        /sbin/ipfwadm -F -a deny -o -y -P tcp -S 0/0 -D 172.16.37.0/24
+
+        # ... pour UDP &eacute;galement
+        #
+        /sbin/ipfwadm -F -a deny -o -P udp -S 0/0 -D 172.16.37.0/24
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>De bonnes configurations pare-feu sont difficiles &agrave; faire. Cet exemple peut 
+&ecirc;tre un bon point de d&eacute;part pour vous. La page de manuel
+<EM>ipfwadm</EM>
+vous aidera pour savoir comment utiliser cet outil. Si vous voulez 
+configurer un pare-feu, demandez autour de vous et recueillez des avis venant 
+de sources de confiance et prenez contact avec quelqu'un qui est &agrave;
+l'ext&eacute;rieur pour tester votre 
+configuration et en v&eacute;rifier la fiabilit&eacute;.
+<P>
+<P>
+<H3>Pare-feu IP (pour Linux-2.2)</H3>
+
+<P>On acc&egrave;de au nouveau code d'enregistrement par des ``cha&icirc;nes pare-feu IP''.
+Voir 
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.adelaide.net.au/~rustcorp/ipfwchains/ipfwchains.html">La page d'accueil des cha&icirc;nes IP</A> pour plus d'informations. Entre autres
+vous devrez utiliser <EM>ipchains</EM> au lieu de <EM>ipfwadm</EM> pour configurer
+vos filtres. (D'apr&egrave;s <CODE>Documentations/Changes</CODE> dans les sources du
+dernier noyau).
+<P>Nous sommes conscients du fait que ce n'est malheureusement plus
+d'actualit&eacute; et nous oeuvrons actuellement pour que cette section soit
+plus &agrave; jour. Vous pouvez en esp&eacute;rer une en 1999.
+<P> 
+<P>
+<H2><A NAME="ss7.8">7.8 Encapsulation IPIP</A>
+</H2>
+
+<P>Pourquoi vouloir encapsuler des paquets IP dans d'autres paquets IP? Cela
+semble bizarre si vous n'avez jamais vu d'applications auparavant.
+Il y a deux endroits o&ugrave; c'est utilis&eacute; : le Mobile-IP
+et l'IP-Multicast. C'est dans un environnement qui est 
+peut-&ecirc;tre le plus largement
+utilis&eacute; et qui est le moins connu : le radio-amateurisme.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Networking options  --->
+    [*] TCP/IP Networking
+    [*] IP: forwarding/gatewaying
+    ....
+    &lt;*> IP tunelling
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Les p&eacute;riph&eacute;riques IP tunnel s'appellent `tunl0', `tunl1', etc..
+<P>"Mais pourquoi ?" D'accord. D'accord. Les r&egrave;gles de routage classiques
+sp&eacute;cifient qu'un r&eacute;seau IP comprend une adresse IP et un masque
+de r&eacute;seau. Ceci fournit un ensemble d'adresses contigu&euml;s qui
+peuvent toutes &ecirc;tre rout&eacute;es par l'interm&eacute;diaire
+d'une seule entr&eacute;e de 
+routage. Cela marche, mais signifie que vous ne pouvez utiliser
+une seule adresse uniquement lorsque vous &ecirc;tes 
+connect&eacute; &agrave; un point du r&eacute;seau auquelle elle appartient.
+Dans la plupart des cas, il n'y a pas de probl&egrave;mes,
+mais si vous &ecirc;tes  
+en mouvement alors vous ne pouvez pas rester connect&eacute;
+au m&ecirc;me endroit tout le temps. L'encapsulation  IP/IP ( IP tunneling)
+vous permet de passer outre cette contrainte en permettant aux paquets
+destin&eacute;s &agrave; votre adresse d'&ecirc;tre envelopp&eacute;s et
+redirig&eacute;s vers une autre adresse. Si vous savez que vous allez
+op&eacute;rer depuis un autre r&eacute;seau IP pour quelques temps, vous
+pouvez r&eacute;gler une machine qui est chez vous pour accepter des
+paquets destin&eacute;s &agrave; votre adresse IP et les rediriger vers
+l'adresse que vous allez utiliser provisoirement.
+<P>
+<P>
+<H3>Une configuration de r&eacute;seau avec tunneling.</H3>
+
+<P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+ 192.168.1.24                         192.168.2.24
+
+     -                                    -
+     |      ppp0 =           ppp0 =       |
+     |  aaa.bbb.ccc.ddd  fff.ggg.hhh.iii  |
+     |                                    |
+     |   /-----\                 /-----\  |
+     |   |     |        //       |     |  |
+     |---|  A  |------//---------|  B  |  |
+     |   |     |    //           |     |  |
+     |   \-----/                 \-----/  |
+     |                                    |
+     -                                    -
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>
+<P>Ce diagramme montre une autre raison possible d'utiliser l'encapsulation IPIP :
+le r&eacute;seau priv&eacute; virtuel. Cet exemple pr&eacute;suppose que vous
+ayez deux machines chacune avec une seule connexion Internet. Chaque h&ocirc;te
+a une seule adresse IP. Derri&egrave;re chacune de ces machines se trouve
+des r&eacute;seaux priv&eacute;s locaux configur&eacute;s avec des adresses IP
+r&eacute;serv&eacute;es. Supposez que vous vouliez permettre &agrave; chacun
+des h&ocirc;tes du groupe A de se connecter &agrave; n'importe quel h&ocirc;te
+du groupe B, comme s'ils &eacute;taient vraiment connect&eacute;s &agrave;
+l'Internet via un routage r&eacute;seau. L'encapsulation IPIP vous permettra
+de le faire. &Agrave; noter que l'encapsulation ne vous permettra pas  
+de faire en sorte que chacun des h&ocirc;tes des 
+r&eacute;seaux A et B puissent parler &agrave; n'importe qui sur l'Internet,
+vous aurez toujours besoin de choses comme le masquage IP pour pouvoir le faire.
+L'encapsulation est normalement accomplie par une machine fonctionnant
+comme routeur.
+<P>Le routeur Linux `<CODE>A</CODE>' sera configur&eacute; comme suit :
+<BLOCKQUOTE><CODE>
+<PRE>
+        #!/bin/sh
+        PATH=/sbin:/usr/sbin
+        mask=255.255.255.0
+        remotegw=fff.ggg.hhh.iii
+        #
+        # configuration &eacute;thernet
+        ifconfig eth0 192.168.1.1 netmask $mask up
+        route add -net 192.168.1.0 netmask $mask eth0
+        #
+        # ppp0 configuration (start ppp link, set default route)
+        pppd
+        route add default ppp0
+        #
+        # configuration du p&eacute;riph&eacute;rique de tunneling
+        ifconfig tunl0 192.168.1.1 up
+        route add -net 192.168.2.0 netmask $mask gw $remotegw tunl0
+        
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Le routeur Linux `<CODE>B</CODE>' sera configur&eacute; comme suit :
+<BLOCKQUOTE><CODE>
+<PRE>
+        #!/bin/sh
+        PATH=/sbin:/usr/sbin
+        mask=255.255.255.0
+        remotegw=aaa.bbb.ccc.ddd
+        #
+        # configuration &eacute;thernet
+        ifconfig eth0 192.168.2.1 netmask $mask up
+        route add -net 192.168.2.0 netmask $mask eth0
+        #
+        # ppp0 configuration (start ppp link, set default route)
+        pppd
+        route add default ppp0
+        #
+        # configuration du p&eacute;riph&eacute;rique de tunneling
+        ifconfig tunl0 192.168.2.1 up
+        route add -net 192.168.1.0 netmask $mask gw $remotegw tunl0
+        
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>La commande :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# route add -net 192.168.1.0 netmask $mask0 gw $remotegw tunl0
+</PRE>
+</CODE></BLOCKQUOTE>
+
+dit : `Envoyer tous les datagrammes destin&eacute;s &agrave; 
+<CODE>192.168.1.0/24</CODE> dans un paquet d'encapsulation ayant pour adresses de
+destination
+<CODE>aaa.bbb.ccc.ddd</CODE>'.
+<P>Notez que les configurations sont invers&eacute;es &agrave; l'autre bout.
+Le p&eacute;riph&eacute;rique tunnel utilise
+`<CODE>gw</CODE>' dans la commande route comme <EM>destination</EM> du paquet IP
+o&ugrave; se trouve le datagramme qu'il doit router.
+Cette machine doit savoir comment `d&eacute;sencapsuler' les paquets IPIP,
+c'est &agrave; dire qu'elle doit aussi &ecirc;tre configur&eacute;e comme
+p&eacute;riph&eacute;rique tunnel.
+<P>
+<P>
+<H3>Une configuration d'h&ocirc;te pour l'encapsulation IPIP.</H3>
+
+<P>Ce n'est pas tout un r&eacute;seau que vous aurez &agrave; router. Vous  
+pouvez par exemple ne router qu'une seule adresse IP. Dans ce cas vous
+devrez configurer le p&eacute;riph&eacute;rique
+<CODE>tunl</CODE> sur la machine `distante' avec sa propre adresse IP et &agrave;
+l'extr&eacute;mit&eacute; A n'utiliser qu'une route h&ocirc;te (avec Proxy
+Arp) plut&ocirc;t qu'une route r&eacute;seau via le p&eacute;riph&eacute;rique 
+tunnel. Refaisons et modifions notre configuration de mani&egrave;re 
+appropri&eacute;e. Maintenant nous avons seulement l'h&ocirc;te
+`<CODE>B</CODE>' qui veut agir comme si il &eacute;tait &agrave; la fois 
+connect&eacute; &agrave; l'Internet et &eacute;galement au r&eacute;seau distant
+support&eacute; par l'h&ocirc;te
+`<CODE>A</CODE>' :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+ 192.168.1/24
+
+     -
+     |      ppp0 =                ppp0 =
+     |  aaa.bbb.ccc.ddd      fff.ggg.hhh.iii
+     |
+     |   /-----\                 /-----\
+     |   |     |       //        |     |
+     |---|  A  |------//---------|  B  |
+     |   |     |     //          |     |
+     |   \-----/                 \-----/
+     |                      aussi: 192.168.1.12
+     -
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Le routeur Linux  `<CODE>A</CODE>' sera configur&eacute; comme suit :
+<BLOCKQUOTE><CODE>
+<PRE>
+        #!/bin/sh
+        PATH=/sbin:/usr/sbin
+        mask=255.255.255.0
+        remotegw=fff.ggg.hhh.iii
+        #
+        # configuration &eacute;thernet
+        ifconfig eth0 192.168.1.1 netmask $mask up
+        route add -net 192.168.1.0 netmask $mask eth0
+        #
+        # configuration de ppp0 (d&eacute;marre le lien ppp link, r&egrave;gle la route par
+        # d&eacute;faut)
+        pppd
+        route add default ppp0
+        #
+        # configuration du p&eacute;riph&eacute;rique de tunneling
+        ifconfig tunl0 192.168.1.1 up
+        route add -host 192.168.1.12 gw $remotegw tunl0
+        #
+        # Proxy ARP pour l'h&ocirc;te distant
+        arp -s 192.168.1.12 xx:xx:xx:xx:xx:xx pub
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>L'h&ocirc;te Linux `<CODE>B</CODE>' sera configur&eacute; comme suit :
+<BLOCKQUOTE><CODE>
+<PRE>
+        #!/bin/sh
+        PATH=/sbin:/usr/sbin
+        mask=255.255.255.0
+        remotegw=aaa.bbb.ccc.ddd
+        #
+        # configuration de ppp0 (d&eacute;marre le lien ppp, r&egrave;gle la route par d&eacute;faut)
+        pppd
+        route add default ppp0
+        #
+        # configuration du p&eacute;riph&eacute;rique de tunelling
+        ifconfig tunl0 192.168.1.12 up
+        route add -net 192.168.1.0 netmask $mask gw $remotegw tunl0
+        
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Ce type de configuration est vraiment typique d'une application IP-Mobile,
+o&ugrave; un simple h&ocirc;te veut seulement se balader sur l'Internet et 
+maintenir une adresse IP utilisable tout le temps. R&eacute;f&eacute;rez-vous 
+au paragraphe Mobile-IP pour avoir plus d'informations 
+et savoir comment faire en pratique.
+<P>
+<P>
+<H2><A NAME="ss7.9">7.9 IP Masquerade </A>
+</H2>
+
+<P>Un grand nombre de gens ont une simple connexion par t&eacute;l&eacute;phone pour 
+aller sur l'Internet. Presque tout le monde ne se voit offrir qu'une 
+seule adresse IP
+par le founisseur d'acc&egrave;s avec ce type de configuration. Ceci 
+est normalement suffisant pour permettre un acc&egrave;s complet au 
+r&eacute;seau. IP Masquerade est une astuce intelligente qui vous permet 
+d'avoir plusieurs machines utilisant une seule adresse IP, en faisant croire 
+aux autres h&ocirc;tes qu'il n'y a que la machine supportant la connexion 
+(NdT : d'o&ugrave; le terme masquerade=duperie, mascarade).
+Il y a qu'une seule mise en garde, qui est que la fonction masquage ne 
+travaille pratiquement que dans un seul sens : les h&ocirc;tes masqu&eacute;s
+peuvent appeler mais ne peuvent accepter ou recevoir des connexions 
+r&eacute;seau de la part d'h&ocirc;tes &eacute;loign&eacute;s. Cela signifie 
+que certains services r&eacute;seau comme <EM>talk</EM> ne peuvent fonctionner et 
+que d'autres, comme
+<EM>ftp</EM> doivent &ecirc;tre configur&eacute;s pour fonctionner en mode passif 
+(PASV). Heureusement la plupart des services r&eacute;seau comme 
+<EM>telnet</EM>, World Wide Web et <EM>irc</EM> fonctionnent correctement.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Code maturity level options  --->
+    [*] Prompt for development and/or incomplete code/drivers
+Networking options  --->
+    [*] Network firewalls
+    ....
+    [*] TCP/IP networking
+    [*] IP: forwarding/gatewaying
+    ....
+    [*] IP: masquerading (EXPERIMENTAL)
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Normalement votre machine Linux supportant un lien SLIP ou PPP se comportera 
+comme si elle &eacute;tait toute seule. De plus elle peut avoir un autre 
+p&eacute;riph&eacute;rique r&eacute;seau configur&eacute;, par exemple une
+carte Ethernet, avec des adresses r&eacute;seau r&eacute;serv&eacute;e. Les 
+h&ocirc;tes masqu&eacute;s seront ceux du second r&eacute;seau. Chacun 
+de ces h&ocirc;tes aura l'adresse IP du port Ethernet r&eacute;gl&eacute;e 
+comme passerelle ou routeur par d&eacute;faut.
+<P>Une configuration typique ressemble &agrave; ceci :
+<BLOCKQUOTE><CODE>
+<PRE>
+-                                   -
+ \                                  | 192.168.1.0
+  \                                 |   /255.255.255.0
+   \                 ---------      |
+    |                | Linux | .1.1 |
+NET =================| masq  |------|
+    |    PPP/slip    | router|      |  --------
+   /                 ---------      |--| h&ocirc;te |
+  /                                 |  |      |
+ /                                  |  --------
+-                                   -
+</PRE>
+</CODE></BLOCKQUOTE>
+<H3>Masquerading avec IPFWADM</H3>
+
+<P>Les commandes ad&eacute;quates pour cette configuration sont :
+<BLOCKQUOTE><CODE>
+<PRE>
+# Routage r&eacute;seau pour &eacute;thernet
+route add -net 192.168.1.0 netmask 255.255.255.0 eth0
+#
+# Route par d&eacute;faut pour le reste de l'internet.
+route add default ppp0
+#
+# Fait en sorte que tous les h&ocirc;tes du r&eacute;seau 192.168.1/24  soient masqu&eacute;s.
+ipfwadm -F -a m -S 192.168.1.0/24 -D 0.0.0.0/0 
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<H3>Masquerading avec IPCHAINS</H3>
+
+<P>Cela ressemble &agrave; l'utilisation avec IPFWADM mais la structure de la commande change:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+         # Routage r&eacute;seau pour ethernet
+         route add -net 192.168.1.0 netmask 255.255.255.0 eth0
+         #
+         # Route par d&eacute;faut vers le reste de l'internet.
+         route add default ppp0
+         #
+         # Fait en sorte que tous les h&ocirc;tes sur le r&eacute;seau 192.168.1/24 soient
+         # masqu&eacute;s.
+        ipchains -A forward -s 192.168.1.0/24 -j MASQ
+         
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Vous pouvez obtenir plus d'informations sur IP Masquerade sur la
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.hwy401.com/achau/ipmasq/">Page d'informations sur l'IP Masquerade</A>.
+Il existe &eacute;galement un document <EM>tr&egrave;s</EM> d&eacute;taill&eacute; qui est le
+``IP-Masquerade-mini-HOWTO'' (qui donne en plus des renseignements 
+pour configurer d'autres syst&egrave;mes d'exploitation pour fonctionner
+avec un serveur de masquage linux).
+<P>
+<P>
+<H2><A NAME="ss7.10">7.10 IP Transparent Proxy</A>
+</H2>
+
+<P>IP transparent proxy est un proc&eacute;d&eacute; qui vous permet de rediriger des 
+serveurs ou des services destin&eacute;s &agrave; une autre machine vers les 
+services de votre machine.
+Typiquement c'est utile lorsque vous avez une machine 
+Linux routeur et qui 
+fournit aussi un serveur proxy. Vous redirigerez toutes les connexions 
+&agrave; ce service distant vers le serveur proxy local.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Code maturity level options  --->
+        [*] Prompt for development and/or incomplete code/drivers
+Networking options  --->
+        [*] Network firewalls
+        ....
+        [*] TCP/IP networking
+        ....
+        [*] IP: firewalling
+        ....
+        [*] IP: transparent proxy support (EXPERIMENTAL)
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>La configuration du dispositif transparent proxy est r&eacute;alis&eacute; en 
+utilisant la commande
+<EM>ipfwadm</EM>.
+<P>Par exemple :
+<BLOCKQUOTE><CODE>
+<PRE>
+ipfwadm -I -a accept -D 0/0 telnet -r 2323
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Cet exemple fera en sorte que toutes les tentatives de connexion vers le port 
+<CODE>telnet</CODE> (23), de n'importe quel h&ocirc;te, 
+seront redirig&eacute;es vers le port
+2323 de ce m&ecirc;me h&ocirc;te. Si vous utilisez un service sur ce port, vous pouvez
+rediriger des connexions telnet, les enregistrer ou ex&eacute;cuter tout ce qui 
+bon vous semble. 
+<P>Un exemple plus int&eacute;ressant est la redirection de tout le trafic
+<CODE>http</CODE> au travers d'un cache local. Cependant, le protocole utlis&eacute; par
+les serveurs proxy diff&egrave;re du protocole natif de http : quand un client se
+connecte &agrave; <CODE>www.server.com:80</CODE> et demande <CODE>chemin/page</CODE>,
+quand il se connecte au cache local il contacte <CODE>proxy.local.domain:8080</CODE>
+et recherche <CODE>www.server.com/chemin/page</CODE>.
+<P>Pour filtrer une demande <CODE>http</CODE> au travers du proxy local, vous devez 
+pouvoir adapter le protocole en ins&eacute;rant un petit serveur, appel&eacute; 
+<CODE>transproxy</CODE> (vous pouvez le trouver sur la toile). Vous pouvez choisir
+de faire tourner <CODE>transproxy</CODE> sur le port 8081, et ex&eacute;cuter la
+commande :
+<BLOCKQUOTE><CODE>
+<PRE>
+ipfwadm -I -a accept -D 0/0 80 -r 8081
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Alors le programme <CODE>transproxy</CODE> recevra toutes les connexions
+devant aller vers des serveurs externes et les passera au proxy local
+apr&egrave;s avoir corrig&eacute; les diff&eacute;rences de protocole.
+<P>
+<P>
+<H2><A NAME="ss7.11">7.11 IPv6</A>
+</H2>
+
+<P>&Agrave; peine pensez-vous avoir commenc&eacute; &agrave; comprendre comment 
+fonctionne le r&eacute;seau IP, que les r&egrave;gles ont chang&eacute; !
+IPv6 est l'abbr&eacute;viation de version 6 du `Protocole Internet'
+(version 6 de IP). Il fut d&eacute;velopp&eacute; initialement pour 
+calmer les inqui&eacute;tudes de la communaut&eacute; Internet quant 
+&agrave; la p&eacute;nurie &eacute;ventuelle d'adresses IP. Les adresses 
+IPv6 sont cod&eacute;es sur 16 octets (128 bits). IPv6 inclut un certain nombre d'autres 
+changements, la plupart du temps des simplifications, qui rendront les 
+r&eacute;seaux IPv6 plus facilement g&eacute;rables que les r&eacute;seaux IPv4.
+<P>Linux a d&eacute;j&agrave; une impl&eacute;mentation IPv6 qui marche, mais pas 
+encore compl&egrave;tement, dans la s&eacute;rie des noyaux <CODE>2.2.*</CODE>.
+<P>Si vous voulez essayer cette prochaine g&eacute;n&eacute;ration de technologie 
+Internet, ou si vous voulez un renseignement, lisez le document IPv6-FAQ qui 
+se trouve sur
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.terra.net/ipv6/">www.terra.net</A>.
+<P>
+<P>
+<H2><A NAME="ss7.12">7.12 IP Mobile</A>
+</H2>
+
+<P>Le terme "mobilit&eacute; IP" d&eacute;crit la possibilit&eacute; qu'un 
+h&ocirc;te a de transf&eacute;rer sa connexion r&eacute;seau d'un point de 
+l'Internet vers un autre sans changer d'adresse IP ou sans perdre la 
+connectivit&eacute;. Normalement quand un h&ocirc;te IP change de point de 
+connexion, il change aussi d'adresse IP.
+La mobilit&eacute; IP r&eacute;soud ce probl&egrave;me en allouant une adresse 
+IP fixe &agrave; l'h&ocirc;te qui se d&eacute;place et en utilisant une 
+encapsulation IP
+(tunneling) avec routage automatique pour s'assurer que les datagrammes qui lui
+sont destin&eacute;s seront rout&eacute;s vers l'adresse effectivement   
+utilis&eacute;e &agrave; ce moment.
+<P>Un projet est en cours en vue de fournir un paquetage complet 
+d'outils Linux pour 
+la mobilit&eacute; IP. L'&eacute;tat de ce projet et les outils peuvent 
+&ecirc;tre obtenus sur :
+<A HREF="index.php?ref=Net-HOWTO-html/http://anchor.cs.binghamton.edu/~mobileip/">Linux Mobile IP Home Page</A>.
+<P>
+<P>
+<H2><A NAME="ss7.13">7.13 Multicast</A>
+</H2>
+
+<P>L'IP Multicast permet de router simultan&eacute;ment des datagrammes IP
+vers un certain nombre d'h&ocirc;tes se trouvant sur des r&eacute;seaux diff&eacute;rents. 
+Ce m&eacute;canisme est exploit&eacute; 
+pour fournir sur l'Internet des 
+applications prenant de la bande passante, telles que les transmissions 
+audio et video et autres nouvelles applications.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Networking options  --->
+        [*] TCP/IP networking
+        ....
+        [*] IP: multicasting
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Un ensemble d'outils et quelques modifications de la configuration 
+r&eacute;seau sont n&eacute;cessaires. 
+Pour plus d'informations sur le support multicast pour Linux, voyez
+le 
+<A HREF="index.php?ref=Net-HOWTO-html/Multicast-HOWTO.html">Multicast-HOWTO.html</A><P>
+<P>
+<P>
+<H2><A NAME="ss7.14">7.14 Mise en forme du trafic - Changer la bande passante allou&eacute;e</A>
+</H2>
+
+<P>Le metteur en forme de trafic est un gestionnaire de p&eacute;riph&eacute;rique qui cr&eacute;e
+de nouvelles interfaces; celles-ci sont limit&eacute;es au point de vue trafic
+selon les r&eacute;glages de l'utilisateur, et se connectent aux 
+p&eacute;riph&eacute;riques de r&eacute;seau physiques pour la transmission r&eacute;elle, 
+et peuvent donc &ecirc;tre utilis&eacute;es comme route vers l'ext&eacute;rieur en vue de
+trafic r&eacute;seau.
+<P>
+<P>Le metteur en forme fut introduit sur Linux-2.1.15 et ensuite sur
+Linux-2.0.36 (il apparut dans le <CODE>2.0.36-pre-patch-2</CODE> distribut&eacute;  par Alan
+Cox, l'auteur du dispositif de mise en forme et le mainteneur de Linux-2.0).
+<P>
+<P>Le metteur en forme de trafic ne peut &ecirc;tre compil&eacute; qu'en tant que module,
+et se configure &agrave; l'aide du programme
+<EM>shapecfg</EM> avec des commandes comme :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+        shapecfg attach shaper0 eth1
+        shapecfg speed shaper0 64000
+        
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Ce metteur en forme de trafic ne peut contr&ocirc;ler que la bande passante
+du trafic sortant, car les paquets sont transmis par le metteur en forme
+si l'on se r&eacute;f&egrave;re aux tables de routage; ainsi, le fonctionnement
+suivant ``un routage par adresse de d&eacute;part'' peut aider &agrave; limiter
+la bande passante totale d'h&ocirc;tes sp&eacute;cifiques utilsant un routeur Linux.
+<P>
+<P>Linux-2.2 poss&egrave;de d&eacute;j&agrave; le support pour un tel routage et si vous en avez
+besoin pour Linux-2.0, voyez le patch de Mike McLagan, sur 
+<CODE>ftp.invlogic.com</CODE>. Lisez le fichier <CODE>Documentation</CODE>networking/shaper.txt
+pour plus d'informations.
+<P>
+<P>Si vous voulez faire (une tentative de) mise en forme pour les paquets
+entrants, essayez <CODE>rshaper-1.01</CODE> (ou plus r&eacute;cent), sur 
+<A HREF="index.php?ref=Net-HOWTO-html/ftp://ftp.systemy.it/pub/develop">ftp.systemy.it</A>.
+<P>
+<P>
+<HR>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-8.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-6.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc7"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

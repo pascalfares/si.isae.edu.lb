@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>The Unix and Internet Fundamentals HOWTO: Que se passe-t-il lorsque vous ex&eacute;cutez des programmes &agrave; partir du shell?</TITLE>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-5.html" REL=next>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-3.html" REL=previous>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc4" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-5.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-3.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc4"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="run"></A> <A NAME="s4">4. Que se passe-t-il lorsque vous ex&eacute;cutez des programmes &agrave; partir du shell?</A></H2>
+
+<P>Le shell normal vous donne le prompt '$' que vous voyez apr&egrave;s vous &ecirc;tre
+connect&eacute; (cependant vous pouvez le modifier et mettre autre
+chose). Nous ne parlerons pas de la syntaxe du shell et des choses
+faciles que vous pouvez voir sur votre &eacute;cran ici&nbsp;; alors que nous
+'jetterons un oeil' sur ce qu'il se passe du point de vue de
+l'ordinateur.
+<P>Apr&egrave;s la phase de boot et avant que vous n'ex&eacute;cutiez un programme, vous
+pouvez penser &agrave; votre ordinateur comme &eacute;tant un zoo de processus qui
+attendent qu'il se passe quelque chose. Ils attendent des
+<EM>&eacute;v&eacute;nements</EM>. Un &eacute;v&eacute;nement, ce peut &ecirc;tre l'enfoncement d'une
+touche ou un d&eacute;placement de la souris. Ou, si votre machine est
+connect&eacute;e &agrave; un r&eacute;seau, un &eacute;v&eacute;nement peut &ecirc;tre un paquet de donn&eacute;es
+venant de ce r&eacute;seau.
+<P>Le noyau est un de ces processus. C'en est un sp&eacute;cial, car il contr&ocirc;le le
+moment o&ugrave; les autres processus <EM>utilisateur</EM> peuvent s'ex&eacute;cuter,
+et c'est normalement le seul processus qui acc&egrave;de directement au
+mat&eacute;riel de la machine. En fait, les processus utilisateurs font des
+requ&ecirc;tes au noyau lorsqu'ils veulent obtenir une entr&eacute;e clavier, &eacute;crire
+sur votre &eacute;cran, lire ou &eacute;crire sur votre disque ou juste autre chose
+que consommer quelques bits en m&eacute;moire. Ces requ&ecirc;tes sont appel&eacute;es
+<EM>appels syst&egrave;me</EM>.
+<P>Normalement toute Entr&eacute;e/Sortie passe par le noyau de mani&egrave;re &agrave; ce qu'il
+puisse ordonnancer les op&eacute;rations et &eacute;viter ainsi aux processus de se
+marcher les uns sur les autres. Quelques processus utilisateur sont
+autoris&eacute;s &agrave; contourner le noyau, habituellement en ayant acc&egrave;s
+directement aux ports d'Entr&eacute;e/Sortie. Les serveurs X (les programmes
+qui traitent les requ&ecirc;tes graphiques des autres programmes sur la
+plupart des machines Unix) sont des exemples classiques. Mais nous
+n'avons pas vu de serveur X pour l'instant&nbsp;; vous &ecirc;tes au prompt du
+shell sur une console en mode caract&egrave;res.
+<P>Le shell est juste un processus utilisateur, et non un processus
+particuli&egrave;rement sp&eacute;cial. Il attend vos frappes sur les touches du
+clavier, &eacute;coutant (&agrave; travers le noyau) le port d'E/S du clavier. Comme
+le noyau les voit, il les affiche sur votre &eacute;cran et les passe au
+shell. Le shell essaie de les interpr&eacute;ter comme &eacute;tant des commandes.
+<P>Tapez `ls' suivi de `Enter' afin de lister le contenu d'un r&eacute;pertoire. Le
+shell applique ses r&egrave;gles internes pour &eacute;valuer la commande que vous
+voulez ex&eacute;cuter dans le fichier `/bin/ls'. Il fait un appel syst&egrave;me en
+demandant au noyau de lancer `/bin/ls' comme un processus <EM>fils</EM>
+et donne son acc&egrave;s &agrave; l'&eacute;cran et au clavier &agrave; travers le noyau. Le shell
+se rendort en attendant que 'ls' se termine.
+<P>Lorsque /bin/ls est termin&eacute;, il dit au noyau qu'il a termin&eacute; en effectuant
+un appel syst&egrave;me <EM>exit</EM>. Le noyau r&eacute;veille le shell et lui dit
+qu'il peut continuer &agrave; s'ex&eacute;cuter. Le shell affiche un autre prompt et
+attend une autre ligne en entr&eacute;e. 
+<P>D'autres choses peuvent &ecirc;tre faites pendant l'ex&eacute;cution de `ls', cependant
+(nous supposerons que la liste du r&eacute;pertoire est tr&egrave;s longue). Vous
+pourriez basculer sur une autre console virtuelle, vous connecter, et
+lancer une jeu de Quake par exemple. Ou bien, supposez que vous &ecirc;tes
+connect&eacute; &agrave; Internet&nbsp;: votre machine peut envoyer ou recevoir des mails
+pendant que `/bin/ls' s'ex&eacute;cute.
+<P>
+<P>
+<HR>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-5.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-3.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc4"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

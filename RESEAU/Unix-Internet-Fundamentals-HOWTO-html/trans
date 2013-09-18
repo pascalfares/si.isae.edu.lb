@@ -1,0 +1,5 @@
+for file in *$1* 
+do
+sed -e s/HREF=\"/HREF=\"index.php?ref=$2\\// $file > tmp
+mv tmp $file
+done 

@@ -1,0 +1,420 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Linux Ethernet-Howto: Informations Techniques</TITLE>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html" REL=next>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-7.html" REL=previous>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc8" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-7.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc8"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="tech-intro"></A> <A NAME="s8">8. Informations Techniques</A></H2>
+
+<P>Pour ceux d'entre vous qui souhaitent comprendre comment marche la
+carte, ou jouer avec les pilotes actuels, ou m&ecirc;me essayer de faire leur
+propre pilote pour une carte qui n'est actuellement pas support&eacute;e, ces
+informations peuvent se r&eacute;v&eacute;ler utiles. Si vous n'entrez pas dans cette
+cat&eacute;gorie de personne, vous devriez peut-&ecirc;tre sauter cette section.
+<P>
+<H2><A NAME="data-xfer"></A> <A NAME="ss8.1">8.1 Entr&eacute;es/Sorties programm&eacute;es contre m&eacute;moire partag&eacute;e contre DMA</A>
+       </H2>
+
+<P>Si vous savez d&eacute;j&agrave; envoyer et recevoir des paquets les uns derri&egrave;re les
+autres, vous ne pouvez tout simplement pas mettre plus de bits sur le
+fil. Toutes les cartes Ethernet modernes peuvent recevoir des paquets
+les uns &agrave; la suite des autres. Les pilotes Linux DP8390 (wd80x3,
+SMC-ULTRA, 3c503, ne2000, etc) s'approchent tr&egrave;s pr&egrave;s de l'envoi de
+paquets les uns derri&egrave;re les autres (cela d&eacute;pendra du temps de latence
+d'interruption courant), et la 3c509 ou l'AT1500 n'ont absolument aucun
+probl&egrave;me pour &eacute;mettre des paquets les uns derri&egrave;re les autres.
+<P>Le bus&nbsp;ISA peut faire du&nbsp;5,3&nbsp;Mo/s (42&nbsp;Mbit/s), ce qui semble plus que
+n&eacute;cessaire pour l'ethernet a 10&nbsp;Mbps. En cas d'utilisations de cartes
+100&nbsp;Mbps, il est clair que vous aurez &agrave; utiliser un bus plus rapide pour
+utiliser toute la bande passante.
+<P>
+<H3>Entr&eacute;es/Sorties (E/S) programm&eacute;es (NE2000, 3c509, etc.)</H3>
+
+<P><B>Pour&nbsp;:</B> N'utilise aucune ressource syst&egrave;me contrainte, juste
+quelques registres d'E/S, et n'a pas de limite &agrave; 16&nbsp;M.
+<P><B>Contre&nbsp;:</B> G&eacute;n&eacute;ralement le taux de transfert le plus faible, le
+processeur attend tout le temps, et un acc&egrave;s entrelac&eacute;
+(<I>interleaved</I> en anglais) aux paquets est habituellement difficile
+voire impossible.
+<P>
+<H3>M&eacute;moire partag&eacute;e (WD80x3, SMC-Ultra, 3c503, etc.)</H3>
+
+<P><B>Pour&nbsp;:</B> Simple, plus rapide que les E/S programm&eacute;es, permet
+l'acc&egrave;s al&eacute;atoire aux paquets. Les pilotes Linux calculent la somme de
+contr&ocirc;le (<I>checksum</I> en anglais) des paquets IP entrants lorsqu'ils
+sont copi&eacute;s depuis la carte, ce qui entra&icirc;ne une r&eacute;duction
+suppl&eacute;mentaire de la charge du processeur par rapport &agrave; une carte
+&eacute;quivalente en E/S programm&eacute;es.
+<P><B>Contre&nbsp;:</B> Utilise beaucoup d'espace m&eacute;moire (c'est important pour
+les utilisateur sous DOS, cela n'a pratiquement pas d'importance sous
+Linux), et charge encore le processeur.
+<P>
+<H3>Acc&egrave;s Direct &agrave; la M&eacute;moire (DMA) Esclave (normal) (p.ex.&nbsp;: aucune pourLinux&nbsp;!)</H3>
+
+<P><B>Pour&nbsp;:</B> Lib&egrave;re le processeur pendant le transfert r&eacute;el des
+donn&eacute;es.
+<P><B>Contre&nbsp;:</B> La v&eacute;rification des conditions aux limites de blocs,
+l'allocation de tampons (<I>buffers</I> en anglais) contigus, et la
+programmation des registres DMA en font la plus lente de toutes les
+techniques. Elle utilise en plus un canal&nbsp;DMA (une ressource rare&nbsp;!) et
+n&eacute;cessite des tampons align&eacute;s en m&eacute;moire basse.
+<P>
+<H3><A NAME="master"></A> DMA en Bus Master (p.ex.&nbsp;: LANCE, DEC 21040) </H3>
+
+<P><B>Pour&nbsp;:</B> Lib&egrave;re le processeur pendant le transfert des donn&eacute;es,
+peut lier des tampons entre eux, peut n&eacute;cessiter peu voire pas de perte
+de temps processeur sur le bus ISA. La majorit&eacute; des pilotes
+bus-mastering pour linux utilisent un sch&eacute;ma 'copybreak' o&ugrave; les gros
+paquets sont directements plac&eacute;s dans les tampons r&eacute;seau du noyau par la
+carte, les petits paquets &eacute;tant copi&eacute;s par le CPU qui est plus rapide
+pour ce type de traitements.
+<P><B>Contre&nbsp;:</B> (seulement pour les cartes ISA) N&eacute;cessite des tampons en
+m&eacute;moire basse et un canal&nbsp;DMA pour les cartes. Tout Ma&icirc;tre de Bus aura
+des probl&egrave;mes avec les autres Ma&icirc;tres de Bus qui sont des goinfres,
+comme certaines cartes&nbsp;SCSI primitives. Quelques jeux de puces pour
+cartes-m&egrave;res mal pens&eacute;s ont des probl&egrave;mes avec les ma&icirc;tres de bus. Et
+une raison pour n'avoir <EM>aucun</EM> type de p&eacute;riph&eacute;rique&nbsp;DMA est
+d'utiliser un processeur&nbsp;486 con&ccedil;u pour &ecirc;tre ins&eacute;r&eacute; (ou mont&eacute;) en lieu
+et place d'un 386: ces processeurs doivent vider leur cache &agrave; chaque
+cycle DMA. (Ceci inclus les Cx486DLC, Ti486DLC, Cx486SLC, Ti486SLC,
+etc.)
+<P>
+<P>
+<H2><A NAME="skel"></A> <A NAME="ss8.2">8.2 &Eacute;criture d'un pilote de carte</A>
+</H2>
+
+<P>La seule chose indispensable pour utiliser une carte Ethernet sous Linux
+est le pilote appropri&eacute;. Pour que cela soit possible, il est essentiel
+que le constructeur diffuse les informations techniques n&eacute;cessaires &agrave; la
+programmation de ce pilote &agrave; destination du public sans que vous (ou
+quelqu'un d'autre) ne soyez oblig&eacute; de leur vendre votre &acirc;me. Une bonne
+indication des chances d'obtenir de la documentation (ou, si vous ne
+programmez pas, des chances que quelqu'un d'autre puisse &eacute;crire ce
+pilote dont vous avez vraiment, vraiment besoin) est la disponibilit&eacute; du
+pilote en mode paquet de Crynwr (ex Clarkson). Russ Nelson dirige cette
+op&eacute;ration, et il a &eacute;t&eacute; d'un grand service par son aide au cours du
+d&eacute;veloppement de certains pilotes pour Linux. Vous pouvez essayer cette
+URL pour consulter le programme de Russ&nbsp;:
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://www.crynwr.com/crynwr/home.html">Pilote en mode paquet de Russ Nelson</A></BLOCKQUOTE>
+<P>Une fois la documentation obtenue, vous pouvez &eacute;crire un pilote pour
+votre carte et l'utiliser sous Linux (du moins en th&eacute;orie).
+Rappelez-vous n&eacute;anmoins que certains mat&eacute;riels anciens qui ont &eacute;t&eacute; cr&eacute;&eacute;s
+pour des machines XT ne fonctionneront pas bien dans un environnement
+multit&acirc;ches comme Linux. Leur utilisation entra&icirc;nera des probl&egrave;mes
+importants si votre r&eacute;seau est raisonnablement charg&eacute;.
+<P>La plupart des cartes poss&egrave;dent des pilotes pour des interfaces MS-DOS
+comme NDIS ou ODI, mais ceux-ci sont inutiles pour Linux. De nombreuses
+personnes ont sugg&eacute;r&eacute; de les int&eacute;grer directement ou de r&eacute;aliser une
+traduction automatique, mais c'est quasiment impossible. Les pilotes
+MS-DOS s'attendent &agrave; travailler en mode 16&nbsp;bits et &agrave; utiliser des
+`interruptions logicielles', deux notions incompatibles avec le noyau
+Linux. Cette incompatibilit&eacute; est en fait un avantage, puisque certains
+pilotes pour Linux sont consid&eacute;rablement meilleurs que leur &eacute;quivalent
+MS-DOS. Par exemple, la s&eacute;rie des pilotes `8390' utilise des zones
+tampon de transmissions en ping-pong, qui commencent seulement &agrave;
+appara&icirc;tre dans le monde MS-DOS.
+<P>(`Des zones tampon de transmissions en ping-pong' signifie que l'on
+utilise au moins deux zones de la taille maximale d'un paquet pour
+transmettre les paquets. L'une des zones est charg&eacute;e pendant que la
+carte est en train de transmettre l'autre. Le deuxi&egrave;me paquet est alors
+transmis d&egrave;s que le premier est parti, etc. De cette mani&egrave;re, la plupart
+des cartes sont capables d'envoyer des paquets &agrave; la dos &agrave; dos sur le
+c&acirc;ble).
+<P>Bon. Vous avez donc d&eacute;cid&eacute; d'&eacute;crire un pilote pour la carte Ethernet
+Machin, puisque vous avez les informations n&eacute;cessaires &agrave; sa
+programmation, et que personne d'autre ne l'a encore fait (... ce sont
+les deux conditions principales <CODE>;-)</CODE> ). Vous devriez commencer
+avec le squelette du pilote r&eacute;seau qui est fourni avec la distribution
+source du noyau Linux. Il se trouve dans le fichier
+/usr/src/linux/drivers/net/skeleton.c dans tous les noyaux r&eacute;cents.
+Jetez aussi un coup d'oeil sur le `Kernel Hackers Guide' &agrave; l'URL
+suivante&nbsp;:
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://www.redhat.com:8080/HyperNews/get/khg.html">KHG</A></BLOCKQUOTE>
+<P>
+<H2><A NAME="ss8.3">8.3 Inteface du pilote avec le noyau</A>
+</H2>
+
+<P>Voici quelques notes sur les fonctions que vous devrez &eacute;crire si vous
+cr&eacute;ez un nouveau pilote. Lisez-les en gardant sous la main le squelette
+de pilote d&eacute;crit ci-dessus&nbsp;: cela simplifiera les choses.
+<P>
+<H3>D&eacute;tection de la carte (Probe)</H3>
+
+<P>Appel&eacute;e au d&eacute;marrage pour v&eacute;rifier l'existence de la carte. Meilleure si
+elle peut v&eacute;rifier en douceur en lisant la m&eacute;moire etc. Peut aussi lire
+les ports d'E/S. Ecrire au d&eacute;marrage sur les ports d'E/S pour d&eacute;tecter
+la carte n'est <EM>pas bien</EM> parce que cela risque de tuer un autre
+p&eacute;riph&eacute;rique. Certaines parties de l'initialisation du p&eacute;riph&eacute;rique sont
+habituellement faites &agrave; ce niveau (allouer l'espace d'E/S, les IRQ,
+remplir les champs de <CODE>dev-&gt;???</CODE>, etc.)  Vous avez besoin de
+savoir &agrave; quels ports d'E/S et &agrave; quelles zones m&eacute;moire la carte peut &ecirc;tre
+configur&eacute;e, comment autoriser l'utilisation de m&eacute;moire partag&eacute;e (si
+besoin), comment s&eacute;lectionner et mettre en oeuvre la g&eacute;n&eacute;ration
+d'interruptions, etc.
+<P>
+<H3>Gestionnaire d'interruptions (Interrupt handler)</H3>
+
+<P>Appel&eacute; par le noyau quand la carte d&eacute;clenche une interruption. A la
+responsabilit&eacute; de d&eacute;terminer pourquoi la carte a d&eacute;clench&eacute;
+l'interruption, et d'agir en cons&eacute;quence. Les conditions habituelles
+d'interruption sont l'arriv&eacute;e de donn&eacute;es, la fin d'une transmission,
+l'indication de conditions d'erreur. Vous avez besoin de conna&icirc;tre les
+bits d'informations li&eacute;s &agrave; une interruption afin de pouvoir agir en
+cons&eacute;quence.
+<P>
+<P>
+<H3>Fonction de transmission (Transmit function)</H3>
+
+<P>Est li&eacute;e &agrave; <CODE>dev-&gt;hard_start_xmit()</CODE> et est appel&eacute;e par le noyau
+quand ce dernier d&eacute;sire envoyer des donn&eacute;es par l'interm&eacute;diaire du
+p&eacute;riph&eacute;rique. Envoie les donn&eacute;es sur la carte et d&eacute;clenche la
+transmission. Vous avez besoin de savoir comment empaqueter les donn&eacute;es
+et comment les faire parvenir sur la carte (copie en m&eacute;moire partag&eacute;e,
+transfert sur les ports d'E/S, DMA&nbsp;?) et au bon endroit sur la carte.
+Puis vous devez savoir comment dire &agrave; la carte d'envoyer les donn&eacute;es sur
+le c&acirc;ble, et (&eacute;ventuellement) &eacute;mettre une interruption quand ce sera
+fini. Quand le p&eacute;riph&eacute;rique ne peut plus accepter de paquets
+suppl&eacute;mentaires, il doit armer le drapeau <CODE>dev-&gt;tbusy</CODE>. Quand de
+la place est devenue disponible, en g&eacute;n&eacute;ral au cours d'une interruption
+de fin de transmission, <CODE>dev-&gt;tbusy</CODE> doit &ecirc;tre d&eacute;sarm&eacute; et les
+niveaux sup&eacute;rieurs doivent &ecirc;tre inform&eacute;s en utilisant
+<CODE>mark_bh(INET_BH)</CODE>.
+<P>
+<P>
+<H3>Fonction de r&eacute;ception (Receive function)</H3>
+
+<P>Appel&eacute;e par le gestionnaire d'interruptions du noyau quand la carte
+indique que des donn&eacute;es sont disponibles. R&eacute;cup&egrave;re les donn&eacute;es de la
+carte, les empaquette dans un sk_buff et informe le noyau de la pr&eacute;sence
+des donn&eacute;es en effectuant un <CODE>netif_rx(sk_buff)</CODE>. Vouz devez savoir
+comment mettre en oeuvre le d&eacute;clenchement d'interruptions &agrave; la r&eacute;ception
+de donn&eacute;es, comment v&eacute;rifier les bits d'informations correspondant &agrave; la
+r&eacute;ception, et comment r&eacute;cup&eacute;rer les donn&eacute;es depuis la carte (l&agrave; encore,
+par m&eacute;moire partag&eacute;e, ports d'E/S, DMA, etc.)
+<P>
+<H3>Fonction d'ouverture (Open function)</H3>
+
+<P>Est li&eacute;e &agrave; <CODE>dev-&gt;open</CODE>. Est appel&eacute;e par les couches r&eacute;seau quand
+quelqu'un fait <CODE>ifconfig eth0 up</CODE> - cela doit mettre le
+p&eacute;riph&eacute;rique en route et l'autoriser &agrave; recevoir et transmettre des
+donn&eacute;es. Toute incantation sp&eacute;ciale li&eacute;e &agrave; l'initialisation et qui
+n'aurait pas &eacute;t&eacute; r&eacute;alis&eacute;e dans la s&eacute;quence de d&eacute;tection (autoriser la
+g&eacute;n&eacute;ration d'IRQ, etc.) trouvera sa place ici.
+<P>
+<P>
+<H3>Fonction de fermeture (facultative) (Close function)</H3>
+
+<P>Met la carte dans un &eacute;tat propre quand quelqu'un effectue <CODE>ifconfig
+eth0 down</CODE>. Doit lib&eacute;rer les IRQ et les canaux DMA si le mat&eacute;riel le
+permet, et &eacute;teindre tout ce qui pourrait &eacute;conomiser de l'&eacute;nergie (comme
+le transmetteur).
+<P>
+<H3>Autres fonctions</H3>
+
+<P>Des &eacute;l&eacute;ments comme une fonction de r&eacute;initialisation, afin que, si les
+choses se d&eacute;gradent, le pilote puisse essayer de r&eacute;initialiser la carte
+en dernier recours. G&eacute;n&eacute;ralement fait quand une transmission d&eacute;passe son
+temps maximal ou quelque chose du genre. Ou encore une fonction pour
+lire les registres qui contiennent les statistiques sur la carte, si
+elle en comporte.
+<P>
+<H2><A NAME="3com-tech"></A> <A NAME="ss8.4">8.4 Informations techniques de 3Com</A>
+</H2>
+
+<P>Si vous &ecirc;tes int&eacute;ress&eacute;(e) par l'&eacute;criture de pilotes pour les cartes
+3Com, vous pouvez obtenir de la documentation technique de 3Com.
+Cameron a &eacute;t&eacute; suffisamment gentil pour nous dire comment y parvenir&nbsp;:
+<P>Les adaptateurs Ethernet de 3Com sont document&eacute;s pour les auteurs de
+pilotes dans nos `R&eacute;f&eacute;rences Techniques' (Technical References,
+TRs). Ces manuels d&eacute;crivent les interfaces du programmeur avec la carte,
+mais elles ne parlent pas des diagnostics, des programmes
+d'installation, etc., que l'utilisateur final peut voir.
+<P>Le d&eacute;partement marketing de la Division Adaptateurs R&eacute;seaux (Network
+Adapter Division) est responsable de la diffusion des TRs. Pour que ce
+programme reste efficace, nous le centralisons dans une entit&eacute; appel&eacute;e
+`CardFacts'. C'est est un syst&egrave;me t&eacute;l&eacute;phonique automatis&eacute;. Vous
+l'appelez avec un t&eacute;l&eacute;phone &agrave; fr&eacute;quences vocales et il vous envoie des
+choses par t&eacute;l&eacute;copie. Pour obtenir un TR, appelez CardFacts au
+408-727-7021.
+<P>(NDT&nbsp;: Cela ne fonctionne qu'aux Etats-Unis.)  Demandez le formulaire de
+commande du d&eacute;veloppeur (Developer's Order Form), le document num&eacute;ro
+9070. Ayez votre num&eacute;ro de fax sous la main lorsque vous
+appelez. Compl&eacute;tez le formulaire de commande et envoyez-le par t&eacute;l&eacute;copie
+au 408-764-5004. Les manuels sont exp&eacute;di&eacute;s par le service J+2 de Federal
+Express.
+<P>Il y a des gens ici qui pensent que nous sommes trop lib&eacute;raux avec les
+manuels, et qui cherchent des preuves que le syst&egrave;me est trop on&eacute;reux,
+ou prend trop de temps et d'effort. Jusqu'&agrave; pr&eacute;sent, les clients de 3Com
+ont &eacute;t&eacute; tr&egrave;s bien sur ce point, et il n'y a pas de probl&egrave;me avec le
+niveau de demandes que nous avons obtenu. Nous avons besoin que votre
+coop&eacute;ration et votre retenue se maintiennent pour continuer ainsi.
+<P>
+<H2><A NAME="amd-notes"></A> <A NAME="ss8.5">8.5 Notes sur les cartes bas&eacute;es sur la puce PCnet / LANCE d'AMD</A>
+       </H2>
+
+<P>La puce LANCE (Local Area Network Controller for Ethernet, Contr&ocirc;leur de
+R&eacute;seau Local pour Ethernet) d'AMD constituait l'offre initiale, et a
+depuis &eacute;t&eacute; remplac&eacute;e par la puce `PCnet-ISA', aussi connue en tant que
+79C960. Notez que le nom `LANCE' est rest&eacute;, et certaines personnes se
+r&eacute;f&egrave;rent &agrave; la nouvelle puce en utilisant l'ancien nom. Dave Roberts de
+la Division des Produits R&eacute;seaux (Network Products Division) d'AMD a eu
+l'amabilit&eacute; de nous fournir les informations suivantes concernant cette
+puce&nbsp;:
+<P>`Fonctionnellement, elle est &eacute;quivalente &agrave; une NE1500. Le jeu de
+registres est identique &agrave; celui de la vieille LANCE avec les additions
+de l'architecture 1500/2100. Les vieux pilotes 1500/2500 fonctionneront
+avec la PCnet-ISA. L'architecture NE1500 et NE2100 est la m&ecirc;me &agrave; la
+base. Initialement Novell l'a appel&eacute; la 2100, mais ensuite a essay&eacute; de
+distinguer entre cartes coax et 10Base-T. Tout ce qui &eacute;tait purement
+10Base-T devait &ecirc;tre num&eacute;rot&eacute; dans la s&eacute;rie 1500. C'est la seule
+diff&eacute;rence.
+<P>De nombreuses soci&eacute;t&eacute;s offrent des produits bas&eacute;s sur la PCnet-ISA, y
+compris HP, Racal-Datacom, Allied Telesis, Boca Research, Kingston
+Technology, etc. Les cartes sont &agrave; la base les m&ecirc;mes, except&eacute; que
+certains constructeurs ont ajout&eacute; des fonctionnalit&eacute;s `sans-cavaliers'
+(`jumperless') qui permettent &agrave; la carte d'&ecirc;tre configur&eacute;e par
+logiciel. La plupart n'en ont pas. AMD offre un paquetage de conception
+standard pour une carte qui utilise la PCnet-ISA et de nombreux
+fabricants utilisent notre conception sans changement. Cela signifie que
+n'importe qui souhaitant &eacute;crire des pilotes pour la plupart des cartes
+bas&eacute;es sur la puce PCnet-ISA peut se contenter d'obtenir la
+documentation technique aupr&egrave;s d'AMD. Appelez notre centre de
+distribution documentaire au (800)222-9323 et demandez la documentation
+de l'Am79C960, PCnet-ISA. Elle est gratuite.
+<P>Un moyen rapide pour savoir si la carte est une carte `g&eacute;n&eacute;rique' est
+simplement de la regarder. Si elle l'est, elle doit juste comporter une
+grosse puce, un quartz, une petite PROM d'adresse IEEE, &eacute;ventuellement
+un support pour une ROM de d&eacute;marrage, et un connecteur (1, 2 ou 3, selon
+les options de m&eacute;dia offertes). Notez que s'il s'agit d'une carte coax,
+elle comportera aussi quelques composants pour le transceiver, mais ils
+devraient &ecirc;tre pr&egrave;s du connecteur et &eacute;loign&eacute;s de la PCnet-ISA.'
+<P>Une note pour les bidouilleurs potentiels de cartes est que diff&eacute;rentes
+impl&eacute;mentations de la LANCE effectuent le `red&eacute;marrage' de diff&eacute;rentes
+fa&ccedil;ons. Certaines reprennent o&ugrave; elles s'&eacute;taient arr&ecirc;t&eacute;es dans l'anneau,
+et d'autres d&eacute;marrent directement au d&eacute;but de l'anneau, comme si elles
+venaient d'&ecirc;tre initialis&eacute;es.
+<P>
+<H2><A NAME="promisc"></A> <A NAME="ss8.6">8.6 Multicast et Mode `Promiscuous'</A>
+</H2>
+
+<P>Une des autres choses sur lesquels Donald a travaill&eacute; est
+l'impl&eacute;mentation des points d'entr&eacute;e pour le multicast et le mode
+`promiscuous'. Tous les pilotes ISA <EM>publi&eacute;s</EM> (c'est-&agrave;-dire
+<B>pas</B> les pilotes au stade `alpha') supportent aujourd'hui le mode
+promiscuous.
+<P>Donald &eacute;crit&nbsp;: Je commencerai par parler du mode `promiscuous', qui est
+conceptuellement facile &agrave; impl&eacute;menter. Pour la plupart des mat&eacute;riels,
+vous n'avez qu'&agrave; positionner un bit de registre, et &agrave; partir de ce
+moment-l&agrave; vous obtenez tous les paquets qui passent sur le fil. Bon, ce
+n'est pas vraiment aussi simple que cela&nbsp;; pour certains mat&eacute;riels, vous
+devez arr&ecirc;ter la carte (en perdant potentiellement quelques paquets), la
+reconfigurer, puis la r&eacute;activer. Ok, &ccedil;a c'est facile, donc je passe &agrave;
+quelque chose qui n'est pas aussi &eacute;vident&nbsp;: le <I>multicast</I>. On peut
+le r&eacute;aliser de deux fa&ccedil;ons&nbsp;:
+<P>
+<OL>
+<LI> Utiliser le mode promiscuous, et un filtre de paquets comme celui de
+Berkeley (Berkeley packet filter, BPF). Le BPF est un langage &agrave; pile de
+comparaison de mod&egrave;les (pattern matching stack), avec lequel vous &eacute;crivez
+un programme qui extrait les adresses qui vous int&eacute;ressent. Son avantage
+est qu'il est tr&egrave;s g&eacute;n&eacute;ral et programmable. Son inconv&eacute;nient est qu'il
+n'existe pas de moyen g&eacute;n&eacute;ral pour le noyau d'&eacute;viter d'avoir &agrave; mettre en
+route le mode promiscuous et de passer chaque paquet qui circule sur le
+fil &agrave; travers tous les filtres de paquets qui se sont
+enregistr&eacute;s. Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#bpf">Le Berkeley Packet Filter</A>
+pour plus d'informations.
+</LI>
+<LI> Utiliser le filtre multicast que la plupart des puces Ethernet poss&egrave;dent.
+</LI>
+</OL>
+<P>Je crois que je devrais donner une liste de ce que quelques cartes ou
+puces Ethernet fournissent&nbsp;:
+<P>
+<PRE>
+
+        Puce/carte  Promiscuous  Filtre Multicast
+        -----------------------------------------
+        Seeq8001/3c501  Oui     Filtre binaire (1)
+        3Com/3c509      Oui     Filtre binaire (1)
+        8390            Oui     Hashage &agrave; six bits Autodin II (2) (3)
+        LANCE           Oui     Hashage &agrave; six bits Autodin II (2) (3)
+        i82586          Oui     Hashage &agrave; six bits Autodin II cach&eacute; (2) (4)
+</PRE>
+<P>
+<OL>
+<LI> Ces cartes pr&eacute;tendent avoir un filtre, mais il s'agit d'un simple oui/non
+`accepte tous les paquets multicast', ou `n'accepte aucun paquet
+multicast'.
+</LI>
+<LI> AUTODIN II est le polyn&ocirc;me standard de contr&ocirc;le Ethernet (somme de
+contr&ocirc;le/checksum CRC). Dans ce principe, les adresses multicast sont
+hash&eacute;es et recherch&eacute;es dans une table de hashage. Si le bit correspondant
+est activ&eacute;, ce paquet est accept&eacute;. Les paquets Ethernet sont con&ccedil;us de
+telle fa&ccedil;on que la partie mat&eacute;rielle pour r&eacute;aliser ceci est triviale --
+vous m&eacute;morisez juste (habituellement) six bits du circuit CRC (qui est
+n&eacute;cessaire de toute fa&ccedil;on pour la v&eacute;rification d'erreur) apr&egrave;s les six
+premiers octets (l'adresse de destination), et vous les utilisez comme
+index dans la table de hashage (six bits -- une table de 64-bits).
+</LI>
+<LI> Ces puces utilisent le hashage &agrave; six bits, et n&eacute;cessitent que la table
+soit calcul&eacute;e et charg&eacute;e par l'h&ocirc;te. Cela signifie que le noyau doit
+comprendre le code pour le CRC.
+</LI>
+<LI> Le 82586 utilise le hashage &agrave; six bits de fa&ccedil;on interne, mais il calcule
+la table de hashage lui-m&ecirc;me &agrave; partir d'une liste d'adresses multicast &agrave;
+accepter.
+</LI>
+</OL>
+<P>Notez qu'aucune de ces puces ne r&eacute;alise un filtrage parfait, et nous
+avons encore besoin d'un module de niveau interm&eacute;diaire pour r&eacute;aliser le
+filtrage final. Notez aussi que dans chaque cas nous devons conserver
+une liste compl&egrave;te des adresses multicast accept&eacute;es pour recalculer la
+table de hashage quand elle change.
+<P>
+<H2><A NAME="bpf"></A> <A NAME="ss8.7">8.7 Le filtre de paquets de Berkeley (Berkeley Packet Filter -- BPF)</A>
+      </H2>
+
+<P>L'id&eacute;e g&eacute;n&eacute;rale des d&eacute;veloppeurs est que la fonctionnalit&eacute; du BPF ne
+doit pas &ecirc;tre fournie par le noyau, mais doit se trouver dans une
+biblioth&egrave;que de compatibilit&eacute; (dont on esp&egrave;re qu'elle servira peu).
+<P>Pour ceux qui ne seraient pas au courant&nbsp;: BPF (le Berkeley Packet
+Filter) est un m&eacute;canisme destin&eacute; &agrave; sp&eacute;cifier aux couches r&eacute;seau du noyau
+quels paquets vous int&eacute;ressent. Il est impl&eacute;ment&eacute; sous la forme d'un
+interpr&eacute;teur d'un langage &agrave; pile sp&eacute;cialis&eacute; construit dans un niveau bas
+du code r&eacute;seau. Une application passe un programme &eacute;crit dans ce langage
+au noyau, et le noyau ex&eacute;cute le programme sur chaque paquet entrant. Si
+le noyau poss&egrave;de plusieurs applications BPF, chaque programme est
+ex&eacute;cut&eacute; sur chaque paquet.
+<P>Le probl&egrave;me est qu'il est difficile de d&eacute;duire quel type de paquet
+int&eacute;resse r&eacute;ellement l'application &agrave; partir du programme de filtrage,
+donc la solution est de toujours ex&eacute;cuter le filtre. Imaginez un
+programme qui enregistre un programme BPF pour extraire un flux de
+donn&eacute;es de faible d&eacute;bit envoy&eacute; &agrave; une adresse multicast. La plupart des
+cartes Ethernet poss&egrave;dent un filtre d'adresses multicast impl&eacute;ment&eacute; sous
+la forme d'une table de hashage &agrave; 64 entr&eacute;es qui ignore la plupart des
+paquets multicast non souhait&eacute;s, donc les capacit&eacute;s existent pour faire
+de cette op&eacute;ration une op&eacute;ration peu co&ucirc;teuse en ressources. Mais avec
+le BPF, le noyau doit passer l'interface en mode promiscuous, recevoir
+<B>tous</B> les paquets, et les passer &agrave; travers ce filtre. D'ailleurs, c'est
+un travail qu'il est tr&egrave;s difficile de comptabiliser dans le processus
+qui a demand&eacute; les paquets.
+<P>
+<HR>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-7.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc8"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

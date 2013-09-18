@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.7">
+ <TITLE>Possibilit&eacute;s r&eacute;seau de Linux HOWTO: Ex&eacute;cution d'applications &agrave; distance</TITLE>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-8.html" REL=next>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-6.html" REL=previous>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc7" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-8.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-6.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc7"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s7">7. Ex&eacute;cution d'applications &agrave; distance</A></H2>
+
+<P>L'une des plus folles fonctionnalit&eacute;s d'UNIX (et pourtant une des plus m&eacute;connues pour les nouveaux utilisateurs) est le superbe support pour l'ex&eacute;cution r&eacute;partie et &agrave; distance des applications.
+<P>
+<H2><A NAME="ss7.1">7.1 Telnet </A>
+</H2>
+
+<P>Telnet est un programme qui permet &agrave; une personne d'utiliser un ordinateur distant comme s'il &eacute;tait sur place. Telnet est l'un des plus puissants outils d'UNIX, permettant une r&eacute;elle administration &agrave; distance. C'est aussi un programme int&eacute;ressant au niveau de l'utilisateur, parce qu'il permet &agrave; un utilisateur d'acc&eacute;der &agrave; distance &agrave; tous les fichiers et les programmes qu'il utilise depuis n'importe o&ugrave; sur Internet. Combin&eacute; avec un serveur X, il n'y a pas de diff&eacute;rence (&agrave; part le d&eacute;lai) entre &ecirc;tre sur place ou &agrave; l'autre bout du monde. Les clients et daemons telnet sont disponibles avec toutes les distributions de Linux.
+<P>Des shells s&eacute;curis&eacute;s existent via 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.cs.hut.fi/ssh/">SSH</A> permettant une administration s&eacute;curis&eacute;e.
+<P>
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/pub/Linux/system/network/telnet/">Logiciels en rapport avec Telnet</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss7.2">7.2 Commandes ex&eacute;cut&eacute;es &agrave; distance</A>
+</H2>
+
+<P>Sous Unix, et en particulier sous Linux, il existe des commandes qui permettent d'interagir avec d'autres ordinateurs depuis la ligne de commande. Par exemple : rlogin, qui permet de se loger sur une machine distante d'une mani&egrave;re &eacute;quivalente &agrave; telnet ou rcp, qui permet de faire des transferts entre machines, etc. Et bien s&ucirc;r la commande rsh (remote shell) permet d'ex&eacute;cuter des commandes sur une machine distante sans pour autant s'y loger.
+<P>
+<H2><A NAME="ss7.3">7.3 X-Window</A>
+</H2>
+
+<P>Le syst&egrave;me X-Window a &eacute;t&eacute; d&eacute;velopp&eacute; au MIT &agrave; la fin des ann&eacute;es 80 et il est rapidement devenu l'interface graphique standard de l'industrie pour les stations de travail graphiques UNIX. Le tout est disponible gratuitement, est tr&egrave;s polyvalent, et est port&eacute; pour une tr&egrave;s grande vari&eacute;t&eacute; de plate-formes. Tout syst&egrave;me X-Window consiste en deux parties, le serveur X, et un ou plusieurs clients X. Il est important de faire la distinction entre le serveur et le client. Le serveur contr&ocirc;le l'affichage directement, et g&egrave;re les entr&eacute;es et les sorties via le clavier, la souris ou l'affichage. Le client, d'un autre c&ocirc;t&eacute;, n'acc&egrave;de pas &agrave; l'&eacute;cran directement, il communique avec le serveur, qui g&egrave;re les entr&eacute;es et les sorties. C'est le client qui fait tout le "vrai" travail, ex&eacute;cution d'application ou quoi que ce soit. Le client communique avec le serveur, demandant au serveur d'ouvrir une ou plusieurs  fen&ecirc;tres, et de g&eacute;rer entr&eacute;es et sorties pour le client.
+<P>Pour r&eacute;sumer, le syst&egrave;me X-Window permet &agrave; un utilisateur d'acc&eacute;der &agrave; une autre machine, d'ex&eacute;cuter un programme (par exemple, un navigateur WWW) et d'avoir les sorties affich&eacute;es sur sa propre machine. Parce que ce processus est en r&eacute;alit&eacute; ex&eacute;cut&eacute; sur le serveur, tr&egrave;s peu de puissance CPU est n&eacute;cessaire sur le client. En fait, il est possible d'avoir des ordinateurs dont la fonction essentielle est d'&ecirc;tre des serveurs X-Window et ils sont appel&eacute;s terminaux X.
+<P>Un port gratuit du syst&egrave;me X-Window existe pour Linux et peut &ecirc;tre trouv&eacute; &agrave; : 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.xfree86.org/">Xfree</A> Il est normalement inclus dans la plupart des distributions Linux.
+<P>HowTo en relation :
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/Remote-X-Apps.html">Application X &agrave; distance</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss7.4">7.4 VNC</A>
+</H2>
+
+<P>VNC signifie Virtual Network Computing c'est &agrave; dire, r&eacute;seau virtuel d'ordinateurs. C'est un syst&egrave;me d'affichage &agrave; distance qui permet de voir un 'bureau' d'ordinateur non seulement depuis la machine o&ugrave; il marche mais aussi depuis n'importe quelle machine sur Internet, et sur des architectures tr&egrave;s vari&eacute;es. Des clients et des serveurs existent pour Linux et bien d'autres plate-formes. Par exemple, il est possible d'ex&eacute;cuter MS-Word depuis une machine sous Windows NT ou 95 et d'avoir le r&eacute;sultat affich&eacute; sur n'importe quelle autre machine, une machine Linux par exemple. Le contraire est bien s&ucirc;r aussi possible, ainsi que d'ex&eacute;cuter une application sur une machine Linux et d'avoir l'affichage sur une autre machine Linux, ou une machine Windows... Un client Java existe aussi, permettant l'affichage dans un navigateur Web. Finalement, un port Linux utilisant la librairie graphique SVGAlib permet &agrave; des 386 avec 4 Mo de RAM de devenir de vrais terminaux X.
+<P>
+<P>
+<UL>
+<LI>Le 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.orl.co.uk/vnc">site VNC</A></LI>
+</UL>
+<P>
+<HR>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-8.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-6.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc7"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

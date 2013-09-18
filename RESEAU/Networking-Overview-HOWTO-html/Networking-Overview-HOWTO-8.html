@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.7">
+ <TITLE>Possibilit&eacute;s r&eacute;seau de Linux HOWTO: Interconnection de r&eacute;seaux</TITLE>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-9.html" REL=next>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-7.html" REL=previous>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc8" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-9.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-7.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc8"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s8">8. Interconnection de r&eacute;seaux</A></H2>
+
+<P>La couche r&eacute;seau de Linux est pleine de fonctionnalit&eacute;s. Un ordinateur sous Linux peut &ecirc;tre configur&eacute; pour agir en tant que routeur, passerelle, etc... Quelques unes des options disponibles sont d&eacute;crites ci-dessous.
+<P>
+<H2><A NAME="ss8.1">8.1 Routeur</A>
+</H2>
+
+<P>Le noyau de Linux supporte les fonctions de routage. Un ordinateur sous Linux peut aussi bien fonctionner en tant que routeur IP ou IPX pour un co&ucirc;t bien moins &eacute;lev&eacute; qu'un routeur commercial. Les noyaux r&eacute;cents incluent des options sp&eacute;ciales pour les machines jouant le r&ocirc;le de routeurs :
+<UL>
+<LI> Multicasting : permet &agrave; la machine Linux de fonctionner en tant que routeur pour des paquets IP qui ont plusieurs adresses de destination. C'est n&eacute;cessaire sur le MBONE, un r&eacute;seau &agrave; grande bande passante, qui diffuse du son et de la vid&eacute;o.</LI>
+<LI>IP policy routing : Normalement, un routeur d&eacute;cide quoi faire quand il re&ccedil;oit un paquet en se basant principalement sur l'adresse finale du paquet, mais il peut aussi prendre en compte l'adresse d'origine et l'endroit d'o&ugrave; le paquet arrive.</LI>
+</UL>
+<P>Il y a quelques projets qui ont pour but de faire marcher un routeur Linux avec juste une disquette : 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.psychosis.com/linux-router/">Projet de routeur Linux</A><P>
+<H2><A NAME="ss8.2">8.2 Pont</A>
+</H2>
+
+<P>Le noyau de Linux sait agir en tant que pont Ethernet, ce qui signifie que les diff&eacute;rents segments Ethernets auxquels il est connect&eacute; appara&icirc;tront comme un seul Ethernet aux participants. Plusieurs ponts peuvent collaborer, pour cr&eacute;er d'encore plus larges r&eacute;seaux Ethernet en utilisant l'algorithme d'arbre (spanning tree) IEEE802.1. Comme c'est un standard, les ponts Linux pourront fonctionner avec des ponts d'autres sortes. D'autres paquetages permettent le filtrage bas&eacute; sur les adresses IP, IPX ou MAC.
+<P>HowTo en relation :
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/Bridge+Firewall.html">Bridge+Firewall</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/Bridge.html">Bridge</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss8.3">8.3 IP-Masquerading</A>
+</H2>
+
+<P>IP Masquerade est une fonction de d&eacute;veloppement de r&eacute;seau pour Linux. Si une machine Linux est connect&eacute;e &agrave; Internet avec IP Masquerade activ&eacute;, les ordinateurs s'y connectant (soit sur le m&ecirc;me r&eacute;seau, soit se connectant par modems) peuvent acc&eacute;der &agrave; Internet sans probl&egrave;mes, m&ecirc;me s'ils n'ont pas de r&eacute;elle IP d'assign&eacute;e. Ceci permet de r&eacute;duire les co&ucirc;ts, puisque pas mal de personnes pourront acc&eacute;der &agrave; Internet en utilisant une simple connection par modem. Cela permet aussi de r&eacute;duire les risques de s&eacute;curit&eacute; car d'une certaine fa&ccedil;on, la machine agit en tant que firewall, puisque les adresses non officielles ne peuvent pas &ecirc;tre acc&eacute;d&eacute;es depuis l'ext&eacute;rieur de ce r&eacute;seau.
+<P>Pages et documents se rapportant &agrave; l'IP Masquerade :
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.tor.shaw.wave.ca/~ambrose/">http://www.tor.shaw.wave.ca/~ambrose/</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.indyramp.com/masq/links.pfhtml">http://www.indyramp.com/masq/links.pfhtml</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/IP-Masquerade.html">http://sunsite.unc.edu/mdw/HOWTO/mini/IP-Masquerade.html</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss8.4">8.4 IP-Accounting</A>
+</H2>
+
+<P>Cette option permet au noyau de Linux de garder une trace de tout le trafic IP, d'enregistrer les paquets IP, et de produire quelques statistiques. Une s&eacute;rie de r&egrave;gles peuvent &ecirc;tre d&eacute;finies pour que, lorsque certains paquets ont certaines caract&eacute;ristiques, un compteur soit incr&eacute;ment&eacute;, que le paquet  soit accept&eacute; ou rejet&eacute;, etc...
+<P>
+<H2><A NAME="ss8.5">8.5 IP-Aliasing</A>
+</H2>
+
+<P>Cette fonctionnalit&eacute; du noyau de Linux fournit la possibilit&eacute; d'assigner plusieurs adresses r&eacute;seau &agrave; la m&ecirc;me interface (ex : deux adresses IP sur une carte Ethernet). Typiquement, pour &ecirc;tre utilis&eacute; pour des services qui se comportent diff&eacute;remment selon l'adresse par laquelle ils sont appel&eacute;s (ex : "multihosting" ou "domaines virtuel" ou "service d'h&eacute;bergement virtuel").
+<P>HowTo en relation :
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/IP-Alias.html">IP Aliasing How-to</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss8.6">8.6 Traffic Shaping</A>
+</H2>
+
+<P>Le traffic shaper est une interface virtuelle qui permet de limiter le trafic montant vers une autre interface r&eacute;seau. C'est particuli&egrave;rement utile quand on veut limiter/contr&ocirc;ler la bande passante utilis&eacute;e par un client. Une autre alternative (pour le web seulement) serait d'utiliser un module d'Apache qui restreint le nombre de connections par client, ou la bande passante utilis&eacute;e.
+<P>
+<H2><A NAME="ss8.7">8.7 Firewall</A>
+</H2>
+
+<P>Un firewall est une interface qui prot&egrave;ge un r&eacute;seau prive du reste d'Internet. Il est con&ccedil;u pour contr&ocirc;ler le flux de paquets en se basant sur la source, la destination, le port et le type de paquet contenu dans chaque paquet.
+<P>Il existe diff&eacute;rents outils de firewalls pour Linux, ainsi qu'un support int&eacute;gr&eacute; dans le noyau. D'autres firewalls sont TIX et SOCKS. Ces kits de firewall sont tr&egrave;s complets, et combin&eacute;s avec d'autres outils, permettent de bloquer/rediriger tous types de trafic et protocoles. Diff&eacute;rentes r&egrave;gles peuvent &ecirc;tre impl&eacute;ment&eacute;es par le biais de fichiers de configuration ou gr&acirc;ce &agrave; des programmes graphiques.
+<P>
+<UL>
+<LI>La 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.tis.com">page de TIS</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.socks.nec.com/socksfaq.html">SOCKS</A></LI>
+<LI>Le 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/Firewall-HOWTO.html">Firewall How-to</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss8.8">8.8 Reroutage de ports</A>
+</H2>
+
+<P>Un nombre croissant de sites WWW deviennent interactifs en ayant des cgi-bins ou des applets Java qui acc&egrave;dent &agrave; des bases de donn&eacute;es ou &agrave; d'autres services. Puisque ces acc&egrave;s peuvent poser des probl&egrave;mes de s&eacute;curit&eacute;, la machine contenant la base de donn&eacute;e ne devrait pas &ecirc;tre connect&eacute;e directement &agrave; Internet.
+<P>Le reroutage de ports peut fournir une solution presque id&eacute;ale &agrave; ce probl&egrave;me d'acc&egrave;s. Avec un firewall, les paquets IP qui arrivent sur un port sp&eacute;cifique peuvent &ecirc;tre r&eacute;&eacute;crit et envoy&eacute;s au serveur interne fournissant le service. Le paquet qui est re&ccedil;u du serveur interne est r&eacute;&eacute;crit pour le faire appara&icirc;tre comme arrivant du firewall.
+<P>Des informations sur le reroutage de ports peuvent &ecirc;tre trouv&eacute;es  
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.ox.compsoc.net/~steve/portforwarding.html">ici</A><P>
+<H2><A NAME="ss8.9">8.9 R&eacute;partition de charge</A>
+</H2>
+
+<P>Lorsqu'un serveur Web, qui utilise une base de donn&eacute;e, est tr&egrave;s charg&eacute;, il serait utile d'avoir plusieurs serveurs identiques et de rediriger les requ&ecirc;tes vers le serveur le moins charg&eacute;. Ceci peut &ecirc;tre fait avec les techniques de translation d'adresses r&eacute;seau (NAT : Network Address Translation) dont IP-Masquerading est un sous-ensemble. Les administrateurs r&eacute;seaux peuvent remplacer un serveur simple fournissant des services Web - ou n'importe quoi d'autre - par un groupe de serveurs partageant la m&ecirc;me adresse IP. Les connections arrivantes sont redirig&eacute;es vers l'un des serveurs en utilisant un algorithme de r&eacute;partition de charge. Le serveur virtuel r&eacute;&eacute;crit les paquets entrants et sortants pour que les clients aient un acc&egrave;s transparent au serveur, comme s'il &eacute;tait unique.
+<P>Des informations sur Linux IP-NAT peuvent &ecirc;tre trouv&eacute;es 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.csn.tu-chemnitz.de/~mha/linux-ip-nat/diplom/">l&agrave;</A><P>
+<H2><A NAME="ss8.10">8.10 EQL</A>
+</H2>
+
+<P>EQL est int&eacute;gr&eacute; au noyau de Linux. Si deux connections s&eacute;ries existent vers un autre ordinateur (cela demande deux modems et deux lignes de t&eacute;l&eacute;phone) et si SLIP ou PPP (un protocole pour envoyer un trafic internet &agrave; travers une ligne de t&eacute;l&eacute;phone) sont utilis&eacute;s dessus, il est possible de les faire se comporter comme une seule connection ayant une vitesse double en utilisant ce driver. Naturellement, EQL doit &ecirc;tre support&eacute; de l'autre c&ocirc;t&eacute; aussi.
+<P>
+<UL>
+<LI>Le 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.abies.com/eql-howto.mhtml">EQL How-to</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss8.11">8.11 Serveur Proxy</A>
+</H2>
+
+<P>Le terme proxy signifie "faire quelque chose pour quelqu'un d'autre". En termes de r&eacute;seau, un serveur proxy est un ordinateur qui agit pour plusieurs clients. Un proxy HTTP est une machine qui re&ccedil;oit des requ&ecirc;tes &agrave; des pages Web d'autres machines (machine A). Le proxy r&eacute;cup&egrave;re la page en question et retourne le r&eacute;sultat &agrave; la machine A. Le proxy peut avoir un cache contenant les pages d&eacute;j&agrave; demand&eacute;es, de fa&ccedil;on &agrave; ce que , si une autre machine demande la m&ecirc;me page, la copie du cache soit retourn&eacute;e &agrave; la place. Ceci permet de r&eacute;duire la bande passante utilis&eacute;e, et d'avoir un temps de r&eacute;ponse plus court. Comme effet de bord, les machines clientes n'acc&egrave;dent pas directement au monde ext&eacute;rieur et cela peut rendre un r&eacute;seau plus s&ucirc;r. Un proxy bien configur&eacute; peut &ecirc;tre aussi efficace qu'un firewall.
+<P>Plusieurs serveurs proxy existent pour Linux. La solution la plus populaire est le module proxy d'Apache. Il y a aussi SQUID qui est une impl&eacute;mentation plus compl&egrave;te et plus robuste de proxy HTTP.
+<P>
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.apache.org">Apache</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://squid.nlanr.net">Squid</A></LI>
+</UL>
+<P>
+<P>
+<H2><A NAME="ss8.12">8.12 Connection &agrave; la demande</A>
+</H2>
+
+<P>Le but des connections &agrave; la demande est de faire croire aux utilisateurs qu'ils ont une connection permanente d'un point &agrave; un autre. D'habitude, il y a un daemon qui surveille le trafic de paquets, qui &eacute;tablit la connection quand elle est n&eacute;cessaire, puis apr&egrave;s une p&eacute;riode d'inactivit&eacute;, clot la connection.
+<P>
+<UL>
+<LI>Le 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/Diald.html">Diald How-to</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss8.13">8.13 Tunnelling, IP mobile et r&eacute;seaux priv&eacute;s virtuels</A>
+</H2>
+
+<P>Le noyau de Linux permet le tunnelling (encapsulation) de protocoles. Il peut faire du tunnelling IPX via IP, permettant la connection de deux r&eacute;seaux IPX via une simple liaison IP. Il peut aussi faire du tunnelling IP-IP, qui est majoritairement utilis&eacute; pour le support des IP mobiles, le support du multicast, et la radio amateur. (voir 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/NET-3-HOWTO-6.html#ss6.13">http://sunsite.unc.edu/mdw/HOWTO/NET-3-HOWTO-6.html#ss6.13</A>)
+<P>Les IP mobiles sont une am&eacute;lioration qui permet un routage transparent de datagrammes IP vers des noeuds IP sur Internet. Chaque noeud est toujours identifi&eacute; par son adresse d'origine, quelque soit son point de rattachement &agrave; Internet. Quand il est &eacute;loign&eacute; de son point d'origine, un noeud mobile est aussi associ&eacute; avec une adresse d'h&eacute;bergement, ce qui fournit des informations sur son point de rattachement actuel sur Internet. Le protocole permet d'enregistrer l'adresse de l'h&eacute;bergeur avec un programme sp&eacute;cifique. Ce programme envoie les datagrammes destin&eacute;s au noeud mobile via le tunnel de l'adresse de l'h&eacute;bergeur. Apr&egrave;s &ecirc;tre arriv&eacute;, chaque datagramme est alors d&eacute;livr&eacute; au noeud mobile.
+<P>Le Point-to-Point Tunneling Protocol (PPTP) est une technologie r&eacute;seau qui permet d'utiliser Internet en tant que r&eacute;seau priv&eacute; virtuel (VPN : virtual private network). PPTP est int&eacute;gr&eacute; dans le serveur de services d'acc&egrave;s &agrave; distance (RAS : Remote Access Services) de Windows NT server. Avec PPTP, les utilisateurs peuvent se connecter &agrave; leur FAI local, ou se connecter directement &agrave; Internet, et utiliser leur r&eacute;seau comme s'ils &eacute;taient devant leur bureau. PPTP est un protocole bien d&eacute;fini, et sa s&eacute;curit&eacute; a r&eacute;cemment &eacute;t&eacute; compromise. Il est fortement conseill&eacute; d'utiliser l'une des alternatives propos&eacute;es par Linux, car elles s'appuient sur des standards qui ont &eacute;t&eacute; examin&eacute;s et test&eacute;s tr&egrave;s minutieusement.
+<P>
+<UL>
+<LI>Un client PPTP pour Linux est disponible 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.pdos.lcs.mit.edu/~cananian/Projects/PPTP/">ici</A></LI>
+</UL>
+
+IP mobile :
+<UL>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www-uk.hpl.hp.com/people/jt/mip.html">http://www-uk.hpl.hp.com/people/jt/mip.html</A></LI>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://anchor.cs.binghamton.edu/~mobileip/">http://anchor.cs.binghamton.edu/~mobileip/</A></LI>
+</UL>
+
+Document parlant des r&eacute;seaux priv&eacute;s virtuels :
+<UL>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/VPN.html">http://sunsite.unc.edu/mdw/HOWTO/mini/VPN.html</A></LI>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sites.inka.de/sites/bigred/devel/cipe.html">http://sites.inka.de/sites/bigred/devel/cipe.html</A></LI>
+</UL>
+<P>
+<P>
+<HR>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-9.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-7.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc8"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

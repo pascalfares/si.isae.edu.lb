@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Linux Ethernet-Howto</TITLE>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-1.html" REL=next>
+
+
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-1.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<IMG SRC="prev.gif" ALT="Page précédente">
+<IMG SRC="toc.gif" ALT="Table des matières">
+<HR>
+<H1>Linux Ethernet-Howto</H1>
+
+<H2>par Paul Gortmaker
+        Version fran&ccedil;aise&nbsp;: Mathieu Arnold</H2>Version anglaise&nbsp;: v2.7, 5 mai 1999
+<P><HR>
+<EM>        Ceci est l'<I>Ethernet-Howto</I>, une compilation d'informations sur les
+        p&eacute;riph&eacute;riques Ethernet qui peuvent &ecirc;tre utilis&eacute;s avec Linux, et la fa&ccedil;on
+        de les mettre en oeuvre. Notez que ce <I>Howto</I> se limite &agrave; l'aspect
+        mat&eacute;riel et pilotes de bas niveau des cartes Ethernet, et ne couvre pas
+        la partie logicielle de choses comme <CODE>ifconfig</CODE> et
+        <CODE>route</CODE>. Consultez le <I>Network&nbsp;Howto</I> pour ce type
+        d'informations.</EM>
+<HR>
+<P>
+<H2><A NAME="toc1">1.</A> <A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-1.html">Introduction</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-1.html#ss1.1">1.1 Nouvelles versions de ce document</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-1.html#ss1.2">1.2 Ethernet-Howto, mode d'emploi</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-1.html#ss1.3">1.3 Au secours&nbsp;! - Ca ne marche pas&nbsp;!</A>
+</UL>
+<P>
+<H2><A NAME="toc2">2.</A> <A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html">Quelle carte dois-je acheter pour Linux&nbsp;?</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html#ss2.1">2.1 Quels sont les pilotes stables, alors&nbsp;?</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html#ss2.2">2.2 Cartes 8&nbsp;bits contre cartes 16&nbsp;bits</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html#ss2.3">2.3 Cartes 32&nbsp;bits (VLB/EISA/PCI)</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html#ss2.4">2.4 Cartes et pilotes 100 M disponibles</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html#ss2.5">2.5 100VG contre 100BaseT</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html#ss2.6">2.6 Les types de c&acirc;bles que votre carte peut accepter</A>
+</UL>
+<P>
+<H2><A NAME="toc3">3.</A> <A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html">Foire Aux Questions (FAQ) - Les questions fr&eacute;quemment pos&eacute;es</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#ss3.1">3.1 Les pilotes `Alpha' -- Comment les obtenir et comment s'en servir</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#ss3.2">3.2 Utiliser plus d'une carte Ethernet par machine</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#ss3.3">3.3 le <CODE>ether=</CODE> n'a rien chang&eacute;. Pourquoi&nbsp;?</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#ss3.4">3.4 Probl&egrave;mes avec les cartes NE1000 / NE2000 (et leurs clones)</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#ss3.5">3.5 Probl&egrave;mes avec les cartes SMC Ultra/EtherEZ et WD80*3</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#ss3.6">3.6 Probl&egrave;mes avec des cartes 3Com</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#ss3.7">3.7 Les questions qui ne sont pas sp&eacute;cifiques &agrave; une carte.</A>
+</UL>
+<P>
+<H2><A NAME="toc4">4.</A> <A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-4.html">Trucs et astuces &agrave; propos des performances</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-4.html#ss4.1">4.1 Concepts g&eacute;n&eacute;riques</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-4.html#ss4.2">4.2 La vitesse des cartes et du bus ISA</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-4.html#ss4.3">4.3 Modifier la fen&ecirc;tre de r&eacute;ception TCP</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-4.html#ss4.4">4.4 Augmenter les performances de NFS</A>
+</UL>
+<P>
+<H2><A NAME="toc5">5.</A> <A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html">Informations sp&eacute;cifiques par distributeur/constructeur/mod&egrave;le</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.1">5.1 3Com</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.2">5.2 Accton</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.3">5.3 Allied Telesyn/Telesis</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.4">5.4 AMD / Advanced Micro Devices</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.5">5.5 Ansel Communications</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.6">5.6 Apricot</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.7">5.7 Arcnet</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.8">5.8 AT&amp;T</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.9">5.9 Boca Research</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.10">5.10 Cabletron</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.11">5.11 Cogent</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.12">5.12 Compaq</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.13">5.13 Danpex</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.14">5.14 D-Link</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.15">5.15 DFI</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.16">5.16 Digital / DEC</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.17">5.17 Farallon</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.18">5.18 Fujitsu</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.19">5.19 Hewlett Packard</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.20">5.20 IBM / International Business Machines</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.21">5.21 Cartes Ethernet ICL</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.22">5.22 Cartes Ethernet Intel</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.23">5.23 Kingston</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.24">5.24 LinkSys</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.25">5.25 Microdyne</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.26">5.26 Mylex</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.27">5.27 Ethernet chez Novell&nbsp;: NExxxx et les clones associ&eacute;s.</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.28">5.28 Proteon</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.29">5.29 Pure Data</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.30">5.30 Racal-Interlan</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.31">5.31 RealTek</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.32">5.32 Sager</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.33">5.33 Schneider &amp; Koch</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.34">5.34 SEEQ</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.35">5.35 SMC (Standard Microsystems Corp.) </A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.36">5.36 Texas Instruments</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.37">5.37 Thomas Conrad</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.38">5.38 VIA</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.39">5.39 Western Digital</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.40">5.40 Winbond</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.41">5.41 Xircom</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.42">5.42 Zenith</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.43">5.43 Znyx</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.44">5.44 Identifier une carte inconnue</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#ss5.45">5.45 Pilotes pour p&eacute;riph&eacute;riques Non-Ethernet</A>
+</UL>
+<P>
+<H2><A NAME="toc6">6.</A> <A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-6.html">C&acirc;bles, Coaxial, Paire Torsad&eacute;e</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-6.html#ss6.1">6.1 Ethernet fin (thinnet)</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-6.html#ss6.2">6.2 Paire torsad&eacute;e</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-6.html#ss6.3">6.3 Thick Ethernet - Le `gros' Ethernet</A>
+</UL>
+<P>
+<H2><A NAME="toc7">7.</A> <A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-7.html">Configuration logicielle et diagnostics de carte</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-7.html#ss7.1">7.1 Programmes de configuration pour cartes Ethernet</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-7.html#ss7.2">7.2 Programmes de diagnostic pour cartes Ethernet</A>
+</UL>
+<P>
+<H2><A NAME="toc8">8.</A> <A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html">Informations Techniques</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#ss8.1">8.1 Entr&eacute;es/Sorties programm&eacute;es contre m&eacute;moire partag&eacute;e contre DMA</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#ss8.2">8.2 &Eacute;criture d'un pilote de carte</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#ss8.3">8.3 Inteface du pilote avec le noyau</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#ss8.4">8.4 Informations techniques de 3Com</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#ss8.5">8.5 Notes sur les cartes bas&eacute;es sur la puce PCnet / LANCE d'AMD</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#ss8.6">8.6 Multicast et Mode `Promiscuous'</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#ss8.7">8.7 Le filtre de paquets de Berkeley (Berkeley Packet Filter -- BPF)</A>
+</UL>
+<P>
+<H2><A NAME="toc9">9.</A> <A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html">Faire du r&eacute;seau avec un portable</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html#ss9.1">9.1 Utiliser SLIP (Serial Line IP, IP sur liaison s&eacute;rie)</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html#ss9.2">9.2 Support PCMCIA</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html#ss9.3">9.3 Carte Ethernet ISA dans la station d'accueil.</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html#ss9.4">9.4 Adaptateurs de poche et sur port parall&egrave;le.</A>
+</UL>
+<P>
+<H2><A NAME="toc10">10.</A> <A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html">Questions diverses.</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#ss10.1">10.1 Passage des arguments Ethernet au noyau</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#ss10.2">10.2 Utilisation des pilotes Ethernet comme modules</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#ss10.3">10.3 Documents associ&eacute;s</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#ss10.4">10.4 D&eacute;sistement de responsabilit&eacute; et Copyright</A>
+<LI><A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#ss10.5">10.5 Conclusion</A>
+</UL>
+<HR>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-1.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<IMG SRC="prev.gif" ALT="Page précédente">
+<IMG SRC="toc.gif" ALT="Table des matières">
+</BODY>
+</HTML>

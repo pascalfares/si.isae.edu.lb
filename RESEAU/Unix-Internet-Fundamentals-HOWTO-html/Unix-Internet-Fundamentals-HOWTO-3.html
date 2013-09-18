@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>The Unix and Internet Fundamentals HOWTO: Que se passe-t-il lorsque vous allumez votre ordinateur ?</TITLE>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-4.html" REL=next>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-2.html" REL=previous>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc3" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-4.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-2.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc3"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s3">3. Que se passe-t-il lorsque vous allumez votre ordinateur ?</A></H2>
+
+<P>Un ordinateur sans programme qui s'ex&eacute;cute est juste un tas inerte
+d'&eacute;lectronique. La premi&egrave;re chose que doit faire un ordinateur
+lorsqu'il est allum&eacute; est de d&eacute;marrer un programme sp&eacute;cial appel&eacute; 
+<A NAME="os"></A> <EM>syst&egrave;me d'exploitation</EM>. Le travail du syst&egrave;me
+d'exploitation est d'aider les autres programmes de l'ordinateur &agrave;
+travailler, en traitant les d&eacute;tails m&eacute;prisables du contr&ocirc;le du mat&eacute;riel
+de l'ordinateur.
+<P>Le processus de d&eacute;marrage du syst&egrave;me d'exploitation est appel&eacute; 
+<A NAME="boot"></A>  <EM>booting</EM> (originalement c'&eacute;tait
+<EM>bootstrapping (la&ccedil;age des chaussures)</EM>, allusion &agrave; la
+difficult&eacute; d'enfiler soi m&ecirc;me ses chaussures `par les lacets'. Votre
+ordinateur sait comment booter car les instructions de boot sont
+stock&eacute;es dans un de ses composants, le composant BIOS (ou Basic
+Input/Output System).
+<P>Le composant BIOS dit o&ugrave; aller chercher, &agrave; une place fixe sur le disque dur
+de plus basse adresse (le <EM>disque de boot</EM>), un programme
+sp&eacute;cial appel&eacute;  <EM>chargeur de boot (boot loader)</EM> (sous Linux le
+chargeur de boot est appel&eacute; LILO). Le chargeur de boot est charg&eacute; en
+m&eacute;moire puis lanc&eacute;. Le travail du chargeur de boot est de d&eacute;marrer le
+syst&egrave;me d'exploitation r&eacute;el.
+<P>Le chargeur fait cela en allant chercher un <EM>noyau</EM>, en
+le chargeant en m&eacute;moire et en le d&eacute;marrant. Lorsque vous bootez Linux
+et voyez "LILO" sur l'&eacute;cran suivi par une succession de points, c'est
+qu'il charge le noyau. (Chaque point signifie qu'il vient de charger un
+autre 
+<A NAME="diskblock"></A> <EM>bloc du disque</EM> du code du noyau.)
+<P>(Vous pouvez vous demander pourquoi le BIOS ne charge pas le noyau
+directement --&nbsp;pourquoi ces deux &eacute;tapes du processus avec le chargeur
+de boot ? C'est que le BIOS n'est pas vraiment intelligent. En fait il
+est carr&eacute;ment stupide, et Linux ne l'utilise jamais apr&egrave;s avoir
+boot&eacute;. A l'origine, j'ai programm&eacute; sur des PC 8-bits primitifs avec de
+petits disques&nbsp;: litt&eacute;ralement ils ne pouvaient acc&eacute;der &agrave; suffisamment
+de disque pour charger le noyau directement. L'&eacute;tape du chargeur de
+boot vous permet de d&eacute;marrer plusieurs syst&egrave;mes d'exploitation &agrave; partir
+de diff&eacute;rents emplacements de votre disque, dans le cas o&ugrave; Unix n'est
+pas assez bon pour vous.)
+<P>Une fois que le noyau d&eacute;marre, il doit chercher autour de lui, trouver le
+reste du mat&eacute;riel et &ecirc;tre pr&ecirc;t pour ex&eacute;cuter des programmes. Il fait
+cela en non pas en fouillant &agrave; des adresses m&eacute;moire ordinaires mais
+plut&ocirc;t &agrave; des <EM>ports d'Entr&eacute;e/Sortie</EM> --&nbsp;des adresses sp&eacute;ciales
+du bus, sens&eacute;es avoir une carte contr&ocirc;leur de p&eacute;riph&eacute;riques en attente
+de commandes &agrave; cet endroit. Le noyau ne fouille pas au hasard&nbsp;; il a un
+ensemble de connaissances qui lui permet de savoir ce qu'il est sens&eacute;
+trouver ici, et comment les contr&ocirc;leurs r&eacute;pondraient s'ils &eacute;taient
+pr&eacute;sents. Ce processus est appel&eacute; <EM>Exploration
+automatique</EM>.
+<P>
+<P>La plupart des messages que vous voyez au moment du boot sont l'exploration
+de votre mat&eacute;riel par le noyau &agrave; travers les ports d'Entr&eacute;e/Sortie, le
+chiffrage de ce qui est disponible et l'adaptation &agrave; votre machine. Le
+noyau Linux est extr&ecirc;mement bon pour cela, meilleur que la plupart des
+autres Unix et <EM>tellement</EM> meilleur que DOS ou Windows. En fait,
+beaucoup de vieux adeptes de Linux pensent que l'ing&eacute;niosit&eacute; des
+explorations de Linux lors du boot (qui lui permettent de s'installer
+relativement simplement) ont &eacute;t&eacute; une raison de s'&eacute;panouir dans le monde
+des exp&eacute;riences des Unix libres pour attirer une masse critique
+d'utilisateurs.
+<P>
+<P>Mais rendre le noyau compl&egrave;tement charg&eacute; et s'ex&eacute;cutant n'est pas la fin du
+processus de boot&nbsp;; c'est juste la premi&egrave;re &eacute;tape (quelquefois appel&eacute;e
+<EM>niveau d'ex&eacute;cution 1 (run level 1)</EM>).
+<P>L'&eacute;tape suivante du noyau est de s'assurer que vos disques sont OK. Les
+syst&egrave;mes de fichiers sur disques sont des choses fragiles&nbsp;; s'ils ont
+&eacute;t&eacute; endommag&eacute;s par une panne mat&eacute;rielle ou par une coupure soudaine
+d'alimentation &eacute;lectrique, il y a de bonnes raisons de r&eacute;tablir
+l'int&eacute;grit&eacute; avant que votre Unix ne puisse aller plus loin. Nous
+parlerons plus tard de ce que l'on dit &agrave; propos de 
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-8.html#fsck">comment les syst&egrave;mes de fichiers peuvent devenir mauvais</A>.
+<P>
+<P>L'&eacute;tape suivante du noyau est de lancer plusieurs <EM>d&eacute;mons</EM>. Un d&eacute;mon
+est un programme comme un spouleur d'imprimante, un serveur de mail ou
+un serveur WWW qui se cache en arri&egrave;re-plan en attendant d'avoir des
+choses &agrave; faire. Ces programmes sp&eacute;ciaux doivent coordonner plusieurs
+requ&ecirc;tes qui peuvent entrer en conflit. Il y a des d&eacute;mons car il est
+souvent plus facile d'&eacute;crire un programme qui s'ex&eacute;cute constamment et
+qui sait tout des requ&ecirc;tes, plut&ocirc;t que d'essayer de s'assurer qu'un
+troupeau de copies (chacune traitant une requ&ecirc;te et toutes s'ex&eacute;cutant
+en m&ecirc;me temps) ne se g&ecirc;neraient pas mutuellement. La collection
+particuli&egrave;re de d&eacute;mons que le syst&egrave;me d&eacute;marre peut varier, mais inclura
+presque toujours un spouleur d'imprimante (un d&eacute;mon garde-barri&egrave;re de
+votre imprimante).
+<P>
+<P>Une fois que tous les d&eacute;mons ont d&eacute;marr&eacute;, nous sommes dans le <EM>niveau
+d'ex&eacute;cution 2 (run level 2)</EM>. L'&eacute;tape suivante est la pr&eacute;paration
+pour les utilisateurs. Le noyau d&eacute;marre une copie d'un programme
+appel&eacute; <CODE>getty</CODE> pour surveiller votre console (et peut &ecirc;tre
+d'autres copies pour surveiller des ports-s&eacute;rie entrants) Ce
+programme est celui duquel jaillit le prompt <CODE>login</CODE> sur votre
+console. Nous sommes maintenant dans le <EM>niveau d'ex&eacute;cution 3 (run
+level 3)</EM> et pr&ecirc;ts pour votre connexion et l'ex&eacute;cution de vos
+programmes.
+<P>
+<P>Quand vous vous connectez (en donnant un nom et un mot de passe), vous vous
+identifiez aupr&egrave;s de <CODE>getty</CODE> et de l'ordinateur. Il ex&eacute;cute
+maintenant un programme appel&eacute; (assez naturellement) <CODE>login</CODE>,
+qui r&eacute;alise des t&acirc;ches ancillaires et d&eacute;marre un interpr&eacute;teur de
+commandes, le <EM>shell</EM>. (Oui <CODE>getty</CODE> et <CODE>login</CODE>
+pourraient &ecirc;tre un seul et m&ecirc;me programme. Ils sont s&eacute;par&eacute;s pour des
+raisons historiques que nous n'expliciterons pas ici.)
+<P>
+<P>Dans la section suivante, nous parlerons de ce qui se passe lorsque vous
+ex&eacute;cutez des programmes &agrave; partir du shell.
+<P>
+<HR>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-4.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-2.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc3"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

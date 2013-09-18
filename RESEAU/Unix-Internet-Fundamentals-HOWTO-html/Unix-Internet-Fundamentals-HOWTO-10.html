@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>The Unix and Internet Fundamentals HOWTO: Comment Internet fonctionne ?</TITLE>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-9.html" REL=previous>
+ <LINK HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc10" REL=contents>
+</HEAD>
+<BODY>
+<IMG SRC="next.gif" ALT="Page suivante">
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-9.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc10"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s10">10. Comment Internet fonctionne ?</A></H2>
+
+<P>Afin de vous aider &agrave; comprendre comment Internet fonctionne, nous verrons
+ce qui se passe lorsque vous effectuez une op&eacute;ration
+classique --&nbsp;pointer dans un navigateur ce document &agrave; partir du
+site Web de r&eacute;f&eacute;rence du Projet de Documentation de Linux (Linux
+Documentation Project). Ce document est&nbsp;:
+<P>
+<PRE>
+http://sunsite.unc.edu/LDP/HOWTO/Fundamentals.html
+</PRE>
+<P>ce qui veut dire qu'il r&eacute;side dans le fichier LDP/HOWTO/Fundamentals.html,
+sous le r&eacute;pertoire export&eacute; World Wide Web de la machine sunsite.unc.edu.
+<P>
+<P>
+<H2><A NAME="ss10.1">10.1 Noms et localisations</A>
+</H2>
+
+<P>La premi&egrave;re chose que votre navigateur doit faire est d'&eacute;tablir une
+connexion r&eacute;seau avec la machine sur laquelle se trouve le
+document. Pour faire cela, il doit tout d'abord trouver la
+localisation r&eacute;seau de <EM>l'h&ocirc;te</EM> sunsite.unc.edu
+(h&ocirc;te est un raccourci pour `machine h&ocirc;te' ou `h&ocirc;te r&eacute;seau'&nbsp;;
+sunsite.unc.edu est un <EM>nom d'h&ocirc;te (hostname)</EM>
+typique). La localisation correspondante est en fait un nombre appel&eacute;
+<EM>adresse IP</EM> (nous expliquerons la partie `IP' de ce
+terme plus tard).
+<P>Pour faire cela, votre navigateur sollicite un programme nomm&eacute;
+<EM>serveur de noms</EM>. Le serveur de noms peut r&eacute;sider
+sur votre machine, mais il est plus probable qu'il soit sur une
+machine de service avec laquelle vous pouvez dialoguer. Lorsque vous
+abonnez chez un Fournisseur d'Acc&eacute;s &agrave; Internet (FAI), une partie de la
+proc&eacute;dure d'installation d&eacute;crit certainement la mani&egrave;re d'indiquer &agrave;
+votre logiciel Internet l'adresse IP du serveur de noms du r&eacute;seau
+du FAI.
+<P>Les serveurs de noms sur diff&eacute;rentes machines communiquent avec les autres
+en &eacute;changeant et en gardant &agrave; jour toutes les informations n&eacute;cessaires
+&agrave; la r&eacute;solution de noms d'h&ocirc;te (en les associant &agrave; des adresses
+IP). Votre serveur de noms doit demander &agrave; trois ou quatre sites &agrave;
+travers le r&eacute;seau afin de r&eacute;soudre sunsite.unc.edu, mais cela se
+d&eacute;roule vraiment rapidement (en moins d'une seconde).
+<P>Le serveur de noms dira &agrave; votre navigateur que l'adresse IP de Sunsite est
+152.2.22.81&nbsp;; sachant cela, votre machine sera capable d'&eacute;changer des
+bits avec Sunsite directement.
+<P>
+<P>
+<H2><A NAME="ss10.2">10.2 Paquets et routeurs</A>
+</H2>
+
+<P>Ce que le navigateur veut faire est d'envoyer une commande au serveur Web
+sur Sunsite qui a la forme suivante&nbsp;:
+<P>
+<PRE>
+GET /LDP/HOWTO/Fundamentals.html HTTP/1.0
+</PRE>
+<P>Que se passe-t-il alors ? La commande est faite de
+<EM>paquets</EM>&nbsp;; un bloc de bits comme un t&eacute;l&eacute;gramme 
+est d&eacute;coup&eacute; en trois choses importantes&nbsp;: <EM>l'adresse
+source</EM> (l'IP de votre machine), <EM>l'adresse
+destination</EM> (152.2.22.81), et le <EM>num&eacute;ro de
+service</EM> ou <EM>num&eacute;ro de port</EM> (80, dans ce
+cas) qui indique que c'est une requ&ecirc;te World Wide Web.
+<P>Alors votre machine envoie le paquet par le fil (de la connexion modem avec
+votre FAI, ou le r&eacute;seau local) jusqu'&agrave; ce qu'il rencontre une machine
+sp&eacute;cialis&eacute;e appel&eacute;e <EM>routeur</EM>. Le routeur poss&egrave;de
+une carte de l'Internet dans sa m&eacute;moire --&nbsp;pas une compl&egrave;te mais une
+qui d&eacute;crit votre voisinage r&eacute;seau et sait comment aller aux routeurs
+pour les autres voisinages sur l'Internet.
+<P>Votre paquet peut passer &agrave; travers plusieurs routeurs sur le chemin de sa
+destination. Les routeurs sont adroits. Ils regardent combien de temps
+prend un accus&eacute; r&eacute;ception pour recevoir un paquet. Ils utilisent cette
+information pour aiguiller le trafic sur les liens rapides. Ils
+l'utilisent pour s'apercevoir que d'autres routeurs (ou un c&acirc;ble) sont
+d&eacute;connect&eacute;s du r&eacute;seau et modifier le chemin si possible en trouvant
+une autre route.
+<P>Il existe une l&eacute;gende urbaine qui dit qu'Internet a &eacute;t&eacute; con&ccedil;u pour survivre
+a une guerre nucl&eacute;aire. Ce n'est pas vrai, mais la conception
+d'Internet est extr&ecirc;mement bonne en ayant une performance fiable bas&eacute;
+sur des couches mat&eacute;rielles d'un monde incertain... C'est directement du
+au fait que son intelligence est distribu&eacute;e &agrave; travers des milliers de
+routeurs plut&ocirc;t qu'&agrave; quelques auto-commutateurs massifs (comme le
+r&eacute;seau t&eacute;l&eacute;phonique). Cela veut dire que les d&eacute;faillances tendent &agrave;
+&ecirc;tre bien localis&eacute;es et le r&eacute;seau peut les contourner.  
+<P>Une fois que le paquet est arriv&eacute; &agrave; destination, la machine utilise le
+num&eacute;ro de service pour le fournir au serveur Web. Le serveur Web peut
+savoir &agrave; qui r&eacute;pondre en regardant l'adresse source du paquet. Quand
+le serveur Web renvoie ce document, il sera coup&eacute; en plusieurs
+paquets. La taille des paquets varie en fonction du m&eacute;dia de
+transmission du r&eacute;seau et du type de service.
+<P>
+<P>
+<H2><A NAME="ss10.3">10.3 TCP et IP</A>
+</H2>
+
+<P>Pour comprendre comment des transmissions de multiples paquets sont
+r&eacute;alis&eacute;es, vous devez savoir que l'Internet utilise actuellement deux
+protocoles empil&eacute;s l'un sur l'autre.
+<P>Le plus bas niveau, <EM>IP</EM> (Internet Protocol), sait
+comment recevoir des paquets individuels d'une adresse source vers une
+adresse destination (c'est pourquoi elles sont appel&eacute;es adresses
+IP). Cependant, IP n'est pas fiable&nbsp;; si un paquet est perdu ou jet&eacute;,
+les machines source et destination ne le sauront jamais. Dans le
+jargon r&eacute;seau, IP est un protocole <EM>sans connexion (ou mode non
+connect&eacute;)</EM>&nbsp;; l'exp&eacute;diteur envoie juste un paquet au destinataire et
+n'attend jamais un accus&eacute; de r&eacute;ception.
+<P>Cependant, IP est rapide et peu co&ucirc;teux. Quelquefois, rapide, peu co&ucirc;teux
+et non fiable c'est OK. Lorsque vous jouez en r&eacute;seau &agrave; Doom ou Quake,
+chaque balle est repr&eacute;sent&eacute;e par un paquet IP. Si quelques-unes sont
+perdues, c'est OK.
+<P>Le niveau sup&eacute;rieur, <EM>TCP</EM> (Transmission Control
+Protocol), fournit la fiabilit&eacute;. Quand deux machine n&eacute;gocient une
+connexion TCP (ce qu'elles font en utilisant IP), le destinataire doit
+envoyer des accus&eacute;s de r&eacute;ception des paquets qu'il re&ccedil;oit &agrave;
+l'exp&eacute;diteur. Si l'exp&eacute;diteur ne re&ccedil;oit pas un accus&eacute; de r&eacute;ception
+pour un paquet apr&egrave;s un certain temps, il renvoie ce paquet. De plus,
+l'exp&eacute;diteur donne &agrave; chaque paquet TCP un num&eacute;ro de s&eacute;quence, que le
+destinataire peut utiliser pour r&eacute;-assembler les paquets dans le cas o&ugrave;
+il sont arriv&eacute;s dans le d&eacute;sordre. (Cela peut arriver si les liens
+r&eacute;seau se r&eacute;tablissent ou cassent pendant une connexion.)
+<P>Les paquets TCP/IP contiennent &eacute;galement un checksum pour permettre la
+d&eacute;tection de donn&eacute;es alt&eacute;r&eacute;es par de mauvais liens. Ainsi, du point de
+vue de quelqu'un utilisant TCP/IP et des serveurs de noms, il
+ressemble &agrave; une voie fiable pour faire passer des flux d'octets entre
+des paires h&ocirc;te/num&eacute;ro de services. Les gens qui &eacute;crivent des
+protocoles r&eacute;seau ne doivent pas se soucier la plupart du temps de la
+taille des paquets, du r&eacute;-assemblage des paquets, de la v&eacute;rification
+d'erreurs, le calcul du checksum et la retransmission qui sont au
+niveau inf&eacute;rieurs.
+<P>
+<P>
+<H2><A NAME="ss10.4">10.4 HTTP, un protocole d'application</A>
+</H2>
+
+<P>Maintenant revenons &agrave; notre exemple. Les navigateurs et les serveurs Web
+parlent un <EM>protocole d'application</EM> qui est au
+dessus de TCP/IP, en l'utilisant simplement comme une mani&egrave;re de
+passer des cha&icirc;nes d'octets dans les deux sens. Ce protocole est appel&eacute;
+<EM>HTTP</EM> (Hyper-Text Transfer Protocol) et nous en
+avons d&eacute;j&agrave; vu une commande --&nbsp;la commande GET utilis&eacute;e ci-dessus.
+<P>Lorsque la commande GET arrive au serveur Web de sunsite.unc.edu avec comme
+num&eacute;ro de service 80, elle sera exp&eacute;di&eacute;e &agrave; un <EM>d&eacute;mon
+serveur</EM> qui &eacute;coute le port 80. La plupart des services
+Internet sont impl&eacute;ment&eacute;s par des d&eacute;mons serveurs qui ne font rien
+d'autre qu'attendre sur des num&eacute;ros de port, r&eacute;colter et ex&eacute;cuter les
+commandes entrantes.
+<P>
+<P>Cette conception de l'Internet a une r&egrave;gle qui prime sur les autres,
+c'est que toutes les parties sont le plus simple possible et
+humainement accessible. HTTP, et ses comp&egrave;res (comme le Simple Mail
+Transfer Protocol, <EM>SMTP</EM>, qui est utilis&eacute; pour
+transporter du courrier &eacute;lectronique entre des machines) utilisent de
+simples commandes de texte qui se terminent par un retour chariot.
+<P>
+<P>C'est rarement inefficace&nbsp;; dans certaines circonstances vous pouvez obtenir
+plus de rapidit&eacute; en employant un protocole binaire fortement
+cod&eacute;. Mais l'exp&eacute;rience a montr&eacute; que le b&eacute;n&eacute;fice d'avoir des commandes
+qui sont faciles &agrave; d&eacute;crire et &agrave; comprendre l'emportent sur le gain
+marginal de l'efficacit&eacute; que l'on peut esp&eacute;rer au prix de choses
+compliqu&eacute;es et compactes.
+<P>Par cons&eacute;quent, ce que le d&eacute;mon serveur vous renvoie via TCP/IP est aussi
+du texte. Le d&eacute;but de la r&eacute;ponse ressemblera &agrave; quelque chose comme
+(quelques en-t&ecirc;tes ont &eacute;t&eacute; supprim&eacute;s)&nbsp;:
+<P>
+<PRE>
+HTTP/1.1 200 OK
+Date: Sat, 10 Oct 1998 18:43:35 GMT
+Server: Apache/1.2.6 Red Hat
+Last-Modified: Thu, 27 Aug 1998 17:55:15 GMT
+Content-Length: 2982
+Content-Type: text/html
+</PRE>
+<P>Ces en-t&ecirc;tes seront suivis d'une ligne vide et du texte de la page Web
+(apr&egrave;s que la connexion sera rompue). Votre navigateur affichera
+simplement cette page. Les en-t&ecirc;tes indiquent --&nbsp;en particulier,
+l'en-t&ecirc;te Type de Contenu (Content-Type)&nbsp;-- comment les donn&eacute;es re&ccedil;ues
+sont vraiment du HTML).
+<P>
+<HR>
+<IMG SRC="next.gif" ALT="Page suivante">
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO-9.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Unix-Internet-Fundamentals-HOWTO-html/Unix-Internet-Fundamentals-HOWTO.html#toc10"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

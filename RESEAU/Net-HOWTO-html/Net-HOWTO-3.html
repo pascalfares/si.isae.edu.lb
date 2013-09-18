@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>R&eacute;seau sous Linux :: Comment utiliser ce document.</TITLE>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-4.html" REL=next>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-2.html" REL=previous>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc3" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-4.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-2.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc3"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s3">3. Comment utiliser ce document.</A></H2>
+
+<P>Ce document est organis&eacute; de mani&egrave;re &agrave; &ecirc;tre lu progressivement. 
+Les premi&egrave;res sections traitent d'informations sur le mat&eacute;riel et peuvent 
+&ecirc;tre pass&eacute;es si cela ne vous int&eacute;resse pas. Ensuite, vous trouverez 
+une discussion g&eacute;n&eacute;rale sur les r&eacute;seaux, et vous devez &ecirc;tre certains 
+de l'avoir assimil&eacute;e avant de 
+poursuivre vers les paragraphes plus sp&eacute;cifiques. Le reste traite
+l'aspect plus technique, et est regroup&eacute; en trois parties
+principales : informations sur Ethernet et IP, les technologies concernant
+le mat&eacute;riel PC le plus courant, et les technologies moins r&eacute;pandues.
+<P> 
+La d&eacute;marche que je sugg&egrave;re pour parcourir ce document est donc la suivante : 
+<P>
+<DL>
+<P>
+<P>
+<DT><B>Lire les sections g&eacute;n&eacute;rales</B><DD><P>Ces paragraphes s'appliquent &agrave; chaque, ou presque, technologie d&eacute;crite
+plus loin et il est donc important que vous les ayez comprises.
+D'autre part, j'esp&egrave;re que de nombreux de lecteurs connaissent d&eacute;j&agrave; le sujet.
+<P>
+<P>
+<DT><B>R&eacute;fl&eacute;chissez &agrave; votre r&eacute;seau</B><DD><P>Vous devez savoir comment votre r&eacute;seau est (ou sera) con&ccedil;u et quels
+mat&eacute;riels et types de technologies vous utiliserez.
+<P>
+<P> 
+<DT><B>Lisez la section ``Ethernet et IP'' si vous &ecirc;tes connect&eacute;s en direct
+sur un r&eacute;seau local ou &agrave; l'Internet</B><DD><P>Cette section traite de la configuration de base d'Ethernet et des 
+diff&eacute;rentes possibilit&eacute;s offertes par Linux, et qui concernent le r&eacute;seau, 
+telles que le pare-feu, le routage avanc&eacute;, etc..
+<P>
+<DT><B>Lisez apr&egrave;s si vous &ecirc;tes int&eacute;ress&eacute;s par les r&eacute;seaux locaux &agrave; bas co&ucirc;t
+ou les connexions par t&eacute;l&eacute;phone</B><DD><P>Cette section parle de PLIP, PPP, SLIP, et RNIS, les technologies utilis&eacute;es 
+habituellement sur les stations personnelles.
+<P>
+<DT><B>Lisez la section concernant la technologie qui correspond
+plus particuli&egrave;rement &agrave; vos besoins.</B><DD><P>Si vos besoins ne concernent pas IP et/ou un mat&eacute;riel courant, vous trouverez
+&agrave; la fin des d&eacute;tails sur les protocoles non-IP et les mat&eacute;riels de 
+communication particuliers.
+<P>
+<DT><B>Configurez votre r&eacute;seau</B><DD><P>Si vous allez r&eacute;ellement essayer de configurer votre r&eacute;seau, prenez 
+soigneusement note de tout probl&egrave;me &eacute;ventuel.
+<P>
+<DT><B>Cherchez de l'aide si n&eacute;cessaire</B><DD><P>Si vous rencontrez des probl&egrave;mes qui ne sont pas trait&eacute;s dans ce document, 
+reportez-vous au paragraphe donnant les endroits o&ugrave; l'on peut en obtenir ou bien
+envoyer des reports de bogues.
+<DT><B>Amusez-vous!</B><DD><P>Le r&eacute;seau est amusant, profitez-en.
+</DL>
+<P>
+<P>
+<H2><A NAME="ss3.1">3.1 Les conventions utilis&eacute;es dans ce document</A>
+</H2>
+
+<P>Il n'y a pas de convention sp&eacute;ciale utilis&eacute;e dans ce document, mais vous 
+devez faire attention &agrave; la fa&ccedil;on dont les commandes sont sp&eacute;cifi&eacute;es. En 
+consultant la documentation habituelle d'Unix, toute commande qui doit &ecirc;tre 
+tap&eacute;e est pr&eacute;c&eacute;d&eacute;e d'une invite du shell.
+Ce document utilise "<CODE>user%</CODE>" comme invite pour les commandes 
+ne n&eacute;cessitant pas de privil&egrave;ges de superutilisateur, et "<CODE>root#</CODE>" 
+pour les commandes que l'on doit ex&eacute;cuter comme super-utilisateur (root). 
+Je pr&eacute;f&egrave;re utiliser "<CODE>root#</CODE>" &agrave; la place du classique 
+"<CODE>#</CODE>" pour &eacute;viter 
+toute confusion avec les extraits de scripts shell, ou le signe di&egrave;se 
+est utilis&eacute; pour d&eacute;finir les lignes de commentaires.
+<P>
+<P>
+<P>
+<P>Lorsque les ``Options de Compilation du noyau'' sont mentionn&eacute;es, elles 
+le sont avec le format utilis&eacute; par <EM>menuconfig</EM>. Elles devraient donc &ecirc;tre 
+compr&eacute;hensibles m&ecirc;me si vous (comme moi) n'&ecirc;tes pas familiers avec 
+<EM>menuconfig</EM>. Si vous avez un doute sur l'utilisation d'options, 
+faites tourner le programme une fois. Cela ne peut que vous aider.
+<P>
+<P>
+<HR>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-4.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-2.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc3"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

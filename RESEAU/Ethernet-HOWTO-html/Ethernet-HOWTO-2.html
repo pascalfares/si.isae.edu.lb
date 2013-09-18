@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Linux Ethernet-Howto: Quelle carte dois-je acheter pour Linux&nbsp;?</TITLE>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html" REL=next>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-1.html" REL=previous>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc2" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-1.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc2"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="what-card"></A> <A NAME="s2">2. Quelle carte dois-je acheter pour Linux&nbsp;?</A></H2>
+
+<P>La r&eacute;ponse &agrave; cette question d&eacute;pend fortement de ce que vous comptez
+faire avec votre connexion r&eacute;seau, et du volume du trafic qui va y
+passer.
+<P>Si vous vous attendez &agrave; ce qu'un seul utilisateur effectue
+occasionnellement une session FTP ou une connexion WWW, alors m&ecirc;me une
+vieille carte ISA 8&nbsp;bits vous contentera probablement.
+<P>Si vous avez l'intention de mettre en place un serveur, et que vous
+exigez que la charge processeur li&eacute;e &agrave; la r&eacute;ception et &agrave; la transmission
+des donn&eacute;es sur le r&eacute;seau reste la plus basse possible, vous devrez
+certainement choisir une des cartes PCI, qui utilisent le bus-mastering,
+telles celles comportant la puce tulip (21xxx) de DEC, ou la puce
+PCnet-PCI d'AMD.
+<P>Si vous vous trouvez au milieu de ces deux extr&ecirc;mes, alors n'importe
+quelle carte PCI bon march&eacute; ou une carte ISA 16&nbsp;bits poss&eacute;dant un pilote
+stable vous conviendra.
+<P>
+<H2><A NAME="ss2.1">2.1 Quels sont les pilotes stables, alors&nbsp;?</A>
+</H2>
+
+<P>Parmi les cartes ISA 16&nbsp;bits, les pilotes suivants sont tr&egrave;s au point,
+et vous ne devriez pas avoir de probl&egrave;mes si vous achetez une carte qui
+utilise ces pilotes&nbsp;:
+<BLOCKQUOTE>
+SMC-Ultra/EtherEZ, SMC-Elite (WD80x3), 3c509, Lance, NE2000.
+</BLOCKQUOTE>
+<P>Cela ne signifie pas que tous les autres pilotes sont instables. Il se
+trouve juste que ceux-ci sont les plus anciens et les plus utilis&eacute;s des
+pilotes Linux, ce qui en fait le choix le plus s&ucirc;r.
+<P>Notez que certaines cartes-m&egrave;res pas ch&egrave;res peuvent avoir des probl&egrave;mes
+avec le bus-mastering que les cartes ISA Lance utilisent, et que
+certains clones NE2000 bon march&eacute; ont des difficult&eacute;s &agrave; &ecirc;tre d&eacute;tect&eacute;s au
+d&eacute;marrage.
+<P>Les pilotes PCI les plus couramment utilis&eacute;s sous Linux sont
+probablement le 3Com Vortex/Boomerang (3c59x/3c9xx), le DEC tulip
+(21xxx), et l'EtherExpressPro 100 d'Intel. Les divers clones PCI-NE2000
+sont &eacute;galement tr&egrave;s courants, mais l'achat d'une telle carte ne peut se
+justifier que si le crit&egrave;re du prix est plus important que celui des
+performances.
+<P>
+<H2><A NAME="8-vs-16"></A> <A NAME="ss2.2">2.2 Cartes 8&nbsp;bits contre cartes 16&nbsp;bits</A>
+</H2>
+
+<P>Vous ne pourrez certainement plus acheter une carte Ethernet ISA 8&nbsp;bits
+de nos jours, mais vous en trouverez encore beaucoup dans les ann&eacute;es &agrave;
+venir sur les march&eacute;s aux puces informatiques ou autres braderies, et ce
+&agrave; des prix vraiment tr&egrave;s bas. Cela les rend id&eacute;ales pour les syst&egrave;mes
+``Ethernet-&agrave;-la-maison''. cette constatation est d'ailleurs aussi
+valable pour les cartes ISA 16&nbsp;bits car les cartes PCI deviennent de
+plus en plus communes.
+<P>La wd8003, la 3c503 et la ne1000 sont des cartes 8&nbsp;bits qui donneront de
+bonnes performances pour une utilisation faible &agrave; mod&eacute;r&eacute;e.  La 3c501
+donnera des r&eacute;sultats faibles, et ces reliques ant&eacute;diluviennes
+(12&nbsp;ans&nbsp;!) des beaux jours du XT sont &agrave; &eacute;viter. (Envoyez les a Alan, il
+les collectionne...)
+<P>Le canal de donn&eacute;es 8&nbsp;bits n'att&eacute;nue pas trop les performances, puisque
+vous pouvez encore esp&eacute;rer obtenir 500 &agrave; 800&nbsp;Ko/s en vitesse de
+transfert FTP pour une carte 8&nbsp;bits wd8003 (sur un bus ISA rapide) &agrave;
+partir d'un serveur rapide. Et si la plupart de votre trafic r&eacute;seau est
+&agrave; destination de sites &eacute;loign&eacute;s, le goulot d'&eacute;tranglement se situera
+ailleurs sur le chemin, la seule diff&eacute;rence de vitesse que vous noterez
+se produisant lorsqu'il y a de l'activit&eacute; sur votre r&eacute;seau local.
+<P>
+<H2><A NAME="ss2.3">2.3 Cartes 32&nbsp;bits (VLB/EISA/PCI)</A>
+</H2>
+
+<P>Notez qu'un r&eacute;seau &agrave; 10&nbsp;Mbps ne justifie pas l'utilisation d'une
+interface 32&nbsp;bits.  Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#data-xfer">E/S programm&eacute;es         contre...</A>, qui explique pourquoi avoir une carte Ethernet 10&nbsp;Mbit/s
+sur un bus ISA &agrave; 8&nbsp;MHz ne constitue vraiment pas un goulot
+d'&eacute;tranglement. M&ecirc;me si le fait que la carte Ethernet se trouve sur un
+bus rapide ne signifie pas que les transferts sont plus rapides, cela
+entra&icirc;nera souvent une charge processeur suppl&eacute;mentaire moins
+importante, ce qui est bon pour les syst&egrave;mes multi-utilisateurs.
+<P>Bien s&ucirc;r, avec la d&eacute;mocratisation des r&eacute;seaux 100&nbsp;Mbps, les cartes
+32&nbsp;bits deviennent une obligation pour pouvoir tirer avantage de toute
+la bande passante. AMD propose les puces 32&nbsp;bits PCnet-VLB et PCnet-PCI.
+Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#pcnet-32">AMD PCnet-32</A> pour plus
+d'informations sur la version 32&nbsp;bits de la puce LANCE / PCnet-ISA.
+<P>La puce tulip (21xxx) PCI de DEC est une autre option (voir&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#dec-21040">DEC 21040</A>) pour les utilisateurs de puissance. De
+nombreux fabricants proposent des cartes bas&eacute;es sur cette puce, et les
+prix de ces cartes ``sans-nom'' sont g&eacute;n&eacute;ralement bas.
+<P>Les cartes PCI `Vortex' et `Boomerang' de 3Com constituent aussi une
+autre option, et le prix reste correct si vous pouvez en obtenir une
+tant que leur proposition d'&eacute;valuation dure. (voir 
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#vortex">3c590/3c595</A>)
+<P>Les cartes EtherExpress Pro 10/100 PCI d'Intel sont aussi connues pour
+marcher plut&ocirc;t bien avec Linux. (voir 
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#eepro100">EtherExpress</A>).
+<P>Des fabricants de clones ont commenc&eacute; &agrave; produire des clones PCI de
+NE2000, bas&eacute;s sur une puce RealTek ou une puce Winbond. Le pilote Linux
+NE2000 des noyaux 2.0.31 et sup&eacute;rieurs accepte ces cartes. Cependant
+vous ne b&eacute;n&eacute;ficierez que de la vitesse plus &eacute;lev&eacute;e du bus, puisque ces
+cartes utiliseront encore l'interface du pilote de la NE2000, qui
+commence &agrave; dater. Depuis la version 2.0.34 du noyau, un pilote
+specifique &agrave; ces cartes <CODE>ne2k-pci.c</CODE> est aussi disponible. Il
+devrait &ecirc;tre l&eacute;gerement plus efficace que le pilote ISA <CODE>ne.c</CODE>
+<P>
+<H2><A NAME="ss2.4">2.4 Cartes et pilotes 100 M disponibles</A>
+</H2>
+
+<P>La liste des mat&eacute;riels 100&nbsp;M reconnus par Linux &agrave; l'heure actuelle est
+la suivante&nbsp;: les cartes bas&eacute;es sur la puce DEC&nbsp;21140; les cartes
+3c595/3c90x&nbsp;Vortex; la EtherExpressPro10/100B; la PCnet-FAST; la SMC
+83c170 (epic100) et la HP 100VG&nbsp;ANY-LAN.
+<P>Allez aussi jeter un coup d'oeil sur les pages des constructeurs des
+cartes, vous pouvez aussi aller sur l'une des adresse suivantes&nbsp;:
+<P>
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://cesdis.gsfc.nasa.gov/linux/misc/100mbs.html">Ethernet 100M</A></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://cesdis.gsfc.nasa.gov/linux/drivers/100vg.html">La page 100VG de Donald</A></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://alumni.caltech.edu/~dank/fe/">La page Fast Ethernet de Dan Kegel</A></BLOCKQUOTE>
+<P>
+<H2><A NAME="ss2.5">2.5 100VG contre 100BaseT</A>
+</H2>
+
+<P>Le 100BaseT est beaucoup plus r&eacute;pandu que le 100VG et la plaquette
+publicitaire suivante est extraite d'un vieux message d&eacute;sesp&eacute;rement
+bourr&eacute; d'informations post&eacute; par Donald dans <CODE>comp.os.linux</CODE>; elle
+r&eacute;sume bien la situation:
+<P>``Pour ceux qui ne seraient pas au courant, il y a deux normes Ethernet
+en comp&eacute;tition, le 100VG (aussi connu sous le nom de 100baseVG ou encore
+100VG-AnyLAN) et le 100baseT (qui, selon le type du c&acirc;ble, s'appelle
+100bastTx, 100baseT4 ou 100baseFx).
+<P>Le 100VG est arriv&eacute; sur le march&eacute; le premier, et je sentais qu'il &eacute;tait
+mieux pens&eacute; que le 100baseTx. J'&eacute;tais persuad&eacute; qu'il allait gagner, mais
+visiblement ce ne sera pas le cas. HP et al. ont fait plusieurs mauvais
+choix&nbsp;:
+<P>1) Retarder la norme de mani&egrave;re &agrave; ce qu'ils puissent &ecirc;tre compatibles
+avec IBM et accepter les trames Token Ring. Cela `semblait une bonne
+id&eacute;e &agrave; l'&eacute;poque', puisque cela aurait permis aux installations Token
+Ring de se mettre &agrave; jour sans devoir faire admettre aux d&eacute;cideurs qu'ils
+avaient fait une &eacute;norme bourde en s'alliant avec la mauvaise
+technologie. Mais il n'y avait rien &agrave; gagner, parce que les deux types
+de trames ne peuvent pas coexister sur un r&eacute;seau, parce que Token Ring
+est un monstre de complexit&eacute; , et que IBM a quand m&ecirc;me adopt&eacute;
+100baseT pour finir.
+<P>2) Ne produire que des cartes ISA et EISA. (Un mod&egrave;le PCI n'a &eacute;t&eacute;
+annonc&eacute; que r&eacute;cemment.) Le bus ISA est trop lent pour 100&nbsp;M, et
+relativement peu de machines EISA existent. A l'&eacute;poque VLB &eacute;tait
+classique, rapide, et &eacute;conomique, PCI restant un choix viable. Mais la
+sagesse des ``anciens'' disait que les serveurs continueraient
+d'utiliser le bus EISA hors de prix.
+<P>3) Ne pas m'envoyer une documentation. Oui, cela a &eacute;t&eacute; la raison r&eacute;elle
+du d&eacute;clin du 100VG :-). J'ai appel&eacute; partout pour obtenir des infos de
+programmation, et tout ce que j'ai pu obtenir a &eacute;t&eacute; une brochure de
+quelques pages sur papier glac&eacute; de AT&amp;T d&eacute;crivant combien le jeu de
+puce Regatta &eacute;tait merveilleux.''
+<P>(NDT&nbsp;: ``La norme 100&nbsp;BAS&nbsp;VG&nbsp;- any&nbsp;LAN propos&eacute;e par HP (...) ne reprend
+pas le principe du protocole Ethernet mais utilise le principe du
+<I>polling</I>. L'utilisation du mot Ethernet a donc ici plut&ocirc;t une
+vocation commerciale. Il faut changer les coupleurs dans les stations de
+travail. Toutefois, on conserve les principaux syst&egrave;mes de c&acirc;blage.''
+(Pierre Rolin, <I>in</I> ``R&eacute;seaux haut d&eacute;bit'', Herm&egrave;s, 1995). Fin&nbsp;1997
+plus personne ne parle de&nbsp;100VG.
+<P>La norme 100baseT4 utilise un c&acirc;blage cat&eacute;gorie 3&nbsp;et&nbsp;4, 100baseTx un
+c&acirc;blage cat&eacute;gorie&nbsp;5, 100baseFx de la fibre optique.)
+<P>
+<P>
+<H2><A NAME="cable-intro"></A> <A NAME="ss2.6">2.6 Les types de c&acirc;bles que votre carte peut accepter</A>
+       </H2>
+
+<P>Si vous mettez en place un petit r&eacute;seau ``personnel'', vous pr&eacute;f&eacute;rerez
+certainement utiliser le ``thinnet'' ou c&acirc;ble Ethernet fin. C'est le
+mod&egrave;le avec les connecteurs BNC standards. Le c&acirc;blage `thinnet', ou
+Ethernet&nbsp;fin (c&acirc;ble coaxial RG-58) avec les connecteur BNC (en m&eacute;tal, &agrave;
+enfoncer puis tourner pour verrouiller) est appel&eacute; techniquement
+10Base2.
+<P>La plupart des cartes Ethernet poss&egrave;dent aussi une version `Combo' qui
+ne co&ucirc;te que 60&nbsp;&agrave;&nbsp;150 francs de plus. (NDT&nbsp;: Amusant comme les &eacute;carts de
+prix en dollars se convertissent en &eacute;carts de prix en francs&nbsp;! La
+version anglaise dit ``10 &agrave; 20 dollars de plus''. Ces &eacute;carts de prix
+sont vrais fin 97.)
+<P>Ces versions `Combo' poss&egrave;dent les deux interfaces paire torsad&eacute;e et
+Ethernet fin int&eacute;gr&eacute;es, ce qui vous permet de changer d'avis plus
+tard.(NDT&nbsp;: `Combo' signigie m&ecirc;me souvent&nbsp;: interface RJ-45 (10baseT,
+paire torsad&eacute;e) + interface BNC (10base2, thinnet) + interface AUI (pour
+<I>transceiver</I> ou c&acirc;ble de descente (drop-cable) gros Ethernet).)
+<P>Les c&acirc;bles &agrave; paires torsad&eacute;es, avec les connecteurs&nbsp;RJ-45
+(rectangulaires un peu plus grande que les prises `t&eacute;l&eacute;phone') sont
+appel&eacute;s techniquement 10BaseT. Vous pourrez aussi entendre parler de UTP
+(Unshielded Twisted Pair, paire torsad&eacute;e non-&eacute;crant&eacute;e ou non-blind&eacute;e,
+NDT).
+<P>Le vieil Ethernet&nbsp;`&eacute;pais' (Thick Ethernet, sur c&acirc;ble coaxial de 10&nbsp;mm)
+ne se trouve plus que dans les installations anciennes et est
+appel&eacute;&nbsp;10Base5. La prise en forme de D avec 15 broches pr&eacute;sente sur
+quelques cartes Ethernet (connecteur AUI) est utilis&eacute;e pour connecter de
+l'ethernet &eacute;pais et des transceivers externes.
+<P>Les grandes installations professionnelles utiliseront le plus souvent
+du&nbsp;10BaseT au lieu de&nbsp;10Base2. 10Base2 n'offre pas de moyen pour passer
+au 100&nbsp;Mbit/s, quel que soit le nom qu'on leur donne.
+<P>(NDT&nbsp;: Professionnellement parlant, en dehors de la fibre optique qui
+est encore hors de prix jusqu'&agrave; la machine de l'utilisateur, les
+nouveaux c&acirc;blages devraient &ecirc;tre r&eacute;alis&eacute;s en ``Cat&eacute;gorie 5, classe
+D''. Ce type de c&acirc;blage supporte non seulement 10BaseT, mais aussi
+100BaseT et les nouveaux d&eacute;bits qui apparaissent.
+<P>Pour la maison, vous choisirez entre Ethernet fin (simple et pas cher)
+et une connectique style&nbsp;RJ-45 (un peu moins simple, un peu plus cher,
+mais plus `propre' &eacute;lectriquement parlant) selon vos envies et votre
+budget&nbsp;!
+<P>R&eacute;f&eacute;rez vous a 
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-6.html#cable">Cables, Coax...</A> pour plus de
+d&eacute;tails sur les diff&eacute;rents types de cables.
+<P>
+<HR>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-1.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc2"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

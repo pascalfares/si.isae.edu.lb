@@ -1,0 +1,791 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Linux Ethernet-Howto: Foire Aux Questions (FAQ) - Les questions fr&eacute;quemment pos&eacute;es</TITLE>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-4.html" REL=next>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html" REL=previous>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc3" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-4.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc3"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="faq"></A> <A NAME="s3">3. Foire Aux Questions (FAQ) - Les questions fr&eacute;quemment pos&eacute;es</A>      </H2>
+
+<P>Voici quelques unes des questions les plus fr&eacute;quemment pos&eacute;es &agrave; propos
+de l'utilisation de Linux avec une connexion Ethernet. Certaines des
+questions les plus sp&eacute;cifiques sont tri&eacute;es `par ordre de constructeur'.
+Il y a de fortes chances pour que la question que vous voulez poser l'ai
+d&eacute;j&agrave; &eacute;t&eacute;, et aie d&eacute;j&agrave; une r&eacute;ponse. Donc, si jamais vous ne trouvez pas
+la r&eacute;ponse ici, vous le trouverez certainement sur une archive de
+newsgroups comme : 
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://www.deja.com">Dejanews</A>.
+<P>
+<H2><A NAME="alfa"></A> <A NAME="ss3.1">3.1 Les pilotes `Alpha' -- Comment les obtenir et comment s'en servir</A>
+       </H2>
+
+<P>J'ai entendu dire qu'il y avait une version mise-&agrave;-jour ou un pilote
+pr&eacute;liminaire/alpha disponible pour ma carte. O&ugrave; puis-je l'obtenir&nbsp;?
+<P>Les plus r&eacute;cents des `nouveaux' pilotes peuvent &ecirc;tre trouv&eacute;s sur le site
+FTP de Donald&nbsp;: <CODE>cesdis.gsfc.nasa.gov</CODE> dans la partie
+<CODE>/pub/linux/</CODE>. Les choses y changent fr&eacute;quemment, donc jetez-y un
+coup d'oeil de temps &agrave; autre. Vous pourrez pr&eacute;f&eacute;rer utiliser un
+navigateur WWW sur&nbsp;:
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://cesdis.gsfc.nasa.gov/linux/">La page Linux de Don</A></BLOCKQUOTE>
+
+pour localiser le pilote que vous cherchez. (Prenez garde aux
+navigateurs WWW qui modifient le source sans rien dire en rempla&ccedil;ant les
+tabulations par des espaces, etc. - si vous n'&ecirc;tes pas s&ucirc;r(e), utilisez
+ftp, ou au moins une URL FTP, pour le chargement.)
+<P>Maintenant, s'il s'agit r&eacute;ellement d'un pilote alpha, voire pr&eacute;-alpha,
+s'il vous pla&icirc;t consid&eacute;rez-le comme tel&nbsp;! En d'autres termes, ne vous
+plaignez pas parce que vous n'arrivez pas &agrave; comprendre ce que vous devez
+en faire. Si vous ne savez pas comment l'installer, alors vous ne
+devriez certainement pas &ecirc;tre en train de le tester. De m&ecirc;me, s'il
+plante votre machine, ne vous plaignez pas. Au lieu de cela,
+envoyez-nous un rapport d&eacute;taill&eacute; sur le probl&egrave;me, ou m&ecirc;me mieux, un
+patch&nbsp;!
+<P>Notez que certains des pilotes exp&eacute;rimentaux ou alpha `utilisables' sont
+inclus dans l'arborescence standard du noyau. Lorsque vous ex&eacute;cutez
+<CODE>make config</CODE>, l'une des premi&egrave;res choses qui vous sera demand&eacute;e
+est si vous souhaitez &ecirc;tre interrog&eacute;(e) sur les pilotes en cours de
+d&eacute;veloppement (``Prompt for development and/or incomplete
+code/drivers''). Vous devrez r&eacute;pondre&nbsp;``Y'' (pour `<I>Yes</I>', `Oui') &agrave;
+cette question si vous souhaitez &ecirc;tre interrog&eacute;(e) sur l'inclusion d'un
+pilote alpha ou exp&eacute;rimental.
+<P>
+<H2><A NAME="two-card"></A> <A NAME="ss3.2">3.2 Utiliser plus d'une carte Ethernet par machine</A>
+</H2>
+
+<P>Que faut-il faire pour que Linux puisse g&eacute;rer deux cartes Ethernet&nbsp;?
+<P>La r&eacute;ponse &agrave; cette question est diff&eacute;rente selon que les pilotes ont &eacute;t&eacute;
+compil&eacute;s directement dans le noyau ou en tant que modules.  De nos
+jours, la majorit&eacute; des distributions utilisent des pilotes sous forme de
+modules. Ceci permet de ne pas avoir &agrave; fournir une tonne de noyaux
+chacun ayant un jeu de pilotes sp&eacute;cifique.  A la place, un petit noyau
+de base est utilis&eacute; et les pilotes sont tous compil&eacute;s en modules, ces
+modules &eacute;tant charg&eacute;s &agrave; la demande d&egrave;s que le syst&egrave;me est all&eacute; assez
+loin dans son d&eacute;marrage pour acc&eacute;der aux modules (habituellement dans
+<CODE>/lib/modules/</CODE>).
+<P><EM>Avec le pilote charg&eacute; en module&nbsp;:</EM> Dans le cas de pilotes PCI, le
+module d&eacute;tectera normalement toutes les cartes de m&ecirc;me type d'un seul
+coup. Cependant, pour les cartes ISA, la d&eacute;tection automatique n'est
+pas une op&eacute;ration qui marche &agrave; coup s&ucirc;r, et vous aurez tr&egrave;s 
+certainement &agrave; fournir les adresses d'entr&eacute;e/sortie de base de la carte
+pour que le module sache o&ugrave; regarder. Ces informations sont plac&eacute;es
+dans le fichier <CODE>/etc/conf.modules</CODE>.
+<P>Par exemple, supposez qu'un utilisateur ait deux cartes ISA NE2000, une
+&agrave; <CODE>Ox300</CODE> et l'autre &agrave; <CODE>0x240</CODE>, il aura les lignes suivantes
+dans son <CODE>/etc/conf.modules</CODE>&nbsp;:
+<P>
+<PRE>
+        alias eth0 ne
+        alias eth1 ne
+        options ne io=0x240,0x300
+</PRE>
+<P>Explication&nbsp;: cela dit que si l'administrateur (ou le noyau) fait un
+<CODE>modprobe eth0</CODE> ou un <CODE>modprobe eth1</CODE>, alors le pilote
+<CODE>ne.o</CODE> devra &ecirc;tre charg&eacute; pour <CODE>eth0</CODE> et <CODE>eth1</CODE>. De plus,
+quand le module se chargera, il le sera avec comme options
+<CODE>io=0x240,0x300</CODE>. Ainsi, le pilote saura o&ugrave; aller chercher les
+cartes. Notez que le <CODE>0x</CODE> est important, des trucs comme
+<CODE>300h</CODE> couramment utilis&eacute;s dans le monde DOS ne marcheront pas. Le
+fait d'inverser <CODE>0x240</CODE> et <CODE>0x300</CODE> aura pour effet d'inverser
+physiquement <CODE>eth0</CODE> et <CODE>eth1</CODE>.
+<P>La majorit&eacute; des pilotes ISA peuvent prendre plusieurs valeurs
+d'entr&eacute;e/sortie s&eacute;par&eacute;es par des virgules comme dans cet exemple pour
+prendre en charge plusieurs cartes. Cependant, certains pilotes (plus
+anciens&nbsp;?), tels que le module <CODE>3c501.o</CODE> sont pour l'instant
+incapables de g&eacute;rer plus d'une carte par chargement du module. Dans ce
+cas, vous pouvez charger le module deux fois pour avoir les deux cartes
+d&eacute;tect&eacute;es. Votre <CODE>/etc/conf.modules</CODE> ressemblerait alors &agrave;&nbsp;:
+<P>
+<PRE>
+        alias eth0 3c501
+        alias eth1 3c501
+        options eth0 -o 3c501-0 io=0x280 irq=5
+        options eth1 -o 3c501-1 io=0x300 irq=7
+</PRE>
+<P>Dans cet exemple, l'option <CODE>-o</CODE> a &eacute;t&eacute; utilis&eacute;e pour donner &agrave; chaque
+instance du module un nom unique, puisqu'il n'est pas possible d'avoir
+deux modules ayant le m&ecirc;me nom. L'option <CODE>irq=</CODE> a &eacute;galement &eacute;t&eacute;
+utilis&eacute;e, pour indiquer l'interruption materielle de la carte. (Cette
+m&eacute;thode peut aussi &ecirc;tre utilis&eacute;e pour les modules qui g&egrave;rent les listes
+d'adresses d'entr&eacute;e/sortie, bien qu'elle soit moins efficace, car on se
+retrouve avec le module charg&eacute; deux fois alors que cela n'est pas
+n&eacute;cessaire.)
+<P>Pour finir, voici un exemple avec une carte 3c503 &agrave; <CODE>0x350</CODE> et une
+SMC Elite16 (wd8013) &agrave; <CODE>0x280</CODE>. Vous auriez&nbsp;:
+<P>
+<PRE>
+        alias eth0 wd
+        alias eth1 3c503
+        options wd io=0x280
+        options 3c503 io=0x350
+</PRE>
+<P>Pour les cartes PCI, vous avez juste besoin des lignes <CODE>alias</CODE> pour
+associer les interface <CODE>ethN</CODE> aux pilotes correspondants, puisque
+les adresses d'entr&eacute;e/sortie des cartes PCI sont automatiquement
+d&eacute;tect&eacute;es.
+<P>Les modules disponibles sont g&eacute;n&eacute;ralements situ&eacute;s dans le r&eacute;pertoire
+<CODE>/lib/modules/`uname -r`/net</CODE> o&ugrave; la commande <CODE>uname -r</CODE>
+retourne la version du noyau (ex&nbsp;: 2.0.34). Vous pouvez aller y faire un
+tour pour voir ceux qui sont faits pour votre carte. Puis, lorsque vous
+aurez les bons param&egrave;tres dans votre <CODE>/etc/conf.modules</CODE>, il ne
+vous reste plus qu'&agrave; tester avec la commande&nbsp;:
+<P>
+<PRE>
+        modprobe ethN
+        dmesg | tail
+</PRE>
+<P>O&ugrave; N est le num&eacute;ro de l'interface que vous testez.
+<P><EM>Avec le pilote compil&eacute; dans le noyau&nbsp;:</EM> Si vous avez le pilote
+compil&eacute; dans le noyau, alors, voici tout ce qu'il faut savoir pour
+utiliser plusieurs cartes Ethernet. Toutefois, notez que pour le moment,
+seulement <EM>une</EM> carte Ethernet est d&eacute;tect&eacute;e automatiquement par
+d&eacute;faut. Cela contribue &agrave; &eacute;viter des blocages possibles au moment du
+d&eacute;marrage, caus&eacute;s par la d&eacute;tection de cartes `sensibles'.
+<P>(Note&nbsp;: Depuis les derniers noyaux 2.1, la d&eacute;tection des p&eacute;riph&eacute;riques a
+&eacute;t&eacute; d&eacute;coup&eacute;e en deux parties, celle qui est s&ucirc;re, et celle qui ne l'est
+pas . Par cons&eacute;quent, tout ce qui est s&ucirc;r (ex&nbsp;: PCI et EISA) sera
+d&eacute;tect&eacute; de mani&egrave;re automatique. Les syst&egrave;mes avec plus d'une carte dont
+une sur un port ISA n&eacute;cessiteront toujours la proc&eacute;dure suivante.)
+<P>Vous pouvez activer la d&eacute;tection automatique de la deuxi&egrave;me (et de la
+troisi&egrave;me, et de...) carte de deux fa&ccedil;ons diff&eacute;rentes.
+<P>La m&eacute;thode la plus simple consiste &agrave; passer des arguments au noyau au
+moment du d&eacute;marrage, ce qui est g&eacute;n&eacute;ralement fait par LILO. La d&eacute;tection
+de la deuxi&egrave;me carte peut &ecirc;tre obtenue en utilisant un argument de
+d&eacute;marrage aussi simple que <CODE>ether=0,0,eth1</CODE>. Dans ce cas,
+<CODE>eth0</CODE> et <CODE>eth1</CODE> seront affect&eacute;s dans l'ordre dans lequel les
+cartes seront trouv&eacute;es dans cet ordre au d&eacute;marrage. Par contre, si vous
+souhaitez que la carte sur le port&nbsp;<CODE>0x300</CODE> soit&nbsp;<CODE>eth0</CODE> et que
+la carte sur le port&nbsp;<CODE>0x280</CODE> soit&nbsp;<CODE>eth1</CODE>, vous pourrez
+utiliser
+<P>
+<BLOCKQUOTE><CODE>
+LILO: linux ether=5,0x300,eth0 ether=15,0x280,eth1
+</CODE></BLOCKQUOTE>
+<P>La commande&nbsp;<CODE>ether=</CODE> accepte plus d'informations que le num&eacute;ro
+d'IRQ&nbsp;+ le port&nbsp;d'E/S&nbsp;+ le nom qui sont montr&eacute;s ci-dessus. Veuillez
+consulter&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#lilo">Passage des arguments Ethernet...</A> pour
+la syntaxe compl&egrave;te, les param&egrave;tres sp&eacute;cifiques &agrave; chaque carte, et des
+astuces pour LILO.
+<P>Ces arguments de d&eacute;marrage peuvent &ecirc;tre rendus permanents afin de ne pas
+devoir les r&eacute;-entrer &agrave; chaque fois. Consultez la documentation sur
+l'option de configuration `<CODE>append</CODE>' de LILO.
+<P>La seconde m&eacute;thode (non recommand&eacute;e) est d'&eacute;diter le fichier
+<CODE>Space.c</CODE> et de remplacer la valeur <CODE>0xffe0</CODE> pour l'adresse
+d'entr&eacute;e-sortie par un z&eacute;ro. La valeur <CODE>0xffe0</CODE> indique au noyau
+qu'il ne doit pas essayer de d&eacute;tecter ce p&eacute;riph&eacute;rique --&nbsp;la remplacer
+par un z&eacute;ro autorisera l'auto-d&eacute;tection du p&eacute;riph&eacute;rique.
+<P>Notez que si vous avez l'intention d'utiliser Linux sur une machine qui
+servira de passerelle entre deux r&eacute;seaux, vous devrez recompiler un
+noyau avec l'option ``IP&nbsp;forwarding''. Mais g&eacute;n&eacute;ralement un vieil AT/286
+avec quelque chose comme le logiciel `kbridge' est une meilleure
+solution.
+<P>Si vous consultez ce document tout en <I>surfant</I> sur le r&eacute;seau, vous
+pourrez jeter un coup d'oeil &agrave; un <I>mini-HOWTO</I> que Donald a sur son
+site WWW. Consultez&nbsp;:
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://cesdis.gsfc.nasa.gov/linux/misc/multicard.html">Plusieurs Cartes Ethernet</A>.
+</BLOCKQUOTE>
+<P>
+<H2><A NAME="ss3.3">3.3 le <CODE>ether=</CODE> n'a rien chang&eacute;. Pourquoi&nbsp;?</A>
+</H2>
+
+<P>Comme il a &eacute;t&eacute; dit pr&eacute;c&eacute;demment, la commande <CODE>ether=</CODE> ne marche
+<EM>que</EM> pour les pilotes qui ont &eacute;t&eacute; compil&eacute;s dans le
+noyau. Maintenant, la majorit&eacute; des distributions utilisent les pilotes
+dans leur forme modulaire, ce qui fait que la commande <CODE>ether=</CODE>
+n'est plus gu&egrave;re utilis&eacute;e. (Certaines vieilles documentations ont
+peut-&ecirc;tre encore &agrave; &ecirc;tre mises &agrave; jour pour refl&eacute;ter ce changement.) Si
+vous voulez passer des options &agrave; un pilote modulaire vous <EM>devez</EM>
+faire les changements dans le fichier <CODE>/etc/conf.modules</CODE>.
+<P>Si vous utilisez un pilote compil&eacute; dans le noyau et avez ajout&eacute; la ligne
+<CODE>ether=</CODE> &agrave; votre fichier de configuration LILO, notez qu'il ne sera
+pris en compte que lorsque vous relancerez <CODE>lilo</CODE> pour mettre &agrave;
+jour les informations.
+<P>
+<P>
+<H2><A NAME="ne2k-probs"></A> <A NAME="ss3.4">3.4 Probl&egrave;mes avec les cartes NE1000 / NE2000 (et leurs clones)</A>
+       </H2>
+
+<P><B>Probl&egrave;me&nbsp;:</B>
+Une carte PCI clone NE2000 n'est pas d&eacute;tect&eacute;e au d&eacute;marrage avec un
+noyau 2.0.x.
+<P><B>Raison&nbsp;:</B>
+Le pilote <CODE>ne.c</CODE> jusqu'&agrave; la version 2.0.30 ne conna&icirc;t que le
+num&eacute;ro d'identification PCI des cartes clones bas&eacute;es sur la puce 8029
+de RealTek. Comme depuis beaucoup d'autres ont eux aussi fait des
+cartes PCI clones NE2000, avec des num&eacute;ro d'identification PCI
+diff&eacute;rents, le pilote ne les d&eacute;tecte pas.
+<P><B>Solution&nbsp;:</B>
+La solution la plus simple est de mettre &agrave; jour votre noyau pour une
+version 2.0.31 (ou plus r&eacute;cente). Cette derni&egrave;re conna&icirc;t les
+identificateurs de pr&egrave;s de cinq puces NE2000 PCI diff&eacute;rentes, et les
+d&eacute;tectera automatiquement au d&eacute;marrage ou lors du chargement en
+module. Si vous passez &agrave; la version 2.0.34 (ou plus r&eacute;cente) du noyau,
+vous aurez un pilote sp&eacute;cifique aux cartes NE2000 PCI, qui est un peu
+plus l&eacute;ger et plus rapide que le pilote ISA/PCI.
+<P><B>Probl&egrave;me&nbsp;:</B>
+Ma carte PCI clone NE2000 est indiqu&eacute;e comme &eacute;tant une NE1000 (une
+carte 8&nbsp;bits&nbsp;!) au d&eacute;marrage ou lorsque je charge le module <CODE>ne.o</CODE>
+sous 2.0.x, et par cons&eacute;quent la carte ne fonctionne pas.
+<P><B>Raison&nbsp;:</B>
+Certains clones PCI n'impl&eacute;mentent pas l'acc&egrave;s de largeur un octet (et
+par cons&eacute;quent ne sont donc pas r&eacute;ellement compatibles NE2000 &agrave;
+100%). Cela entra&icirc;ne que la proc&eacute;dure de d&eacute;tection pense qu'il
+s'agit de cartes NE1000.
+<P><B>Solution&nbsp;:</B>
+Vous devez passer &agrave; la version 2.0.31 (ou une version plus r&eacute;cente)
+comme dit ci-dessus. Le pilote v&eacute;rifie maintenant si ce bug mat&eacute;riel
+est l&agrave;.
+<P><B>Probl&egrave;me&nbsp;:</B>
+Ma carte NE2000 PCI a des performances affreuses, m&ecirc;me en r&eacute;duisant la
+taille de la fen&ecirc;tre comme il est d&eacute;crit dans la section sur les trucs
+pour les performances.
+<P><B>Raison&nbsp;:</B>
+Les sp&eacute;cifications de la puce&nbsp;8390 originelle, con&ccedil;ue et vendue il y a
+plus de dix ans, notaient qu'une op&eacute;ration de lecture (depuis la puce)
+&eacute;tait n&eacute;cessaire avant chaque op&eacute;ration d'&eacute;criture pour avoir une
+s&eacute;curit&eacute; maximale. Le pilote poss&egrave;de la fonctionnalit&eacute; pour le faire
+mais cela a &eacute;t&eacute; d&eacute;sactiv&eacute; par d&eacute;faut depuis l'&eacute;poque des versions 1.2
+du noyau. Un utilisateur a indiqu&eacute; que le fait de r&eacute;activer cette
+`contre-fonctionnalit&eacute;' avait aid&eacute; &agrave; am&eacute;liorer les performances sur une
+carte PCI clone de NE2000 bon march&eacute;.
+<P><B>Solution&nbsp;:</B>
+Puisque cela n'a &eacute;t&eacute; rapport&eacute; comme solution que par une seule
+personne, ne vous &eacute;chauffez pas trop. Pour r&eacute;-activer le correctif de
+`lecture avant &eacute;criture', il suffit d'&eacute;diter le fichier du pilote dans
+<CODE>linux/drivers/net/</CODE>, d'enlever les commentaires qui entourent
+la ligne contenant <CODE>NE_RW_BUGFIX</CODE> puis de reconstruire le noyau ou
+le module selon le cas. Merci d'envoyer un courrier d&eacute;crivant la
+diff&eacute;rence de performance et le type de carte&nbsp;/ de puce que vous avez,
+si cela vous a aid&eacute;. (la m&ecirc;me chose peut &ecirc;tre effectu&eacute;e sur le fichier
+<CODE>ne2k-pci.c</CODE> &eacute;galement).
+<P><B>Probl&egrave;me&nbsp;:</B>
+Le pilote <CODE>ne2k-pci.c</CODE> donne un message d'erreur ressemblant a
+<CODE>timeout waiting for Tx RDC</CODE> avec une carte NE2000 PCI et ne
+marche pas.
+<P><B>Raison&nbsp;:</B>
+Votre carte et/ou le lien vers le bus PCI ne sait pas g&eacute;rer les
+optimisations d'E/S du pilote.
+<P><B>Solution&nbsp;:</B>
+Tout d'abord, v&eacute;rifiez les r&eacute;glages de votre BIOS pour voir si vous
+avez un r&eacute;glage de timing du bus PCI trop agressif pour des op&eacute;rations
+stables. Sinon, vous pouvez utiliser le pilote ISA/PCI <CODE>ne.c</CODE> (ou
+commenter la ligne <CODE>#define USE_LONGIO</CODE> du <CODE>ne2k-pci.c</CODE>), ce
+qui vous permettrait d'utiliser la carte.
+<P><B>Probl&egrave;me&nbsp;:</B>
+Ma carte ISA Plug and Play NE2000 (telle que la RealTek 8019) n'est pas
+d&eacute;tect&eacute;e.
+<P><B>Raison&nbsp;:</B>
+A l'origine, les sp&eacute;cifications de NE2000 (et par cons&eacute;quent le pilote
+linux NE2000) ne supportent pas le PnP.
+<P><B>Solution&nbsp;:</B> 
+Utilisez la disquette de configuration DOS qui est fournie avec la
+carte pour d&eacute;sactiver le PnP, et pour r&eacute;gler les adresses
+d'entr&eacute;e/sortie et l'IRQ. Ajoutez une ligne au
+<CODE>/etc/conf.modules</CODE> telle <CODE>options ne io=0xNNN</CODE> ou
+<CODE>0xNNN</CODE> est l'adresse d'entr&eacute;e/sortie en hexadecimal. (Ceci
+suppose l'utilisation des modules, si tel n'est pas le cas, utilisez
+une commande telle <CODE>ether=0,0xNNN,eth0</CODE> lors du boot). Vous aurez
+peut &ecirc;tre aussi a configurer cette irq dans le BIOS pour qu'elle ne
+soit pas affect&eacute;e &agrave; une carte PnP. D'un autre c&ocirc;t&eacute;, si vous devez
+laisser le PnP pour rester compatible avec un autre syst&egrave;me
+d'exploitation, allez regarder le paquetage <EM>isapnptools</EM>. Essayez
+<CODE>man isapnp</CODE> pour voir si il n'est pas d&eacute;j&agrave; install&eacute; sur votre
+syst&egrave;me. S'il ne l'est pas, allez jeter un coup d'oeil &agrave; l'URL&nbsp;:
+<P>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://www.roestock.demon.co.uk/isapnptools/">ISA PNP          Tools</A><P><B>Probl&egrave;me&nbsp;:</B>
+Le pilote NE*000 indique `<CODE>not found (no reset ack)</CODE>' (carte non
+trouv&eacute;e, pas d'acquittement de la r&eacute;initialisation) pendant la
+proc&eacute;dure de d&eacute;tection au d&eacute;marrage.
+<P><B>Raison&nbsp;:</B>
+Cela est li&eacute; au changement pr&eacute;c&eacute;dent. Apr&egrave;s la v&eacute;rification initiale
+qu'une&nbsp;8390 se trouve &agrave; l'adresse d'E/S test&eacute;e, la r&eacute;initialisation est
+effectu&eacute;e. Quand la carte a termin&eacute; sa r&eacute;initialisation, elle est
+suppos&eacute;e envoyer un acquittement indiquant que la r&eacute;initialisation
+s'est achev&eacute;e. Votre carte ne l'a pas fait, et le pilote estime donc
+qu'aucune carte NE n'est pr&eacute;sente.
+<P><B>Solution&nbsp;:</B>
+Vous pouvez indiquer au pilote que vous poss&eacute;dez une <EM>mauvaise
+carte</EM> (<I>bad card</I>) en utilisant une valeur h&eacute;xad&eacute;cimale 
+<CODE>0xbad</CODE> au moment du d&eacute;marrage pour le param&egrave;tre <CODE>mem_end</CODE>
+(qui n'est normalement pas utilis&eacute;). Vous <EM>devez</EM> aussi fournir
+une adresse de base non nulle pour les ports d'E/S de la carte quand
+vous utilisez la valeur <CODE>0xbad</CODE>. Par exemple, une carte qui se
+trouve &agrave; <CODE>0x340</CODE> et qui n'acquitte pas la r&eacute;initialisation
+utilisera quelque chose comme&nbsp;:
+<P>
+<BLOCKQUOTE><CODE>
+LILO: linux ether=0,0x340,0,0xbad,eth0
+</CODE></BLOCKQUOTE>
+<P>Cela permettra &agrave; la proc&eacute;dure de d&eacute;tection de la carte de continuer,
+m&ecirc;me si votre carte n'acquitte pas la r&eacute;initialisation. Si vous
+utilisez le pilote comme un module, vous pouvez alors fournir l'option
+<CODE>bad=0xbad</CODE> exactement comme vous indiquez l'adresse d'E/S
+<P><B>Probl&egrave;me&nbsp;:</B>
+Ma carte NE*000 bloque la machine au premier acc&egrave;s r&eacute;seau.
+<P><B>Raison&nbsp;:</B>
+Ce probl&egrave;me a &eacute;t&eacute; rapport&eacute; pour des noyaux aussi vieux que le 1.1.57
+jusqu'aux noyaux actuels. Il appara&icirc;t &ecirc;tre confin&eacute; &agrave; un petit nombre de
+cartes clones configurables par logiciel. Il appara&icirc;t que ces cartes
+s'attendent &agrave; &ecirc;tre initialis&eacute;es d'une mani&egrave;re sp&eacute;ciale.
+<P><B>Solution&nbsp;:</B>
+De nombreuses personnes ont indiqu&eacute; que le fait d'ex&eacute;cuter le programme
+DOS de configuration fourni avec la carte et/ou le pilote DOS fourni
+avec la carte avant de red&eacute;marrer &agrave; chaud (i.e. en utilisant
+<CODE>loadlin</CODE> ou le `salut-aux-trois-doigts' (<CODE>Ctrl-Alt-Suppr</CODE>,
+NDT)) pour lancer Linux permet &agrave; la carte de fonctionner. Ceci
+indiquerait que ces cartes doivent &ecirc;tre initialis&eacute;es d'une fa&ccedil;on
+particuli&egrave;re, l&eacute;g&egrave;rement diff&eacute;rente de ce que le pilote Linux actuel
+r&eacute;alise.
+<P><B>Probl&egrave;me&nbsp;:</B>
+Ma carte Ethernet NE*000 &agrave; l'adresse <CODE>0x360</CODE> n'est pas d&eacute;tect&eacute;e.
+<P><B>Raison&nbsp;:</B>
+Votre carte NE2000 a une largeur d'espace d'adressage d'E/S de
+<CODE>0x20</CODE>, ce qui lui fait atteindre la zone utilis&eacute;e par le port
+parall&egrave;le &agrave; l'adresse&nbsp;<CODE>0x378</CODE>. D'autres p&eacute;riph&eacute;riques pourraient
+se trouver &agrave; cet endroit-l&agrave;, comme le contr&ocirc;leur du deuxi&egrave;me lecteur de
+disquette (s'il y en a un) &agrave; l'adresse <CODE>0x370</CODE> et le contr&ocirc;leur
+IDE secondaire aux adresses <CODE>0x376--0x377</CODE>. Si le(s) port(s) sont
+d&eacute;j&agrave; enregistr&eacute;s par un autre pilote, le noyau ne laissera pas
+s'ex&eacute;cuter la d&eacute;tection.
+<P><B>Solution&nbsp;:</B>
+Vous pouvez soit d&eacute;placer votre carte vers une adresse d'E/S comme
+<CODE>0x280, 0x340, 0x320</CODE>, ou compiler votre noyau sans l'option pour
+l'imprimante parall&egrave;le.
+<P><B>Probl&egrave;me&nbsp;:</B>
+Le r&eacute;seau `dispara&icirc;t' &agrave; chaque fois que j'imprime quelque chose
+(NE2000).
+<P><B>Raison&nbsp;:</B>
+M&ecirc;me probl&egrave;me que pr&eacute;c&eacute;demment, mais vous avez un vieux noyau qui ne
+v&eacute;rifie pas les chevauchements de zones d'adressage d'E/S. Utilisez la
+m&ecirc;me solution que ci-dessus, et profitez-en pour r&eacute;cup&eacute;rer un nouveau
+noyau, tant qu'&agrave; faire.
+<P><B>Probl&egrave;me&nbsp;:</B>
+<CODE>NE*000 ethercard probe at 0xNNN: 00 00 C5 ... not found. (invalid
+signature yy zz)</CODE> (carte Ethernet NE*000 test&eacute;e &agrave; l'adresse 0xNNN:
+00 00 C5 ... non trouv&eacute;e, signature yy zz non valide)
+<P><B>Raison&nbsp;:</B>
+Avant tout, avez-vous une carte NE1000 ou NE2000 &agrave; l'adresse 0xNNN&nbsp;? Si
+oui, est-ce que l'adresse mat&eacute;rielle indiqu&eacute;e ressemble &agrave; une adresse
+valide&nbsp;? Si oui, alors vous avez un clone NE*000 bas de gamme. Tous les
+clones NE*000 sont suppos&eacute;s avoir la valeur <CODE>0x57</CODE> dans les octets
+14 et 15 de leur SA (Station Address) PROM. La v&ocirc;tre n'a pas ces
+valeurs -- elle a `yy zz' &agrave; la place.
+<P><B>Solution&nbsp;:</B>
+Il existe deux moyens de contourner ce probl&egrave;me.
+<P>Le plus simple est d'utiliser une valeur <CODE>0xbad</CODE> pour le param&egrave;tre
+<CODE>mem_end</CODE> comme indiqu&eacute; ci-dessus pour le probl&egrave;me du
+non-acquittement de la r&eacute;initialisation. Cela &eacute;vitera la v&eacute;rification
+de la signature, pour autant qu'un port d'E/S non nul soit fourni en
+m&ecirc;me temps. De cette fa&ccedil;on, aucune recompilation du noyau n'est
+n&eacute;cessaire.
+<P>La seconde m&eacute;thode (pour les hackers) n&eacute;cessite de changer le pilote
+lui-m&ecirc;me, puis de recompiler votre noyau (ou le module). Le pilote
+(<CODE>/usr/src/linux/drivers/net/ne.c</CODE>) comporte une petite "Galerie
+des horreurs" aux environs de la ligne 42. Cette liste est utilis&eacute;e
+pour d&eacute;tecter les clones bas de gamme. Par exemple, la carte DFS
+utilise `DFI' dans les trois premiers octets de la PROM, au lieu
+d'utiliser <CODE>0x57</CODE> aux octets 14 et 15, tels qu'ils sont suppos&eacute;s
+&ecirc;tre.
+<P><B>Probl&egrave;me&nbsp;:</B>
+La machine se bloque pendant le d&eacute;marrage apr&egrave;s le
+message&nbsp;`<CODE>8390...</CODE>' ou le message&nbsp;`<CODE>WD....</CODE>'. Le fait
+d'enlever la carte NE2000 r&eacute;soud le probl&egrave;me.
+<P><B>Solution&nbsp;:</B>
+Changez votre adresse d'E/S de base pour une valeur comme <CODE>0x340</CODE>.
+Autre solution, vous pouvez utiliser l'argument de d&eacute;marrage
+``<CODE>reserve=</CODE>'' en conjonction avec l'argument ``<CODE>ether=</CODE>''
+pour prot&eacute;ger la carte des proc&eacute;dures de d&eacute;tection des autres pilotes
+de p&eacute;riph&eacute;riques.
+<P><B>Raison&nbsp;:</B>
+Votre clone NE2000 n'est pas un assez bon clone. Une carte NE2000 est
+un puits sans fond qui attirera tout pilote qui tenterait une d&eacute;tection
+dans son espace d'adressage. Le fait de changer la carte NE2000 vers
+une adresse moins populaire l'&eacute;cartera du chemin des autres proc&eacute;dures
+de d&eacute;tection automatique, permettant &agrave; votre machine de d&eacute;marrer.
+<P><B>Probl&egrave;me&nbsp;:</B>
+La machine se bloque pendant la d&eacute;tection du SCSI au d&eacute;marrage.
+<P><B>Raison&nbsp;:</B>
+C'est le m&ecirc;me probl&egrave;me que pr&eacute;c&eacute;demment; changez l'adresse d'E/S de la
+carte Ethernet, ou utilisez les arguments de d&eacute;marrage <CODE>reserve</CODE>
+et <CODE>ether</CODE>.
+<P><B>Probl&egrave;me&nbsp;:</B>
+La machine se bloque pendant la d&eacute;tection de la carte son au d&eacute;marrage.
+<P><B>Raison&nbsp;:</B>
+Non, en fait c'est pendant la d&eacute;tection silencieuse du&nbsp;SCSI, et c'est
+le m&ecirc;me probl&egrave;me que ci-dessus.
+<P><B>Probl&egrave;me&nbsp;:</B>
+Ma carte NE2000 n'est pas d&eacute;tect&eacute;e au d&eacute;marrage. Il n'y a aucun message
+pendant le d&eacute;marrage.
+<P><B>Solution&nbsp;:</B>
+Il n'existe pas de `solution magique' parce qu'il existe tout un tas de
+raisons pour qu'elle ne soit pas d&eacute;tect&eacute;e. La liste suivante devrait
+vous aider &agrave; parcourir les probl&egrave;mes possibles.
+<P>1) Construisez un nouveau noyau ne contenant que les pilotes de
+p&eacute;riph&eacute;rique dont vous avez besoin. V&eacute;rifiez que vous &ecirc;tes r&eacute;ellement
+en train de d&eacute;marrer le noyau tout frais. Oublier de lancer
+<CODE>lilo</CODE>, etc. peut amener &agrave; d&eacute;marrer l'ancien. (Regardez de pr&egrave;s
+la date et l'heure de compilation indiqu&eacute;e au d&eacute;marrage.) Cela peut
+para&icirc;tre idiot, mais nous l'avons tous fait un jour. Assurez-vous que
+le pilote est bien inclus dans le nouveau noyau, en consultant le
+fichier <CODE>System.map</CODE> &agrave; la recherche de noms comme
+<CODE>ne_probe</CODE>.
+<P>2) Consultez attentivement les messages au d&eacute;marrage. Est-ce qu'ils
+mentionnent une tentative de d&eacute;tection d'une NE2000 comme `<CODE>NE*000
+probe at 0xNNN: not found (bla bla)</CODE>' ou est-ce que la d&eacute;tection se
+contente d'&eacute;chouer sans rien dire&nbsp;? Cela fait une grosse
+diff&eacute;rence. Utilisez <CODE>dmesg|more</CODE> pour relire les messages de
+d&eacute;marrage apr&egrave;s vous &ecirc;tre logg&eacute;, ou tapez Majuscule+PageUp (page
+pr&eacute;c&eacute;dente) pour faire d&eacute;filer l'&eacute;cran vers le haut apr&egrave;s que le
+d&eacute;marrage soit termin&eacute; et que le prompt de login soit apparu.
+<P>3) Apr&egrave;s le d&eacute;marrage, faites un <CODE>cat /proc/ioports</CODE> et v&eacute;rifiez
+que tout l'espace d'E/S que la carte demandera est vacant. Si vous
+avez <CODE>0x300</CODE> comme adresse de base, alors le pilote NE2000
+demandera la plage d'adresse <CODE>0x300-0x31f</CODE>. Si un autre pilote
+de p&eacute;riph&eacute;rique a enregistr&eacute; ne serait-ce qu'un port &agrave; n'importe quel
+endroit dans cet intervalle, la proc&eacute;dure de d&eacute;tection ne pourra pas
+s'effectuer &agrave; cette adresse et continuera sans rien dire jusqu'&agrave; la
+prochaine adresse test&eacute;e. Un cas classique est que le pilote
+<CODE>lp</CODE> (imprimante) r&eacute;serve <CODE>0x378</CODE> ou que le second canal
+IDE r&eacute;serve <CODE>0x376</CODE> ce qui emp&ecirc;che le pilote <CODE>ne</CODE> de tester
+la plage <CODE>0x360-0x380</CODE>.
+<P>4) M&ecirc;me chose que pr&eacute;c&eacute;demment avec <CODE>cat /proc/interrupts</CODE>.
+Assurez-vous qu'aucun autre p&eacute;riph&eacute;rique n'a enregistr&eacute;
+l'interruption que vous avez fix&eacute;e pour la carte Ethernet. Dans ce
+cas, la d&eacute;tection s'effectuera, et le pilote Ethernet se plaindra
+vigoureusement au d&eacute;marrage de ne pas &ecirc;tre capable d'obtenir la ligne
+d'IRQ d&eacute;sir&eacute;e.
+<P>5) Si vous s&eacute;chez encore sur l'&eacute;chec silencieux du pilote, &eacute;ditez-le et
+ajoutez quelques <CODE>printk()</CODE> &agrave; la proc&eacute;dure de d&eacute;tection. Par
+exemple, avec une NE2000 vous pouvez ajouter/enlever des lignes
+(marqu&eacute;es respectivement par un '+' ou un '-') dans&nbsp;<CODE>linux/drivers/net/ne.c</CODE>
+comme&nbsp;:
+<HR>
+<PRE>
+    int reg0 = inb_p(ioaddr);
+
++    printk("NE2k probe - now checking %x\n",ioaddr);
+-    if (reg0 == 0xFF)
++    if (reg0 == 0xFF) {
++       printk("NE2k probe - got 0xFF (vacant I/O port)\n");
+        return ENODEV;
++    }
+</PRE>
+<HR>
+<P>Le noyau &eacute;mettra alors des messages pour chaque port qu'il v&eacute;rifie,
+et vous verrez alors si l'adresse de votre carte a &eacute;t&eacute; test&eacute;e ou non.
+<P>6) Vous pouvez aussi r&eacute;cup&eacute;rer le programme de diagnostic pour NE2000
+sur le site FTP de Don (indiqu&eacute; dans le <I>Howto</I>) et regarder
+s'il est capable de d&eacute;tecter votre carte apr&egrave;s que vous avez d&eacute;marr&eacute;
+Linux. Utilisez l'option `<CODE>-p 0xNNN</CODE>' pour lui dire o&ugrave; regarder
+pour la carte. (La valeur par d&eacute;faut est <CODE>0x300</CODE> et il ne va pas
+regarder ailleurs, &agrave; la diff&eacute;rence de la proc&eacute;dure de d&eacute;tection au
+d&eacute;marrage.)
+<P>Le r&eacute;sultat, s'il trouve une carte, ressemblera &agrave;&nbsp;:
+<HR>
+<PRE>
+Checking the ethercard at 0x300.
+  Register 0x0d (0x30d) is 00
+  Passed initial NE2000 probe, value 00.
+8390 registers: 0a 00 00 00 63 00 00 00 01 00 30 01 00 00 00 00
+SA PROM  0: 00 00 00 00 c0 c0 b0 b0 05 05 65 65 05 05 20 20
+SA PROM 0x10: 00 00 07 07 0d 0d 01 01 14 14 02 02 57 57 57 57
+
+        NE2000 found at 0x300, using start page 0x40 and end page 0x80.
+</PRE>
+<HR>
+<P>Vos valeurs de registres et de PROM seront probablement diff&eacute;rentes.
+Notez que toutes les valeurs de la PROM sont doubl&eacute;es pour une carte
+16&nbsp;bits, et que l'adresse Ethernet (<CODE>00:00:c0:b0:05:65</CODE>)
+appara&icirc;t dans la premi&egrave;re ligne, et que la signature avec le double
+<CODE>0x57</CODE> appara&icirc;t &agrave; la fin de la&nbsp;PROM.
+<P>Le r&eacute;sultat, s'il n'y a aucune carte install&eacute;e en&nbsp;<CODE>0x300</CODE>,
+ressemblera &agrave;&nbsp;:
+<HR>
+<PRE>
+Checking the ethercard at 0x300.
+  Register 0x0d (0x30d) is ff
+  Failed initial NE2000 probe, value ff.
+8390 registers: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+SA PROM        0: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+SA PROM 0x10: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+
+ Invalid signature found, wordlength 2.
+</PRE>
+<HR>
+<P>Les valeurs <CODE>0xff</CODE> apparaissent parce que c'est la valeur qui
+est retourn&eacute;e lorsque l'on lit un port d'E/S vacant. Si vous avez un
+autre mat&eacute;riel dans la zone qui est test&eacute;e, vous pourrez voir des
+valeurs diff&eacute;rentes de <CODE>0xff</CODE> aussi.
+<P>7) Essayez de d&eacute;marrer Linux &agrave; chaud depuis une disquette de d&eacute;marrage
+DOS (via <CODE>loadlin</CODE>) apr&egrave;s avoir ex&eacute;cut&eacute; le pilote DOS fourni ou
+le programme de configuration de la carte. Il se peut qu'il ex&eacute;cute
+quelques tours de passe-passe suppl&eacute;mentaires (c'est-&agrave;-dire
+non&nbsp;standards) pour initialiser la carte.
+<P>8) Essayez le pilote en mode paquet (packet driver) <CODE>ne2000.com</CODE> de
+Russ Nelson pour voir s'il peut au moins voir votre carte -- si ce
+n'est pas le cas, alors les choses vont vraiment mal.
+<P>Exemple&nbsp;:
+<BLOCKQUOTE><CODE>
+A:> ne2000 0x60 10 0x300
+</CODE></BLOCKQUOTE>
+<P>Les arguments sont&nbsp;: le vecteur d'interruption logiciel, l'IRQ
+mat&eacute;rielle, et le port d'E/S. Vous pouvez obtenir ce programme de
+n'importe quelle archive msdos dans le fichier <CODE>pktdrv11.zip</CODE> --
+la version actuelle peut avoir un num&eacute;ro plus r&eacute;cent que 11.
+<P>
+<P>
+<H2><A NAME="8013-probs"></A> <A NAME="ss3.5">3.5 Probl&egrave;mes avec les cartes SMC Ultra/EtherEZ et WD80*3</A>
+       </H2>
+
+<P><B>Probl&egrave;me&nbsp;:</B>
+Vous obtenez des messages semblables &agrave;&nbsp;:
+<PRE>
+        eth0: bogus packet size: 65531, status=0xff, nxpg=0xff
+</PRE>
+<P><B>Raison&nbsp;:</B>
+Il y a un probl&egrave;me de m&eacute;moire partag&eacute;e.
+<P><B>Solution&nbsp;:</B>
+Les machines&nbsp;PCI qui n'ont pas &eacute;t&eacute; configur&eacute;es pour traduire les
+p&eacute;riph&eacute;riques ISA en m&eacute;moire constituent la source la plus courante
+pour ce probl&egrave;me. De fait vous lisez la m&eacute;moire vive du PC (toutes les
+valeurs&nbsp;<CODE>0xff</CODE> que donne le message) au lieu de la m&eacute;moire vive de
+la carte, qui elle contient les donn&eacute;es du paquet re&ccedil;u.
+<P>D'autres probl&egrave;mes courants qui eux sont faciles &agrave; r&eacute;gler sont des
+conflits de carte, le fait d'avoir activ&eacute; le cache ou la m&eacute;moire morte
+'shadow&nbsp;ROM' pour cette zone, ou encore de faire fonctionner le bus ISA
+plus vite que 8&nbsp;MHz. Il existe aussi un nombre &eacute;tonnant de pannes de la
+m&eacute;moire sur les cartes Ethernet, donc utilisez le programme de
+diagnostic si vous en avez un pour votre carte Ethernet.
+<P><B>Probl&egrave;me&nbsp;:</B>
+Une carte EtherEZ de SMC ne fonctionne pas en mode de m&eacute;moire
+non-partag&eacute;e&nbsp;(PIO).
+<P><B>Raison&nbsp;:</B>
+Les versions les plus anciennes du pilote Ultra ne pouvaient utiliser
+la carte que dans le mode de travail &agrave; m&eacute;moire partag&eacute;e.
+<P><B>Solution&nbsp;:</B>
+Le pilote de la version&nbsp;2.0 (et sup&eacute;rieures) sait aussi utiliser le
+mode d'E/S programm&eacute;es&nbsp;(PIO). Mettez votre noyau &agrave; jour vers une
+version&nbsp;2.0 ou plus r&eacute;cente.
+<P><B>Probl&egrave;me&nbsp;:</B>
+Une vieille wd8003 et/ou une&nbsp;wd8013 configurable par cavaliers ont
+toujours la mauvaise&nbsp;IRQ.
+<P><B>Raison&nbsp;:</B>
+Les vieilles cartes wd8003 et les clones wd8013 configurables par
+cavaliers ne poss&egrave;dent pas l'EEPROM que le pilote sait lire pour y
+trouver le param&eacute;trage de l'IRQ. Si le pilote ne sait pas lire l'IRQ,
+il essaie de d&eacute;terminer automatiquement l'IRQ. Et si la proc&eacute;dure de
+d&eacute;tection automatique retourne z&eacute;ro, le pilote se contente d'affecter
+l'IRQ&nbsp;5 pour une carte 8&nbsp;bits ou l'IRQ&nbsp;10 pour une carte 16&nbsp;bits.
+<P><B>Solution&nbsp;:</B>
+Evitez le code de d&eacute;tection automatique de l'IRQ, et indiquez au noyau
+la valeur d'IRQ que vous avez configur&eacute;e sur la carte avec les
+cavaliers en la lui passant comme argument dans votre fichier de
+configuration de modules (ou au d&eacute;marrage si vous l'avez compil&eacute; dans
+le noyau).
+<P><B>Probl&egrave;me&nbsp;:</B>
+Une carte SMC&nbsp;Ultra est d&eacute;tect&eacute;e comme &eacute;tant une wd8013, mais l'IRQ et
+l'adresse de base de la m&eacute;moire partag&eacute;e sont fausses.
+<P><B>Raison&nbsp;:</B>
+La carte&nbsp;Ultra ressemble beaucoup &agrave; une&nbsp;wd8013, et si le pilote Ultra
+n'est pas pr&eacute;sent dans le noyau, le pilote&nbsp;wd peut identifier l'Ultra
+comme &eacute;tant une wd8013. Le test de d&eacute;tection de l'Ultra vient avant
+celui de la&nbsp;wd, donc ceci ne devrait normalement pas se produire.
+L'Ultra stocke l'IRQ et l'adresse de base dans son EEPROM de fa&ccedil;on
+diff&eacute;rente &agrave; celle d'une wd8013, d'o&ugrave; les valeurs erron&eacute;es indiqu&eacute;es
+par le pilote.
+<P><B>Solution&nbsp;:</B>
+Recompilez le noyau en n'int&eacute;grant que les pilotes dont vous avez
+besoin. Si vous avez un m&eacute;lange de cartes wd&nbsp;et&nbsp;Ultra dans une machine,
+et que vous utilisez les modules, chargez le module ultra en premier.
+<P>
+<H2><A NAME="3com-probs"></A> <A NAME="ss3.6">3.6 Probl&egrave;mes avec des cartes 3Com</A>
+</H2>
+
+<P><B>Probl&egrave;me&nbsp;:</B>
+La 3c503 prend l'IRQ&nbsp;N, mais celle-ci est requise par un autre
+p&eacute;riph&eacute;rique qui a besoin de l'IRQ&nbsp;N (par exemple un pilote de CD-ROM,
+un modem, etc.). Est-ce que cela peut &ecirc;tre r&eacute;par&eacute; sans devoir le
+compiler dans le noyau&nbsp;?
+<P><B>Solution&nbsp;:</B>
+Le pilote 3c503 recherche une ligne d'IRQ libre dans
+l'ordre&nbsp;{5,&nbsp;9/2,&nbsp;3,&nbsp;4}, et il devrait prendre une ligne qui n'a pas &eacute;t&eacute;
+utilis&eacute;e. Le pilote effectue ce choix lorsque la carte est
+configur&eacute;e&nbsp;(<CODE>ifconfig</CODE>).
+<P>Si vous utilisez un pilote en module, vous pouvez vous servir des
+param&egrave;tres du module afin de choisir diverses choses, y compris la
+valeur d'IRQ.
+<P>Ce qui suit s&eacute;lectionne l'IRQ&nbsp;9, adresse de base&nbsp;<CODE>0x300</CODE>, &lt;une valeur
+ignor&eacute;e&gt;, et le port&nbsp;<CODE>if_port</CODE> num&eacute;ro&nbsp;1 (le transceiver
+externe).
+<BLOCKQUOTE><CODE>
+io=0x300 irq=9 xcvr=1
+</CODE></BLOCKQUOTE>
+<P>Autrement, si le pilote est compil&eacute; dans le noyau, vous pouvez choisir
+les m&ecirc;mes valeurs en passant des param&egrave;tres <I>via</I> LILO.
+<BLOCKQUOTE><CODE>
+LILO: linux ether=9,0x300,0,1,eth0
+</CODE></BLOCKQUOTE>
+<P>Ce qui suit s&eacute;lectionne l'IRQ&nbsp;3, d&eacute;tecte l'adresse de base, &lt;une
+valeur ignor&eacute;e&gt;, et le port par d&eacute;faut&nbsp;(<CODE>if_port</CODE>) num&eacute;ro&nbsp;0 (le
+transceiver interne).
+<BLOCKQUOTE><CODE>
+LILO: linux ether=3,0,0,0,eth0
+</CODE></BLOCKQUOTE>
+<P><B>Probl&egrave;me&nbsp;:</B>
+<CODE>3c503: configured interrupt X invalid, will use autoIRQ.</CODE>
+(3c503: l'interruption X configur&eacute;e est invalide, d&eacute;tection automatique
+de l'IRQ)
+<P><B>Raison&nbsp;:</B>
+La 3c503 ne peut utiliser que l'une des IRQ&nbsp;5, 2/9, 3&nbsp;ou&nbsp;4 (ce sont les
+seules lignes d'IRQ qui sont connect&eacute;es &agrave; la carte). Si vous passez en
+argument au noyau une valeur d'IRQ qui n'est pas dans cet ensemble,
+vous obtiendrez le message ci-dessus. Normalement, il n'est pas
+n&eacute;cessaire de sp&eacute;cifier une valeur d'interruption pour la 3c503. Elle
+passera en d&eacute;tection automatique lorsqu'elle sera configur&eacute;e (par
+<CODE>ifconfig</CODE>), et elle prendra l'une des IRQ&nbsp;5, 2/9, 3&nbsp;ou&nbsp;4.
+<P><B>Solution&nbsp;:</B>
+Utilisez l'une des IRQ&nbsp;valides donn&eacute;es ci-dessus, ou autorisez la
+d&eacute;tection automatique en ne pr&eacute;cisant aucune ligne d'IRQ.
+<P><B>Probl&egrave;me&nbsp;:</B>
+Le pilote 3c503 fourni n'utilise pas le port&nbsp;AUI (gros Ethernet).
+Comment faire pour le choisir au lieu du port Ethernet&nbsp;fin par d&eacute;faut&nbsp;?
+<P><B>Solution&nbsp;:</B>
+Le port&nbsp;AUI peut &ecirc;tre s&eacute;lectionn&eacute; au d&eacute;marrage pour les pilotes
+compil&eacute;s dans le noyau, et lors de l'insertion du module pour les
+pilotes modulaires. La s&eacute;lection est r&eacute;alis&eacute;e par le bit de poids le
+plus faible de la variable <CODE>dev-&gt;rmem_start</CODE> qui n'est
+actuellement pas utilis&eacute;e, donc un param&egrave;tre de d&eacute;marrage comme&nbsp;:
+<BLOCKQUOTE><CODE>
+LILO: linux ether=0,0,0,1,eth0
+</CODE></BLOCKQUOTE>
+
+devrait fonctionner pour les pilotes compil&eacute;s dans le noyau.
+<P>Pour sp&eacute;cifier le port&nbsp;AUI lorsque vous chargez un module, ajoutez
+simplement <CODE>xcvr=1</CODE> &agrave; la ligne d'options du module avec vos
+valeurs de port d'E/S et d'IRQ.
+<P>
+<P>
+<H2><A NAME="ss3.7">3.7 Les questions qui ne sont pas sp&eacute;cifiques &agrave; une carte.</A>
+</H2>
+
+<P>
+<P>
+<P>
+<H3>Linux et les cartes Ethernet ISA Plug and Play</H3>
+
+<P>Pour de meilleurs r&eacute;sultats (et au moins, rien qui empire) il est
+recommand&eacute; que vous utilisiez le petit programme qui a &eacute;t&eacute; livr&eacute; avec la
+carte pour d&eacute;sactiver le m&eacute;canisme PnP, et r&eacute;gler la carte pour utiliser
+une IRQ et une adresse d'E/S fixe. Assurez-vous que l'adresse d'E/S que
+vous allez utiliser est test&eacute;e lors du boot, ou si vous utilisez des
+modules, donnez les adresses avec une option <CODE>io=</CODE> dans
+votre <CODE>/etc/conf.modules</CODE>. Vous aurez certainement aussi &agrave; entrer
+dans le BIOS et &agrave; marquer l'IRQ en question comme utilis&eacute;e par une carte
+ISA, et non disponible pour le PnP (si votre ordinateur &agrave; cette option).
+<P>Notez que vous n'avez pas besoin d'installer le DOS pour lancer la
+configuration. Vous n'aurez besoin que d'une disquette de boot DOS et de
+lancer le programme depuis la disquette fournie. Vous pouvez aussi
+t&eacute;l&eacute;charger OpenDOS ou FreeDOS gratuitement.
+<P>Si vous avez besoin d'avoir le PnP activ&eacute; pour rester compatible avec un
+autre syst&egrave;me d'exploitation, alors, vous aurez &agrave; utiliser le paquetage
+isapnptools avec Linux pour configurer la carte &agrave; chaque boot. Vous
+aurez quand m&ecirc;me &agrave; vous assurer que l'adresse d'E/S est test&eacute;e par le
+pilote au d&eacute;marrage, ou fourni comme option <CODE>io=</CODE>.
+<P>
+<P>
+<H3>Carte Ethernet non d&eacute;tect&eacute;e au d&eacute;marrage.</H3>
+
+<P>La raison habituelle de cet &eacute;tat de fait est que les gens utilisent un
+noyau qui ne contient pas le code pour leur carte &agrave; eux. Pour un noyau
+modulaire, cela signifie g&eacute;n&eacute;ralement que le chargement du module
+n&eacute;cessaire n'a pas &eacute;t&eacute; demand&eacute;, ou qu'une adresse d'E/S a besoin d'&ecirc;tre
+sp&eacute;cifi&eacute;e comme option du module.
+<P>Si vous utilisez un noyau bas&eacute; sur les modules, comme ceux install&eacute;s par
+la plupart des distributions Linux, essayez alors d'utiliser
+l'utilitaire de configuration de la distribution pour s&eacute;lectionner le
+module destin&eacute; &agrave; votre carte. Pour les cartes&nbsp;ISA, c'est une bonne id&eacute;e
+que de d&eacute;terminer l'adresse d'E/S de la carte et de l'ajouter comme
+option (p.&nbsp;ex. <CODE>io=0x340</CODE>) si l'utilitaire de configuration vous le
+demande. S'il n'y a pas d'utilitaire de configuration, vous devrez alors
+ajouter le nom exact du module (et ses options) au fichier
+<CODE>/etc/conf.modules</CODE> --&nbsp;lisez <CODE>man modprobe</CODE> pour plus de
+d&eacute;tails.
+<P>Si vous utilisez un noyau pr&eacute;compil&eacute; qui provient d'une distribution
+Linux, v&eacute;rifiez dans la documentation quel noyau vous avez install&eacute;, et
+s'il a &eacute;t&eacute; construit en incluant le code pour votre carte &agrave; vous. Si ce
+n'est pas le cas, vous pouvez soit essayer d'en obtenir un qui contient
+le code pour votre carte, soit construire votre propre noyau.
+<P>C'est en g&eacute;n&eacute;ral une bonne chose que de construire votre propre noyau,
+ne contenant que les pilotes dont vous avez besoin, car cela diminue
+consid&eacute;rablement la taille du noyau (pr&eacute;servant d'autant votre pr&eacute;cieuse
+m&eacute;moire vive pour les applications&nbsp;!) et cela r&eacute;duit le nombre de
+proc&eacute;dure de d&eacute;tection de p&eacute;riph&eacute;riques qui peuvent d&eacute;ranger le mat&eacute;riel
+un peu sensible. Construire un nouveau noyau n'est pas aussi compliqu&eacute;
+que cela peut para&icirc;tre. Vous devez juste r&eacute;pondre oui ou non &agrave; toute une
+s&eacute;rie de questions sur les pilotes que vous voulez, et le syst&egrave;me fait
+le reste.
+<P>La seconde raison essentielle est qu'un autre p&eacute;riph&eacute;rique utilise une
+partie de l'espace d'adressage d'entr&eacute;e-sortie dont votre carte a
+besoin. La plupart des cartes ont une zone d'adressage qui mesure 16&nbsp;ou
+32&nbsp;bits de largeur. Si votre carte est positionn&eacute;e en&nbsp;<CODE>0x300</CODE> et
+qu'elle prend 32&nbsp;octets, alors le pilote demandera la plage d'adresses
+<CODE>0x300-0x31f</CODE>. Si un autre pilote de p&eacute;riph&eacute;rique a enregistr&eacute; ne
+serait-ce qu'un port d'entr&eacute;e-sortie, o&ugrave; que ce soit dans cet
+intervalle, la proc&eacute;dure de d&eacute;tection n'aura pas lieu &agrave; cette adresse et
+le pilote continuera sans rien dire &agrave; l'adresse suivante &agrave; tester. Donc,
+apr&egrave;s le d&eacute;marrage, faites un <CODE>cat /proc/ioports</CODE> et v&eacute;rifiez que
+tout l'espace d'adressage d'entr&eacute;e-sortie que la carte demandera est
+bien disponible.
+<P>Autre probl&egrave;me&nbsp;: votre carte est configur&eacute;e pour une adresse
+d'entr&eacute;e-sortie qui n'est pas test&eacute;e par d&eacute;faut. La liste des adresses
+test&eacute;es pour chaque carte est disponible juste apr&egrave;s les commentaires de
+d&eacute;but dans chaque fichier source. M&ecirc;me si la configuration d'E/S de
+votre carte n'est pas dans la liste des adresses test&eacute;es, vous pouvez
+l'indiquer au d&eacute;marrage (pour les pilotes compil&eacute;s dans le noyeau en
+utilisant la commande&nbsp;<CODE>ether=</CODE> comme il est d&eacute;crit dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#lilo">Passage des arguments Ethernet...</A>. Les pilotes
+modulaires peuvent utiliser l'option&nbsp;<CODE>io=</CODE> dans le fichier
+<CODE>/etc/conf.modules</CODE> afin de sp&eacute;cifier une adresse qui n'est pas
+test&eacute;e par d&eacute;faut.
+<P>
+<P>
+<H3><CODE>ifconfig</CODE> indique la mauvaise adresse d'E/S pour la carte.</H3>
+
+<P>Non, ce n'est pas vrai. C'est vous qui l'interpr&eacute;tez de mani&egrave;re
+erron&eacute;e. Ce n'est&nbsp;<EM>pas</EM> une erreur, et les nombres indiqu&eacute;s sont
+corrects. Ce qu'il se passe, c'est que certaines cartes &agrave; base de&nbsp;8390
+(wd80x3, smc-ultra, etc.) sont telles que la puce&nbsp;8390 se trouve d&eacute;cal&eacute;e
+par rapport au premier port&nbsp;d'E/S affect&eacute;. Il s'agit de la valeur
+stock&eacute;e dans&nbsp;<CODE>dev->base_addr</CODE>, qui est celle que <CODE>ifconfig</CODE>
+indique. Si vous souhaitez voir l'intervalle complet d'adresses de ports
+que votre carte utilise, vous devriez essayer <CODE>cat /proc/ioports</CODE>
+qui vous donnera le nombre que vous attendez.
+<P>
+<H3>Une machine PCI d&eacute;tecte la carte mais la proc&eacute;dure de test du pilote&eacute;choue.</H3>
+
+<P>Certains BIOS&nbsp;PCI peuvent ne pas activer toutes les cartes&nbsp;PCI lors de
+l'allumage de la machine, sp&eacute;cialement si l'option `PNP&nbsp;OS' du BIOS est
+activ&eacute;e. Cette contre-fonctionnalit&eacute; est destin&eacute;e &agrave; supporter la version
+actuelle de Windows qui utilise encore des pilotes en mode r&eacute;el. Vous
+pouvez soit inhiber cette option, soit essayer de mettre &agrave; jour votre
+pilote pour une version qui comprend le code capable d'activer une carte
+d&eacute;sactiv&eacute;e.
+<P>
+<H3>Des cartes ISA &agrave; m&eacute;moire partag&eacute;e ne fonctionnent pas dans une machinePCI (<CODE>0xffff</CODE>)</H3>
+
+<P>Ce probl&egrave;me se r&eacute;v&egrave;le habituellement sous la forme d'une s&eacute;rie de
+valeurs&nbsp;<CODE>0xffff</CODE> en lecture. Aucune carte &agrave; m&eacute;moire partag&eacute;e de
+quelque type que ce soit ne fonctionnera dans une machine&nbsp;PCI &agrave; moins
+que vous n'ayez configur&eacute; correctement le BIOS&nbsp;PCI (<CODE>PCI ROM
+BIOS/CMOS SETUP</CODE> ou quelque chose comme &ccedil;a). Vous devez le configurer
+pour permettre l'acc&egrave;s &agrave; la m&eacute;moire partag&eacut

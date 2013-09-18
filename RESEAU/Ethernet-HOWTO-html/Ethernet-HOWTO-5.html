@@ -1,0 +1,2400 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Linux Ethernet-Howto: Informations sp&eacute;cifiques par distributeur/constructeur/mod&egrave;le</TITLE>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-6.html" REL=next>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-4.html" REL=previous>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc5" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-6.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-4.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc5"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="card-intro"></A> <A NAME="s5">5. Informations sp&eacute;cifiques par distributeur/constructeur/mod&egrave;le</A>      </H2>
+
+<P>Ce qui suit est une liste de nombreuses cartes, rang&eacute;es par ordre
+alphab&eacute;tique de distributeur, puis par identifiant de produit. A c&ocirc;t&eacute; de
+chaque identifiant de produit, vous verrez soit `support&eacute;', soit
+`partiellement support&eacute;', soit `non support&eacute;'.
+<P>`Support&eacute;' signifie qu'un pilote existe pour cette carte, que de
+nombreuses personnes en sont contentes et qu'il semble fiable.
+<P>`Partiellement support&eacute;' signifie qu'un pilote existe, mais que l'une au
+moins des conditions suivantes est vraie&nbsp;: (1)&nbsp;Le pilote et/ou le
+mat&eacute;riel comportent des erreurs, ce qui peut engendrer de pi&egrave;tres
+performances, des &eacute;checs de connexion ou m&ecirc;me des crashs. (2)&nbsp;Le pilote
+est r&eacute;cent ou la carte est tr&egrave;s peu connue, et par cons&eacute;quent celui-ci a
+&eacute;t&eacute; peu utilis&eacute;/test&eacute; et son auteur a eu tr&egrave;s peu de retours quant &agrave; son
+fonctionnement. Il est &eacute;vident que la situation&nbsp;(2) est pr&eacute;f&eacute;rable &agrave; la
+situation&nbsp;(1), et la description de la carte et du pilote devrait
+montrer clairement laquelle est la bonne. Dans un cas comme dans
+l'autre, vous devrez certainement r&eacute;pondre 'Y' &agrave; la question ``Prompt
+for development and/or incomplete code/drivers?'' (``Demander
+confirmation pour pour les pilotes en cours de d&eacute;veloppement ou
+incomplets&nbsp;?'')  lorsque vous lancerez <CODE>make config</CODE>.
+<P>`Non support&eacute;' signifie qu'il n'existe pas de pilote disponible &agrave;
+l'heure actuelle pour cette carte. Cela peut &ecirc;tre d&ucirc; &agrave; un manque
+d'int&eacute;r&ecirc;t pour un mat&eacute;riel qui est rare ou peu commun, ou au fait que
+les distributeurs n'en fournissent pas la documentation n&eacute;cessaire pour
+l'&eacute;criture du pilote.
+<P>Notez que la diff&eacute;rence entre `support&eacute;' et `partiellement support&eacute;' est
+plut&ocirc;t subjective, et qu'elle est bas&eacute;e sur les retours d'informations
+fournis par les utilisateurs, observ&eacute;s dans les groupes de news et les
+listes de diffusion. (Apr&egrave;s tout, il est impossible &agrave; une personne de
+tester tous les pilotes avec toutes les cartes pour chaque version du
+noyau&nbsp;!!!)  Soyez donc pr&eacute;venus que telle carte indiqu&eacute;e comme
+`partiellement support&eacute;e' pourra fonctionner impeccablement pour vous
+(ce qui est bien), alors que telle autre indiqu&eacute;e comme `support&eacute;e' vous
+donnera des probl&egrave;mes sans fin (ce qui n'est pas aussi bien).
+<P>Apr&egrave;s le statut, le nom du pilote donn&eacute; dans le noyau de Linux est
+indiqu&eacute;. Ceci sera aussi le nom du module tel qu'il apparait &agrave; la ligne
+<CODE>alias eth0 pilote</CODE> dans votre fichier de configuration
+<CODE>/etc/conf.modules</CODE>.
+<P>
+<P>
+<H2><A NAME="3com"></A> <A NAME="ss5.1">5.1 3Com</A>
+</H2>
+
+<P>Si vous n'&ecirc;tes pas s&ucirc;r de ce qu'est votre carte, mais que vous pensez
+qu'il s'agit d'une 3Com, vous pourrez certainement le d&eacute;terminer &agrave;
+partir du num&eacute;ro d'assemblage. 3Com dispose d'un document `Identifying
+3Com Adapters By Assembly Number' (Identifier les adaptateurs 3Com par
+leur num&eacute;ro d'assemblage, r&eacute;f&eacute;rence 24500002) qui devrait tr&egrave;s
+certainement &eacute;claircir les choses. Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#3com-tech">Informations techniques de 3Com</A> pour plus d'informations sur la
+fa&ccedil;on d'obtenir de 3Com des documents techniques.
+<P>Notez aussi que vous pouvez &eacute;ventuellement consulter le site FTP de 3Com
+qui rec&egrave;le diverses g&acirc;teries&nbsp;: <CODE>ftp.3Com.com</CODE>.
+<P>Pour ceux qui consultent ce document sur le WWW, vous pouvez aussi
+essayer leur site WWW (<CODE>www.3com.com</CODE>).
+<P>
+<H3><A NAME="3c501"></A> 3c501</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: 3c501
+<P>Cette carte 8&nbsp;bits datant de l'&acirc;ge de pierre, trop tap&eacute;e du ciboulot
+pour &ecirc;tre utilis&eacute;e.  Evitez-la comme la peste. N'achetez pas cette
+carte, m&ecirc;me pour faire une blague. Ses performances sont atroces, et
+elle a de nombreuses d&eacute;ficiences.
+<P>Pour ceux qui ne seraient pas encore convaincus, la 3C501 ne sait faire
+qu'une chose &agrave; la fois -- pendant que vous enlevez un paquet du tampon
+(qui ne peut en contenir qu'un seul), elle ne peut pas en recevoir un
+autre, pas plus qu'elle ne peut en recevoir un pendant le chargement
+d'un paquet &agrave; transmettre. C'&eacute;tait parfait pour un r&eacute;seau entre deux
+ordinateurs &agrave; base de 8088 o&ugrave; le traitement de chaque paquet et la
+r&eacute;ponse prenaient des dizaines de millisecondes, mais les r&eacute;seaux
+modernes envoient des paquets les uns &agrave; la suite des autres pour
+pratiquement chaque transaction.
+<P>Les IRQ automatiques fonctionnent, le DMA n'est pas utilis&eacute;, la
+d&eacute;tection automatique ne teste que <CODE>0x280</CODE> et <CODE>0x300</CODE>, et le
+niveau de d&eacute;bogage est indiqu&eacute; dans le troisi&egrave;me argument pass&eacute; au
+d&eacute;marrage.
+<P>Encore une fois, l'utilisation d'une 3C501 est <EM>fortement
+d&eacute;conseill&eacute;e</EM>&nbsp;! Encore plus avec un noyau IP `multicast', puisque vous
+allez aboutir &agrave; un arr&ecirc;t pendant que vous &eacute;coutez <EM>chacun</EM> des
+paquets `multicast'. Lisez les commentaires au d&eacute;but du code source pour
+plus de d&eacute;tails.
+<P>
+<H3><A NAME="3c503"></A> EtherLink II, 3c503, 3c503/16</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: 3c503 (+8390)
+<P>La 3c503 ne poss&egrave;de pas de m&eacute;moire reprogrammable pour stocker sa
+configuration (un ``EEPROM setup'')&nbsp;; un programme de diagnostic et de
+configuration n'est donc pas n&eacute;cessaire avant d'utiliser la carte sous
+Linux. L'adresse de m&eacute;moire partag&eacute;e de la 3c503 est fix&eacute;e en utilisant
+des cavaliers qui sont partag&eacute;s avec l'adresse de la m&eacute;moire
+programmable de d&eacute;marrage (``boot PROM''). Cela a tendance &agrave; semer la
+confusion chez les personnes habitu&eacute;es aux autres cartes ISA, sur
+lesquelles on laisse toujours le cavalier sur la position `d&eacute;sactiv&eacute;e'
+(<I>disable</I> en anglais) &agrave; moins d'avoir une PROM de d&eacute;marrage.
+<P>Ces cartes devraient &ecirc;tre aussi rapide que les cartes WD80x3 qui
+utilisent le m&ecirc;me bus, mais il appara&icirc;t qu'elles sont l&eacute;g&egrave;rement plus
+lentes. Ces cartes Ethernet &agrave; m&eacute;moire partag&eacute;e ont aussi un mode &agrave;
+Entr&eacute;es/Sorties programm&eacute;es qui n'utilise pas les possibilit&eacute;s de la
+8390 (leurs ing&eacute;nieurs ont trouv&eacute; trop de bogues&nbsp;!). Le pilote 3c503 de
+Linux sait aussi travailler avec la 3c503 en mode d'E/S programm&eacute;es,
+mais c'est plus lent et moins s&ucirc;r que le mode &agrave; m&eacute;moire partag&eacute;e. De
+plus, le mode d'E/S programm&eacute;es n'est pas aussi bien test&eacute; lors des
+mises &agrave; jour des pilotes. Vous ne devriez pas utiliser le mode d'E/S
+programm&eacute;es &agrave; moins d'en avoir besoin pour la compatibilit&eacute; avec le DOS.
+<P>La ligne d'IRQ de la 3c503 est fix&eacute;e par logiciel, sans l'aide d'une
+EEPROM. A la diff&eacute;rence des pilotes sous DOS, le pilote Linux est
+capable de choisir automatiquement l'IRQ&nbsp;: il utilise la premi&egrave;re ligne
+d'interruption disponible parmi&nbsp;{5,2/9,3,4}, en choisissant &agrave; chaque
+fois que la carte est <CODE>ifconfig</CODE>ur&eacute;e. (Les anciennes versions du
+pilote s&eacute;lectionnaient l'IRQ au moment du d&eacute;marrage). L'appel
+<CODE>ioctl()</CODE> dans `ifconfig' retournera <CODE>EAGAIN</CODE> si aucune ligne
+d'IRQ n'est disponible &agrave; ce moment-l&agrave;.
+<P>Des probl&egrave;mes classiques que les gens ont avec la 3c503 sont abord&eacute;s
+dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#3com-probs">Probl&egrave;mes avec...</A>.
+<P>Si vous avez l'intention d'utiliser ce pilote sous la forme d'un module
+chargeable, vous devriez probablement consulter&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#modules">Utiliser les pilotes Ethernet comme modules</A> pour des
+informations sp&eacute;cifiques aux modules.
+<P>Notez que certains vieux 386 sans disques ont des 3c503 sur la carte
+m&egrave;re (faites par 3Com, mais vendues sous un autre nom, tel que `Bull')
+l'identificateur n'est pas celui des cartes 3Com, et elles ne seront
+donc pas d&eacute;tect&eacute;es. Pour plus de d&eacute;tails, r&eacute;f&eacute;rez-vous au paquetage
+Etherboot, dont vous aurez besoin pour d&eacute;marrer ces PC sans disques.
+<P>
+<H3><A NAME="3c505"></A> EtherLink plus, 3c505</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: 3c505
+<P>Il s'agit d'un pilote qui avait &eacute;t&eacute; &eacute;crit par Craig Southeren
+<CODE>geoffw@extro.ucc.su.oz.au</CODE>. Ces cartes utilisent la puce i82586
+d'Intel et sont assez peu r&eacute;pandues. Le pilote est inclus dans le noyau
+standard, mais il est class&eacute; comme pilote `alpha'. Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#alfa">Pilotes alpha</A> pour des informations importantes &agrave;
+propos de l'utilisation de pilotes Ethernet en phase de test `alpha'
+sous Linux.
+<P>Vous devriez aussi lire le fichier
+<CODE>/usr/src/linux/drivers/net/README.3c505</CODE> si vous comptez
+utiliser une de ces cartes. Il contient diverses options que vous pouvez
+activer ou d&eacute;sactiver.
+<P>
+<H3><A NAME="3c507"></A> EtherLink-16, 3c507</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: 3c507
+<P>Cette carte utilise l'une des puces Intel, et le d&eacute;veloppement du pilote
+est fortement li&eacute; &agrave; celui du pilote de la carte Ether Express d'Intel.
+Le pilote est inclus dans la distribution standard du noyau, mais en
+tant que pilote `alpha'.
+<P>Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#alfa">Pilotes alpha</A> pour des informations
+importantes concernant l'utilisation de pilotes en phase de test `alpha'
+sous Linux.
+<P>
+<H3><A NAME="3c509"></A> EtherLink III, 3c509 / 3c509B</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: 3c509
+<P>Cette carte est plut&ocirc;t bon march&eacute; et poss&egrave;de de bonnes performances pour
+une conception ISA qui ne soit pas `bus-master'. Le revers de la m&eacute;daille
+est que la 3c509 originelle n&eacute;cessitait des temps de latence vraiment
+tr&egrave;s faibles en r&eacute;ponse aux interruptions. La 3c509B ne souffre pas du
+m&ecirc;me probl&egrave;me, car elle poss&egrave;de un tampon m&eacute;moire plus important (voir
+ci-dessous). Ces cartes utilisent des transferts en mode
+d'Entr&eacute;es/Sorties programm&eacute;es (PIO), de la m&ecirc;me fa&ccedil;on qu'une carte
+ne2000, et par cons&eacute;quent une carte &agrave; m&eacute;moire partag&eacute;e comme la wd8013
+sera plus efficace en comparaison.
+<P>La 3c509 d'origine avait un petit tampon m&eacute;moire pour les paquets (4&nbsp;Ko
+au total, 2&nbsp;en r&eacute;ception et 2&nbsp;en transmission), ce qui poussait le
+pilote &agrave; &eacute;liminer un paquet si les interruptions &eacute;taient masqu&eacute;es trop
+longtemps. Pour minimiser ce probl&egrave;me, vous pouvez essayer de d&eacute;-masquer
+les interruptions pendant les transferts sur disques IDE (consultez
+<CODE>man hdparm</CODE>) et&nbsp;/&nbsp;ou augmenter la vitesse de votre bus&nbsp;ISA de
+fa&ccedil;on &agrave; ce que les transferts&nbsp;IDE se terminent plus t&ocirc;t.
+<P>Le mod&egrave;le plus r&eacute;cent, la 3c509B, poss&egrave;de 8&nbsp;Ko de m&eacute;moire, et le tampon
+peut &ecirc;tre partag&eacute; en 4/4, 5/3 ou 6/2 en r&eacute;ception/transmission. Ce
+param&egrave;tre est chang&eacute; &agrave; l'aide de l'utilitaire de configuration sous DOS,
+et est stock&eacute; dans la m&eacute;moire EEPROM. Cela devrait &eacute;liminer le probl&egrave;me
+pr&eacute;c&eacute;dent avec la 3c509 originelle.
+<P>Les utilisateurs de 3c509B devraient utiliser soit l'utilitaire DOS
+fourni afin de d&eacute;sactiver le `<I>plug and play</I>', <EM>et</EM> de
+d&eacute;terminer le support de sortie dont ils ont besoin. Le pilote Linux
+<EM>n'est pas</EM> capable aujourd'hui d'utiliser la fonctionnalit&eacute; de
+d&eacute;tection automatique du support physique, donc vous <EM>devez</EM>
+s&eacute;lectionner 10Base-T ou 10Base-2 ou AUI.  Notez que pour arr&ecirc;ter
+totalement le PnP, vous devrez faire un <CODE>3C5X9CFG /PNP:DISABLE</CODE>
+et ensuite, &eacute;teindre et rallumer la machine pour que cela prenne effet.
+<P>Certaines personnes ont pos&eacute; des questions sur les param&egrave;tres ``Server
+or Workstation'' (serveur ou station de travail) et ``Highest Modem
+Speed'' (plus haute vitesse de modem) qui sont pr&eacute;sent&eacute;s dans
+l'utilitaire de configuration du DOS. Donald &eacute;crit que ``Ce ne sont que
+des orientations fournies au pilotes, et le pilote Linux n'utilise pas
+ces param&egrave;tres&nbsp;; il optimise toujours pour un taux de transfert
+important plut&ocirc;t que pour un temps de latence faible (`Server'). Un
+temps de latence faible &eacute;tait un crit&egrave;re critique pour le vieux trafic,
+non-fen&ecirc;tr&eacute;, de IPX. Afin de r&eacute;duire le temps de latence, le pilote sous
+DOS de la 3c509 inhibe les interruptions de certaines op&eacute;rations,
+bloquant les interruptions du port s&eacute;rie. D'o&ugrave; la n&eacute;cessit&eacute; du param&egrave;tre
+`modem speed' (vitesse du modem). Le pilote Linux &eacute;vite la n&eacute;cessit&eacute; de
+d&eacute;sactiver les interruptions sur de longues p&eacute;riodes en ne travaillant
+que sur des paquets complets, par exemple en ne commen&ccedil;ant pas &agrave;
+transmettre un paquet avant qu'il n'ait &eacute;t&eacute; compl&egrave;tement transf&eacute;r&eacute; sur
+la carte.''
+<P>Notez que la proc&eacute;dure de d&eacute;tection de la carte ISA utilise une m&eacute;thode
+diff&eacute;rente de la plupart des autres cartes. A la base, vous demandez aux
+cartes de r&eacute;pondre en envoyant des donn&eacute;es sur un port <CODE>ID_PORT</CODE>
+(port <CODE>0x100</CODE> jusqu'&agrave; <CODE>0x1ff</CODE> par intervalle de <CODE>0x10</CODE>).
+Cette m&eacute;thode de d&eacute;tection signifie qu'une carte donn&eacute;e sera toujours
+d&eacute;tect&eacute;e en premier dans une configuration comportant plusieurs cartes
+ISA 3c509. La carte avec la plus petite adresse Ethernet physique sera
+<EM>toujours</EM> <CODE>eth0</CODE>. Cela ne devrait g&ecirc;ner personne, &agrave;
+l'exception de ceux qui souhaitent assigner une adresse physique sur 6
+octets &agrave; une interface donn&eacute;e. Si vous avez plusieurs cartes 3c509, il
+vaut mieux ajouter des commandes <CODE>ether=0,0,ethN</CODE> sans pr&eacute;ciser le
+port d'E/S (c'est-&agrave;-dire en utilisant E/S=z&eacute;ro) et autoriser la
+proc&eacute;dure de d&eacute;tection &agrave; faire le tri pour d&eacute;terminer quelle carte est
+la premi&egrave;re. Utiliser une valeur d'E/S non nulle va faire que toutes les
+cartes ne seront pas d&eacute;tect&eacute;es : donc, ne le faites pas.
+<P>Si cela vous g&ecirc;ne vraiment, jetez un coup d'oeil au tout dernier pilote
+de Donald, car cela vous permettra d'utiliser une valeur <CODE>0x3c509</CODE>
+dans le champ (inutilis&eacute;) de l'adresse m&eacute;moire pour obliger la d&eacute;tection
+&agrave; r&eacute;ussir.
+<P>
+<H3><A NAME="cork"></A> 3c515</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: 3c515
+<P>Il s'agit de l'offre 100&nbsp;Mb/s de 3Com en ISA, nom de code
+``<I>CorkScrew</I>'' (tire-bouchon, en anglais). Un pilote assez jeune
+pour ces cartes venant de Donald est inclus dans la version 2.2 du
+noyau. Pour les derni&egrave;res informations, vous auriez certainement int&eacute;r&ecirc;t
+&agrave; le chercher dans la page sur les ``Vortex''&nbsp;:
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://cesdis.gsfc.nasa.gov/linux/drivers/vortex.html">Vortex</A></BLOCKQUOTE>
+<P>
+<H3><A NAME="3c523"></A> 3c523</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: 3c523
+<P>Cette carte pour bus&nbsp;MCA utilise la puce i82586, et Chris Beauregard a
+modifi&eacute; le pilote <CODE>ni52</CODE> pour qu'il fonctionne avec ces cartes. Le
+pilote correspondant peut &ecirc;tre trouv&eacute; dans l'arborescence des sources
+des noyaux&nbsp;2.2.
+<P>Plus de d&eacute;tails sont fournis sur la page MCA pour Linux &agrave;
+<CODE>http://glycerine.cetmm.uni.edu/mca/</CODE>
+<P>
+<H3><A NAME="3c527"></A> 3c527</H3>
+
+<P>Statut&nbsp;: Non support&eacute;
+<P>Eh oui, encore une autre carte MCA. Eh non, pas beaucoup d'int&eacute;r&ecirc;t pour
+celle-ci. Vous aurez plus de chance avec la 3c529 si vous &ecirc;tes coinc&eacute;(e)
+avec le MCA.
+<P>
+<H3><A NAME="3c529"></A> 3c529</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: 3c509
+<P>Cette carte utilise en fait le m&ecirc;me jeu de puces que la 3c509. De fait,
+Donald a plac&eacute; des points d'entr&eacute;e dans le pilote de la 3c509 pour
+v&eacute;rifier l'existence de cartes MCA apr&egrave;s la d&eacute;tection des cartes EISA,
+et avant celle des cartes ISA, longtemps avant que le MCA soit support&eacute;
+par le noyau. Le code de d&eacute;tection MCA est inclus dans le pilote livr&eacute;
+avec le noyau 2.2.
+<P>On peut trouver plus de d&eacute;tails sur la page MCA pour Linux &agrave; l'adresse
+<CODE>http://glycerine.cetmm.uni.edu/mca/</CODE>.
+<P>
+<H3>3c562</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: 3c589 (distribu&eacute; s&eacute;par&eacute;ment)
+<P>Cette carte PCMCIA est la combinaison d'une carte Ethernet 3c589B et
+d'un modem. Le modem est vu comme un modem standard par l'utilisateur
+final. La seule difficult&eacute; est d'arriver &agrave; faire en sorte que les deux
+pilotes Linux partagent la m&ecirc;me interruption. Il y a une s&eacute;rie de
+nouveaux registres et un peu de support de partage d'interruptions
+mat&eacute;rielles. Vous aurez besoin d'utiliser un noyau 2.0 ou plus r&eacute;cent,
+qui comporte ce qu'il faut pour le partage d'interruptions.
+<P>
+<P>Merci de nouveau &agrave; Cameron pour l'obtention d'un exemplaire d'essai et
+l'envoi d'une documentation &agrave; David Hinds. Consultez le paquetage PCMCIA
+de David pour plus d'informations.
+<P>Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html#pcmcia">PCMCIA</A> pour en savoir plus sur les
+jeux de puces PCMCIA, les activateurs de sockets, etc.
+<P>
+<H3>3c575</H3>
+
+<P>Statut&nbsp;: Inconnu
+<P>Un pilote pour cette carte PCMCIA est en cours de d&eacute;veloppement et l'on
+peut esp&eacute;rer qu'il sera inclus dans le paquetage PCMCIA de David dans le
+futur. Le mieux est de regarder dans le paquetage PCMCIA pour voir ce
+qui s'y passe.
+<P>
+<P>
+<H3><A NAME="3c579"></A> 3c579</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: 3c509
+<P>La version EISA de la 509. La version EISA actuelle utilise la m&ecirc;me puce
+de largeur 16&nbsp;bits plut&ocirc;t qu'une interface 32&nbsp;bits, et les performances
+ne sont donc pas &eacute;poustouflantes. Le code de d&eacute;tection EISA a &eacute;t&eacute; ajout&eacute;
+dans <CODE>3c509.c</CODE> pour la version 0.99pl14. Assurez-vous que la carte
+est configur&eacute;e pour le mode d'adressage EISA. Lisez la section
+pr&eacute;c&eacute;dente sur la&nbsp;3c509 pour des informations sur le pilote.
+<P>
+<P>
+<H3><A NAME="3c589"></A> 3c589 / 3c589B</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: 3c589
+<P>Beaucoup de monde utilise cette carte PCMCIA depuis d&eacute;j&agrave; un bon bout de
+temps. Notez qu'elle n'est pas incluse (&agrave; l'heure actuelle) dans
+l'arborescence par d&eacute;faut du noyau. Le "B" dans le nom signifie la m&ecirc;me
+chose ici que dans le cas de la 3c509.
+<P>Les pilotes sont disponibles sur le site ftp de Donald, et dans le
+paquetage PCMCIA de David Hinds. Vous aurez aussi besoin d'avoir un
+chipset PCMCIA support&eacute;. Allez faire un tour dans le 
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html#pcmcia">Support PCMCIA</A> pour plus d'informations sur les pilotes, les
+chipsets support&eacute;s, les activateurs de sockets, etc.
+<P>
+<P>
+<H3><A NAME="vortex"></A> 3c590 / 3c595</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: 3c59x
+<P>Ces cartes ``Vortex'' sont destin&eacute;es aux machines &agrave; bus PCI, la 3c590
+constituant l'offre &agrave; 10&nbsp;Mb/s de 3Com et la 3c595 celle &agrave; 100&nbsp;Mb/S.
+Notez aussi que vous pouvez utiliser la 595 comme une 590 (c'est-&agrave;-dire
+en mode 10&nbsp;Mb/s). Le pilote est inclus dans les sources du noyau 2.0,
+mais est aussi continuellement mis &agrave; jour. Si vous rencontrez
+des probl&egrave;mes avec le pilote des noyaux 2.0, vous pouvez obtenir un
+pilote &agrave; jour &agrave; partir de l'URL suivante&nbsp;:
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://cesdis.gsfc.nasa.gov/linux/drivers/vortex.html">Vortex</A></BLOCKQUOTE>
+<P>Notez qu'il existe en fait deux cartes 3c590, des mod&egrave;les des premiers
+temps ayant 32&nbsp;Ko de m&eacute;moire, et des plus r&eacute;cents qui n'en ont que 8&nbsp;.
+Il y a des chances pour que vous ne puissiez plus acheter une 3c59x
+neuve, car elles ont &eacute;t&eacute; remplac&eacute;es par les 3c90x. Si vous achetez une
+carte d'occasion, essayez d'obtenir la version 32&nbsp;Ko. Les cartes 3c595
+ont 64&nbsp;Ko, car vous ne pouvez pas faire grand-chose avec seulement 8&nbsp;Ko
+de m&eacute;moire vive &agrave; 100&nbsp;Mb/s&nbsp;!
+<P>Grand merci &agrave; Cameron Spitzer et Terry Murphy de 3Com pour l'envoi de
+cartes et de documentation &agrave; Donald afin qu'il puisse &eacute;crire le pilote.
+<P>Donald a mis en place une liste de diffusion pour le support du pilote
+Vortex. Pour vous abonner &agrave; la liste, vous n'avez qu'&agrave; faire&nbsp;:
+<P><CODE>echo subscribe | /bin/mail
+linux-vortex-request@cesdis.gsfc.nasa.gov</CODE>
+<P>
+<P>
+<H3>3c592 / 3c597</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: 3c59x
+<P>Ce sont les versions EISA des s&eacute;ries 3c59x. La 3c592/3c597 (aussi connue
+sous le nom de Demon) devrait fonctionner avec le pilote Vortex pr&eacute;sent&eacute;
+au paragraphe pr&eacute;c&eacute;dent.
+<P>
+<H3>3c900 / 3c905 / 3c905B</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: 3c59x
+<P>Ces cartes (aussi connues sous le nom de `Boomerang', ou encore
+EtherLink III XL) ont &eacute;t&eacute; mises sur le march&eacute; pour remplacer les cartes
+3c590/3c595.
+<P>Le support pour la version &agrave; base de Cyclone 'B' a r&eacute;cemment &eacute;t&eacute;
+ajout&eacute;. Pour utiliser cette carte avec les anciens noyaux 2.0, vous
+devez obtenir le pilote <CODE>3c59x.c</CODE> mis &agrave; jour sur le site de
+Donald&nbsp;:
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://cesdis.gsfc.nasa.gov/linux/drivers/vortex.html">Vortex</A></BLOCKQUOTE>
+<P>Si vous avez un doute, allez faire un tour sur la page WWW
+ci-dessus. Donald a mis en place une liste de diffusion sur les annonces
+concernant le support du pilote Vortex, entre autres.  Pour vous abonner
+&agrave; la liste, il suffit de faire&nbsp;:
+<P><CODE>echo subscribe | /bin/mail
+linux-vortex-request@cesdis.gsfc.nasa.gov</CODE>
+<P>
+<H3>3c985</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: acenic
+<P>Ce pilote, par Jes Sorensen, est disponible dans les noyaux 2.2. Il
+supporte plusieurs autres mod&egrave;les de cartes Gigabit en plus du mod&egrave;le
+3Com.
+<P>
+<P>
+<H2><A NAME="accton"></A> <A NAME="ss5.2">5.2 Accton</A>
+</H2>
+
+<P>
+<P>
+<H3>Accton MPX</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: ne (+8390)
+<P>Ne vous laissez pas avoir par le nom. Cette carte est tout de m&ecirc;me
+suppos&eacute;e &ecirc;tre une compatible NE2000, et devrait par cons&eacute;quent
+fonctionner avec le pilote du m&ecirc;me nom.
+<P>
+<P>
+<H3>Accton EN1203, EN1207, EtherDuo-PCI</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de4x5, tulip
+<P>Une autre impl&eacute;mentation de la puce PCI 21040 de DEC. La carte EN1207
+comporte le 21140, mais a aussi un connecteur 10Base-2, ce qui s'est
+r&eacute;v&eacute;l&eacute; source de probl&egrave;mes pour certaines personnes en terme de
+s&eacute;lection de ce support. Par contre, l'utilisation de la carte avec du
+10Base-T et du 100Base-T a fonctionn&eacute; pour certaines autres. Donc, comme
+pour tous les achats, vous devez d'abord essayer et vous assurer que
+vous pourrez retourner la carte si elle ne fonctionne pas pour vous.
+<P>Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#dec-21040">DEC 21040</A> pour plus d'informations
+sur ces cartes, et la situation actuelle du pilote.
+<P>
+<H3>Adaptateur Accton EN2209 pour port parall&egrave;le (EtherPocket)</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: ?
+<P>Un pilote pour ces adaptateurs sur port parall&egrave;le est disponible mais ne
+fait pas encore partie des sources des noyaux 2.0 ou&nbsp;2.1. Vous pouvez
+obtenir ce pilote sur&nbsp;:
+<BLOCKQUOTE>
+<CODE>http://www.unix-ag.uni-siegen.de/~nils/accton_linux.html</CODE>
+</BLOCKQUOTE>
+<P>
+<P>
+<H3>Accton EN2212 PCMCIA</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: ?
+<P>David Hinds a commenc&eacute; &agrave; travailler sur un pilote pour cette carte, et
+vous devriez de consulter la derni&egrave;re version de son paquetage PCMCIA
+pour savoir o&ugrave; il en est.
+<P>
+<P>
+<H2><A NAME="allied-telesis"></A> <A NAME="ss5.3">5.3 Allied Telesyn/Telesis</A>
+</H2>
+
+<P>
+<P>
+<H3><A NAME="at-1500"></A> AT1500</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: lance
+<P>Il s'agit d'une s&eacute;rie de cartes Ethernet peu ch&egrave;res qui utilisent la
+version 79C960 de la puce LANCE d'AMD. Ce sont des cartes utilisant le
+le contr&ocirc;le du bus, et elles figurent donc parmi les cartes Ethernet ISA
+les plus rapides.
+<P>La s&eacute;lection du DMA et des informations sur la num&eacute;rotation de la puce
+se trouvent dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#lance">AMD LANCE</A>.
+<P>Plus d'informations techniques sur les cartes Ethernet bas&eacute;es sur l'AMD
+LANCE sont disponibles dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#amd-notes">Notes sur         l'AMD...</A>.
+<P>
+<H3><A NAME="at1700"></A> AT1700</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: at1700
+<P>Notez que pour acc&eacute;der &agrave; ce pilote lors du <CODE>make config</CODE> vous devez
+encore r&eacute;pondre `Y' &agrave; la question ``Prompt for development and/or
+incomplete code/drivers?'' au tout d&eacute;but. C'est simplement d&ucirc; au manque
+de retour d'informations sur la stabilit&eacute; du pilote, &eacute;tant donn&eacute; qu'il
+s'agit d'une carte relativement rare. Si vous avez des probl&egrave;mes avec le
+pilote qui est livr&eacute; avec le noyau, vous serez peut etre interess&eacute; par
+celui qui est disponible &agrave;&nbsp;:
+<CODE>http://www.cc.hit-u.ac.jp/nagoya/at1700/</CODE>
+<P>Les cartes Ethernet Allied Telesis des s&eacute;ries AT1700 sont bas&eacute;es sur la
+MB86965 de Fujitsu. Cette puce utilise une interface &agrave; E/S programm&eacute;es,
+et une paire de tampons de transmission &agrave; taille fixe. Cela permet
+d'envoyer des petits groupes de paquets les uns &agrave; la suite des autres,
+avec une courte pause pendant le changement de tampon.
+<P>Une fonctionnalit&eacute; unique est la possibilit&eacute; de piloter du c&acirc;ble STP
+(Shielded Twisted Pair, paire torsad&eacute;e blind&eacute;e) 150 ohms couramment
+install&eacute; pour le Token Ring, en plus du c&acirc;ble 100 ohms UTP (Unshielded
+Twisted Pair, paire torsad&eacute;e non-blind&eacute;e) de 10BaseT. Une version fibre
+optique de la carte (AT1700FT) existe &eacute;galement.
+<P>La puce Fujitsu utilis&eacute;e sur l'AT1700 a un d&eacute;faut de conception&nbsp;: elle
+ne peut &ecirc;tre remise compl&egrave;tement &agrave; z&eacute;ro qu'en effectuant un cycle
+d'allumage de la machine. Le fait d'appuyer sur le bouton de red&eacute;marrage
+(`Reset') ne r&eacute;initialise pas l'interface du bus. Cela ne serait pas
+g&ecirc;nant, si la carte ne pouvait &ecirc;tre d&eacute;tect&eacute;e qu'apr&egrave;s qu'elle ait &eacute;t&eacute;
+r&eacute;cemment r&eacute;initialis&eacute;e. Le moyen de contourner le probl&egrave;me est
+d'&eacute;teindre puis de rallumer la machine si le noyau a un probl&egrave;me pour
+d&eacute;tecter l'AT1700.
+<P>Certaines s&eacute;ries de production de l'AT1700 ont un autre probl&egrave;me&nbsp;: elles
+sont con&ccedil;ues pour utiliser de fa&ccedil;on permanente le canal DMA 5. Cela
+n'est pas document&eacute;, il n'existe aucun cavalier pour d&eacute;sactiver cette
+"fonctionnalit&eacute;", et aucun pilote n'ose utiliser la possibilit&eacute; de DMA &agrave;
+cause de probl&egrave;mes de compatibilit&eacute;. Aucun pilote de p&eacute;riph&eacute;rique ne
+sera &eacute;crit pour utiliser la DMA si le fait d'installer une seconde carte
+dans la machine casse les deux cartes, et le seul moyen de d&eacute;sactiver le
+DMA est d'utiliser un couteau.
+<P>Certaines s&eacute;ries de l'AT1700 ont un autre probl&egrave;me&nbsp;: Elles sont bloqu&eacute;es
+sur le canal DMA 5. Cela n'est pas document&eacute;, et il n'y a pas de
+cavaliers pour d&eacute;sactiver cette "fonctionnalit&eacute;", et aucun pilote n'ose
+utiliser le DMA a cause des probl&egrave;mes de compatibilit&eacute;. Aucun pilote ne
+sera &eacute;crit pour utiliser le DMA a cause car le fait d'installer une
+deuxi&egrave;me carte emp&ecirc;cherais les DEUX de marcher, et le seul moyen de
+d&eacute;sactiver le DMA, c'est avec un couteau.
+<P>
+<P>
+<H3><A NAME="at2450"></A> AT2450</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: pcnet32
+<P>La version PCI de l'AT1500, qui ne souffre pas des probl&egrave;mes de la carte
+PCI 79c970 de Boca. La s&eacute;lection du DMA et des informations sur la
+num&eacute;rotation de la puce se trouvent dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#lance">AMD         LANCE</A>.
+<P>Plus d'informations techniques sur les cartes Ethernet bas&eacute;es sur l'AMD
+LANCE sont disponibles dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#amd-notes">Notes sur         l'AMD...</A>.
+<P>
+<P>
+<H3>AT1500</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: rtl8139
+<P>Cette carte utilise la puce Realtek 8139, r&eacute;f&eacute;rez vous &agrave; la section 
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#rtl8139">Realtek 8139</A><P>
+<P>
+<H3><A NAME="at2540"></A> AT2540FX</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: eepro100
+<P>Cette carte utilise une puce i82557, et par cons&eacute;quent,
+pourrait&nbsp;/&nbsp;devrait fonctionner avec le pilote de la carte eepro100. Si
+vous l'essayez, envoyez-nous quelques renseignements compl&eacute;mentaires
+pour que cette section s'&eacute;toffe un peu.
+<P>
+<H2><A NAME="amd"></A> <A NAME="ss5.4">5.4 AMD / Advanced Micro Devices</A>
+</H2>
+
+<P>Carl Ching d'AMD a eu la gentillesse de fournir une description tr&egrave;s
+d&eacute;taill&eacute;e de tous les produits Ethernet d'AMD cit&eacute;s, ce qui a permis de
+clarifier cette section.
+<P>
+<H3><A NAME="lance"></A> AMD LANCE (7990, 79C960/961/961A, PCnet-ISA)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: lance
+<P>Il n'existe en fait aucune carte Ethernet AMD. Vous &ecirc;tes certainement en
+train de lire ce paragraphe parce que les seules marques que vous ayez
+pu trouver sur votre carte disent `AMD' et le num&eacute;ro ci-dessus. La 7990
+est la puce `LANCE' d'origine, mais la plupart des documents (y compris
+celui-ci) se r&eacute;f&egrave;rent &agrave; toutes ces puces similaires sous la d&eacute;nomination
+de puces `LANCE' (...incorrectement, devrais-je ajouter).
+<P>Les num&eacute;ros ci-dessus se r&eacute;f&egrave;rent aux puces d'AMD qui sont le coeur de
+nombreuses cartes Ethernet. Par exemple, l'AT1500 d'Allied Telesis
+(voir&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#at-1500">AT1500</A>), et la NE1500/2100 (voir&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#ne1500">NE1500</A>) utilisent ces puces.
+<P>La 7990/79c90 a &eacute;t&eacute; remplac&eacute;e depuis bien longtemps par des versions
+plus r&eacute;centes. La 79C960 (aussi connue sous le nom de PCnet-ISA)
+contient pour l'essentiel la base de la&nbsp;79c90, avec tout le support
+mat&eacute;riel compl&eacute;mentaire requis, ce qui permet de monter une solution
+Ethernet en une seule puce. La&nbsp;79c961 (PCnet-ISA+) est une version
+``Plug and Play'', sans cavaliers, de la&nbsp;960. La derni&egrave;re puce des
+s&eacute;ries&nbsp;ISA est la&nbsp;79c961A (PCnet-ISA&nbsp;II), qui ajoute des capacit&eacute;s de
+<I>full duplex</I>. Toutes les cartes comportant une de ces puces
+devraient fonctionner avec le pilote <CODE>lance.c</CODE>, &agrave; l'exception de
+tr&egrave;s vieilles cartes qui utilisent la&nbsp;7990 d'origine avec une
+configuration &agrave; m&eacute;moire partag&eacute;e. Ces cartes anciennes peuvent &ecirc;tre
+rep&eacute;r&eacute;es par l'absence de cavaliers pour le choix d'un canal&nbsp;DMA.
+<P>Parmi les probl&egrave;mes classiques, on rencontre le message `busmaster
+arbitration failure'. Celui-ci s'affiche quand le pilote LANCE ne peut
+pas obtenir un acc&egrave;s au bus apr&egrave;s qu'un temps raisonnable se soit &eacute;coul&eacute;
+(50 micro-secondes). Cela indique habituellement que l'impl&eacute;mentation de
+la ma&icirc;trise de bus DMA de la carte-m&egrave;re est incorrecte, ou qu'un autre
+p&eacute;riph&eacute;rique monopolise le bus, ou qu'il y a un conflit de canal DMA. Si
+votre programme de configuration du BIOS poss&egrave;de la `GAT option' (GAT
+pour Guaranteed Access Time, temps d'acc&egrave;s garanti), essayez de modifier
+ce param&egrave;tre pour voir si cela va mieux.
+<P>Notez aussi que le pilote ne cherche une carte valide qu'&agrave; ces
+adresses&nbsp;: <CODE>0x300, 0x320, 0x340, 0x360</CODE>, et qu'une adresse fournie
+par un argument de d&eacute;marrage <CODE>ether=</CODE> est ignor&eacute;e sans qu'il en
+soit fait mention (cela sera corrig&eacute;), donc assurez-vous que votre carte
+est configur&eacute;e pour l'une des adresses d'E/S ci-dessus, pour l'instant.
+<P>Le pilote fonctionnera encore correctement, m&ecirc;me si plus de 16&nbsp;Mo de
+m&eacute;moire sont install&eacute;s, car des tampons-relais en m&eacute;moire basse sont
+utilis&eacute;s au besoin (c'est-&agrave;-dire que toute donn&eacute;e situ&eacute;e au-del&agrave; de la
+limite des 16&nbsp;Mo est copi&eacute;e dans un tampon en-dessous de la limite avant
+d'&ecirc;tre remis &agrave; la carte pour transmission).
+<P>Le canal DMA peut &ecirc;tre configur&eacute; avec les bits (inutilis&eacute;s en dehors de
+&ccedil;a) de la valeur de <CODE>dev->mem_start</CODE> (aussi connue comme
+<CODE>PARAM_1</CODE> (voir&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#ether">PARAM_1</A>). S'il n'est pas
+fix&eacute;, il est test&eacute; en activant chaque canal DMA tour &agrave; tour et en
+regardant si l'initialisation r&eacute;ussit.
+<P>La carte HP-J2405A est une exception&nbsp;: avec cette carte, il est facile
+de lire les valeurs stock&eacute;es en EEPROM pour l'IRQ et le DMA.
+<P>Voir&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#amd-notes">Notes on AMD...</A> pour plus
+d'informations sur ces puces.
+<P>
+<P>
+<H3><A NAME="pcnet-32"></A> AMD 79C965 (PCnet-32)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: pcnet32
+<P>Il s'agit de la PCnet-32 -- une version 32&nbsp;bits, &agrave; contr&ocirc;le de bus, de
+la puce&nbsp;LANCE originelle pour les syst&egrave;mes VLB (Vesa Local Bus) et &agrave; bus
+local. Bien que ces puces puissent &ecirc;tre utilis&eacute;e avec le pilote
+<CODE>lance.c</CODE> standard, une version 32&nbsp;bits (<CODE>pcnet32.c</CODE>) est
+aussi disponible, laquelle n'a pas &agrave; se pr&eacute;occuper des limitations &agrave;
+16&nbsp;Mo li&eacute;es au bus&nbsp;ISA.
+<P>
+<H3><A NAME="pcnet-pci"></A> AMD 79C970/970A (PCnet-PCI)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: pcnet32
+<P>Il s'agit de la PCnet-PCI -- similaire &agrave; la PCnet-32, mais con&ccedil;ue pour
+des syst&egrave;mes bas&eacute;s sur le bus PCI. De nouveau, consultez les
+informations ci-dessus sur la PCnet-32. Cela signifie que vous devez
+construire un noyau comportant le support du BIOS PCI. La&nbsp;970A ajoute le
+support du mode <I>full duplex</I> ainsi que d'autres fonctionnalit&eacute;s
+par rapport &agrave; la conception d'origine de la&nbsp;970.
+<P>Notez que l'impl&eacute;mentation de Boca pour la 79C970 ne fonctionne pas sur
+les machines Pentium rapides. Il s'agit d'un probl&egrave;me mat&eacute;riel,
+puisqu'il affecte aussi les utilisateurs DOS. Consultez la section sur
+Boca pour plus de d&eacute;tails.
+<P>
+<H3>AMD 79C971 (PCnet-FAST)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: pcnet32
+<P>Il s'agit de la puce 100&nbsp;Mbits d'AMD pour les syst&egrave;mes&nbsp;PCI, qui comporte
+elle aussi le mode <I>full duplex</I>. Elle a &eacute;t&eacute; introduite en juin
+1996 sur le march&eacute;.
+<P>
+<H3>AMD 79C972 (PCnet-FAST+)</H3>
+
+<P>Statut&nbsp;: Inconnu, Nom du pilote&nbsp;: pcnet32
+<P>Devrait marcher exactement comme la '971, mais reste &agrave; confirmer quand
+m&ecirc;me.
+<P>
+<H3>AMD 79C974 (PCnet-SCSI)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: pcnet32
+<P>Il s'agit de la PCnet-SCSI -- qui &agrave; la base est trait&eacute;e comme une 970 du
+point de vue Ethernet. Consultez aussi les informations ci-dessus. Ne
+demandez pas si la partie SCSI de la puce est support&eacute;e -- il s'agit de
+l'<EM>Ethernet-HOWTO</EM>, pas du <I>SCSI-HOWTO</I>.
+<P>
+<H2><A NAME="ansel"></A> <A NAME="ss5.5">5.5 Ansel Communications</A>
+</H2>
+
+<P>
+<P>
+<H3>AC3200 EISA</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: ac3200
+<P>Notez que pour acc&eacute;der &agrave; ce pilote lors du <CODE>make config</CODE> vous devez
+encore r&eacute;pondre `Y' &agrave; la question ``Prompt for development and/or
+incomplete code/drivers?'' au tout d&eacute;but. C'est simplement d&ucirc; au manque
+de retour d'informations sur la stabilit&eacute; du pilote, &eacute;tant donn&eacute; qu'il
+s'agit d'une carte relativement rare.
+<P>Ce pilote est inclus dans le noyau actuel comme &eacute;tant en phase de test
+`alpha'. Il est bas&eacute; sur la classique puce NS8390 utilis&eacute;e dans les
+cartes NE2000 et WD80x3. Veuillez consulter&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#alfa">Pilotes         `alpha'</A> dans le pr&eacute;sent document pour des informations importantes
+concernant les pilotes `alpha'.
+<P>Si vous l'utilisez, veuillez informer l'un d'entre nous de la fa&ccedil;on dont
+les choses fonctionnent, car nous avons eu peu de retour d'informations,
+m&ecirc;me si le pilote est dans le noyau depuis la version 1.1.25.
+<P>Si vous avez l'intention d'utiliser ce pilote comme module chargeable,
+vous devriez lire&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#modules">Utilisation des pilotes         Ethernet comme modules</A> pour des informations sp&eacute;cifiques aux modules.
+<P>
+<H2><A NAME="ss5.6">5.6 Apricot</A>
+</H2>
+
+<P>
+<P>
+<H3>Apricot Xen-II On Board Ethernet</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: apricot
+<P>Cette carte Ethernet sur carte-m&egrave;re utilise une puce i82596 &agrave; contr&ocirc;le
+du bus. Elle ne peut se trouver qu'&agrave; l'adresse d'E/S <CODE>0x300</CODE>. En
+consultant le source du pilote, il appara&icirc;t que l'IRQ est mat&eacute;riellement
+fix&eacute;e &agrave; 10.
+<P>Les premi&egrave;res versions du pilote avaient une tendance &agrave; croire que tout
+ce qui vivait en <CODE>0x300</CODE> &eacute;tait un adaptateur r&eacute;seau Apricot.
+Depuis, l'adresse mat&eacute;rielle est test&eacute;e afin d'&eacute;viter ces d&eacute;tections
+erron&eacute;es.
+<P>
+<H2><A NAME="arcnet"></A> <A NAME="ss5.7">5.7 Arcnet</A>
+</H2>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: arcnet (arc-rimi, com90xx, com20020)
+<P>Avec le co&ucirc;t vraiment tr&egrave;s bas et les meilleures performances
+d'Ethernet, il est probable que la plupart des endroits disposant d'un
+r&eacute;seau vont se d&eacute;barrasser de leur mat&eacute;riel Arcnet pour rien, ce qui
+am&egrave;nera un grand nombre de syst&egrave;mes personnels &agrave; utiliser Arcnet.
+<P>Un avantage d'Arcnet est que toutes les cartes ont des interfaces
+identiques, donc un seul pilote fonctionnera pour tout le monde. Il
+comporte aussi une gestion int&eacute;gr&eacute;e des erreurs, et est donc suppos&eacute; ne
+jamais perdre un paquet. (Chouette pour le trafic UDP&nbsp;!)
+<P>Le pilote Arcnet d'Avery Pennarun est dans le noyau par d&eacute;faut depuis la
+version 1.1.80. Le pilote Arcnet utilise `arc0' comme nom au lieu de
+l'`eth0' habituel pour les p&eacute;riph&eacute;riques Ethernet.
+<P>Vous pouvez envoyer rapports de bogues et comptes-rendus victorieux
+concernant Arcnet &agrave;&nbsp;:
+<P><CODE>apenwarr@foxnet.net</CODE>
+<P>Le noyau standard comporte des fichiers d'information pour la
+configuration des cavaliers et des aides plus g&eacute;n&eacute;rales.
+<P>Le pilote est &eacute;galement cens&eacute; fonctionner avec les cartes ARCnet
+100&nbsp;Mb/s&nbsp;!
+<P>
+<H2><A NAME="ss5.8">5.8 AT&amp;T</A>
+</H2>
+
+<P>Notez que le StarLAN d'AT&amp;T est une technologie orpheline, comme le
+LattisNet de SynOptics, et qu'elle ne peut pas &ecirc;tre utilis&eacute;e dans un
+environnement 10Base-T standard, sans un hub qui `parle' les deux
+protocoles.
+<P>
+<H3>AT&amp;T T7231 (LanPACER+)</H3>
+
+<P>Statut&nbsp;: Non support&eacute;
+<P>Ces cartes StarLAN utilisent une interface similaire &agrave; la puce i82586. A
+une &eacute;poque, Matthijs Melchior (<CODE>matthijs.n.melchior@att.com</CODE>)
+jouait avec le pilote de la 3c507, et avait presque quelque chose
+d'utilisable qui fonctionnait. Nous n'en avons pas entendu parler
+beaucoup depuis lors.
+<P>
+<H2><A NAME="boca"></A> <A NAME="ss5.9">5.9 Boca Research</A>
+</H2>
+
+<P>Oui, ils font autre chose que des cartes s&eacute;ries multi-ports. :-)
+<P>
+<H3><A NAME="boca-ben"></A> Boca BEN (ISA, VLB; PCI)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: pcnet32, lance
+<P>Ces cartes sont bas&eacute;es sur les puces PCnet d'AMD. Les acheteurs
+exigeants doivent &ecirc;tre pr&eacute;venus que de nombreux utilisateurs ont eu des
+probl&egrave;mes sans fin avec ces cartes VLB/PCI. Les propri&eacute;taires de
+syst&egrave;mes Pentium rapides ont &eacute;t&eacute; tout particuli&egrave;rement touch&eacute;s. Notez
+qu'il ne s'agit pas d'un probl&egrave;me de pilote, puisqu'il touche aussi les
+utilisateurs de DOS/Windows/NT. Le num&eacute;ro du support technique de Boca
+est le 1&nbsp;(407)&nbsp;241-8088,
+<P>(NDT&nbsp;: Ce num&eacute;ro est bien entendu aux &Eacute;tats-Unis.)
+<P>et vous pouvez aussi les joindre &agrave; <CODE>75300.2672@compuserve.com</CODE>. Les
+anciennes cartes ISA ne semblent pas souffrir des m&ecirc;mes maux.
+<P>Donald a r&eacute;alis&eacute; un test comparatif entre les cartes PCI Boca et une
+impl&eacute;mentation similaire d'Allied Telsyn avec la puce PCnet/PCI, qui
+montrait que le probl&egrave;me se situe dans l'impl&eacute;mentation faite par Boca
+de la puce PCnet/PCI. On peut consulter les r&eacute;sultats de ce test sur le
+serveur WWW de Don&nbsp;:
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://cesdis.gsfc.nasa.gov/linux/">Linux @ CESDIS</A></BLOCKQUOTE>
+<P>Boca offre une `r&eacute;paration&nbsp;- garantie' aux propri&eacute;taires affect&eacute;s par ce
+probl&egrave;me qui entra&icirc;ne l'ajout d'un des condensateurs manquants, mais il
+semble que cette correction ne fonctionne pas &agrave; 100&nbsp;% pour la plupart
+des gens, bien que cela en aide quelques uns.
+<P>Si vous pensez <EM>encore</EM> acheter une de ces cartes, alors essayez au
+moins d'obtenir une clause de retour inconditionnel sous 7&nbsp;jours, pour
+que vous puissiez la rendre si elle ne fonctionne pas correctement sur
+votre syst&egrave;me.
+<P>Des informations plus g&eacute;n&eacute;rales sur les puces AMD se trouvent dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#lance">AMD LANCE</A>.
+<P>Plus d'informations techniques sur les cartes Ethernet bas&eacute;es sur l'AMD
+LANCE sont disponibles dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#amd-notes">Notes sur         l'AMD...</A>.
+<P>
+<H2><A NAME="ctron"></A> <A NAME="ss5.10">5.10 Cabletron</A>
+</H2>
+
+<P>Donald &eacute;crit&nbsp;: ``Oui, encore une autre de ces soci&eacute;t&eacute;s qui ne donnera
+pas ses informations pour programmer. Ils ont attendu des mois avant de
+confirmer qu'en fait toutes leurs informations &eacute;taient propri&eacute;taires,
+gaspillant d&eacute;lib&eacute;r&eacute;ment mon temps. &Eacute;vitez leurs cartes comme la peste si
+vous le pouvez.  Notez aussi que certaines personnes ont appel&eacute;
+Cabletron, et se sont entendues dire des choses comme `un certain
+D.&nbsp;Becker travaille sur un pilote pour Linux' -- laissant entendre que
+je travaillais pour eux.  Ce N'est PAS le cas.''
+<P>
+<P>Apparemment, Cabletron a chang&eacute; sa politique &agrave; propos des informations
+sur la programmation (tout comme Xircom) depuis que Donald a fait ce
+commentaire il y a quelques ann&eacute;es. Envoyez un e-mail &agrave;
+<CODE>support@ctron.com</CODE> si vous voulez v&eacute;rifier ce point pr&eacute;cis, ou
+demander des informations techniques. Toutefois, &agrave; l'heure actuelle, il
+y a tr&egrave;s peu de demandes pour des pilotes mis &agrave; jour pour les cartes
+E20xx et E21xx.
+<P>
+<H3><A NAME="e10xx"></A> E10**, E10**-x, E20**, E20**-x</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: ne (+8390)
+<P>Il s'agit de presque-clones de NEx000 qui fonctionnent avec les pilotes
+NEx000 standard d'apr&egrave;s les informations qui nous sont revenues, gr&acirc;ce &agrave;
+un test sp&eacute;cial-Cabletron dans la proc&eacute;dure de d&eacute;tection. S'il y a le
+moindre probl&egrave;me, il ne sera tr&egrave;s certainement pas r&eacute;solu, car les
+informations de programmation ne sont pas disponibles.
+<P>
+<P>
+<H3><A NAME="e2100"></A> E2100</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: e2100 (+8390)
+<P>Un fois de plus, on ne peut pas faire grand-chose quand les informations
+de programmation sont propri&eacute;taires. La E2100 b&eacute;n&eacute;ficie d'une conception
+lamentable. D&egrave;s qu'elle mappe sa m&eacute;moire partag&eacute;e pendant un transfert
+de paquet, elle le fait en utilisant <EM>toute la zone de 128&nbsp;Ko</EM>&nbsp;!
+Cela signifie que vous <EM>ne pouvez pas</EM>, sur cette zone, utiliser de
+fa&ccedil;on s&eacute;curis&eacute;e un autre p&eacute;riph&eacute;rique &agrave; m&eacute;moire partag&eacute;e g&eacute;r&eacute; par
+interruption, y compris une autre E2100. Cela fonctionnera la plupart du
+temps, mais de temps &agrave; autre cela vous sautera &agrave; la figure.  (Oui, on
+pourrait &eacute;viter ce probl&egrave;me en inhibant les interruptions pendant le
+transfert des paquets, mais dans ce cas-l&agrave; on perdra pratiquement &agrave; coup
+s&ucirc;r des tops d'horloge). De plus, si vous programmez incorrectement la
+carte, ou que vous arr&ecirc;tez la machine juste au mauvais moment, m&ecirc;me le
+bouton de `reset' ne la rendra pas &agrave; la vie. Vous <EM>devrez</EM> &eacute;teindre
+la machine et <EM>attendre</EM> qu'elle se repose pendant 30&nbsp;secondes.
+<P>La s&eacute;lection du support physique est automatique, mais vous pouvez
+outrepasser cette fonctionnalit&eacute; en utilisant les bits de poids faibles
+du param&egrave;tre <CODE>dev-&gt;mem_end</CODE>. Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#ether">PARAM_2</A>. Les utilisateurs des modules peuvent sp&eacute;cifier une
+valeur <CODE>xcvr=N</CODE> comme <CODE>option</CODE> dans le fichier
+<CODE>/etc/conf.modules</CODE>.
+<P>Ne prenez pas non plus la&nbsp;E2100 pour un clone de&nbsp;NE2100. L'E2100 repose
+sur une DP8390 de National Semiconductor &agrave; m&eacute;moire partag&eacute;e, &agrave; peu pr&egrave;s
+similaire &agrave; une WD8013 avec des l&eacute;sions c&eacute;r&eacute;brales, tandis que la NE2100
+(et la NE1500) utilise une conception bas&eacute;e sur la puce &agrave; contr&ocirc;le du
+bus LANCE d'AMD.
+<P>Vous trouverez un pilote pour la&nbsp;E2100 dans le noyau standard.
+Toutefois, au vu de l'indisponibilit&eacute; des informations de programmation,
+n'attendez pas des corrections de bogues. N'en utilisez pas &agrave; moins d'en
+avoir une sur les bras.
+<P>Si vous avez l'intention d'utiliser ce pilote sous la forme d'un module
+chargeable, vous devriez probablement consulter&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#modules">Utiliser les pilotes Ethernet comme modules</A> pour des
+informations sp&eacute;cifiques aux modules.
+<P>
+<H3><A NAME="e2200"></A> E22**</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: lance
+<P>Si l'on en croit les informations trouv&eacute;es dans un bulletin technique de
+Cabletron, ces cartes utilisent le jeu de puces standard PC-net d'AMD
+(section&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#lance">AMD PC-Net</A>) et devraient fonctionner
+avec le pilote g&eacute;n&eacute;rique <CODE>lance</CODE>.
+<P>
+<P>
+<H2><A NAME="ss5.11">5.11 Cogent</A>
+</H2>
+
+<P>Voici o&ugrave; et comment les joindre&nbsp;:
+<PRE>
+        Cogent Data Technologies, Inc.
+        175 West Street, P.O. Box 926
+        Friday Harbour, WA 98250, USA.
+
+        Cogent Sales              (service commercial)
+        15375 S.E. 30th Place, Suite 310
+        Bellevue, WA 98007, USA.
+
+        Technical Support:        (support technique)
+        Phone (360) 378-2929 between 8am and 5pm PST
+                         (T&eacute;l&eacute;phone entre 8h et 17h, heure de la c&ocirc;te
+                          Pacifique)
+        Fax (360) 378-2882
+        Compuserve GO COGENT
+        Bulletin Board Service (360) 378-5405
+        Internet: support@cogentdata.com
+</PRE>
+<P>
+<H3>EM100-ISA/EISA</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: smc9194
+<P>Ces cartes utilisent la puce SMC 91c100 et devraient fonctionner avec le
+pilote SMC 91c92, mais cela reste &agrave; v&eacute;rifier.
+<P>
+<H3>Cogent eMASTER+, EM100-PCI, EM400, EM960, EM964</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de4x5, tulip
+<P>Il s'agit encore une fois d'une impl&eacute;mentation de la 21040 de DEC, dont
+on peut esp&eacute;rer qu'elle fonctionne correctement avec le pilote 21040
+classique.
+<P>L'EM400 et l'EM964 sont des cartes &agrave; quatre ports qui utilisent un pont
+DEC 21050 et quatre puces 21040.
+<P>Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#dec-21040">DEC 21040</A> pour plus d'information
+sur ces cartes, et l'&eacute;tat d'avancement actuel du pilote.
+<P>
+<H2><A NAME="ss5.12">5.12 Compaq</A>
+</H2>
+
+<P>Compaq n'est pas vraiment dans le domaine de la conception et de la
+fabrication de cartes Ethernet, mais beaucoup de leurs syst&egrave;mes
+comportent des contr&ocirc;leurs Ethernet int&eacute;gr&eacute;s &agrave; la carte-m&egrave;re.
+<P>
+<H3>Compaq Deskpro / Compaq XL (Embedded AMD Chip)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: pcnet32
+<P>Des machines comme celles de la s&eacute;rie XL ont une puce PCI 79c97x d'AMD
+sur la carte-m&egrave;re qui peut &ecirc;tre utilis&eacute;e avec le pilote LANCE
+standard. Mais avant de pouvoir l'utiliser, vous devez faire quelques
+manipulations pour que le BIOS PCI se trouve &agrave; une place o&ugrave; Linux peut
+le voir. Frank Maas a &eacute;t&eacute; suffisamment sympa pour nous fournir les
+d&eacute;tails&nbsp;:
+<P>``Le probl&egrave;me avec cette machine Compaq est que le point d'entr&eacute;e du bus
+PCI est charg&eacute; en m&eacute;moire haute, &agrave; un endroit o&ugrave; le noyau Linux ne
+pourra pas (n'ira pas) le chercher. R&eacute;sultat&nbsp;: la carte n'est jamais
+d&eacute;tect&eacute;e ni utilisable (en passant&nbsp;: la souris ne fonctionnera pas non
+plus). La mani&egrave;re de contourner le probl&egrave;me (telle qu'elle est d&eacute;crite
+en d&eacute;tail dans http://www-c724.uibk.ac.at/XL/) est de charger MS-DOS, de
+lancer un petit pilote que Compaq a &eacute;crit puis de charger le noyau Linux
+en utilisant LOADLIN. Ok, je vous laisse le temps de dire 'beurk', mais
+pour l'instant c'est la seule solution qui fonctionne que je
+connaisse. Le petit pilote se contente de d&eacute;placer le r&eacute;pertoire PCI &agrave;
+un endroit o&ugrave; il est normalement stock&eacute; (et o&ugrave; Linux peut le trouver).''
+<P>Des informations plus g&eacute;n&eacute;rales sur les puces AMD se trouvent dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#lance">AMD LANCE</A>.
+<P>
+<P>
+<H3>Compaq Nettelligent/NetFlex (Embedded ThunderLAN Chip)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: tlan
+<P>Ces syst&egrave;mes utilisent une puce Texas Instrument ThunderLAN, pour plus
+d'informations, r&eacute;f&eacute;rez vous &agrave; la section 
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#tlan">ThunderLAN</A>.
+<P>
+<P>
+<H2><A NAME="ss5.13">5.13 Danpex</A>
+</H2>
+
+<P>
+<P>
+<H3>Danpex EN9400</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de4x5, tulip
+<P>Encore une autre carte bas&eacute;e sur la puce 21040 de DEC, dont on sait
+qu'elle fonctionne correctement, et &agrave; un prix relativement mod&eacute;r&eacute;.
+<P>Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#dec-21040">DEC 21040</A> pour plus d'information
+sur ces cartes, et l'&eacute;tat d'avancement actuel du pilote.
+<P>
+<P>
+<H2><A NAME="d-link"></A> <A NAME="ss5.14">5.14 D-Link</A>
+</H2>
+
+<P>
+<P>
+<H3><A NAME="de-100"></A> DE-100, DE-200, DE-220-T, DE-250</H3>
+
+<P>
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: ne (+8390)
+<P>Certaines des premi&egrave;res cartes D-Link ne poss&eacute;daient pas la signature
+<CODE>0x57</CODE> en PROM, mais le pilote ne2000 en a connaissance. Pour les
+cartes configurables par logiciel, vous pouvez obtenir le programme de
+ad hoc sur <CODE>www.dlink.com</CODE>. Les cartes DE2** &eacute;taient celles les
+plus fr&eacute;quemment indiqu&eacute;es comme poss&eacute;dant des erreurs de correspondance
+sur des fausses adresses de transfert avec les premi&egrave;res versions de
+Linux. Notez qu'il existe aussi des cartes chez Digital (DEC, Digital
+Equipment Corporation) nomm&eacute;es DE100 et DE200, mais la similitude
+s'arr&ecirc;te l&agrave;.
+<P>
+<H3><A NAME="de-520"></A> DE-520</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: pcnet32
+<P>Il s'agit d'une carte PCI qui utilise la version PCI de la puce LANCE
+d'AMD. Des informations sur la s&eacute;lection DMA et la num&eacute;rotation des
+puces se trouvent dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#lance">AMD LANCE</A>.
+<P>Des informations plus techniques sur les cartes Ethernet bas&eacute;es sur la
+puce LANCE d'AMD sont disponibles dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#amd-notes">Notes         sur l'AMD...</A>.
+<P>
+<H3>DE-528</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: ne, ne2k-pci (+8390)
+<P>On dirait que D-Link a aussi commenc&eacute; &agrave; fabriquer des clones de NE2000.
+<P>
+<P>
+<H3><A NAME="de-530"></A> DE-530</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de4x5, tulip
+<P>Il s'agit d'une impl&eacute;mentation g&eacute;n&eacute;rique de la puce PCI 21040 de DEC,
+dont on sait qu'elle fonctionne avec le pilote g&eacute;n&eacute;rique 21040 `tulip'.
+<P>Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#dec-21040">DEC 21040</A> pour plus d'information
+sur ces cartes, et l'&eacute;tat d'avancement actuel du pilote.
+<P>
+<H3><A NAME="de-600"></A> DE-600</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de600
+<P>Les utilisateurs de portables et autres personnes qui souhaitent un
+moyen rapide de mettre leur ordinateur sur Ethernet pourront &ecirc;tre
+int&eacute;ress&eacute;s par ceci. Le pilote est inclus dans l'arborescence du noyau
+par d&eacute;faut. Bjorn Ekwall <CODE>bj0rn@blox.se</CODE> a &eacute;crit le pilote.
+Attendez-vous &agrave; des taux de transfert de 180&nbsp;Ko/s par le port
+parall&egrave;le. Vous devriez lire le fichier README.DLINK dans l'arborescence
+du noyau.
+<P>(NDT&nbsp;: Ce fichier est bien entendu en anglais.)
+<P>Notez que le nom de p&eacute;riph&eacute;rique que vous passez &agrave; <CODE>ifconfig</CODE> est
+<EM>maintenant</EM> <CODE>eth0</CODE> et non pas celui pr&eacute;c&eacute;demment utilis&eacute;,
+<CODE>dl0</CODE>.
+<P>Si votre port parall&egrave;le <EM>ne</EM> se trouve <EM>pas</EM> &agrave; l'adresse
+standard <CODE>0x378</CODE>, il vous faudra recompiler le noyau. Bjorn &eacute;crit&nbsp;:
+``Puisque le pilote de la DE-620 essaie de supprimer la moindre
+microseconde dans les boucles, j'ai d&eacute;fini l'IRQ et l'adresse du port
+comme des constantes plut&ocirc;t que comme des variables. Cela donne une
+vitesse utilisable, mais cela signifie aussi que vous ne pouvez pas
+changer ces valeurs depuis par exemple lilo&nbsp;; vous _devez_
+recompiler...''  Notez aussi que certains portables impl&eacute;mentent le port
+parall&egrave;le interne &agrave; l'adresse <CODE>0x3bc</CODE>, ce qui est l'endroit o&ugrave; les
+ports parall&egrave;les &eacute;taient/sont sur les cartes monochromes.
+<P>
+<H3><A NAME="de-620"></A> DE-620</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de620
+<P>M&ecirc;me chose que pour la DE-600, avec seulement deux formats de sortie.
+Bjorn a &eacute;crit un pilote pour ce mod&egrave;le, pour les versions 1.1 et
+sup&eacute;rieures du noyau. Consultez les informations ci-dessus &agrave; propos de
+la DE-600.
+<P>
+<H3><A NAME="de-650"></A> DE-650</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: de650 ?
+<P>Des gens utilisent cette carte PCMCIA depuis quelque temps d&eacute;j&agrave; avec
+leur portable. Il s'agit d'une conception simple bas&eacute;e sur le 8390, qui
+ressemble beaucoup &agrave; une NE2000. La carte PCMCIA `LinkSys' et l'IC-Card
+Ethernet sont, de plus, suppos&eacute;es &ecirc;tre des clones de DE-650. Notez qu'&agrave;
+l'heure actuelle, ce pilote <EM>ne</EM> fait <EM>pas</EM> partie du noyau
+standard, et que vous devrez donc appliquer quelques patches.
+<P>Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html#pcmcia">Support du PCMCIA</A> dans ce document,
+et si vous le pouvez, jetez un coup d'oeil &agrave;&nbsp;:
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://cesdis.gsfc.nasa.gov/linux/pcmcia.html">La page PCMCIA de Don</A></BLOCKQUOTE>
+<P>
+<H2><A NAME="dfi"></A> <A NAME="ss5.15">5.15 DFI</A>
+</H2>
+
+<P>
+<P>
+<H3><A NAME="dfi-300"></A> DFINET-300 et DFINET-400</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: ne (+8390)
+<P>Ces cartes sont maintenant d&eacute;tect&eacute;es (depuis la version&nbsp;0.99pl15) gr&acirc;ce
+&agrave; Eberhard Moenkeberg (<CODE>emoenke@gwdg.de</CODE>) qui a not&eacute; qu'elles
+utilisent `DFI' dans les trois premiers octets de la PROM, &agrave; la place
+de&nbsp;<CODE>0x57</CODE> dans les octets 14&nbsp;et 15, ce que font toutes les autres
+cartes NE1000&nbsp;et NE2000. (La&nbsp;300 est un semblant de clone 8&nbsp;bits de la
+NE1000, et la&nbsp;400 est un semblant de clone NE2000.)
+<P>
+<P>
+<H2><A NAME="dec"></A> <A NAME="ss5.16">5.16 Digital / DEC</A>
+</H2>
+
+<P>
+<P>
+<H3><A NAME="dec-200"></A> DEPCA, DE100/1, DE200/1/2, DE210, DE422</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: depca
+<P>De la documentation incluse dans le fichier source <CODE>depca.c</CODE>
+comprend des informations sur la fa&ccedil;on d'utiliser plus d'une de ces
+cartes dans une machine. Notez que la DE422 est une carte EISA. Ces
+cartes sont toutes bas&eacute;es sur la puce LANCE d'AMD. Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#lance">AMD LANCE</A> pour plus d'informations. Au maximum, deux
+des cartes ISA peuvent &ecirc;tre utilis&eacute;es, parce que leurs adresses d'E/S de
+base ne peuvent &ecirc;tre fix&eacute;es qu'&agrave; <CODE>0x300</CODE> ou <CODE>0x200</CODE>. Si vous
+avez l'intention de le faire, veuillez lire les notes dans le fichier
+source du pilote, <CODE>depca.c</CODE>, dans l'arborescence du noyau standard.
+<P>Ce pilote fonctionnera aussi sur les machines &agrave; processeur Alpha, et il
+comprend diff&eacute;rents <CODE>ioctl()</CODE> avec lesquels l'utilisateur peut
+s'amuser.
+<P>
+<H3><A NAME="dec-ewrk3"></A> Digital EtherWorks 3 (DE203, DE204, DE205)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: ewrk3
+<P>Ces cartes utilisent une puce propri&eacute;taire de DEC, par opposition &agrave; la
+puce LANCE utilis&eacute;e dans les cartes ant&eacute;rieures comme la DE200. Ces
+cartes peuvent fonctionner en m&eacute;moire partag&eacute;e ou en E/S programm&eacute;es,
+bien que vous ayez un gain de performance de 50 % en utilisant le mode
+PIO (E/S programm&eacute;es). La taille de la m&eacute;moire partag&eacute;e peut &ecirc;tre r&eacute;gl&eacute;e
+&agrave; 2&nbsp;Ko, 32&nbsp;Ko, ou 64&nbsp;Ko, mais seules les valeurs 2 et 32 ont &eacute;t&eacute; test&eacute;es
+avec ce pilote. David dit que les performances sont virtuellement les
+m&ecirc;mes entre le mode 2&nbsp;Ko et le mode 32&nbsp;Ko. Plus d'informations (y
+compris l'utilisation du pilote comme module chargeable) figurent en
+t&ecirc;te du fichier source du pilote, <CODE>ewrk3.c</CODE>, ainsi que dans le
+fichier <CODE>README.ewrk3</CODE>. Ces deux fichiers se trouvent dans la
+distribution standard du noyau. Ce pilote supporte les CPU alpha tout
+comme le <CODE>depca.c</CODE>.
+<P>Le pilote standard a un certain nombre d'appels <CODE>ioctl()</CODE>
+int&eacute;ressants qui peuvent &ecirc;tre utilis&eacute;s pour lire ou effacer les
+statistiques sur les paquets, lire/&eacute;crire l'EEPROM, changer l'adresse
+mat&eacute;rielle, et d'autres choses du m&ecirc;me genre. Les bidouilleurs pourront
+lire le code source pour plus d'information &agrave; ce sujet.
+<P>David a aussi &eacute;crit un utilitaire de configuration pour cette carte
+(outre les lignes du programme DOS <CODE>NICSETUP.EXE</CODE>) ainsi que
+d'autres outils. Vous pouvez les trouver sur la majorit&eacute; des sites Linux
+dans le r&eacute;pertoire <CODE>/pub/Linux/system/Network/management</CODE>
+--&nbsp;cherchez un fichier <CODE>ewrk3tools-X.XX.tar.gz</CODE>.
+<P>(NDT&nbsp;: Le lecteur fran&ccedil;ais aura bien entendu tout int&eacute;r&ecirc;t &agrave; utiliser un
+site miroir, plus rapide. Par exemple&nbsp;:
+<P><CODE>ftp://ftp.lip6.fr/pub/linux/sunsite/system/Network/management</CODE>)
+<P>
+<H3><A NAME="dec-eisa"></A> DE425 EISA, DE434, DE435, DE500</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de4x5, tulip
+<P>Ces cartes sont bas&eacute;es sur la puce 21040 mentionn&eacute;e plus bas.  La DE500
+utilise les puces 21140 pour fournir des connexions Ethernet
+10/100Mb/s. Lisez la section sur la 21040 ci-dessous pour plus
+d'informations.  Il existe aussi quelques option de compilation qui
+permettent aux cartes non con&ccedil;ues par DEC de fonctionner avec ce
+pilote. Jetez un coup d'oeil &agrave; <CODE>README.de4x5</CODE> pour les d&eacute;tails.
+<P>Toutes les cartes Digital r&eacute;aliseront la d&eacute;tection automatique du m&eacute;dia
+(&agrave; l'exception, temporaire, de la DE500 &agrave; cause d'un probl&egrave;me de
+brevet).
+<P>Ce pilote est aussi pr&ecirc;t &agrave; fonctionner avec les processeurs Alpha et
+accepte d'&ecirc;tre charg&eacute; comme module. Les utilisateurs peuvent acc&eacute;der aux
+fonctionnalit&eacute;s internes du pilotes par des appels <CODE>ioctl()</CODE>
+--&nbsp;voir l'outil <CODE>ewrk3</CODE> et les sources <CODE>de4x5.c</CODE> pour des
+informations sur la fa&ccedil;on de proc&eacute;der.
+<P>
+<H3><A NAME="dec-21040"></A> DEC 21040, 21041, 2114x, Tulip</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de4x5, tulip
+<P>La 21040 de DEC est une solution Ethernet en une seule puce &agrave; contr&ocirc;le
+propos&eacute;e par Digital, similaire &agrave; la PCnet d'AMD. La 21040 est
+sp&eacute;cifiquement con&ccedil;ue pour l'architecture &agrave; bus PCI. Les nouvelles
+cartes PCI EtherPower de SMC l'utilisent.
+<P>Vous avez le choix entre <EM>deux</EM> pilotes pour les cartes bas&eacute;es sur
+cette puce. Vous pouvez utiliser le pilote de la DE425 dont nous avons
+parl&eacute; plus haut, et le pilote g&eacute;n&eacute;rique `tulip' pour 21040.
+<P><B>Attention&nbsp;:</B> M&ecirc;me si votre carte est bas&eacute;e sur cette puce, <EM>les
+pilotes peuvent ne pas fonctionner pour vous</EM>. David C. Davies &eacute;crit&nbsp;:
+``Il n'y aucune garantie que SOIT <CODE>tulip.c</CODE> SOIT <CODE>de4x5.c</CODE>
+feront fonctionner une autre carte bas&eacute;e sur le DC2114x que celles pour
+lesquelles ils ont &eacute;t&eacute; &eacute;crit. POURQUOI&nbsp;??  demandez-vous. Parce qu'il
+existe un registre, le Registre multi-usages (General Purpose Register,
+CSR12) qui, primo, dans la DC21140A est programmable par chaque
+fabricant et ils le font tous d'une fa&ccedil;on diff&eacute;rente, et, secundo, dans
+la DC21142/3 est maintenant un registre de contr&ocirc;le SIA (fa&ccedil;on
+DC21041). La seule petite lueur d'espoir est que nous puissions d&eacute;coder
+la SROM pour aider &agrave; la configuration du pilote. Et encore, ce n'est pas
+une solution garantie puisque chez certains constructeurs (par exemple
+la carte 9332 de SMC) on ne suit pas le format de programmation SROM
+recommand&eacute; par Digital Semiconductor.''
+<P>En termes non-techniques, cela signifie que si vous n'&ecirc;tes pas s&ucirc;r(e)
+qu'une carte inconnue avec une puce DC2114x fonctionnera avec le(s)
+pilote(s) Linux, alors vous devez vous assurer que vous pourrez rendre
+la carte &agrave; votre revendeur <EM>avant</EM> de l'avoir pay&eacute;e.
+<P>La puce 21041 mise &agrave; jour, se trouve aussi &agrave; la place de la 21040 sur la
+plupart des cartes r&eacute;centes EtherPower de SMC. La 21140 est destin&eacute;e au
+support du 100Base-? et fonctionne avec les pilotes Linux de la puce
+21040. Pour utiliser le pilote <CODE>de4x5</CODE> de David avec des cartes non
+con&ccedil;ues par DEC, lisez le fichier <CODE>README.de4x5</CODE> pour les d&eacute;tails.
+<P>Donald a utilis&eacute; des cartes EtherPower-10/100 de SMC pour d&eacute;velopper le
+pilote `tulip'. Notez que le pilote qui se trouve dans l'arborescence du
+noyau &agrave; l'heure actuelle n'est pas la version la plus &agrave; jour. Si vous
+avez des probl&egrave;mes avec ce pilote, vous devriez r&eacute;cup&eacute;rer la derni&egrave;re
+version sur le site FTP/WWW de Donald.
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://cesdis.gsfc.nasa.gov/linux/drivers/tulip.html">Pilote Tulip</A></BLOCKQUOTE>
+<P>L'URL ci-dessus contient aussi une liste (non exhaustive) de diff&eacute;rents
+cartes/constructeurs qui utilisent la puce 21040.
+<P>Notez &eacute;galement que le pilote tulip est encore consid&eacute;r&eacute; comme un pilote
+<EM>alpha</EM> (voir&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#alfa">Pilotes alpha</A>) actuellement,
+et qu'il doit donc &ecirc;tre trait&eacute; comme tel. Pour l'utiliser, vous devrez
+&eacute;diter <CODE>arch/i386/config.in</CODE> et enlever les commentaires qui
+entourent la ligne sur le support <CODE>CONFIG_DEC_ELCP</CODE>.
+<P>Donald a m&ecirc;me cr&eacute;&eacute; une liste de diffusion pour les annonces sur le
+support du pilote tulip, etc. Pour vous y abonner, il vous suffit de
+taper&nbsp;:
+<P><CODE>echo subscribe | /bin/mail
+linux-tulip-request@cesdis.gsfc.nasa.gov</CODE>
+<P>
+<H2><A NAME="ss5.17">5.17 Farallon</A>
+</H2>
+
+<P>Farallon vend des adaptateurs et des transceivers EtherWave. Ce
+p&eacute;riph&eacute;rique permet de mettre en s&eacute;rie plusieurs p&eacute;riph&eacute;riques 10baseT.
+<P>
+<H3>Etherwave de Farallon</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: 3c509
+<P>On rapporte qu'il s'agit d'un clone de 3c509 qui inclut le transceiver
+EtherWave. Des gens les ont utilis&eacute;s avec succ&egrave;s sous Linux avec la
+version actuelle du pilote 3c509. C'est bien trop cher pour une
+utilisation g&eacute;n&eacute;ralis&eacute;e, mais c'est une bonne option pour des cas
+particuliers.   Les prix chez Hublet
+d&eacute;marrent &agrave; 125 dollars (environ 750 francs), et l'EtherWave ajoute
+entre 75 et 100 dollars (450 &agrave; 600 francs) au prix de la carte --&nbsp;c'est
+bien si vous avez tir&eacute; un c&acirc;ble trop court, mais pas si vous avez deux
+r&eacute;seaux qui tombent trop courts.   
+<P>
+<H2><A NAME="ss5.18">5.18 Fujitsu</A>
+</H2>
+
+<P>Contrairement &agrave; de nombreux fabricants de puces, Fujitsu a aussi
+fabriqu&eacute; et vendu des cartes r&eacute;seau bas&eacute;es sur les leurs.
+<P>
+<H3>Fujitsu FMV-181/182/183/184</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: fmv18x
+<P>Si on en croit le pilote, ces cartes sont faites dans la lign&eacute;e de
+l'impl&eacute;mentation de la Fujitsu MB86965, ce qui les rend tr&egrave;s similaires
+aux cartes Allied Telesis AT1700.
+<P>
+<H2><A NAME="hp"></A> <A NAME="ss5.19">5.19 Hewlett Packard</A>
+</H2>
+
+<P>Les cartes 272** utilisent des E/S programm&eacute;es, similaires aux cartes
+NE*000, mais le port de transferts de donn&eacute;es peut &ecirc;tre `&eacute;teint' quand
+vous n'y acc&eacute;dez pas, ce qui &eacute;vite les probl&egrave;mes avec les pilotes qui
+r&eacute;alisent une d&eacute;tection automatique.
+<P>Merci &agrave; Glenn Talbott d'avoir aid&eacute; &agrave; &eacute;claircir la confusion qui r&eacute;gnait
+dans cette section en ce qui concerne les num&eacute;ros de version des
+mat&eacute;riels HP.
+<P>
+<H3><A NAME="hp-27245a"></A> 27245A</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: hp (+8390)
+<P>Carte 8&nbsp;bits 10BaseT bas&eacute;e sur le&nbsp;8390, non recommand&eacute;e pour toutes les
+raisons des 8&nbsp;bits. Elle a &eacute;t&eacute; repens&eacute;e il y a quelques ann&eacute;es pour
+augmenter l'int&eacute;gration, ce qui a caus&eacute; des changements dans les dur&eacute;es
+d'initialisation, qui affectent les programmes de test, mais pas les
+pilotes r&eacute;seau. (La nouvelle carte n'est pas `pr&ecirc;te' aussi vite que
+l'ancienne apr&egrave;s &ecirc;tre entr&eacute;e ou sortie du mode en boucle locale
+(<I>loopback</I>)).
+<P>Si vous avez l'intention d'utiliser ce pilote sous la forme d'un module
+chargeable, vous devriez probablement consulter&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#modules">Utiliser les pilotes Ethernet comme modules</A> pour des
+informations sp&eacute;cifiques aux modules.
+<P>
+<H3>HP EtherTwist, PC Lan+ (27247, 27252A)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: hp+ (+8390)
+<P>La HP PC Lan+ est diff&eacute;rente de la carte HP PC Lan standard. Ce pilote a
+&eacute;t&eacute; ajout&eacute; &agrave; la liste des pilotes du noyau standard pendant le cycle de
+d&eacute;veloppement des version 1.1.x. Il peut &ecirc;tre utilis&eacute; soit en mode PIO
+(E/S programm&eacute;es) comme une ne2000, ou en mode m&eacute;moire partag&eacute;e comme
+une wd8013.
+<P>La 47B est une carte 16&nbsp;bits 10BaseT avec AUI &agrave; base de 8390, et la 52A
+est une carte 16&nbsp;bits ThinLAN avec AUI &agrave; base de 8390. Ces cartes
+comportent 32&nbsp;Ko de m&eacute;moire vive embarqu&eacute;e pour le tampon de
+r&eacute;ception/transmission des paquets au lieu des 16&nbsp;Ko habituels, et elles
+offrent toutes les deux une fonction de d&eacute;tection automatique du
+connecteur r&eacute;seau.
+<P>Si vous avez l'intention d'utiliser ce pilote sous la forme d'un module
+chargeable, vous devriez probablement consulter&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#modules">Utiliser les pilotes Ethernet comme modules</A> pour des
+informations sp&eacute;cifiques aux modules.
+<P>
+<H3>HP-J2405A</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: lance
+<P>Ces cartes sont meilleur march&eacute;, et l&eacute;g&egrave;rement plus rapides que la
+27247/27252A, mais il leur manque certaines fonctionnalit&eacute;s, comme la
+connectivit&eacute; AUI ou ThinLAN (10Base2), et un support pour PROM de
+d&eacute;marrage (boot PROM). C'est une conception plut&ocirc;t g&eacute;n&eacute;rique de la
+LANCE, mais une d&eacute;cision mineure de conception la rend incompatible avec
+un pilote g&eacute;n&eacute;rique `NE2100'. Un support sp&eacute;cial pour cette carte (y
+compris la lecture du canal DMA sur la carte) est inclus gr&acirc;ce aux
+informations fournies par Glenn Talbott de chez HP.
+<P>Plus d'informations techniques sur les cartes bas&eacute;e sur la puce AMD se
+trouvent dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#amd-notes">Notes sur AMD...</A>.
+<P>
+<H3>Carte Ethernet embarqu&eacute;e de l'HP-Vectra</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: lance
+<P>L'HP-Vectra poss&egrave;de une puce PCnet d'AMD sur sa carte-m&egrave;re. La s&eacute;lection
+du DMA et des informations sur la num&eacute;rotation de la puce se trouvent
+dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#lance">AMD LANCE</A>.
+<P>Plus d'informations techniques sur les cartes bas&eacute;es sur la puce AMD se
+trouvent dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#amd-notes">Notes sur AMD...</A>.
+<P>
+<H3>Cartes HP 10/100 VG Any Lan (27248B, J2573, J2577, J2585, J970, J973)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: hp100
+<P>Ce pilote supporte aussi certains produits Complex VG. Comme ce pilote
+supporte les cartes ISA, EISA et PCI, il se trouve dans la section des
+cartes ISA quand vous faites un <CODE>make config</CODE> dans les sources du
+noyau.
+<P>
+<H3>HP NetServer 10/100TX PCI (D5013A)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: eepro100
+<P>Apparemment, ces cartes sont juste des cartes Intel EtherExpress Pro
+10/100B card dont on a chang&eacute; la marque. Allez voir la section sur Intel
+pour plus de d&eacute;tails.
+<P>
+<H2><A NAME="ibm"></A> <A NAME="ss5.20">5.20 IBM / International Business Machines</A>
+</H2>
+
+<P>
+<P>
+<H3><A NAME="thinkpad-300"></A> IBM Thinkpad 300</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: znet
+<P>Celui-ci est compatible avec le Z-note de Z&eacute;nith, bas&eacute; sur une puce
+Intel. Voir&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#z-note">Z-note</A>.
+<P>Ce site est suppos&eacute; avoir une base de donn&eacute;es exhaustive de choses
+utiles pour les versions r&eacute;centes du Thinkpad. Je ne l'ai pas v&eacute;rifi&eacute;
+moi-m&ecirc;me.
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://peipa.essex.ac.uk/html/linux-thinkpad.html">Thinkpad-info</A></BLOCKQUOTE>
+<P>Pour ceux d'entre vous qui n'ont pas de navigateur WWW &agrave; port&eacute;e de la
+main, essayez <CODE>peipa.essex.ac.uk:/pub/tp750/</CODE>.
+<P>
+<H3>IBM Credit Card Adaptor for Ethernet - Adaptateur `Credit Card' pourEthernet d'IBM</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: ? (distribu&eacute; s&eacute;par&eacute;ment)
+<P>Des personnes utilisent aussi cette carte PCMCIA avec Linux. Comme d&eacute;j&agrave;
+not&eacute;, vous aurez besoin d'un jeu de puces PCMCIA support&eacute; par Linux sur
+votre portable, et vous devrez mettre &agrave; jour le support PCMCIA dans le
+noyau standard.
+<P>Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html#pcmcia">Support PCMCIA</A> dans ce document, et
+si vous le pouvez jetez un coup d'oeil &agrave;&nbsp;:
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://cesdis.gsfc.nasa.gov/linux/pcmcia.html">La page PCMCIA de Donald</A></BLOCKQUOTE>
+<P>
+<H3>IBM Token Ring</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: ibmtr
+<P>Le support de Token Ring n&eacute;cessite plus que la simple &eacute;criture d'un
+pilote, il faut aussi &eacute;crire les routines de routage source pour Token
+Ring. C'est le routage par la source qui sera le plus long &agrave; &eacute;crire.
+<P>Peter De Schrijver a pass&eacute; du temps sur Token Ring r&eacute;cemment, et a
+travaill&eacute; avec des cartes Token Ring ISA et MCA d'IBM.
+<P>Le code Token Ring actuel a &eacute;t&eacute; inclus dans les premiers noyaux des
+s&eacute;ries 1.3.x.
+<P>Peter dit qu'il a &eacute;t&eacute; test&eacute; &agrave; l'origine avec une carte Token Ring MCA
+16/4 Megabit, mais qu'il devrait fonctionner avec d'autres cartes bas&eacute;es
+sur Tropic.
+<P>
+<H2><A NAME="ss5.21">5.21 Cartes Ethernet ICL</A>
+</H2>
+
+<P>
+<P>
+<H3>ICL EtherTeam 16i/32</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: eth16i
+<P>Mika Kuoppala (<CODE>miku@pupu.elt.icl.fi</CODE>) a &eacute;crit ce pilote, qui a &eacute;t&eacute;
+inclus dans les premiers noyaux 1.3.4x. Cette carte utilise la puce
+MB86965 de Fujitsu qui est aussi utilis&eacute;e dans les cartes AT1700.
+<P>
+<H2><A NAME="intel"></A> <A NAME="ss5.22">5.22 Cartes Ethernet Intel</A>
+</H2>
+
+<P>Note&nbsp;: les noms de certaines cartes Intel sont ambigus au possible et
+pr&ecirc;tent &agrave; confusion . Si vous avez
+un doute, v&eacute;rifiez le num&eacute;ro sur la puce principale de la carte
+<CODE>i8xxxx</CODE>, ou, pour les cartes PCI, utilisez les informations
+disponibles dans le repertoire <CODE>/proc</CODE> et ensuite, comparez-les aux
+num&eacute;ros list&eacute;s ici.
+<P>
+<H3>Ether Express</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: eexpress
+<P>Cette carte utilise l'Intel i82586. Les premi&egrave;res versions de ce pilote
+(dans les noyaux 1.2) &eacute;taient class&eacute;es en cours de test `alpha', parce
+qu'elles ne fonctionnaient pas correctement pour la plupart des gens. Le
+pilote des versions 2.0 du noyau semble fonctionner bien mieux pour ceux
+qui l'ont essay&eacute;. Toutefois, les sources le donnent comme &eacute;tant toujours
+exp&eacute;rimental, et pose pas mal de probleme sur les machines rapides.
+<P>Les commentaires au d&eacute;but du fichier source donnent la liste de certains
+des probl&egrave;mes (et solutions) associ&eacute;s &agrave; ces cartes.Il a &eacute;t&eacute; rapport&eacute; que
+la bidouille de ralentissement qui consiste &agrave; remplacer tous les
+<CODE>outb</CODE> par des <CODE>outb_p</CODE> dans le pilote a permis d'&eacute;viter des
+blocages pour au moins une personne.
+<P>
+<H3>Ether Express PRO/10</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: eepro
+<P>Bao Chau Ha a &eacute;crit un pilote pour ces cartes, qui a &eacute;t&eacute; inclus dans les
+premiers noyaux 1.3.x. Il peut aussi fonctionner avec certains des
+syst&egrave;mes Ethernet int&eacute;gr&eacute;s de Compaq, bas&eacute;s sur la puce i82595.
+<P>
+<H3>Ether Express PRO/10 PCI (EISA)</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: ? (distribu&eacute; s&eacute;parement)
+<P>John Stalba (<CODE>stalba@ultranet.com</CODE>) a &eacute;crit un pilote pour la
+version PCI. Ces cartes utilisent la puce d'interface PCI PLX9036 avec
+la puce contr&ocirc;leur-r&eacute;seau i82596 d'Intel. Si votre carte comporte la
+i82557, alors vous <EM>n'avez pas</EM> cette carte, mais au contraire
+la version dont il est question ci-dessous, qui n&eacute;cessite par cons&eacute;quent
+le pilote EEPro100 plut&ocirc;t que celui-ci.
+<P>Vous pouvez obtenir le pilote `alpha' pour les cartes PCI PRO/10, ainsi
+que les instructions pour l'utiliser, &agrave;&nbsp;:
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://www.ultranet.com/~stalba/eep10pci.html">Pilote EEPro10</A></BLOCKQUOTE>
+<P>Si vous avez la carte EISA, vous devrez certainement bidouiller un peu
+le pilote pour prendre en compte les diff&eacute;rents m&eacute;canismes de d&eacute;tection
+(PCI ou EISA) qui sont utilis&eacute;s dans chaque cas.
+<P>
+<H3><A NAME="eepro100"></A> Ether Express PRO 10/100B</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: eepro100
+<P>Notez que ce pilote <EM>ne</EM> fonctionnera <EM>pas</EM> avec les cartes
+100A qui sont plus anciennes. Les num&eacute;ros de puces que g&egrave;re le pilote
+sont i82557/i82558.
+<P>Pour les mises &agrave; jour du pilote et&nbsp;/ ou des informations, consultez&nbsp;:
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://cesdis.gsfc.nasa.gov/linux/drivers/eepro100.html">Page de l'EEPro-100B</A></BLOCKQUOTE>
+<P>Pour vous inscrire &agrave; la liste de diffusion relative &agrave; ce pilote, tapez
+la commande suivante&nbsp;:
+<P>
+<BLOCKQUOTE>
+<CODE>echo subscribe | /bin/mail
+linux-eepro100-request@cesdis.gsfc.nasa.gov</CODE>
+</BLOCKQUOTE>
+<P>Apparemment Donald a &eacute;t&eacute; oblig&eacute; de signer un accord de confidentialit&eacute;
+qui &eacute;tablit qu'il pouvait en fait communiquer le code-source du pilote&nbsp;!
+Comment prendre une telle preuve de b&ecirc;tise de la part d'Intel&nbsp;?
+<P>
+<H2><A NAME="ss5.23">5.23 Kingston</A>
+</H2>
+
+<P>Kingston fait plusieurs cartes, incluant des cartes &agrave; base de NE2000+,
+AMD PCnet, et DEC tulip. La majorit&eacute; des cartes devrait marcher avec
+leurs pilotes respectifs. Voyez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://www.kingston.com">Kingston Web Page</A> pour plus de d&eacute;tails.
+<P>Il para&icirc;t que la carte &agrave; base de KNE40 DEC 21041 tulip fonctionne tr&egrave;s
+bien avec le pilote tulip g&eacute;n&eacute;rique
+<P>
+<P>
+<H2><A NAME="ss5.24">5.24 LinkSys</A>
+</H2>
+
+<P>LinkSys produit tout un tas de clones de NE2000, certains &eacute;tant
+de simple cartes ISA, d'autres des cartes ISA `plug and play' et m&ecirc;me
+des clones de NE2000 PCI bas&eacute;s sur l'un des jeux de puces NE2000-PCI
+support&eacute;s. Il existe tout simplement trop de mod&egrave;les pour pouvoir tous
+les citer ici.
+<P>LinkSys aime bien Linux, ils ont une page WWW de support sp&eacute;cifique, et
+Linux est imprim&eacute; sur les bo&icirc;tes de certains de leurs
+produits. Consultez&nbsp;:
+<P>
+<BLOCKQUOTE>
+<CODE>http://www.linksys.com/support/solution/nos/linux.htm</CODE>
+</BLOCKQUOTE>
+<P>
+<H3>Cartes LinkSys Etherfast 10/100.</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: tulip
+<P>Notez que ces cartes ont connu quelques `r&eacute;visions' (c-&agrave;-d diff&eacute;rents
+chipsets utilis&eacute;s) mais toutes avaient le m&ecirc;me nom. La premi&egrave;re
+utilisait le chipset DEC. La seconde, le contr&ocirc;leur r&eacute;seau Lite-On PNIC
+82c168 PCI, et le support pour celle-ci a &eacute;t&eacute; inclus dans le pilote
+tulip standard (depuis la version 0.83). Plus d'informations sur PNIC
+&agrave;&nbsp;:
+<P>
+<BLOCKQUOTE>
+<CODE>http://cesdis.gsfc.nasa.gov/linux/drivers/pnic.html</CODE>
+</BLOCKQUOTE>
+<P>Pour plus d'informations sur les diff&eacute;rentes versions de ces cartes,
+r&eacute;f&eacute;rez vous au site de LinkSys mentionn&eacute; ci-dessus.
+<P>
+<H3>LinkSys Pocket Ethernet Adapter Plus (PEAEPP)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de620
+<P>On suppose qu'il s'agit d'un clone du DE-620, et il para&icirc;t que cela
+fonctionne bien avec ce pilote. Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#de-620">DE-620</A> pour plus d'information.
+<P>
+<H3>Adaptateur LinkSys PCMCIA</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de650 (?)
+<P>On suppose qu'il s'agit d'un DE-650 "recarross&eacute;" avec une &eacute;tiquette diff&eacute;rente.
+Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#de-650">DE-650</A> pour plus d'information.
+<P>
+<H2><A NAME="ss5.25">5.25 Microdyne</A>
+</H2>
+
+<P>
+<P>
+<H3>Microdyne Exos 205T</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: ?
+<P>Une autre carte bas&eacute;e sur l'i82586. Dirk Niggemann
+<CODE>dirk-n@dircon.co.uk</CODE> a &eacute;crit un pilote qu'il classe dans la
+cat&eacute;gorie ``pr&eacute;-alpha'' et dont il aimerait bien que les gens le
+testent. Ecrivez-lui pour plus de d&eacute;tails.
+<P>
+<H2><A NAME="ss5.26">5.26 Mylex</A>
+</H2>
+
+<P>Mylex peut &ecirc;tre joint aux num&eacute;ros suivants, au cas o&ugrave; quelqu'un aurait
+envie de leur demander quelque chose.
+<P>
+<PRE>
+        MYLEX CORPORATION, Fremont Ventes: 800-77-MYLEX, (510) 796-6100 FAX:
+        (510) 745-8016.
+</PRE>
+<P>Ils ont aussi un site WWW:
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://www.mylex.com">Site WWW de Mylex</A><P>
+<H3>Mylex LNE390A, LNE390B</H3>
+
+<P>Statut&nbsp;: support&eacute;, Nom du pilote&nbsp;: lne390 (+8390)
+<P>Ces cartes EISA plut&ocirc;t anciennes utilisent une impl&eacute;mentation &agrave; m&eacute;moire
+partag&eacute;e similaire aux wd80x3. Un pilote pour ces cartes est disponible
+dans les noyaux 2.2. Assurez vous de bien sp&eacute;cifier une zone de m&eacute;moire
+inf&eacute;rieure a 1 Mo ou alors, sup&eacute;rieure &agrave; la taille totale de la RAM de
+votre ordinateur.
+<P>
+<H3>Mylex LNP101</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de4x5, tulip
+<P>Il s'agit d'une carte PCI bas&eacute;e sur la puce 21040 de DEC. On peut
+s&eacute;lectionner les ports 10BaseT, 10Base2 ou 10Base5 (AUI). La carte
+LNP101 a &eacute;t&eacute; test&eacute;e et elle fonctionne avec le pilote 21040 g&eacute;n&eacute;rique.
+<P>Consultez la section sur la puce 21040 (
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#dec-21040">DEC         21040</A>) pour plus d'information.
+<P>
+<H3>Mylex LNP104</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: de4x5, tulip
+<P>La LNP104 utilise la puce 21050 de DEC pour fournir <EM>quatre</EM> ports
+10BaseT ind&eacute;pendants. Elle devrait fonctionner avec les pilotes 21040
+r&eacute;cents qui savent partager les IRQ, mais personne &agrave; ce jour n'a indiqu&eacute;
+l'avoir essay&eacute;e (autant que je sache).
+<P>
+<H2><A NAME="novell"></A> <A NAME="ss5.27">5.27 Ethernet chez Novell&nbsp;: NExxxx et les clones associ&eacute;s.</A>
+</H2>
+
+<P>Le pr&eacute;fixe `NE' vient de `Novell Ethernet'. Novell a suivi la conception
+la moins ch&egrave;re d&eacute;crite dans les documentations de National
+Semiconductor, et a vendu les droits de fabrication &agrave; Eagle (s'en est
+d&eacute;barrass&eacute;&nbsp;?), juste pour pouvoir mettre sur le march&eacute; des cartes
+Ethernet &agrave; prix raisonnables. (La maintenant omnipr&eacute;sente carte NE2000).
+<P>
+<H3><A NAME="ne2k"></A> NE1000, NE2000</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: ne (+8390)
+<P>``NE2000'' est maintenant un nom g&eacute;n&eacute;rique pour une conception
+minimaliste bas&eacute;e sur la puce 8390 de National Semiconductor. Ces cartes
+utilisent des E/S programm&eacute;es plut&ocirc;t que la m&eacute;moire partag&eacute;e, ce qui
+am&egrave;ne une installation plus facile mais des performances l&eacute;g&egrave;rement
+moins bonnes et quelques probl&egrave;mes. Certains des probl&egrave;mes qui peuvent
+survenir avec les cartes NE2000 sont cit&eacute;s &agrave; 
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#ne2k-probs">Probl&egrave;mes avec...</A>.
+<P>Quelques clones de NE2000 utilisent la puce `AT/LANTic' 83905 de
+National Semiconductor, qui offre un mode &agrave; m&eacute;moire partag&eacute;e similaire &agrave;
+celui de la wd8013 et une configuration logicielle via une EEPROM. Le
+mode &agrave; m&eacute;moire partag&eacute;e engendrera moins de charge processeur (et sera
+donc plus efficace) que le mode &agrave; E/S programm&eacute;es.
+<P>En g&eacute;n&eacute;ral ce n'est pas une bonne id&eacute;e de placer un clone de NE2000 &agrave;
+l'adresse d'E/S <CODE>0x300</CODE> parce que pratiquement <EM>tous</EM> les
+pilotes de p&eacute;riph&eacute;riques testent cette adresse au d&eacute;marrage. Certains
+clones de NE2000 bas de gamme acceptent difficilement d'&ecirc;tre titill&eacute;s au
+mauvais endroit, et ils r&eacute;pondront en bloquant votre machine.  L'adresse
+<CODE>0x320</CODE> est &eacute;galement une mauvaise id&eacute;e car les pilotes SCSI
+testent <CODE>0x330</CODE>.
+<P>Donald a &eacute;crit un programme de diagnostic pour NE2000 (<CODE>ne2k.c</CODE>)
+qui fonctionne pour toutes les cartes NE2000. Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-7.html#diag">Programmes de diagnostic</A> pour plus d'information.
+<P>Si vous avez l'intention d'utiliser ce pilote sous la forme d'un module
+chargeable, vous devriez probablement consulter&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#modules">Utiliser les pilotes Ethernet comme modules</A> pour des
+informations sp&eacute;cifiques aux modules.
+<P>
+<H3><A NAME="ne2k-pci"></A> NE2000-PCI (RealTek/Winbond/Compex)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: ne, ne2k-pci (+8390)
+<P>Oui, croyez-le ou non, des gens fabriquent des cartes PCI bas&eacute;es sur la
+vieille interface de la NE2000, con&ccedil;ue il y a plus de dix
+ans. Actuellement, presque toutes ces cartes sont bas&eacute;es sur la puce
+8029 de RealTek ou la puce&nbsp;89c940 de Winbond. Les cartes Compex, KTI,
+VIA et Netvin utilisent apparemment aussi ces puces, mais poss&egrave;dent un
+une signature PCI diff&eacute;rente.
+<P>Le dernier noyau Linux&nbsp;2.0 est capable de d&eacute;tecter automatiquement
+toutes ces cartes et de les utiliser. (Si vous utilisez un noyau
+version&nbsp;2.0.34 ou plus ancien, vous devriez le mettre &agrave; jour pour vous
+assurer que votre carte sera d&eacute;tect&eacute;e). Il y a dor&eacute;navant deux pilotes
+que vous pouvez utiliser, le pilote ISA/PCI originel <CODE>ne.c</CODE> et le
+pilote PCI plus r&eacute;cent <CODE>ne2k-pci.c</CODE>.
+<P>Pour utiliser le pilote original, vous devez r&eacute;pondre `Y' &agrave; l'option
+`Other ISA cards' (`Autres cartes ISA&nbsp;?') lorsque vous ex&eacute;cutez <CODE>make
+config</CODE> car en fait vous utilisez le m&ecirc;me pilote&nbsp;NE2000 que celui des
+cartes&nbsp;ISA. (Cela devrait accr&eacute;diter l'id&eacute;e que ces cartes ne sont en
+aucune fa&ccedil;on aussi intelligentes que, disons, une carte &agrave; base de
+PCNet-PCI ou DEC 21040...).
+<P>Le r&eacute;cent pilote PCI diff&egrave;re de la version ISA/PCI par le fait que le
+support pour les cartes 8&nbsp;bits NE1000 a &eacute;t&eacute; supprim&eacute; et que les donn&eacute;es
+transitent de/vers la carte en de plus gros paquets, sans les pauses que
+les vieilles ISA NE2000 n&eacute;cessitaient pour op&eacute;rer de fa&ccedil;on fiable. Il en
+r&eacute;sulte un pilote l&eacute;g&egrave;rement plus petit, et l&eacute;g&egrave;rement plus efficace,
+mais ne vous emballez pas trop vite, les diff&eacute;rences ne seront pas
+&eacute;clatantes en utilisation normale. (Si vous voulez beaucoup d'efficacit&eacute;
+avec peu de charge CPU, alors une NE2000 PCI est un tr&egrave;s mauvais choix).
+Des mises &agrave; jour ainsi que plus d'informations sont disponibles &agrave;&nbsp;:
+<P>
+<BLOCKQUOTE>
+<CODE>http://cesdis.gsfc.nasa.gov/linux/drivers/ne2k-pci.html</CODE>
+</BLOCKQUOTE>
+<P>Si vous avez une carte PCI NE2000 qui <EM>n'est pas</EM> d&eacute;tect&eacute;e par le
+dernier pilote, veuillez contacter le responsable du pilote&nbsp;NE2000 qui
+est indiqu&eacute; dans <CODE>/usr/src/linux/MAINTAINERS</CODE>, en lui joignant
+les sorties d'un <CODE>cat /proc/pci</CODE> et de <CODE>dmesg</CODE> afin que le
+support pour votre carte puisse &ecirc;tre ajout&eacute; dans le pilote.
+<P>Notez aussi que pas mal de fabricants de cartes sont connus pour mettre
+un autocollant `Compatible NE2000' sur les bo&icirc;tes de leurs produits m&ecirc;me
+si c'est totalement diff&eacute;rent (ex&nbsp;: PCNet-PCI ou RealTek 8139). En cas
+de doute, regardez la puce principale et comparez avec ce qui est &eacute;crit
+ici.
+<P>
+<H3>NE-10/100</H3>
+
+<P>Statut&nbsp;: Non support&eacute;
+<P>Il s'agit de cartes ISA 100Mb/s bas&eacute;es sur les puces DP83800 et DP83840
+de National Semiconductor. Il n'y a actuellement aucun support logiciel,
+et personne n'a indiqu&eacute; qu'il travaillait &agrave; un pilote. Apparemment, la
+documentation de ces puces n'est pas disponible, &agrave; part un bien pauvre
+PDF insuffisant pour cr&eacute;er un pilote.
+<P>
+<H3><A NAME="ne1500"></A> NE1500, NE2100</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: lance
+<P>Ces cartes utilisent la puce 7990 LANCE originelle d'AMD et sont
+support&eacute;es gr&acirc;ce au pilote Linux <CODE>lance</CODE>. Les clones de NE2100 plus
+r&eacute;cents reposent sur la puce mise &agrave; jour PCnet/ISA d'AMD.
+<P>Des versions plus anciennes du pilote <CODE>lance</CODE> avaient des probl&egrave;mes
+pour obtenir la ligne d'IRQ via l'affectation automatique d'IRQ des
+cartes&nbsp;7990 originelles de Novell/Eagle. Heureusement cela est
+maintenant r&eacute;solu. Si ce n'est pas le cas, sp&eacute;cifiez l'IRQ via LILO, et
+indiquez-nous si cela pose encore des probl&egrave;mes.
+<P>La s&eacute;lection du DMA et des informations sur la num&eacute;rotation de la puce
+se trouvent dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#lance">AMD LANCE</A>.
+<P>Des informations plus techniques sur les cartes Ethernet bas&eacute;es sur
+l'AMD LANCE sont disponibles dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#amd-notes">Notes sur         l'AMD...</A>.
+<P>
+<H3>NE/2 MCA</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: ne2
+<P>Quelques cartes NE2000 MCA ont &eacute;t&eacute; fabriqu&eacute;es par diverses soci&eacute;t&eacute;s. Ce
+pilote, disponible dans les noyaux 2.2 d&eacute;tectera les cartes suivantes&nbsp;:
+Novell Ethernet Adapter NE/2, Compex ENET-16 MC/P, et l'Ethernet Adapter
+AE/2 de chez Arco.
+<P>
+<H3><A NAME="ne3200"></A> NE3200</H3>
+
+<P>Statut&nbsp;: Non support&eacute;
+<P>Cette vieille carte EISA utilise un 80186 &agrave; 8&nbsp;MHz en compagnie d'un
+i82586. Personne ne travaille &agrave; un support et de toute fa&ccedil;on, il n'y a
+ni documentation sur la carte, ni de vraie demande pour un pilote.
+<P>
+<H3><A NAME="ne3210"></A> NE3210</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: ne3210 (+8390)
+<P>Cette carte EISA est compl&egrave;tement diff&eacute;rente de la NE3200, car elle
+utilise une puce National Semiconductor 8390. Le pilote se trouve dans
+les noyaux 2.2. Assurez vous d'avoir r&eacute;gl&eacute; la m&eacute;moire partag&eacute;e en
+dessous de 1 Mo, ou au dessus de la plus grande adresse de m&eacute;moire
+physique qui est install&eacute;e sur la machine.
+<P>
+<H3>NE5500</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: pcnet32
+<P>Ce sont juste des cartes bas&eacute;es sur la puce PCnet-PCI ('970A) d'AMD.
+Plus d'informations sur les cartes &agrave; base de LANCE/PCnet se trouvent
+dans&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#lance">AMD LANCE</A>.
+<P>
+<H2><A NAME="ss5.28">5.28 Proteon</A>
+</H2>
+
+<P>
+<P>
+<H3>Proteon P1370-EA</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: ne (+8390)
+<P>Il s'agit apparemment d'un clone de NE2000, et il fonctionne
+correctement avec Linux.
+<P>
+<H3>Proteon P1670-EA</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de4x5, tulip
+<P>Encore une autre carte PCI bas&eacute;e sur la puce Tulip de DEC. On rapporte
+qu'elle fonctionne correctement avec Linux.
+<P>Consultez la section sur la puce 21040 (
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#dec-21040">DEC         21040</A>) pour plus d'informations sur le pilote.
+<P>
+<H2><A NAME="ss5.29">5.29 Pure Data</A>
+</H2>
+
+<P>
+<P>
+<H3>PDUC8028, PDI8023</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: wd (+8390)
+<P>Les s&eacute;ries PDUC8028 et PDI8023 de cartes PureData semblent fonctionner
+correctement, gr&acirc;ce au code de d&eacute;tection sp&eacute;cial qu'a fourni Mike Jagdis
+<CODE>jaggy@purplet.demon.co.uk</CODE>. Le support pour ces cartes est int&eacute;gr&eacute;
+dans le pilote Western Digital (WD).
+<P>
+<H2><A NAME="ss5.30">5.30 Racal-Interlan</A>
+</H2>
+
+<P>On peut joindre Racal-Interlan via le WWW &agrave; <CODE>www.interlan.com</CODE>. Je
+crois qu'ils &eacute;taient connus sous le nom de MiCom-Interlan &agrave; une &eacute;poque.
+<P>
+<H3>ES3210</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: es3210
+<P>Il s'agit d'une carte EISA &agrave; m&eacute;moire partag&eacute;e bas&eacute;e sur le 8390. Un
+pilote exp&eacute;rimental pour les versions 2.2 du noyau est disponible.  On
+indique qu'il fonctionne correctement, mais la d&eacute;tection de l'IRQ EISA
+et de l'adresse de m&eacute;moire partag&eacute;e para&icirc;t ne pas fonctionner avec (au
+moins) les premi&egrave;res r&eacute;visions de ces cartes. (Ce probl&egrave;me n'est pas
+sp&eacute;cifique &agrave; Linux d'ailleurs). Dans ce cas, vous devez les fournir au
+pilote&nbsp;; par exemple, pour une carte utilisant l'IRQ&nbsp;5 et la m&eacute;moire
+partag&eacute;e en&nbsp;<CODE>0xd0000</CODE>. Avec un pilote modulaire, ajoutez
+<CODE>options es3210 irq=5 mem=0xd0000</CODE> &agrave; votre fichier
+<CODE>/etc/conf.modules</CODE>.  Si le pilote est int&eacute;gr&eacute; au noyau, donnez
+lui <CODE>ether=5,0,0xd0000,eth0</CODE> au boot.  L'adresse de base d'E/S est
+d&eacute;tect&eacute;e automatiquement et une valeur de z&eacute;ro doit donc &ecirc;tre utilis&eacute;e.
+<P>
+<H3>NI5010</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: ni5110
+<P>Le pilote pour ces vieilles cartes 8&nbsp;bits MiCom-Interlan &eacute;tait
+disponible s&eacute;par&eacute;ment, mais on le trouve maintenant en tant que pilote
+exp&eacute;rimental dans les noyaux 2.2.
+<P>
+<H3>NI5210</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: ni52
+<P>Cette carte utilise aussi les puces Intel et Michael Hipp a &eacute;crit un
+pilote pour elle. Il est inclus dans le noyau standard en tant que
+pilote en phase `alpha'. Michael aimerait recevoir des informations des
+utilisateurs qui poss&egrave;dent cette carte.  Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#alfa">Les pilotes `Alpha'</A> pour des informations importantes sur
+l'utilisation des pilotes Ethernet en phase de test `alpha' avec Linux.
+<P>
+<H3><A NAME="ni65xx"></A> NI6510 (not EB)</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: ni65
+<P>Il existe &eacute;galement un pilote pour la NI6510 (bas&eacute;e sur la puce LANCE),
+et il a aussi &eacute;t&eacute; &eacute;crit par Michael Hipp. L&agrave; aussi, il s'agit d'un
+pilote `alpha'. Pour une raison inconnue, cette carte n'est pas
+compatible avec le pilote LANCE g&eacute;n&eacute;rique. Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#alfa">Les pilotes `Alpha'</A> pour des informations importantes sur
+l'utilisation des pilotes Ethernet en phase de test `alpha' avec Linux.
+<P>
+<H3>EtherBlaster (aka NI6510EB)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: lance
+<P>Depuis le noyau 1.3.23, le pilote LANCE g&eacute;n&eacute;rique comprend un test
+suppl&eacute;mentaire pour la signature <CODE>0x52, 0x44</CODE> sp&eacute;cifique de la
+NI6510EB. D'autres ont indiqu&eacute; que cette signature n'est pas la m&ecirc;me
+pour toutes les cartes NI6510EB, ce qui peut amener le pilote
+<CODE>lance</CODE> &agrave; ne pas d&eacute;tecter votre carte. Si cela vous arrive, vous
+pouvez changer la proc&eacute;dure de d&eacute;tection (aux environs de la ligne 322
+de <CODE>lance.c</CODE>) pour qu'elle <CODE>printk()</CODE> (affiche) quelles sont
+les valeurs pour votre carte, puis utiliser ces valeurs &agrave; la place du
+<CODE>0x52, 0x44</CODE> donn&eacute; par d&eacute;faut.
+<P>Les cartes devraient probablement &ecirc;tre plac&eacute;es en mode `hautes
+performances' et non pas dans le mode compatible-NI6510 lorsque l'on
+utilise le pilote <CODE>lance</CODE>.
+<P>
+<H2><A NAME="ss5.31">5.31 RealTek</A>
+</H2>
+
+<P>
+<P>
+<H3><A NAME="aep-100"></A> RealTek RTL8002/8012 (AT-Lan-Tec) Pocket adaptor</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: atp
+<P>Il s'agit d'un adaptateur de poche g&eacute;n&eacute;rique, peu cher, d&eacute;velopp&eacute; en
+OEM, vendu par AT-Lan-Tec, et (sans doute) par un certain nombre
+d'autres fournisseurs. Un pilote est inclus dans le noyau standard. Une
+quantit&eacute; substantielle d'information est contenue dans le fichier source
+du pilote, <CODE>atp.c</CODE>.
+<P>Notez que dans les premi&egrave;res versions de ce pilote, le nom de
+p&eacute;riph&eacute;rique que vous passiez &agrave; <CODE>ifconfig</CODE> <EM>n'&eacute;tait pas</EM>
+<CODE>eth0</CODE> mais&nbsp;<CODE>atp0</CODE>.
+<P>
+<H3>RealTek 8009</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: ne (+8390)
+<P>C'est un clone de NE2000 ISA, et il fonctionne tr&egrave;s bien avec le pilote
+NE2000 Linux. Le programme <CODE>rset8009.exe</CODE> peut &ecirc;tre obtenu depuis
+le site WWW de RealTek's <CODE>http://www.realtek.com.tw</CODE> - ou via ftp
+depuis le m&ecirc;me site.
+<P>
+<H3>RealTek 8019</H3>
+
+<P>
+<P>Statut&nbsp;: Support, Nom du pilote&nbsp;: ne (+8390)
+<P>Celle-ci est la version "Plug and Pray" de la pr&eacute;c&eacute;dente. Utilisez
+l'utilitaire DOS pour d&eacute;sactiver le PnP et activez la configuration
+logicielle. Attribuez une IRQ et des adresses d'E/S raisonnables, et
+tout devrait aller pour le mieux. (Si vous utilisez les modules,
+n'oubliez pas d'ajouter une option <CODE>io=0xNNN</CODE> au fichier
+<CODE>/etc/conf.modules</CODE>. Le programme <CODE>rset8009.exe</CODE> peut &ecirc;tre
+obtenu depuis le site WWW de RealTek's <CODE>http://www.realtek.com.tw</CODE>
+--&nbsp;ou via ftp depuis le m&ecirc;me site.
+<P>
+<H3>RealTek 8029</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: ne2k-pci
+<P>Il s'agit d'une impl&eacute;mentation PCI sur une seule puce d'un clone de
+NE2000. Diff&eacute;rents fournisseurs vendent maintenant des cartes comportant
+cette puce. Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#ne2k-pci">NE2000 PCI</A> pour des
+informations sur l'utilisation d'une de ces cartes. Notez qu'il s'agit
+d'un design de plus de dix ans coll&eacute; sur un bus PCI, et ce ne sera pas
+vraiment meilleur que pour le pendant ISA.
+<P>
+<H3><A NAME="rtl8139"></A> RealTek 8129/8139</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: rtl8139
+<P>Encore une autre solution Ethernet PCI sur une puce unique de
+RealTek. Un pilote pour les cartes bas&eacute;es sur elle devrait &ecirc;tre inclus
+dans la version&nbsp;2.0.34 du noyau Linux. Pour plus d'informations,
+consultez&nbsp;:
+<P>
+<BLOCKQUOTE>
+<CODE>http://cesdis.gsfc.nasa.gov/linux/drivers/rtl8139.html</CODE>
+</BLOCKQUOTE>
+<P>
+<H2><A NAME="ss5.32">5.32 Sager</A>
+</H2>
+
+<P>
+<P>
+<H3>Sager NP943</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: 3c501
+<P>Il s'agit juste d'un clone de 3c501, avec un pr&eacute;fixe de S.A. PROM
+diff&eacute;rent. Je pense qu'elle est aussi cliniquement morte que la vraie
+3c501, en passant.  Le pilote v&eacute;rifie la pr&eacute;sence de l'identificateur de
+la NP943 et la traite comme une 3c501 par la suite. Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#3c501">3Com 3c501</A> pour toutes les bonnes raisons qui font
+que vous ne devriez vraiment pas avoir ne serait-ce que l'intention
+d'utiliser une de ces cartes.
+<P>
+<H2><A NAME="ss5.33">5.33 Schneider &amp; Koch</A>
+</H2>
+
+<P>
+<P>
+<H3>SK G16</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: sk_g16
+<P>Ce pilote, &eacute;crit par PJD Weichmann et SWS Bern, a &eacute;t&eacute; inclus dans les
+noyaux des versions 1.1. Il se trouve que la SK G16 est semblable &agrave; la
+NI6510, en ce sens qu'elle est bas&eacute;e sur la premi&egrave;re &eacute;dition de la puce
+LANCE (la 7990). Une fois de plus, cette carte semble ne pas fonctionner
+avec le pilote LANCE g&eacute;n&eacute;rique.
+<P>
+<H2><A NAME="ss5.34">5.34 SEEQ</A>
+</H2>
+
+<P>
+<P>
+<H3>SEEQ 8005</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: seeq8005
+<P>Ce pilote qui est l'oeuvre de Hamish Coleman a &eacute;t&eacute; inclus dans les
+premiers noyaux 1.3.x. Peu d'informations sur la carte figurent dans le
+pilote, et donc pas grand chose &agrave; en dire ici. Si vous avez une
+question, vous aurez probablement tout int&eacute;r&ecirc;t &agrave; envoyer un message &agrave;
+<CODE>hamish@zot.apana.org.au</CODE>.
+<P>
+<H2><A NAME="smc"></A> <A NAME="ss5.35">5.35 SMC (Standard Microsystems Corp.) </A>
+</H2>
+
+<P>La division Ethernet de Western Digital a &eacute;t&eacute; achet&eacute;e par SMC il y a bien
+longtemps lorsque les wd8003 et wd8013 &eacute;tais les produits phares. Depuis
+lors, SMC a continu&eacute; de faire des cartes ISA bas&eacute;es sur le 8390 (Elite16,
+Ultra, EtherZ) et a aussi &eacute;toff&eacute; son catalogue de quelques produits PCI.
+<P>Voici comment contacter SMC&nbsp;: 
+<P>SMC / Standard Microsystems Corp., 80 Arkay Drive, Hauppage, New York,
+11788, USA.  Support technique par t&eacute;l&eacute;phone&nbsp;: 800-992-4762 (USA) ou
+800-433-5345 (Canada) ou 516-435-6250 (Autres pays).  Demandes de
+documentation&nbsp;: 800-SMC-4-YOU (USA) ou 800-833-4-SMC (Canada) ou
+516-435-6255 (Autres pays).  Support technique par E-mail&nbsp;:
+<CODE>techsupt@ccmail.west.smc.com</CODE>.  Site FTP &nbsp;: <CODE>ftp.smc.com</CODE>.
+Site Web&nbsp;: 
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://www.smc.com">SMC</A>.
+<P>
+<H3>WD8003, SMC Elite</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: wd (+8390)
+<P>Ce sont les versions 8&nbsp;bits de la carte. La 8003 8&nbsp;bits est l&eacute;g&egrave;rement
+moins ch&egrave;re, mais ne vaut ces &eacute;conomies que pour une utilisation
+l&eacute;g&egrave;re. Notez que certaines des cartes sans EEPROM (des clones avec des
+cavaliers, ou de vieilles <EM>vieilles</EM> vieilles cartes wd8003) n'ont
+aucun moyen d'indiquer la ligne d'IRQ qu'elles utilisent. Dans ce cas,
+l'affectation automatique d'IRQ est utilis&eacute;e, et si cela &eacute;choue, le
+pilote utilise l'IRQ 5 sans rien dire. Vous pouvez obtenir les
+disquettes d'installation/de param&eacute;trage de SMC sur leur site FTP.
+Notez que certains des plus r&eacute;cents programmes 'SuperDisk' de SMC ne
+r&eacute;ussiront pas &agrave; d&eacute;tecter les vraies vieilles cartes sans EEPROM. Le
+fichier <CODE>SMCDSK46.EXE</CODE> semble &ecirc;tre un bon choix passe-partout.
+Notez aussi que les r&eacute;glages des cavaliers pour toutes leurs cartes se
+trouvent dans un fichier texte dans l'archive sus-mentionn&eacute;e. La
+derni&egrave;re (meilleure&nbsp;?) version peut &ecirc;tre obtenue depuis
+<CODE>ftp.smc.com</CODE>.
+<P>Comme ces cartes sont fondamentalement les m&ecirc;mes que leurs homologues
+16&nbsp;bits (WD8013 / SMC Elite16), vous devriez consulter la section
+suivante pour en savoir plus.
+<P>
+<H3><A NAME="8013"></A> WD8013, SMC Elite16</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: wd (+8390)
+<P>Au fil des ans, la conception a ajout&eacute; plus de registres et une
+EEPROM. (Les premi&egrave;res cartes wd8003 sont apparues il y a environ dix
+ans&nbsp;!) Les clones portent en g&eacute;n&eacute;ral un nom en `8013', et se passent
+habituellement d'EEPROM au profit de cavaliers. Les cartes SMC dernier
+mod&egrave;le auront la puce SMC 83c690 au lieu de la DP8390 de National
+Semiconductor que l'on trouvait sur les premi&egrave;res. Les cartes con&ccedil;ues
+pour utiliser la m&eacute;moire partag&eacute;e sont un peu plus rapides que celles
+qui reposent sur les E/S programm&eacute;es (PIO), sp&eacute;cialement avec des
+paquets de taille importante. Plus important, du point de vue du pilote,
+cela permet d'&eacute;viter quelques bogues du mode PIO du 8390, de garantir un
+acc&egrave;s s&ucirc;r au tampon de paquets sur un syst&egrave;me multi-thread, et de ne
+plus avoir un registre de donn&eacute;es PIO qui bloque votre machine pendant
+les proc&eacute;dures de d&eacute;tection apr&egrave;s un red&eacute;marrage &agrave; chaud.
+<P>Les cartes sans EEPROM qui ne peuvent pas lire l'IRQ s&eacute;lectionn&eacute;e
+essaieront l'affectation automatique d'IRQ (auto-IRQ), et si cela
+&eacute;choue, affecteront sans rien dire l'IRQ 10. (Les versions 8&nbsp;bits
+affecteront l'IRQ 5).
+<P>Pour les cartes qui n'ont pas une quantit&eacute; de m&eacute;moire embarqu&eacute;e
+standard, la taille de la m&eacute;moire peut &ecirc;tre sp&eacute;cifi&eacute;e au moment du
+d&eacute;marrage (ou dans le fichier <CODE>/etc/conf.modules</CODE> si vous utilisez
+les modules). La taille m&eacute;moire standard est de 8&nbsp;Ko pour une carte
+8&nbsp;bits et de 16&nbsp;Ko pour une carte 16&nbsp;bits. Par exemple, les
+ant&eacute;diluviennes WD8003EBT peuvent &ecirc;tre configur&eacute;es par cavaliers pour
+utiliser 32&nbsp;Ko. Pour avoir un acc&egrave;s complet &agrave; cette m&eacute;moire, vous aurez
+recours &agrave; quelque chose comme (pour une adresse d'E/S de base de
+<CODE>0x280</CODE> et l'IRQ&nbsp;9)&nbsp;:
+<P>
+<HR>
+<PRE>
+        LILO: linux ether=9,0x280,0xd0000,0xd8000,eth0
+</PRE>
+<HR>
+<P>Consultez aussi&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#8013-probs">Les probl&egrave;mes des 8013</A> pour
+certains des probl&egrave;mes les plus classiques et les questions qui
+reviennent le plus fr&eacute;quemment.
+<P>Si vous avez l'intention d'utiliser ce pilote sous la forme d'un module
+chargeable, vous devriez probablement consulter&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#modules">Utiliser les pilotes Ethernet comme modules</A> pour des
+informations sp&eacute;cifiques aux modules.
+<P>
+<H3><A NAME="ultra"></A> SMC Elite Ultra</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: smc-ultra (+8390)
+<P>Cette carte Ethernet est bas&eacute;e sur la 83c790 de SMC, qui comporte
+quelques nouveaut&eacute;s par rapport &agrave; la 83c690. Bien qu'elle poss&egrave;de un
+mode similaire aux anciennes cartes Ethernet SMC, elle n'est pas
+enti&egrave;rement compatible avec les vieux pilotes WD80*3. N&eacute;anmoins, dans ce
+mode le pilote partage la plupart de son code avec les autres pilotes
+8390, tout en &eacute;tant l&eacute;g&egrave;rement plus rapide qu'un clone de WD8013.
+<P>Puisqu'une partie de l'Ultra <EM>ressemble</EM> &agrave; une 8013, sa proc&eacute;dure
+de d&eacute;tection est cens&eacute;e en trouver une avant que celle de la wd8013 
+n'ait une chance de l'identifier par erreur.
+<P>Donald a mentionn&eacute; qu'il est possible d'&eacute;crire un pilote s&eacute;par&eacute; pour le
+mode `Altego' de l'Ultra, qui permet d'encha&icirc;ner les transmissions au
+co&ucirc;t d'une utilisation inefficace des tampons de r&eacute;ception, mais cela
+n'arrivera probablement jamais.
+<P>Utilisateurs d'adaptateurs SCSI dot&eacute;s du contr&ocirc;le de bus, prenez note&nbsp;:
+dans le manuel qui accompagne Interactive UNIX, il est mentionn&eacute; qu'une
+bogue dans la SMC Ultra cause des corruptions de donn&eacute;es avec des
+disques SCSI utilis&eacute;s derri&egrave;re un adaptateur aha-154X. Cela touche
+certainement aussi des cartes compatibles aha-154X, comme les BusLogic,
+et les adaptateurs SCSI AMI-FastDisk.
+<P>SMC a reconnu que le probl&egrave;me se produit avec Interactive, et des
+anciens pilotes Windows NT. Il s'agit d'un conflit mat&eacute;riel avec des
+r&eacute;visions ant&eacute;rieures de la carte qui peut &ecirc;tre contourn&eacute; dans la
+conception du pilote. Le pilote actuel de l'Ultra vous prot&egrave;ge contre ce
+probl&egrave;me en n'activant la m&eacute;moire partag&eacute;e que lors des transferts de
+donn&eacute;es avec la carte. Assurez-vous que votre version de noyau soit au
+moins la 1.1.84, ou que celle du pilote indiqu&eacute;e au d&eacute;marrage est au
+moins <CODE>smc-ultra.c:v1.12</CODE>, sinon vous &ecirc;tes vuln&eacute;rable &agrave; ce
+probl&egrave;me.
+<P>Si vous avez l'intention d'utiliser ce pilote sous la forme d'un module
+chargeable, vous devriez probablement consulter&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#modules">Utiliser les pilotes Ethernet comme modules</A> pour des
+informations sp&eacute;cifiques aux modules.
+<P>
+<H3><A NAME="ultra32"></A> SMC Elite Ultra32 EISA</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: smc-ultra32 (+8390)
+<P>Cette carte EISA partage nombre de points communs avec son pendant
+ISA. Un pilote qui fonctionne (et qui est stable) est inclus dans les
+versions 2.0 et 2.2 du noyau. Les remerciements vont &agrave; Leonard Zubkoff
+pour l'achat de quelques unes de ces cartes afin que le support Linux
+pour celles-ci puisse &ecirc;tre r&eacute;alis&eacute;.
+<P>
+<H3>SMC EtherEZ (8416)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: smc-ultra (+8390)
+<P>Cette carte utilise la puce 83c795 de SMC et supporte la sp&eacute;cification
+Plug 'n Play. Elle comporte aussi un mode compatible <EM>SMC Ultra</EM>
+qui lui permet d'&ecirc;tre utilis&eacute;e avec le pilote Ultra de Linux. Pour de
+meilleurs r&eacute;sultats, utilisez le programme provenant de chez SMC et
+permettant de d&eacute;sactiver le PnP et de la configurer pour le mode &agrave;
+m&eacute;moire partag&eacute;e. Consultez les informations ci-dessus pour des notes
+sur le pilote Ultra.
+<P>Pour les noyaux 1.2, la carte devait &ecirc;tre configur&eacute;e pour op&eacute;rer en
+m&eacute;moire partag&eacute;e. N&eacute;anmoins, les noyaux 2.0 peuvent utiliser la carte
+dans ce mode ou en E/S programm&eacute;es. Celui-l&agrave; sera l&eacute;g&egrave;rement plus
+rapide, et requerra moins de ressources processeur, par ailleurs.
+<P>
+<H3><A NAME="smc-pci"></A> SMC EtherPower PCI (8432)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de4x5, tulip
+<P>NB&nbsp;: L'EtherPower&nbsp;II est une carte totalement diff&eacute;rente. Voir plus
+bas&nbsp;!
+<P>Ces cartes sont une impl&eacute;mentation de base de la puce 21040 de DEC,
+c'est-&agrave;-dire une grosse puce et quelques transceivers. Donald a utilis&eacute;
+une de ces cartes pour son d&eacute;veloppement du pilote g&eacute;n&eacute;rique 21040
+(aussi connu sous le nom de <CODE>tulip.c</CODE>). Merci de nouveau &agrave; Duke
+Kamstra, d'avoir fourni une carte sur laquelle r&eacute;aliser le
+d&eacute;veloppement.
+<P>Certaines des derni&egrave;res r&eacute;visions de cette carte utilisent la r&eacute;cente
+puce 21041 de DEC, ce qui peut causer des probl&egrave;mes avec des versions
+anciennes du pilote <CODE>tulip</CODE>. Si vous avez des probl&egrave;mes,
+assurez-vous d'utiliser la derni&egrave;re version du pilote, qui peut ne pas
+encore se trouver dans l'arborescence actuelle du noyau.
+<P>Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#dec-21040">DEC 21040</A> pour plus de d&eacute;tails sur
+l'utilisation d'une de ces cartes, et l'&eacute;tat d'avancement actuel du
+pilote.
+<P>Apparemment, la toute derni&egrave;re r&eacute;vision de la carte, l'EtherPower-II,
+utilise la puce 9432. Il n'est pas certain pour l'instant que celle-ci
+fonctionnera avec le pilote actuel. Comme d'habitude, si vous n'&ecirc;tes pas
+s&ucirc;r, v&eacute;rifiez que vous pourrez rendre la carte si elle ne fonctionne pas
+avec le pilote Linux <EM>avant</EM> de payer.
+<P>
+<H3><A NAME="smc-pci-II"></A> SMC EtherPower II PCI (9432)</H3>
+
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: epic100
+<P>Ces cartes, bas&eacute;es sur la puce&nbsp;83c170 de&nbsp;SMC, sont compl&egrave;tement
+diff&eacute;rentes des cartes bas&eacute;es sur la&nbsp;Tulip. Un nouveau pilote est inclus
+dans les noyau&nbsp;2.0 et 2.2 pour les supporter. Pour plus de d&eacute;tails, 
+consultez&nbsp;:
+<P><CODE>http://cesdis.gsfc.nasa.gov/linux/drivers/epic100.html</CODE>
+<P>
+<H3>SMC 3008</H3>
+
+<P>Statut&nbsp;: Non support&eacute;
+<P>Ces cartes 8&nbsp;bits sont bas&eacute;es sur la puce MB86950 de Fujitsu, qui est
+une ancienne version de la MB86965 utilis&eacute;e dans le pilote Linux de
+l'at1700. Russ dit que vous devriez probablement pouvoir bidouiller un
+pilote en regardant le code de <CODE>at1700.c</CODE> et son pilote DOS en mode
+paquet pour la carte Tiara (<CODE>tiara.asm</CODE>). Ces cartes ne sont pas
+tr&egrave;s r&eacute;pandues.
+<P>
+<H3>SMC 3016</H3>
+
+<P>Statut&nbsp;: Non support&eacute;
+<P>Il s'agit de cartes 16&nbsp;bits &agrave; E/S mapp&eacute;es, &agrave; puce 8390, tr&egrave;s similaires
+&agrave; une carte NE2000 g&eacute;n&eacute;rique. Si vous pouvez obtenir les sp&eacute;cifications
+chez SMC, alors r&eacute;aliser un portage du pilote NE2000 sera certainement
+relativement facile. Ces cartes ne sont pas tr&egrave;s r&eacute;pandues.
+<P>
+<H3>SMC-9000 / SMC 91c92/4</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: smc9194
+<P>La SMC9000 est une carte VLB bas&eacute;e sur la puce 91c92. La 91c92 appara&icirc;t
+aussi sur un petit nombre de cartes d'autres marques, mais est plut&ocirc;t
+peu commune. Erik Stahlman (<CODE>erik@vt.edu</CODE>) a &eacute;crit ce pilote qui se
+trouve dans les noyaux 2.0, mais pas dans les 1.2 plus anciens.  Vous
+devriez pouvoir l'int&eacute;grer &agrave; une arborescence de noyau 1.2 avec un
+minimum de difficult&eacute;s.
+<P>
+<H3>SMC 91c100</H3>
+
+<P>
+<P>Statut&nbsp;: Partiellement support&eacute;, Nom du pilote&nbsp;: smc9194
+<P>Le pilote SMC 91c92 est suppos&eacute; fonctionner pour les cartes bas&eacute;es sur
+cette puce 100Base-T, mais &agrave; l'heure actuelle cela n'a pas &eacute;t&eacute; v&eacute;rifi&eacute;.
+<P>
+<H2><A NAME="ss5.36">5.36 Texas Instruments</A>
+</H2>
+
+<P>
+<P>
+<H3><A NAME="tlan"></A> ThunderLAN</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: tlan
+<P>Ce pilote supporte beaucoup de cartes ethernet int&eacute;gr&eacute;es aux ordinateurs
+Compaq, incluant les familles NetFlex et Netelligent. Il supporte aussi
+les produits Olicom 2183, 2185, 2325 et 2326.
+<P>
+<H2><A NAME="ss5.37">5.37 Thomas Conrad</A>
+</H2>
+
+<P>
+<P>
+<H3>Thomas Conrad TC-5048</H3>
+
+<P>Encore une autre carte PCI bas&eacute;e sur la puce 21040 de DEC.
+<P>Consultez la section sur la puce 21040 (
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#dec-21040">DEC         21040</A>) pour plus d'informations.
+<P>
+<H2><A NAME="ss5.38">5.38 VIA</A>
+</H2>
+
+<P>Vous ne verrez probablement jamais une carte VIA, car VIA fabrique
+plusieurs puces r&eacute;seau qui sont ensuite utilis&eacute;es par d'autres dans la
+construction de leurs cartes ethernet. Ils ont un site WWW &agrave;&nbsp;:
+<P>
+<BLOCKQUOTE>
+<CODE>http://www.via.com.tw/</CODE>
+</BLOCKQUOTE>
+<P>
+<H3>VIA 86C926 Amazon</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: ne, ne2k-pci (+8390)
+<P>Ce contr&ocirc;leur est l'offre NE2000 PCI de VIA. Vous avez le choix entre le
+pilote ISA/PCI <CODE>ne.c</CODE> ou le pilote PCI <CODE>ne2k-pci.c</CODE>. R&eacute;f&eacute;rez
+vous &agrave; la section NE2000 PCI pour plus de d&eacute;tails.
+<P>
+<H3>VIA 86C100A Rhine II (et 3043 Rhine I)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: via-rhine
+<P>Ce pilote relativement r&eacute;cent se trouve dans les noyaux 2.0 et
+2.2. Cette puce est une am&eacute;lioration de la NE2000 86C926 dans la mesure
+o&ugrave; elle g&egrave;re les transferts par contr&ocirc;le de bus, mais du fait de
+l'obligation d'aligner les tampons sur 32&nbsp;bits, les gains sont
+limit&eacute;s. Pour plus de d&eacute;tails, et les mises &agrave; jour, r&eacute;f&eacute;rez vous &agrave;&nbsp;:
+<P><CODE>http://cesdis.gsfc.nasa.gov/linux/drivers/via-rhine.html</CODE>
+<P>
+<P>
+<H2><A NAME="ss5.39">5.39 Western Digital</A>
+</H2>
+
+<P>R&eacute;f&eacute;rez vous &agrave; la section 
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#smc">SMC</A> pour plus
+d'informations sur les cartes SMC. (SMC a rachet&eacute; la section cartes
+r&eacute;seau de Western Digital il y a bien longtemps).
+<P>
+<H2><A NAME="ss5.40">5.40 Winbond</A>
+</H2>
+
+<P>Winbond ne fabrique, ni ne vend de cartes au grand public&nbsp;--&nbsp;au lieu de
+cela, ils font des puces pour cartes r&eacute;seau tout en un, les vendent &agrave;
+d'autres entreprises, qui les collent sur une carte PCI, ajoutent leur
+nom et ensuite, les revendent.
+<P>
+<H3>Winbond 89c840</H3>
+
+<P>Statut&nbsp;: Partiellement Support&eacute;, Nom du pilote&nbsp;: winbond-840
+<P>Ce pilote n'est pas actuellement distribu&eacute; avec le noyau, car il est en
+phase de test. Il est disponible &agrave;&nbsp;:
+<P><CODE>http://cesdis.gsfc.nasa.gov/linux/drivers/test/winbond-840.c</CODE>
+<P>
+<H3>Winbond 89c940</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: ne, ne2k-pci (+8390)
+<P>Cette puce est l'une des deux que l'on retrouve souvent sur les cartes
+NE2000 PCI de bas de gamme vendues par beaucoup de fabriquants. Notez
+que c'est toujours une id&eacute;e vieille de plus de 10 ans coll&eacute;e sur un bus
+PCI. Les performances ne seront pas meilleures que pour l'&eacute;quivalent
+ISA.
+<P>
+<H2><A NAME="xircom"></A> <A NAME="ss5.41">5.41 Xircom</A>
+</H2>
+
+<P>Depuis des temps imm&eacute;moriaux, Xircom refusait de d&eacute;voiler les informations 
+n&eacute;cessaires &agrave; l'&eacute;criture d'un pilote, &agrave; moins que vous ne vous livriez  
+&agrave; eux corps et &acirc;me. Apparemment, suffisamment d'utilisateurs de Linux les 
+ont harcel&eacute; pour obtenir du support pour un pilote (ils pr&eacute;tendent 
+supporter tous les syst&egrave;mes d'exploitation r&eacute;seau populaires...), ce qui
+les a amen&eacute;s &agrave; changer de politique afin de permettre la diffusion de la 
+documentation, sans avoir &agrave; signer un accord de confidentialit&eacute;. Certains 
+ont dit qu'ils allaient distribuer les sources du pilote SCO, alors que 
+d'autres ont dit qu'ils ne fournissaient plus de documentation sur les 
+produits `obsol&egrave;tes', comme les premiers mod&egrave;les PE. Si vous &ecirc;tes int&eacute;ress&eacute;s 
+et que vous voulez v&eacute;rifier par vous m&ecirc;me, vous pouvez joindre Xircom au
+1-800-874-7875, 1-800-438-4526 ou au +1-818-878-7600.
+<P>(NDT&nbsp;: les deux premiers num&eacute;ros sont des num&eacute;ros verts aux &Eacute;tats-Unis et
+ne sont pas accessibles depuis l'&eacute;tranger. Le dernier est un num&eacute;ro
+international).
+<P>
+<H3>Xircom PE1, PE2, PE3-10B*</H3>
+
+<P>Statut&nbsp;: Non support&eacute;.
+<P>Ce n'est pas pour vous r&eacute;conforter, mais si vous avez l'un de ces
+adaptateurs sur port parall&egrave;le, vous pourrez peut-&ecirc;tre l'utiliser sous
+l'&eacute;mulateur DOS avec les pilotes DOS fournis par Xircom. Vous devrez
+autoriser l'acc&egrave;s de DOSEMU au port parall&egrave;le, et certainement jouer
+avec SIG (le g&eacute;n&eacute;rateur d'interruptions stupides de DOSEMU, en anglais
+<I>Silly Interrupt Generator</I>).
+<P>
+<H3>Cartes Xircom PCMCIA</H3>
+
+<P>Statut&nbsp;: Partiellement Support&eacute;, Nom du pilote&nbsp;: ????
+<P>Les pilotes de certaines cartes Xircom PCMCIA sont disponibles dans le
+paquetage PCMCIA de David Hinds. V&eacute;rifiez l&agrave;-bas pour de plus amples
+informations.
+<P>
+<H2><A NAME="zenith"></A> <A NAME="ss5.42">5.42 Zenith</A>
+</H2>
+
+<P>
+<P>
+<H3><A NAME="z-note"></A> Z-Note</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: znet
+<P>L'adaptateur r&eacute;seau int&eacute;gr&eacute; au Z-Note est bas&eacute; sur la puce i82593
+d'Intel, et utilise <EM>deux</EM> canaux DMA. Un pilote (alpha&nbsp;?), est
+disponible dans la version courante du noyau. Comme tous les adaptateurs
+de poche ou portables, il se trouve dans la section `Pocket and portable
+adaptors' lorsque vous ex&eacute;cutez <CODE>make config</CODE>.  Notez aussi que
+l'IBM ThinkPad 300 est compatible avec le Z-Note.
+<P>
+<H2><A NAME="zynx"></A> <A NAME="ss5.43">5.43 Znyx</A>
+</H2>
+
+<P>
+<P>
+<H3>Znyx ZX342 (DEC 21040 based)</H3>
+
+<P>Statut&nbsp;: Support&eacute;, Nom du pilote&nbsp;: de4x5, tulip
+<P>Vous avez le choix entre <EM>deux</EM> pilotes pour les cartes bas&eacute;es sur
+cette puce. D'une part le pilote DE425 &eacute;crit par David, d'autre part le
+pilote 21040 g&eacute;n&eacute;rique &eacute;crit par Donald.
+<P>Notez que depuis la version 1.1.91, David a ajout&eacute; une option de
+compilation qui permet aux cartes non-Digital (comme les cartes Znyx) de
+fonctionner avec ce pilote. Jetez un coup d'oeil au fichier
+<CODE>README.de4x5</CODE> pour les d&eacute;tails.
+<P>Consultez&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#dec-21040">DEC 21040</A> pour plus d'informations
+sur ces cartes, et la situation actuelle du pilote.
+<P>
+<P>
+<H2><A NAME="mystery"></A> <A NAME="ss5.44">5.44 Identifier une carte inconnue</A>
+</H2>
+
+<P>OK, l'ami du voisin du cousin de votre oncle a un fr&egrave;re qui a trouv&eacute; une
+vieille carte Ethernet ISA dans le bo&icirc;tier de l'AT qui servait de cage
+pour le hamster de son fils. D'une mani&egrave;re ou d'une autre vous avez fini
+par vous retrouver avec cette carte et vous voudriez essayer de
+l'utiliser avec Linux, mais personne n'a le commencement du d&eacute;but d'une
+id&eacute;e de ce qu'elle est et il n'y a aucune documentation.
+<P>Tout d'abord, cherchez n'importe quel num&eacute;ro de mod&egrave;le &eacute;vident qui
+pourrait fournir un indice. Un num&eacute;ro de mod&egrave;le qui contient 2000 sera
+certainement un clone de NE2000. Une carte avec 8003 ou 8013 &eacute;crit
+quelque part dessus sera une carte WD80x3 de Western/Digital ou une SMC
+Elite, ou un clone de l'une d'elles.
+<P>
+<H3>Identifier le contr&ocirc;leur d'interface r&eacute;seau (Network InterfaceController, NIC)</H3>
+
+<P>Cherchez la plus grosse puce sur la carte. Ce sera le contr&ocirc;leur r&eacute;seau
+(NIC) lui-m&ecirc;me, et la plupart peuvent &ecirc;tre identifi&eacute;s par leur
+r&eacute;f&eacute;rence. Si vous savez quel NIC se trouve sur la carte, ce qui suit
+devrait vous aider &agrave; deviner de laquelle il s'agit.
+<P>Encore &agrave; l'heure actuelle, le NIC le plus courant est la puce DP8390 de
+National Semiconductor, alias NS32490, alias DP83901, alias DP83902,
+alias DP83905, alias DP83907. Et il ne s'agit que de celles fabriqu&eacute;es
+par National Semiconductor&nbsp;! D'autres soci&eacute;t&eacute;s comme Winbond et UMC
+produisent des clones de DP8390 et DP83905, comme la 89c904 de Winbond
+(un clone de DP83905) et la 9090 d'UMC. Si la carte a quelque chose qui
+s'approche d'un 8390, il y a des chances pour qu'il s'agisse d'un clone
+de NE1000 ou de NE2000. Parmi les cartes bas&eacute;es sur le&nbsp;8390, arrivent en
+deuxi&egrave;me position les wd80x3 (de Western/Digital) et ses clones.  Des
+cartes avec un DP83905 peuvent &ecirc;tre configur&eacute;es pour &ecirc;tre une NE2000
+<EM>ou</EM> une wd8013. Les versions les plus r&eacute;centes des wd80x3 de base
+et des SMC Elite poss&egrave;dent un 83c690 en lieu et place du DP8390
+d'origine.  Les cartes SMC Ultra ont un 83c790, et utilisent un pilote
+l&eacute;g&egrave;rement diff&eacute;rent de celui des cartes wd80x3. Les cartes EtherEZ de
+SMC ont un 83c795, et utilisent le m&ecirc;me pilote que la SMC Ultra. Toutes
+les cartes BNC bas&eacute;es sur un genre de 8390 ou l'un de ses clones auront
+g&eacute;n&eacute;ralement un 8392 (ou un 83c692, ou un ???392) en bo&icirc;tier DIP 16
+broches tout pr&egrave;s du connecteur BNC.
+<P>L'Intel i82586 est un autre NIC courant que l'on trouve sur des cartes
+plus anciennes. Parmi celles qui en comportent un, citons la 3c505, la
+3c507, la 3c523, l'EtherExpress-ISA d'Intel, l'Exos-205T de Microdyne,
+et la NI5210 de Racal-Interlan.
+<P>Le NIC d'origine de la carte LANCE d'AMD &eacute;tait num&eacute;rot&eacute; AM7990, et les
+r&eacute;visions plus r&eacute;centes incluent le 79c960, le 79c961, le 79c965, le
+79c970, et le 79c974. La plupart des cartes ayant l'une de ces puces
+fonctionnera avec le pilote LANCE de Linux, &agrave; l'exception des vieilles
+cartes NI6510 de Racal-Interlan qui poss&egrave;dent leur propre pilote.
+<P>Les cartes PCI plus r&eacute;centes et qui comportent un NIC de DEC r&eacute;f&eacute;renc&eacute;
+21040, 21041, 21140, ou un num&eacute;ro approchant, devraient &ecirc;tre capables
+d'utiliser le pilote `tulip' ou le `de4x5' de Linux.
+<P>D'autres cartes PCI qui comportent une grosse puce marqu&eacute;e RTL8029,
+89C940 ou 86C926 sont des clones de NE2000, et le pilote `ne' des
+versions 2.0 et sup&eacute;rieures du noyau Linux devrait automatiquement les
+d&eacute;tecter au d&eacute;marrage.
+<P>
+<H3>Identifier l'adresse Ethernet</H3>
+
+<P>Chaque carte Ethernet poss&egrave;de sa propre adresse sur six octets qui lui
+est unique et propre. Les trois premiers octets de cette adresse
+Ethernet sont les m&ecirc;mes pour chaque carte construite par un constructeur
+donn&eacute;.  Par exemple, toutes les adresses des cartes de SMC commencent
+par <CODE>00:00:c0</CODE>. Les trois derniers octets sont affect&eacute;s par le
+constructeur de fa&ccedil;on unique &agrave; chaque carte individuelle au fur et &agrave;
+mesure de leur fabrication.
+<P>Si votre carte comporte un autocollant qui donne tous les six octets de
+son adresse, vous pouvez identifier le constructeur &agrave; partir des trois
+premiers. Toutefois, il est plus courant de ne trouver que les trois
+derniers octets, imprim&eacute;s sur un autocollant attach&eacute; &agrave; une PROM mont&eacute;e
+sur la carte, ce qui ne vous indique rien du tout.
+<P>Vous pouvez d&eacute;terminer quel constructeur poss&egrave;de quelles adresses &agrave;
+partir de la RFC-1340. Apparemment il existe &eacute;galement une liste plus &agrave;
+jour qui est disponible &agrave; divers endroits. Essayez de faire une
+recherche WWW ou FTP sur <CODE>EtherNet-codes</CODE> ou <CODE>Ethernet-codes</CODE>
+et vous trouverez quelque chose.
+<P>
+<H3>Quelques astuces pour essayer d'utiliser une carte inconnue</H3>
+
+<P>Si vous n'&ecirc;tes toujours pas s&ucirc;r(e) de quelle carte il s'agit, mais que
+vous avez un peu r&eacute;duit le champ des possibilit&eacute;s, alors vous pouvez
+construire un noyau en y incluant tout un tas de pilotes, et voir si
+l'un d'entre eux d&eacute;tecte automatiquement la carte lors du d&eacute;marrage.
+<P>Si le noyau ne d&eacute;tecte pas la carte, il se peut que la carte ne soit pas
+configur&eacute;e &agrave; l'une des adresses que le pilote teste lorsqu'il en
+recherche une. Dans ce cas, vous pourriez essayer de r&eacute;cup&eacute;rer
+<CODE>scanport.tar.gz</CODE> sur votre site FTP Linux pr&eacute;f&eacute;r&eacute;, et voir s'il
+peut trouver l'adresse pour laquelle votre carte est configur&eacute;e. Ce
+programme parcourt l'espace d'adressage d'entr&eacute;e/sortie de <CODE>0x100</CODE>
+&agrave; <CODE>0x3ff</CODE> en cherchant des p&eacute;riph&eacute;riques qui ne sont pas d&eacute;j&agrave;
+enregistr&eacute;s dans <CODE>/proc/ioports</CODE>.  S'il en trouve un qui soit
+inconnu et qui d&eacute;marre &agrave; une adresse donn&eacute;e, vous pouvez alors
+explicitement diriger les proc&eacute;dures de d&eacute;tection Ethernet vers cette
+adresse en utilisant un argument de d&eacute;marrage <CODE>ether=</CODE>.
+<P>Si vous arrivez &agrave; faire en sorte que la carte soit d&eacute;tect&eacute;e, vous pouvez
+alors deviner la fonction des cavaliers inconnus en les modifiant un par
+un et en regardant &agrave; quelle adresse d'E/S de base et &agrave; quelle IRQ la
+carte est d&eacute;tect&eacute;e. Les param&egrave;tres d'IRQ peuvent aussi habituellement
+&ecirc;tre d&eacute;termin&eacute;s en suivants les traces au dos de la carte jusqu'&agrave;
+l'endroit o&ugrave; les cavaliers sont soud&eacute;s. En comptant les `doigts d'or'
+sur la face arri&egrave;re, depuis l'extr&eacute;mit&eacute; de la carte o&ugrave; se situe la
+plaque m&eacute;tallique qui se fixe au coffret du PC,  vous avez
+les IRQ 9, 7, 6, 5, 4, 3, 10, 11, 12, 15, et 14 sur les `doigts' 4, 21,
+22, 23, 24, 25, 34, 35, 36, 37, et 38 respectivement. Les cartes
+huit&nbsp;bits ne comportent que les doigts 1 &agrave; 31.
+<P>Les cavaliers qui paraissent ne servir &agrave; rien ont g&eacute;n&eacute;ralement pour
+fonction de s&eacute;lectionner l'adresse m&eacute;moire d'une ROM de d&eacute;marrage (boot
+ROM) optionnelle. D'autres situ&eacute;s pr&egrave;s des connecteurs BNC, RJ-45 ou AUI
+servent g&eacute;n&eacute;ralement &agrave; s&eacute;lectionner le support physique de
+sortie. Ceux-ci se situent typiquement pr&egrave;s des `bo&icirc;tes noires' qui
+contiennent les convertisseurs de tension, marqu&eacute;es YCL, Valor, ou
+Fil-Mag.
+<P>Une collection int&eacute;ressante de configurations de cavaliers pour diverses
+cartes se trouve &agrave; l'URL suivante&nbsp;:
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://www.slug.org.au/NIC/">Param&eacute;trage des cartes Ethernet</A></BLOCKQUOTE>
+<P>
+<H2><A NAME="ss5.45">5.45 Pilotes pour p&eacute;riph&eacute;riques Non-Ethernet</A>
+</H2>
+
+<P>Quelques autres pilotes existent dans les sources Linux qui se
+pr&eacute;sentent <EM>comme</EM> un p&eacute;riph&eacute;rique Ethernet vis-&agrave;-vis des
+programmes r&eacute;seaux, bien qu'ils ne soient pas r&eacute;ellement Ethernet. Les
+voici bri&egrave;vement pr&eacute;sent&eacute;s pour &ecirc;tre complet.
+<P><CODE>dummy.c</CODE> - Le but de ce pilote est de fournir un p&eacute;riph&eacute;rique pour
+d&eacute;signer une route qui le traverse, mais sans transmettre r&eacute;ellement de
+paquets.
+<P><CODE>eql.c</CODE> - Load Equalizer (&eacute;galiseur de charge), qui regroupe
+plusieurs p&eacute;riph&eacute;riques esclaves (g&eacute;n&eacute;ralement des modems) et r&eacute;partit
+la charge en transmission entre eux tout en ne pr&eacute;sentant qu'un seul
+p&eacute;riph&eacute;rique aux programmes r&eacute;seau.
+<P><CODE>ibmtr.c</CODE> - IBM Token Ring (anneau &agrave; jeton), qui n'est pas
+r&eacute;ellement de l'Ethernet. L'anneau &agrave; `jeter' n&eacute;cessite du routage par la
+source et autres trucs d&eacute;go&ucirc;tants.
+<P><CODE>loopback.c</CODE> - Loopback (boucle locale), par lequel passent tous
+les paquets &eacute;mis par votre machine &agrave; destination de votre machine.
+Essentiellement, il se contente de sortir les paquets de la file
+d'attente d'&eacute;mission et de les placer dans la file d'attente de
+r&eacute;ception.
+<P><CODE>pi2.c</CODE> - Interface Ottawa Amateur Radio Club PI et PI2.
+<P><CODE>plip.c</CODE> - Parallel Line Internet Protocol (PLIP, IP sur port
+parall&egrave;le), qui permet &agrave; deux ordinateurs de s'envoyer des paquets l'un
+&agrave; l'autre via leurs ports parall&egrave;les, en mode point-&agrave;-point.
+<P><CODE>ppp.c</CODE> - Point-to-Point Protocol (RFC1331), destin&eacute; &agrave; la
+transmission de datagrammes multi-protocoles sur un lien point-&agrave;-point
+(de nouveau, en g&eacute;n&eacute;ral des modems).
+<P>(NDT&nbsp;: C'est le mode de connexion le plus couramment employ&eacute; par les
+fournisseurs d'acc&egrave;s Internet. Consultez le <I>PPP-Howto</I>.)
+<P><CODE>slip.c</CODE> - Serial Line Internet Protocol (SLIP, IP sur port s&eacute;rie),
+qui permet &agrave; deux ordinateurs de s'envoyer des paquets l'un &agrave; l'autre
+via leurs ports s&eacute;rie (g&eacute;n&eacute;ralement via des modems), en mode
+point-&agrave;-point.
+<P><CODE>tunnel.c</CODE> - Fournit un tunnel IP (dit aussi `IP over IP', `IP sur
+IP', NDT) &agrave; travers lequel vous pouvez envoyer du trafic r&eacute;seau de fa&ccedil;on
+transparente entre sous-r&eacute;seaux.
+<P>(NDT&nbsp;: Pratique pour g&eacute;rer certains probl&egrave;mes d&eacute;licats de politique de
+routage, par exemple.)
+<P><CODE>wavelan.c</CODE> - Un transceiver radio semblable &agrave; de l'Ethernet,
+contr&ocirc;l&eacute; par le coprocesseur 82586 d'Intel qui est utilis&eacute; sur d'autres
+cartes Ethernet comme l'Intel EtherExpress.
+<P>
+<P>
+<HR>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-6.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-4.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc5"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

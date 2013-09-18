@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Linux Ethernet-Howto: Introduction</TITLE>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html" REL=next>
+
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc1" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<IMG SRC="prev.gif" ALT="Page précédente">
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc1"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="main-intro"></A> <A NAME="s1">1. Introduction</A></H2>
+
+<P>L'<I>Ethernet-Howto</I> indique quelles cartes vous devriez ou ne
+devriez pas acheter; comment les configurer, comment en utiliser
+plusieurs en m&ecirc;me temps et d'autres probl&egrave;mes et questions classiques.
+Il contient des informations d&eacute;taill&eacute;es sur le niveau actuel du support
+pour toutes les cartes Ethernet parmi les plus courantes disponibles.
+<P>Il <EM>ne</EM> couvre <EM>pas</EM> l'aspect logiciel des choses, tel qu'il
+est d&eacute;crit dans le <I>NET-3-Howto</I>. Notez aussi que les questions
+g&eacute;n&eacute;rales sur Ethernet, non li&eacute;es sp&eacute;cifiquement &agrave; Linux, ne sont pas
+trait&eacute;es dans ce document (ou du moins ne le devraient pas l'&ecirc;tre).
+Pour ce genre de questions, consultez l'excellent ensemble
+d'informations de la FAQ du groupe <CODE>comp.dcom.lans.ethernet</CODE>.  Vous
+pouvez l'obtenir par FTP depuis <CODE>rtfm.mit.edu</CODE> de la m&ecirc;me mani&egrave;re
+que vous obtenez les FAQs des autres forums.
+<P>La pr&eacute;sente version couvre les noyaux de distribution jusqu'&agrave; la version
+2.2.7 incluse.
+<P>L'<I>Ethernet-Howto</I> est de&nbsp;:
+<BLOCKQUOTE>
+Paul Gortmaker, <CODE>p_gortmaker@yahoo.com</CODE>
+</BLOCKQUOTE>
+<P>La principale source d'information pour la premi&egrave;re version, en ASCII
+pur de l'<I>Ethernet-Howto</I> &eacute;tait&nbsp;:
+<BLOCKQUOTE>
+Donald J. Becker, <CODE>becker@cesdis.gsfc.nasa.gov</CODE>
+</BLOCKQUOTE>
+
+que nous devons aussi remercier pour l'&eacute;criture de la vaste majorit&eacute; des
+pilotes de cartes Ethernet qui sont aujourd'hui disponibles pour
+Linux. Il est aussi l'auteur du serveur NFS originel. Merci Donald&nbsp;!
+<P>Ce document est Copyright (c) 1993-1999 Paul Gortmaker, et 1998-1999
+Mathieu Arnold pour la version fran&ccedil;aise. Consultez le d&eacute;sistement de
+responsabilit&eacute; (section&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#copyright">D&eacute;sistement de         responsabilit&eacute; et Copyright</A>) et les informations sur la copie &agrave; la
+fin de ce document pour avoir plus d'informations sur la
+redistribution de ce document ainsi que tout le tremblement habituel
+sur 'nous ne sommes pas responsables de ce que vous pouvez r&eacute;ussir a
+casser...'.
+<P>
+<P>La version fran&ccedil;aise est de&nbsp;:
+<BLOCKQUOTE>
+Mathieu Arnold, <CODE>arn_mat@club-internet.fr</CODE>.
+</BLOCKQUOTE>
+<P>
+<H2><A NAME="new-doc"></A> <A NAME="ss1.1">1.1 Nouvelles versions de ce document</A>
+</H2>
+
+<P>Les nouvelles versions de ce document peuvent &ecirc;tre rapatri&eacute;es depuis&nbsp;:
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/ftp://metalab.unc.edu/pub/Linux/docs/HOWTO/">Sunsite HOWTO Archive</A></BLOCKQUOTE>
+
+Ceci est l'emplacement officiel de ce document, il peut aussi &ecirc;tre
+r&eacute;cup&eacute;r&eacute; depuis divers sites miroirs WWW/FTP de Linux.
+<P>(NDT&nbsp;: En France, vous pr&eacute;f&eacute;rerez utiliser le site suivant pour le
+document originel&nbsp;:
+<P>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/ftp://ftp.lip6.fr/pub/linux/sunsite/docs/HOWTO/">Miroir de Sunsite</A><P>ou, mieux, la version fran&ccedil;aise&nbsp;:
+<P>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/ftp://ftp.lip6.fr/pub/linux/french/HOWTO/">Archive des HOWTO fran&ccedil;ais sur LIP6</A><P>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://www.freenix.org/unix/linux/french/HOWTO/">Archive des         HOWTO fran&ccedil;ais chez Freenix</A>)
+<P>Des mises &agrave; jour seront r&eacute;alis&eacute;es au fur et &agrave; mesure de l'arriv&eacute;e de
+nouvelles informations et/ou de nouveaux pilotes. Si la copie que vous
+&ecirc;tes en train de lire date de plus de 6 mois, alors, vous devriez
+aller v&eacute;rifier qu'une nouvelle version n'est pas disponible.
+<P>Ce document est consultable sous divers formats (postscript, dvi,
+ASCII, HTML...). Je recommanderai de consulter ce document sous sa
+forme HTML (&agrave; l'aide d'un navigateur WWW) ou sa forme
+Postscript/DVI. Ces deux formats contiennent des r&eacute;f&eacute;rences crois&eacute;es
+qui ne sont pas incluses dans le format texte ASCII.
+<P>
+<P>
+<H2><A NAME="using"></A> <A NAME="ss1.2">1.2 Ethernet-Howto, mode d'emploi</A>
+</H2>
+
+<P>Comme ce guide devient de plus en plus gros, vous n'avez certainement
+pas l'intention de passer la fin de votre apr&egrave;s-midi &agrave; le lire en
+entier. Et la bonne nouvelle est que vous n'&ecirc;tes pas <EM>oblig&eacute;(e)</EM>
+de le lire du tout. Les versions HTML, postscript et dvi poss&egrave;dent
+une table des mati&egrave;res qui vous permettra de trouver plus vite
+l'information que vous cherchez.
+<P>Il y a des chances pour que vous lisiez ce document parce que vous
+n'arrivez pas &agrave; faire marcher le tout, et que vous ne savez pas quoi
+faire ou quoi v&eacute;rifier. La prochaine section&nbsp;(
+<A HREF="index.php?ref=Ethernet-HOWTO-html/#help">Au         secours - Ca ne marche pas~!</A>) est destin&eacute;e aux n&eacute;ophytes de Linux et
+vous indiquera la bonne direction.
+<P>Typiquement, les m&ecirc;mes probl&egrave;mes et les m&ecirc;mes questions sont pos&eacute;s
+<EM>sans arr&ecirc;t</EM> par des personnes diff&eacute;rentes. Il y a des chances que
+votre probl&egrave;me ou votre question sp&eacute;cifique soit l'une de ces questions
+fr&eacute;quemment pos&eacute;es, et qu'elle trouve sa r&eacute;ponse dans la partie FAQ
+(NDT&nbsp;: Foire Aux Questions) de ce document.  (Voir&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#faq">La Foire Aux Questions</A>). Tout le monde devrait y jeter un coup
+d'oeil avant d'envoyer un message demandant de l'aide.
+<P>Si vous n'avez pas encore de carte Ethernet, vous devriez commencer par
+en choisir une. (Voir&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html#what-card">Quelle carte dois-je         acheter...</A>)
+<P>Si vous avez d&eacute;j&agrave; une carte Ethernet mais que vous n'&ecirc;tes pas s&ucirc;r(e) de
+pouvoir l'utiliser avec Linux, lisez donc la section qui contient les
+informations sp&eacute;cifiques &agrave; chaque constructeur, et &agrave; ses cartes.
+(Voir&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#card-intro">Informations Sp&eacute;cifiques...</A>)
+<P>Si vous &ecirc;tes int&eacute;ress&eacute;(e) par l'un des aspects techniques des pilotes de
+p&eacute;riph&eacute;riques de Linux, allez donc consulter la section&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html#tech-intro">Informations Techniques</A> qui contient ces
+informations.
+<P>
+<P>
+<H2><A NAME="help"></A> <A NAME="ss1.3">1.3 Au secours&nbsp;! - Ca ne marche pas&nbsp;!</A>
+</H2>
+
+<P>Bon, ne paniquez pas. Cette section va vous indiquer le chemin &agrave; suivre
+pour que les choses fonctionnent, m&ecirc;me si vous n'avez pas de
+connaissances pr&eacute;alables sur Linux ou le mat&eacute;riel Ethernet.
+<P>La premi&egrave;re chose &agrave; faire est de trouver quel est le mod&egrave;le de votre
+carte, afin de pouvoir d&eacute;terminer si Linux dispose d'un pilote pour
+cette carte-l&agrave;. Des cartes diff&eacute;rentes sont typiquement contr&ocirc;l&eacute;es de
+fa&ccedil;on diff&eacute;rente par l'ordinateur qui les accueille, et le pilote de
+p&eacute;riph&eacute;rique de Linux (s'il en existe un) contient ces informations de
+contr&ocirc;le qui permettent &agrave; Linux d'utiliser la carte.
+<P>Si vous n'avez pas de manuel ou de document de ce genre pour vous
+indiquer quel est le mod&egrave;le de la carte, vous pouvez alors essayer la
+m&eacute;thode d&eacute;crite dans la section&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#mystery">Identifier une         carte inconnue</A>, qui vous aidera sur les cartes myst&eacute;rieuses.
+<P>Maintenant que vous savez quel type de carte vous avez, lisez les
+d&eacute;tails concernant celle-ci dans la section destin&eacute;e aux cartes
+(section&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html#card-intro">Informations Sp&eacute;cifiques...</A>), qui
+liste par ordre alphab&eacute;tique les constructeurs de carte, les num&eacute;ros de
+chaque carte, et pr&eacute;cise s'il existe un pilote pour Linux ou non. Si
+votre carte est indiqu&eacute;e comme `Non-support&eacute;e', vous pouvez pratiquement
+vous arr&ecirc;ter d&egrave;s maintenant. Si vous ne pouvez pas trouver votre carte
+dans la liste, v&eacute;rifiez alors si le manuel de celle-ci ne l'indique pas
+comme `compatible' avec un autre type de carte connu. Par exemple, il
+existe des centaines, si ce n'est des milliers de cartes diff&eacute;rentes qui
+ont &eacute;t&eacute; con&ccedil;ues pour &ecirc;tre compatible avec le mod&egrave;le d'origine NE2000 de
+Novell.
+<P>Supposons que vous avez trouv&eacute; un pilote sous Linux pour votre carte,
+vous n'avez plus qu'&agrave; le r&eacute;cup&eacute;rer et &agrave; l'utiliser. Ce <EM>n'est pas</EM>
+parce que Linux poss&egrave;de un pilote pour votre carte que celui-ci est pour
+autant install&eacute; dans tous les noyaux. (Le noyau est le coeur du syst&egrave;me
+d'exploitation qui est charg&eacute; en premier au d&eacute;marrage et qui contient
+entre autres choses, les drivers de divers p&eacute;riph&eacute;riques).  Selon la
+distribution de Linux que vous utilisez, il peut n'y avoir que tr&egrave;s peu
+de noyaux tout pr&ecirc;ts, et tout un tas de pilotes sous la forme de modules
+s&eacute;par&eacute;s, ou il peut y avoir tout un tas de noyaux, qui couvrent un grand
+nombre de combinaisons de pilotes pr&eacute;compil&eacute;s.
+<P>La majorit&eacute; des distributions actuelles de linux sont livr&eacute;es avec
+beaucoup de petits modules qui sont les divers pilotes. Les modules
+requis sont g&eacute;n&eacute;ralements charg&eacute;s lors du d&eacute;marrage, ou &agrave; la demande
+pour pouvoir acc&eacute;der &agrave; un p&eacute;ripherique particulier. Vous aurez besoin
+d'attacher ce module au noyau apr&egrave;s qu'il ait d&eacute;marr&eacute;. Consultez les
+informations de votre distribution sur l'installation et l'utilisation
+des modules, ainsi que la section sur les modules du pr&eacute;sent document
+(section&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-10.html#modules">Utilisation des pilotes Ethernet comme         modules</A>).
+<P>Si vous n'avez pas trouv&eacute; de noyau pr&eacute;compil&eacute; avec votre pilote, ni de
+pilote sous la forme d'un module, il y a des chances pour que vous ayez
+une carte particuli&egrave;rement peu banale, et vous allez &ecirc;tre oblig&eacute;(e) de
+construire votre propre noyau en incluant ce pilote. Une fois que Linux
+est install&eacute;, construire un noyau personnalis&eacute; n'est pas difficile du
+tout. Vous r&eacute;pondez essentiellement oui ou non &agrave; ce que vous souhaitez
+que le noyau comprenne, et ensuite vous lui dites de le construire. Il
+existe un <I>Kernel-HowTo</I> qui vous aidera dans cette op&eacute;ration.
+<P>(NDT&nbsp;: et sa version fran&ccedil;aise, accessible sur
+<P>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/ftp://ftp.lip6.fr/pub/linux/french/HOWTO/Kernel-HOWTO">Traduction du Kernel-Howto</A>)
+<P>Arriv&eacute; &agrave; ce point, vous devriez &ecirc;tre parvenu d'une fa&ccedil;on ou d'une autre
+&agrave; d&eacute;marrer un noyau avec votre pilote int&eacute;gr&eacute;, ou &agrave; charger ce pilote
+comme un module. A peu pr&egrave;s la moiti&eacute; des probl&egrave;mes que les gens
+rencontrent est li&eacute;e au fait que le pilote n'a pas &eacute;t&eacute; charg&eacute; d'une
+mani&egrave;re ou de l'autre, donc vous devriez constater que tout fonctionne,
+maintenant.
+<P>Si cela ne fonctionne toujours pas, il vous faut alors v&eacute;rifier si le
+noyau a bel et bien d&eacute;tect&eacute; la carte. Pour ce faire, vous devez taper
+<CODE>dmesg | more</CODE> une fois logg&eacute;, apr&egrave;s que le syst&egrave;me a d&eacute;marr&eacute; et
+que tous les modules ont &eacute;t&eacute; charg&eacute;s. Cela vous permettra de consulter
+les messages que le noyau a fait d&eacute;filer sur l'&eacute;cran durant le processus
+de d&eacute;marrage. Si la carte a &eacute;t&eacute; d&eacute;tect&eacute;e, vous devriez voir quelque part
+dans cette liste un message du pilote de votre carte commen&ccedil;ant par
+<CODE>eth0</CODE>, et indiquant le nom du pilote et les param&egrave;tres mat&eacute;riels
+(r&eacute;glage d'interruption (IRQ), de ports d'entr&eacute;e-sorties (E/S), etc.)
+pour lesquels la carte est r&eacute;gl&eacute;e. (Note&nbsp;: lors du boot, le noyau de
+Linux donne la liste de toutes les cartes PCI, qu'il ait le pilote ou
+non - ne le confondez pas avec la d&eacute;tection des pilotes qui intervient
+apr&egrave;s&nbsp;!)
+<P>Si vous ne voyez pas de message d'identification de ce type, alors le
+pilote n'a pas d&eacute;tect&eacute; votre carte, et c'est pour cela que cela ne
+fonctionne pas. Consultez la FAQ (section&nbsp;
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-3.html#faq">La Foire         Aux Questions</A>) pour savoir quoi faire si votre carte n'est pas
+d&eacute;tect&eacute;e.  Si vous avez une carte compatible NE2000, vous y trouverez
+aussi des astuces sp&eacute;cifiques pour faire d&eacute;tecter une NE2000.
+<P>Si la carte a &eacute;t&eacute; d&eacute;tect&eacute;e, mais que le message de d&eacute;tection indique une
+quelconque erreur, telle qu'un conflit de ressources, alors le pilote ne
+s'est probablement pas correctement initialis&eacute; et la carte n'est
+toujours pas utilisable. La plupart des messages d'erreur de ce type
+sont eux aussi list&eacute;s dans la FAQ, ainsi que leur solution.
+<P>Si le message de d&eacute;tection para&icirc;t correct, v&eacute;rifiez de nouveau les
+ressources indiqu&eacute;es par le pilote en les comparant avec celles pour
+lesquelles la carte est physiquement configur&eacute;e (soit &agrave; l'aide de petits
+`cavaliers' noirs sur la carte, soit par un logiciel utilitaire fourni
+avec la carte par son constructeur).  Les ressources doivent
+correspondre exactement. Par exemple, si votre carte est configur&eacute;e
+(physiquement ou par logiciel) pour utiliser l'IRQ&nbsp;15 et que le pilote
+indique IRQ&nbsp;10 dans les messages de d&eacute;marrage, quelque chose ne va
+pas. La FAQ &eacute;voque les cas les plus courants o&ugrave; un pilote ne d&eacute;tecte pas
+correctement les informations de configuration de diverses cartes.
+<P>A ce stade, vous &ecirc;tes arriv&eacute;(e) &agrave; faire d&eacute;tecter votre carte avec tous
+les param&egrave;tres corrects, et l'on peut esp&eacute;rer que tout fonctionne. Si ce
+n'est pas le cas, vous avez alors soit une erreur de configuration
+logicielle, soit une erreur de configuration mat&eacute;rielle. Une erreur de
+configuration logicielle serait de ne pas avoir configur&eacute; la bonne
+adresse de r&eacute;seau pour l'une des commandes <CODE>ifconfig</CODE> ou
+<CODE>route</CODE> (ou les deux&nbsp;!); la mani&egrave;re de proc&eacute;der est d&eacute;crite en
+d&eacute;tail dans le <I>Network&nbsp;HowTo</I> et le `Guide de l'Administrateur
+R&eacute;seau' (`<I>Network Administrator's Guide</I>' (NAG) en anglais) qui se
+trouvent certainement tous les deux sur le CD-ROM d'installation.
+<P>Une erreur de configuration mat&eacute;rielle se produit quand un type de
+conflit de ressources ou une mauvaise configuration (que le pilote n'a
+pas d&eacute;tect&eacute; au d&eacute;marrage) emp&ecirc;che la carte de fonctionner
+correctement. Vous pouvez typiquement observer cela sous plusieurs
+formes diff&eacute;rentes.  (1)&nbsp;Vous obtenez un message d'erreur lorsque
+<CODE>ifconfig</CODE> essaie d'ouvrir le p&eacute;riph&eacute;rique pour l'utiliser, du
+genre ``<CODE>SIOCSFFLAGS: Try again</CODE>''.  (2)&nbsp;Le pilote indique des
+messages d'erreur sur <CODE>eth0</CODE> (que vous pouvez voir avec <CODE>dmesg |
+more</CODE>) ou des incoh&eacute;rences &eacute;tranges &agrave; chaque fois qu'il essaie
+d'envoyer ou de recevoir des donn&eacute;es.  (3)&nbsp;Le fait de taper <CODE>cat
+/proc/net/dev</CODE> donne un nombre non nul dans l'une des colonnes
+<CODE>errs</CODE>, <CODE>drop</CODE>, <CODE>fifo</CODE>, <CODE>frame</CODE> ou <CODE>carrier</CODE>
+pour <CODE>eth0</CODE>. (4)&nbsp;Taper <CODE>cat /proc/interrupts</CODE> donne un nombre
+d'interruptions &eacute;gal &agrave; z&eacute;ro pour la carte.  La plupart des erreurs de
+configuration mat&eacute;rielle typiques sont elles aussi abord&eacute;es dans la FAQ.
+<P>Eh bien, si vous &ecirc;tes parvenu &agrave; ce point et que cela ne marche toujours
+pas, lisez la section FAQ de ce document, voyez le paragraphe sp&eacute;cifique
+&agrave; votre carte dans la section ``Informations Sp&eacute;cifiques..'', <EM>et si
+cela ne fonctionne toujours pas</EM> alors vous pourrez recourir &agrave; un
+envoi de message dans un groupe de <I>news</I> appropri&eacute; pour demander
+de l'aide. Si vous devez poster un message, veuillez d&eacute;tailler toute
+information int&eacute;ressante dans ce message, comme la marque de la carte,
+la version du noyau, les messages du pilote au d&eacute;marrage, le r&eacute;sultat de
+<CODE>cat /proc/net/dev</CODE>, une description claire du probl&egrave;me, et bien
+entendu ce que vous avez d&eacute;j&agrave; essay&eacute; en vue de faire fonctionner
+l'ensemble.
+<P>Vous serez surpris de voir le nombre de personnes qui envoient des
+choses totalement inutiles comme ``Est-ce que quelqu'un peut m'aider&nbsp;?
+Mon Ethernet ne fonctionne pas.'' et rien d'autre.  Les lecteurs des
+groupes de news ont tendance &agrave; ignorer des messages aussi idiots, alors
+qu'une description d&eacute;taill&eacute;e et instructive du probl&egrave;me pourra permettre
+&agrave; un `gourou-Linux' de r&eacute;soudre tout de suite votre probl&egrave;me.
+<P>
+<P>
+<HR>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<IMG SRC="prev.gif" ALT="Page précédente">
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc1"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

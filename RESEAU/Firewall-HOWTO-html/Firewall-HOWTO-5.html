@@ -1,0 +1,357 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Le HOWTO du pare-feu et des serveurs mandataires: Pr&eacute;parer le syst&egrave;me Linux</TITLE>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-6.html" REL=next>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-4.html" REL=previous>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc5" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-6.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-4.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc5"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s5">5. Pr&eacute;parer le syst&egrave;me Linux</A></H2>
+
+<H2><A NAME="ss5.1">5.1 Compiler le noyau</A>
+</H2>
+
+<P>Commencez avec une installation minimale propre de votre distribution Linux.
+Moins vous installez de logiciels, moins votre syst&egrave;me aura de trous
+de s&eacute;curit&eacute;, portes d&eacute;rob&eacute;es et/ou bogues susceptibles d'induire des
+probl&egrave;mes de s&eacute;curit&eacute; dans votre syst&egrave;me.
+<P>Prenez un noyau stable.
+J'utilise le noyau Linux 2.2.9 ou plus pour mon syst&egrave;me.
+La documentation est donc fond&eacute;e sur ces param&egrave;tres.
+<P>Vous devez recompiler le noyau Linux avec les options appropri&eacute;es.
+Si vous n'avez jamais recompil&eacute; de noyau, je vous renvoie au
+Kernel HOWTO, &agrave; l'Ethernet HOWTO et au NET-3 HOWTO.
+<P>Voici les param&egrave;tres r&eacute;seau que je sais correspondre &agrave; quelque chose
+qui fonctionne.
+J'en ai signal&eacute; quelques-uns avec un "?".
+Si l'on souhaite utiliser cette fonctionnalit&eacute;, il faut aussi l'activer.
+<P>J'utilise "make menuconfig" pour &eacute;diter ma configuration
+de noyau.
+<P>
+<PRE>
+    &lt;*> Packet socket
+    [ ] Kernel/User netlink socket
+    [*] Network firewalls
+    [ ] Socket Filtering
+    &lt;*> Unix domain sockets
+    [*] TCP/IP networking
+    [ ] IP: multicasting
+    [*] IP: advanced router
+    [ ] IP: kernel level autoconfiguration
+    [*] IP: firewalling
+    [?] IP: always defragment (required for masquerading)
+    [?] IP: transparent proxy support
+    [?] IP: masquerading
+    --- Protocol-specific masquerading support will be built as modules.
+    [?] IP: ICMP masquerading
+    --- Protocol-specific masquerading support will be built as modules.
+    [ ] IP: masquerading special modules support
+    [*] IP: optimize as router not host
+    &lt; > IP: tunneling
+    &lt; > IP: GRE tunnels over IP
+    [?] IP: aliasing support
+    [*] IP: TCP syncookie support (not enabled per default)
+    --- (it is safe to leave these untouched)
+    &lt; > IP: Reverse ARP
+    [*] IP: Allow large windows (not recommended if &lt;16Mb of memory)
+    &lt; > The IPv6 protocol (EXPERIMENTAL)
+    ---
+    &lt; > The IPX protocol
+    &lt; > Appletalk DDP
+    &lt; > CCITT X.25 Packet Layer (EXPERIMENTAL)
+    &lt; > LAPB Data Link Driver (EXPERIMENTAL)
+    [ ] Bridging (EXPERIMENTAL)
+    [ ] 802.2 LLC (EXPERIMENTAL)
+    &lt; > Acorn Econet/AUN protocols (EXPERIMENTAL)
+    &lt; > WAN router
+    [ ] Fast switching (read help!)
+    [ ] Forwarding between high speed interfaces
+    [ ] PU is too slow to handle full bandwidth
+    QoS and/or fair queueing  --->
+</PRE>
+<P>
+<P>Apr&egrave;s avoir r&eacute;alis&eacute; toute la configuration qu'il vous faut vous devez
+recompiler, r&eacute;installer le noyau et rebouter.
+<P>J'utilise la commande&nbsp;:
+<P>
+<PRE>
+make dep;make clean;make bzlilo;make modules;make modules_install;init 6
+</PRE>
+<P>pour accomplir tout cela en une &eacute;tape.
+<P>
+<H2><A NAME="ss5.2">5.2 Configurer deux cartes r&eacute;seau</A>
+</H2>
+
+<P>Si vous avez deux cartes r&eacute;seau dans votre ordinateur, vous devrez tr&egrave;s
+certainement ajouter un param&egrave;tre "append" dans votre fichier
+/etc/lilo.conf pour d&eacute;crire les IRQ et adresses des deux cartes.
+Le mien se pr&eacute;sente ainsi&nbsp;:
+<P>
+<PRE>
+append="ether=12,0x300,eth0 ether=15,0x340,eth1"
+</PRE>
+<P>
+<H2><A NAME="ss5.3">5.3 Configurer les adresses r&eacute;seau</A>
+</H2>
+
+<P>Nous arrivons &agrave; la partie amusante de notre configuration.
+Je ne vais pas entrer tr&egrave;s profond&eacute;ment dans les d&eacute;tails de mise en place
+d'un r&eacute;seau local.
+Pour r&eacute;soudre vos probl&egrave;mes &agrave; ce niveau, vous pouvez vous reporter au
+Networking-HOWTO.
+<P>Votre but est de fournir deux connexions r&eacute;seau &agrave; votre syst&egrave;me pare-feu
+filtrant&nbsp;: l'une est Internet (c&ocirc;t&eacute; dangereux) et l'autre est le
+r&eacute;seau local (c&ocirc;t&eacute; s&eacute;curis&eacute;).
+<P>Dans tous les cas, vous devez prendre quelques d&eacute;cisions&nbsp;:
+<P>
+<OL>
+<LI>utiliserez-vous des adresses IP r&eacute;elles ou non pour
+votre r&eacute;seau local&nbsp;?</LI>
+<LI>votre FAI vous assigne-t'il une adresse IP ou utilisez-vous
+des adresses IP statiques&nbsp;?</LI>
+</OL>
+<P>Puisque nous ne souhaitons pas laisser InterNet acc&eacute;der au r&eacute;seau priv&eacute;,
+il n'est pas n&eacute;cessaire d'utiliser des adresses "r&eacute;elles".
+On peut toujours choisir des adresse arbitraires pour un r&eacute;eau priv&eacute;, mais
+ce n'est pas recommand&eacute;&nbsp;: au cas o&ugrave; des donn&eacute;es seraient rout&eacute;es
+en-dehors de celui-ci, elles pourraient arriver sur un autre syst&egrave;me.
+<P>Un certain nombre de plages d'adresses Internet ont &eacute;t&eacute; laiss&eacute;es
+de c&ocirc;t&eacute; pour les r&eacute;seaux priv&eacute;s.
+Parmi celles-ci, nous utiliserons celles de 192.168.2.xxx pour nos exemples.
+<P>Il vous faudra utiliser le masquage IP (IP masquerading) pour permettre
+&agrave; cela de fonctionner.
+Dans ce mode de fonctionnement, le pare-feu transmet les paquets en les
+traduisant en adresses IP "r&eacute;elles" pour leur permettre de voyager
+sur Internet.
+<P>L'utilisation de ces adresses IP non routables rend le r&eacute;seau priv&eacute; plus
+s&ucirc;r, car les routeurs Internet ne transmettront pas les paquets porteurs
+de ces adresses.
+<P>Il peut &ecirc;tre judicieux maintenant de lire le IP Masquerading HOWTO.
+<P>
+<PRE>
+            199.1.2.10   __________    192.168.2.1
+      _  __  _        \ |          | /           ___________
+     | \/  \/ |        \| Systeme  |/           | Postes de |
+    / InterNet \--------| pare-feu |------------|  travail  |
+    \_/\_/\_/\_/        |__________|            |___________|
+</PRE>
+<P>Vous devez assigner l'adresse IP "r&eacute;elle" &agrave; la carte r&eacute;seau
+du c&ocirc;t&eacute; Internet.
+Cette adresse peut vous &ecirc;tre assign&eacute;e de mani&egrave;re permanente (comme
+adresse IP statique) ou &agrave; chaque connexion par le processus PPP.
+<P>Vous assignez vos num&eacute;ros IP internes, comme 192.168.2.1 pour la
+carte Ethernet du r&eacute;eau local.
+Il s'agira de votre adresse de passerelle.
+Vous pouvez assigner une adresse de la plage 192.168.2.xxx &agrave;
+toutes les autres machines du r&eacute;seau prot&eacute;g&eacute; (soit
+192.168.2.2 &agrave; 192.168.2.254).
+<P>J'utilise Linux RedHat.
+Pour configurer le r&eacute;seau lors du d&eacute;marrage, j'ai ajout&eacute; un fichier
+"ifcfg-eth1" dans le r&eacute;pertoire /etc/sysconfig/network-scripts.
+On peut aussi trouver des fichiers ifcfg-ppp0 ou ifcfg-tr0 dans ce
+r&eacute;pertoire.
+Ces fichiers "ifcfg-" sont utilis&eacute;s par RedHat pour configurer
+et activer les p&eacute;riph&eacute;riques r&eacute;seau lors du d&eacute;marrage.
+Leur nom est fonction du type de connexion.
+<P>Voici l'allure du fichier ifcfg-eth1 (deuxi&egrave;me carte Ethernet)
+de notre exemple&nbsp;:
+<P>
+<PRE>
+        DEVICE=eth1
+        IPADDR=192.168.2.1
+        NETMASK=255.255.255.0
+        NETWORK=192.168.2.0
+        BROADCAST=192.168.2.255
+        GATEWAY=199.1.2.10
+        ONBOOT=yes
+</PRE>
+<P>Si vous utilisez une connexion commut&eacute;e, vous devrez consulter les
+fichiers ifcfg-ppp0 et chat-ppp0 qui contr&ocirc;lent votre connexion PPP.
+<P>Ce fichier ifcfg peut avoir l'allure suivante&nbsp;:
+<P>
+<PRE>
+    DEVICE="ppp0"
+    ONBOOT="yes"
+    USERCTL="no"
+    MODEMPORT="dev/modem"
+    LINESPEED="115200"
+    PERSIST="yes"
+    DEFABORT="yes"
+    DEBUG="yes"
+    INITSTRING="ATZ"
+    DEFROUTE="yes"
+    HARDFLOWCTL="yes"
+    ESCAPECHARS="no"
+    PPPOPTIONS=""
+    PAPNAME="LoginID"
+    REMIP=""
+    NETMASK=""
+    IPADDR=""
+    MRU=""
+    MTU=""
+    DISCONNECTTIMEOUT=""
+    RETRYTIMEOUT="5"
+    BOOTPROTO="none"
+</PRE>
+<P>
+<H2><A NAME="ss5.4">5.4 Tester votre r&eacute;seau</A>
+</H2>
+
+<P>Commencer en utilisant les commandes ifconfig et route.
+Si vous avez deux cartes r&eacute;seau, votre ifconfig doit ressembler &agrave;&nbsp;:
+<P>
+<PRE>
+        #ifconfig
+        lo      Link encap:Local Loopback
+                inet addr:127.0.0.0  Bcast:127.255.255.255  Mask:255.0.0.0
+                UP BROADCAST LOOPBACK RUNNING  MTU:3584  Metric:1
+                RX packets:1620 errors:0 dropped:0 overruns:0
+                TX packets:1620 errors:0 dropped:0 overruns:0
+
+        eth0    Link encap:10Mbps Ethernet  HWaddr 00:00:09:85:AC:55
+                inet addr:199.1.2.10 Bcast:199.1.2.255  Mask:255.255.255.0
+                UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+                RX packets:0 errors:0 dropped:0 overruns:0
+                TX packets:0 errors:0 dropped:0 overruns:0
+                Interrupt:12 Base address:0x310
+
+        eth1    Link encap:10Mbps Ethernet  HWaddr 00:00:09:80:1E:D7
+                inet addr:192.168.2.1  Bcast:192.168.2.255  Mask:255.255.255.0
+                UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+                RX packets:0 errors:0 dropped:0 overruns:0
+                TX packets:0 errors:0 dropped:0 overruns:0
+                Interrupt:15 Base address:0x350
+</PRE>
+<P>et votre table de routage&nbsp;:
+<P>
+<PRE>
+        #route -n
+        Kernel routing table
+        Destination  Gateway      Genmask        Flags MSS   Window Use Iface
+        199.1.2.0    *            255.255.255.0  U     1500  0       15 eth0
+        192.168.2.0  *            255.255.255.0  U     1500  0        0 eth1
+        127.0.0.0    *            255.0.0.0      U     3584  0        2 lo
+        default      199.1.2.10   *              UG    1500  0       72 eth0
+</PRE>
+<P>Note&nbsp;: 199.1.2.0 est l'adresse du c&ocirc;t&eacute; Internet du pare-feu et
+192.168.2.0 celle du c&ocirc;t&eacute; priv&eacute; (r&eacute;seau local).
+<P>Vous devez commencer par vous assurer que chaque ordinateur de votre
+r&eacute;seau local puisse atteindre l'adresse de votre pare-feu (192.168.2.2
+dans cet exemple) par ping.
+Dans le cas contraire, replongez-vous dans le NET-3 HOWTO et
+retravaillez un peu votre r&eacute;seau.
+<P>Ensuite, essayez d'atteindre un syst&egrave;me Internet depuis le pare-feu.
+J'utilise personnellement l'adresse
+<A HREF="index.php?ref=Firewall-HOWTO-html/http://www.internic.net">www.internic.net</A>
+pour mes tests.
+Si cela ne fonctionne pas, essayez un serveur de votre FAI.
+Si cela ne fonctionne toujours pas, il y a un probl&egrave;me quelque part
+dans la configuration de votre connexion Internet.
+Vous devriez pouvoir atteindre n'importe quel point d'Internet
+depuis votre pare-feu.
+Essayez de v&eacute;rifier la configuration de votre passerelle par d&eacute;faut.
+Si vous utilisez une connexion commut&eacute;e, recontr&ocirc;lez votre nom
+d'utilisateur et votre mot de passe.
+Replongez--vous dans le NET-3 HOWTO et essayez encore.
+<P>Maintenant, essayez d'atteindre l'adresse ext&eacute;rieure du pare-feu
+(199.1.2.10 dans notre exemple) depuis une machine du r&eacute;seau local.
+Cela ne doit pas fonctionner.
+Dans le cas contraire, le masquage IP ou la transmission IP sont
+activ&eacute;s ou vous avez d&eacute;j&agrave; une sorte de filtrage de paquet positionn&eacute;e.
+D&eacute;sactivez-les et r&eacute;essayez.
+Vous devez savoir si le filtrage est en place.
+<P>Pour les noyaux post&eacute;rieurs au 2.1.102, vous pouvez utiliser la
+commande&nbsp;:
+<P>
+<PRE>
+    echo "0" > /proc/sys/net/ipv4/ip_forward
+</PRE>
+<P>Si, en revanche, vous utilisez un noyau plus ancien (pourquoi&nbsp;?),
+vous devrez recompiler celui-ci en d&eacute;sactivant la transmission IP
+(IP forwarding, mais mettez plut&ocirc;t votre noyau &agrave; jour).
+<P>Essayez &agrave; nouveau d'atteindre l'adresse ext&eacute;rieure du pare-feu
+(199.1.2.10 dans notre exemple) depuis une machine du r&eacute;seau local.
+Cela ne doit pas fonctionner.
+<P>Maintenant, activez la transmission IP et/ou le masquage IP.
+Vous devez &ecirc;tre &agrave; m&ecirc;me d'atteindre n'importe quel point d'Internet
+depuis n'importe quelle machine de votre r&eacute;seau local.
+<P>
+<PRE>
+    echo "0" > /proc/sys/net/ipv4/ip_forward
+</PRE>
+<P>Note importante&nbsp;: Si vous utilisez des adresses IP "r&eacute;elles"
+sur votre r&eacute;seau local (et non 192.168.xxx.yyy) et que vous ne puissisez
+atteindre Internet, mais que vous puissiez atteindre le c&ocirc;t&eacute; ext&eacute;rieur
+de votre pare-feu, v&eacute;rifiez que votre FAI route correctement les paquets
+depuis l'adresse de votre r&eacute;seau priv&eacute;.
+<P>Un test de ce probl&egrave;me est de conna&icirc;tre quelqu'un d'autre sur Internet
+(un ami utilisant un fournisseur local, par exemple) et de lui demander
+d'effectuer un traceroute vers votre r&eacute;seau.
+Si la trace s'arr&ecirc;te sur le routeur de votre fournisseur, c'est qu'il
+ne transmet pas votre trafic.
+<P>&Ccedil;a fonctionne&nbsp;? Bien.
+La partie la plus difficile est faite. :-)
+<P>
+<H2><A NAME="ss5.5">5.5 S&eacute;curiser le pare-feu</A>
+</H2>
+
+<P>Le pare-feu n'est d'aucune utilit&eacute; s'il reste largement ouvert
+aux attaques.
+Un "m&eacute;chant" pourrait obtenir l'acc&egrave;s au pare-feu et le
+modifier pour ses desseins personnels.
+Vous devez d&eacute;sactiver tous les services inutilis&eacute;s.
+<P>
+<P>Regardez dans votre fichier /etc/inetd.conf.
+Ce fichier contr&ocirc;le inetd qu'on appelle aussi "super-serveur".
+Il contr&ocirc;le un tas de daemons serveurs et les ex&eacute;cute &agrave; la demande,
+&agrave; partir des paquets qui arrivent sur un port "bien connu"
+(well known port).
+<P>Vous devez d&eacute;sactiver echo, discard, daytime, chargen, ftp, gopher,
+shell, login, exec, talk, ntalk, pop-2, pop-3, netstat, systat, tftp,
+bootp,  finger, cfinger, time, swat ainsi que linuxconfig si vous
+en poss&eacute;dez un.
+<P>Pour d&eacute;sactiver un service, placez simplement un "#"
+(di&egrave;ze) devant.
+Ensuite, envoyez un signal SIG-HUP au processus inetd, selon
+la syntaxe suivante&nbsp;:
+<P>
+<PRE>
+kill -HUP &lt;pid&gt;
+</PRE>
+<P>o&ugrave; "pid" est le num&eacute;ro du processus inetd.
+Cela force inetd &agrave; relire son fichier de configuration (inetd.conf) et &agrave;
+se relancer sans arr&ecirc;ter votre syst&egrave;me.
+<P>Testez le r&eacute;sultat par telnet sur le port 15 (netstat) du pare-feu.
+Si vous obtenez une r&eacute;ponse de netstat, c'est que vous n'avez pas
+arr&ecirc;t&eacute; ces services correctement.
+<P>
+<PRE>
+telnet localhost 15
+</PRE>
+<P>Vous pouvez aussi cr&eacute;er le fichier /etc/nologin.
+Placez-y quelques mots (comme "CONNEXION STOPPEE").
+Lorsque ce fichier existe, login n'autorise pas de connexion
+d'utilisateur.
+Ceux-ci verront simplement le contenu de ce fichier et leur
+connexion sera refus&eacute;e.
+Seul root peut alors se loger.
+<P>Vous pouvez encore &eacute;diter le fichier /etc/securetty.
+Si l'utilisateur est root, la connexion doit s'effectuer
+depuis l'un des p&eacute;riph&eacute;riques indiqu&eacute;s dans /etc/securetty.
+Les &eacute;checs seront trac&eacute;s par la facilit&eacute; syslog.
+Avec ces deux contr&ocirc;les actifs, la seule mani&egrave;re de se
+connecter sur le pare-feu est de se pr&eacute;senter comme root
+sur la console.
+<P>
+<HR>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-6.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-4.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc5"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

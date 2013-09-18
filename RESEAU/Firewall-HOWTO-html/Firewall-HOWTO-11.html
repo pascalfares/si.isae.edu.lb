@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Le HOWTO du pare-feu et des serveurs mandataires: Le serveur mandataire SOCKS</TITLE>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-12.html" REL=next>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-10.html" REL=previous>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc11" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-12.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-10.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc11"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s11">11. Le serveur mandataire SOCKS</A></H2>
+
+<H2><A NAME="ss11.1">11.1 Installation du serveur mandataire</A>
+</H2>
+
+<P>Le serveur mandataire SOCKS est disponible sur&nbsp;:
+<A HREF="index.php?ref=Firewall-HOWTO-html/http://www.socks.nec.com/">http://www.socks.nec.com/</A>.
+<P>D&eacute;compressez et "d&eacute;-tarez" les fichiers dans un r&eacute;pertoire
+de votre syst&egrave;me, et suivez les instructions pour le confectionner.
+J'ai eu quelques probl&egrave;mes pour le r&eacute;aliser.
+V&eacute;rifiez que vos Makefiles soient corrects.
+<P>Une chose importante est que le serveur mandataire doit &ecirc;tre ajout&eacute;
+dans /etc/inetd.conf.
+Vous devez ajouter une ligne&nbsp;:
+<P>
+<PRE>
+        socks  stream  tcp  nowait  nobody  /usr/local/etc/sockd  sockd
+</PRE>
+<P>pour indiquer au serveur de s'ex&eacute;cuter sur demande.
+<P>
+<H2><A NAME="ss11.2">11.2 Configuration du serveur mandataire</A>
+</H2>
+
+<P>Le programme de connexion n&eacute;cessite deux fichiers de configuration
+distincts&nbsp;:
+l'un pour indiquer les acc&egrave;s autoris&eacute;s,
+l'autre pour rediriger les requ&ecirc;tes vers le serveur mandataire appropri&eacute;.
+Le fichier d'autorisations d'acc&egrave;s doit se trouver sur le serveur.
+Le fichier de routage peut &ecirc;tre plac&eacute; sur n'importe quelle machine
+Unix.
+Les ordinateurs DOS et, je pense, les Macintosh font leur propre
+routage.
+<P>
+<H3>Le fichier d'acc&egrave;s</H3>
+
+<P>Avec socks4.2 b&ecirc;ta, le fichier d'acc&egrave;s s'appelle "sockd.conf".
+Il doit contenir deux lignes&nbsp;: une ligne d'autorisations et une
+ligne d'interdictions.
+Chaque ligne pr&eacute;sente trois champs&nbsp;:
+<P>
+<UL>
+<LI>l'identificateur (permit ou deny)&nbsp;;</LI>
+<LI>l'adresse IP&nbsp;;</LI>
+<LI>le modificateur d'adresse.</LI>
+</UL>
+<P>L'identificateur est soit permit, soit deny.
+Vous devez avoir aussi bien une ligne permit qu'une ligne deny.
+<P>L'adresse IP contient une adresse &agrave; quatre octets en notation classique IP,
+soit, par exemple, 192.168.2.0.
+<P>Le masque de modification d'adresse est aussi une adresse &agrave; quatre octets
+en notation classique IP, et fonctionne comme un masque r&eacute;seau.
+Repr&eacute;sentez-vous ce nombre sur 32&nbsp;bits.
+Si un bit est &agrave; 1, le bit correspondant de l'adresse qu'il contr&ocirc;le
+doit concorder avec le bit correspondant du champ de l'adresse IP.
+<P>Par exemple, une ligne&nbsp;:
+<P>
+<PRE>
+        permit 192.168.2.23 255.255.255.255
+</PRE>
+<P>autorisera seulement l'adresse dont chaque bit correspond &agrave; 192.168.2.23, donc seulement 192.168.2.23.
+<P>Tandis que la ligne&nbsp;:
+<P>
+<PRE>
+        permit 192.168.2.0 255.255.255.0
+</PRE>
+<P>autorisera toute adresse du groupe 192.168.2.0 &agrave; 192.168.2.255, soit
+tout le domaine de la classe C.
+<P>Il ne faut pas sp&eacute;cifier la ligne&nbsp;:
+<P>
+<PRE>
+        permit 192.168.2.0 0.0.0.0
+</PRE>
+<P>qui autoriserait toute adresse, sans distinction.
+<P>Aisni, autorisez toute adresse que vous souhaitez, puis interdisez
+le reste.
+Pour autoriser quiconque dans le domaine 192.168.2.xxx, les lignes&nbsp;:
+<P>
+<PRE>
+        permit 192.168.2.0 255.255.255.0
+        deny 0.0.0.0 0.0.0.0
+</PRE>
+<P>fonctionneront tr&egrave;s bien.
+Notez le premier "0.0.0.0" dans la ligne "deny".
+Avec un modificateur de 0.0.0.0, le champ adresse IP n'a aucune importance.
+Tous les champs &agrave; 0 repr&eacute;sentent la norme, car c'est facile &agrave; &eacute;crire.
+<P>On peut utiliser plusieurs lignes de chaque type.
+<P>Des utilisateurs sp&eacute;cifiques peuvent aussi se voir accorder ou refuser l'acc&egrave;s.
+Cela est r&eacute;alis&eacute; par l'authentification d'identit&eacute;.
+Tous les syst&egrave;mes ne supportent pas le syst&egrave;me ident, y compris
+Trumpet Winsock, donc nous n'irons pas plus loin en ce qui concerne cela.
+La documentation de socks est tout &agrave; fait ad&eacute;quate sur ce sujet.
+<P>
+<H3>Le fichier de routage</H3>
+
+<P>Le fichier de routage de socks est b&ecirc;tement nomm&eacute; "socks.conf".
+Je dis "b&ecirc;tement", car il est si proche du nom du fichier d'acc&egrave;s
+qu'il est ais&eacute; de les confondre.
+<P>Le fichier de routage sert &agrave; indiquer aux clients de socks quand il est
+n&eacute;cessaire de l'utiliser et quand ce n'est pas le cas.
+Par exemple, dans notre r&eacute;seau, 192.168.2.3 ne n&eacute;cessite pas l'usage de
+socks pour communiquer avec le pare-feu 192.168.2.1.
+Il a une connection directe Ethernet.
+Il d&eacute;finit 127.0.0.1, le port de bouclage, automatiquement.
+Evidemment, il n'est  pas n&eacute;cessaire d'utiliser socks pour vous parler &agrave;
+vous-m&ecirc;me.
+<P>Il y a trois entr&eacute;es&nbsp;:
+<P>
+<UL>
+<LI>deny&nbsp;;</LI>
+<LI>direct&nbsp;;</LI>
+<LI>sockd.</LI>
+</UL>
+<P>L'entr&eacute;e "deny" indique &agrave; socks quand rejeter une requ&ecirc;te.
+Cette entr&eacute;e a les trois m&ecirc;mes champs que ceux de sockd.conf&nbsp;:
+identificateur, adresse et modificateur.
+G&eacute;n&eacute;ralement, puisqu'il est aussi manipul&eacute; par sockd.file, le fichier
+d'acc&egrave;s, le champ modificateur est positionn&eacute; &agrave; 0.0.0.0.
+Si vous voulez vous interdire tout appel vers l'ext&eacute;rieur, vous
+pouvez le r&eacute;aliser ici.
+<P>L'entr&eacute;e "direct" indique pour quelles adresses ne pas utiliser socks.
+Il s'agit des adresses pouvant &ecirc;tre atteintes sans le serveur mandataire.
+A nouveau, nous avons les trois champs identificateur, adresse et modificateur.
+<P>Dans notre exemple, nous aurions&nbsp;:
+<P>
+<PRE>
+        direct 192.168.2.0 255.255.255.0
+</PRE>
+<P>donnant ainsi l'acc&egrave;s direct pour toute machine de notre r&eacute;seau prot&eacute;g&eacute;.
+<P>L'entr&eacute;e "sockd" indique &agrave; l'ordinateur l'emplacement du d&eacute;mon
+serveur de socks.
+<P>La syntaxe est la suivante&nbsp;:
+<P>
+<PRE>
+        sockd @=&lt;liste de serveurs> &lt;adresse IP> &lt;modificateur>
+</PRE>
+<P>Notez l'entr&eacute;e @=.
+Elle vous permet de configurer les adresses IP de plusieurs serveurs
+mandataires.
+Dans notre exemple, nous utilisons un seul serveur mandataire, mais
+vous pouvez en avoir plusieurs pour permettre un plus grand trafic
+et pour assurer une tol&eacute;rance aux pannes.
+<P>Les champs adresse IP et modificateur fonctionnent exactement comme dans les
+autres exemples.
+Vous sp&eacute;cifiez ainsi o&ugrave; va quelle adresse.
+<P>
+<H3>DNS depuis l'arri&egrave;re d'un pare-feu</H3>
+
+<P>Configurer un service de noms de domaines depuis l'arri&egrave;re d'un pare-feu est
+une t&acirc;che relativement simple.
+En gros, il vous faut configurer le DNS sur la machine pare-feu.
+Ensuite, indiquez &agrave; chaque machine deri&egrave;re le pare-feu d'utiliser celui-ci.
+<P>
+<H2><A NAME="ss11.3">11.3 Travailler avec un serveur mandataire</A>
+</H2>
+
+<H3>Unix</H3>
+
+<P>Pour faire fonctionner vos applications avec un serveur mandataire, celles-ci
+doivent &ecirc;tre "SOCK-ifi&eacute;es".
+Il vous faudra deux telnet diff&eacute;rents&nbsp;:
+un pour la communication directe, et un autre pour celle avec le serveur
+mandataire.
+Le paquetage socks contient des indications pour SOCK-ifier un
+programme, ainsi qu'un certain nombre de programmes pr&eacute;-SOCK-ifi&eacute;s.
+Si vous utilisez la version SOCK-ifi&eacute;e pour aller &agrave; un emplacement direct,
+socks basculera automatiquement sur la version directe pour vous.
+Pour cette raison, il nous faut renommer tous les programmes sur notre r&eacute;seau
+prot&eacute;g&eacute; et les remplacer par leur version SOCK-ifi&eacute;e.
+"finger" devient "finger.orig", "telnet" devient
+"telnet.orig", etc.
+Vous devez indiquer chacun d'eux &agrave; socks &agrave; l'aide du fichier
+include/socks.
+<P>Certains programmes traitent le routage et la SOCK-ification eux-m&ecirc;mes.
+Netscape est l'un d'entre eux.
+Vous pouvez utiliser un serveur mandataire sous Netscape en donnant
+l'adresse du serveur (192.168.2.1 dans le cas qui nous int&eacute;resse)
+dans le champ SOCKs sous Proxies.
+Chaque application n&eacute;cessite au moins un petit coup d'oeil, quelle que
+soit son attitude vis-&agrave;-vis d'un serveur mandataire.
+<P>
+<H3>MS Windows avec Trumpet Winsock</H3>
+
+<P>Trumpet Winsock contient des fonctionnalit&eacute;s de serveur mandataire incluses.
+Dans le menu "setup", donnez l'adresse IP du serveur, ainsi que
+celles de tous les ordinateurs directement accessibles.
+Trumpet se d&eacute;brouillera alors avec tous les paquets sortants.
+NdT&nbsp;: Trumpet Winsock est une couche IP destin&eacute;e &agrave; MS-Windows 3.
+Depuis la version 3.11 de Windows, Microsoft fournit une couche IP dont les
+fonctionnalit&eacute;s sont tr&egrave;s diff&eacute;rentes.
+<P>
+<H2><A NAME="ss11.4">11.4 Faire fonctionner le serveur mandataire avec les paquets UDP</A>
+</H2>
+
+<P>Le paquetage SOCKS fonctionne seulement avec les paquets TCP, pas
+avec les UDP.
+Cela le rend quelque peu moins utile.
+De nombreux programmes tr&egrave;s utiles, comme talk et Archie, utilisent UDP.
+Il existe un paquetage pr&eacute;vu pour &ecirc;tre utilis&eacute; comme serveur mandataire pour
+les paquets UDP appel&eacute; UDPrelay, de Tom Fitzgerald
+<A HREF="index.php?ref=Firewall-HOWTO-html/mailto:fitz@wang.com">fitz@wang.com</A>.
+Malheureusement, &agrave; l'heure o&ugrave; ces lignes sont &eacute;crites, il n'est pas
+compatible avec Linux.
+<P>
+<H2><A NAME="ss11.5">11.5 Inconv&eacute;nients des serveurs mandataire</A>
+</H2>
+
+<P>Le serveur mandataire est, avant tout, un <CODE>syst&egrave;me de s&eacute;curit&eacute;</CODE>.
+Son utilisation pour augmenter le nombre d'acc&egrave;s Internet avec un nombre
+limit&eacute; d'adresses aura de nombreux inconv&eacute;nients.
+Un serveur mandataire autorisera un plus grand acc&egrave;s de l'int&eacute;rieur du r&eacute;seau
+prot&eacute;g&eacute; vers l'ext&eacute;rieur, mais laissera l'int&eacute;rieur totalement inaccessible
+de l'ext&eacute;rieur.
+Ce qui implique aucun serveur, aucune connexion talk ni Archie, ni courriel
+direct vers les ordinateurs de l'int&eacute;rieur.
+Ces inconv&eacute;nients peuvent sembler l&eacute;gers, mais regardez-les sous l'angle
+suivant&nbsp;:
+<UL>
+<LI>Vous avez laiss&eacute; un document en cours sur votre ordinateur &agrave;
+l'int&eacute;rieur du r&eacute;seau prot&eacute;g&eacute;.
+Vous &ecirc;tes &agrave; la maison, et d&eacute;cidez que vous voulez retravailler celui-ci.
+Vous ne le pouvez pas.
+Vous ne pouvez atteindre votre ordinateur, car il est derri&egrave;re le pare-feu.
+Vous essayez de vous loger d'abord sur le pare-feu, mais comme tout le
+monde a acc&egrave;s au serveur mandataire, personne ne vous a cr&eacute;&eacute; de compte dessus.
+</LI>
+<LI>Votre fille va &agrave; l'universit&eacute;.
+Vous souhaitez lui envoyer un courriel.
+Vous avez diff&eacute;rents choses de caract&egrave;re priv&eacute; &agrave; discuter, et pr&eacute;f&egrave;reriez
+recevoir directement votre courrier sur votre machine.
+Vous avez pleine confiance dans votre administrateur r&eacute;seau, mais, malgr&eacute;
+tout, il s'agit de courrier priv&eacute;.
+</LI>
+<LI>L'impossibilit&eacute; d'utiliser les paquets UDP repr&eacute;sente un gros
+inconv&eacute;nient avec les serveurs mandataire.
+Je pense que les fonctionnalit&eacute;s UDP arriveront sous peu.</LI>
+</UL>
+<P>FTP cause un autre probl&egrave;me avec les serveurs mandataire&nbsp;:
+Lorsque FTP r&eacute;cup&egrave;re une liste de fichiers, le serveur ouvre une
+socket sur la machine client pour lui envoyer les informations.
+Un serveur mandataire ne permettra pas cela, donc FTP en particulier
+ne fonctionne pas.
+<P>De plus, les serveurs mandataires sont lents.
+A cause de la d&eacute;gradation du rapport information/protocole, n'importe
+quel autre moyen d'obtenir cet acc&egrave;s sera plus rapide.
+<P>En r&eacute;sum&eacute;, si vous avez les adresses IP n&eacute;cessaires, et que la s&eacute;curit&eacute;
+ne soit pas un imp&eacute;ratif pour vous, n'utilisez ni un pare-feu ni un serveur
+mandataire.
+Si vous n'avez pas suffisamment d'adresses IP, mais que, de m&ecirc;me, la
+s&eacute;curit&eacute; n'est pas fondamentale, vous pouvez jeter un coup d'oeil aux
+&eacute;mulateurs IP, comme Term, Slirp ou TIA.
+Term est disponible sur
+<A HREF="index.php?ref=Firewall-HOWTO-html/ftp://sunsite.unc.edu">ftp://sunsite.unc.edu</A>,
+Slirp est disponible sur
+<A HREF="index.php?ref=Firewall-HOWTO-html/ftp://blitzen.canberra.edu.au/pub/slirp">ftp://blitzen.canberra.edu.au/pub/slirp</A>
+et TIA est disponible sur marketplace.com.
+Ces paquetages iront plus vite, permettront de meilleures connexions,
+et fourniront un acc&egrave;s sup&eacute;rieur &agrave; l'int&eacute;rieur du r&eacute;seau depuis
+InterNet.
+Les serveurs mandataires sont utiles pour ce genre de r&eacute;seaux qui
+comportent de nombreuses machines qui se connectent au vol &agrave; InterNet,
+avec une configuration et peu de travail ensuite.
+<P>
+<HR>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-12.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-10.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc11"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

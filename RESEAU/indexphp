@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//FR">
+<html>
+  <head>
+    <title>Réseau</title>
+  </head>
+
+  <body bgcolor="#FFFFFF">
+    <h1>Réseau : applicaion</h1>
+<table width="100%">
+<tr>
+<td valign="top" width="33%">
+<ul>
+<li><a HREF="index.php?ref=presentation.php">Présentation</a>
+<li><A HREF="index.php?ref=web.htm">Les Applications Web</A>
+<li><a HREF="index.php?ref=socket.htm">Programmation Réseau (interface socket)</a>
+<ul><li><a HREF="index.php?ref=daytime.htm">Une première applications</a></li>
+<li><a href="$self?ref=chatudp.htm">Exemple: Un mini chating en UDP</a></li>
+</ul>
+<li> Appel de procédures distante</li>
+<li>Sécurité, cryptographie</li>
+</ul>
+</td>
+</tr>
+<td> <? include($ref); ?>
+
+    <hr>
+    <address><a href="mailto:auteur@isae.edu.lb">auteur</a></address>
+<!-- Created: Tue Feb  6 00:49:57 EET 2001 -->
+<!-- hhmts start -->
+Last modified: Tue Feb  6 00:53:36 EET 2001
+<!-- hhmts end -->
+  </body>
+</html>

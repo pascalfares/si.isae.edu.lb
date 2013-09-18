@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Le HOWTO du pare-feu et des serveurs mandataires: Configuration du filtrage IP (IPchains)</TITLE>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-8.html" REL=next>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-6.html" REL=previous>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc7" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-8.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-6.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc7"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s7">7. Configuration du filtrage IP (IPchains)</A></H2>
+
+<P>Les ipchains Linux sont une r&eacute;&eacute;criture du code pare-feu IPv4 de
+Linux (en grande partie inspir&eacute; de BSD) ainsi que de ipfwadm qui
+&eacute;tait lui-m&ecirc;me une r&eacute;&eacute;criture du ipfw de BSD, je crois.
+Il est indispensable d'administrer les filtres de paquets IP dans
+les noyaux Linux versions 2.1.102 et au-del&agrave;.
+<P>L'ancien code ne g&egrave;re pas les fragments, a des compteurs sur
+32&nbsp;bits (sur Intel en tout cas), ne permet aucune autre
+sp&eacute;cification de protocole que TCP, UDP ou ICMP, ne peut r&eacute;aliser
+de vastes modifications de mani&egrave;re atomique, ne peut sp&eacute;cifier de
+r&egrave;gles invers&eacute;es, a quelques d&eacute;fauts et peut se r&eacute;v&eacute;ler dur &agrave;
+administrer (ce qui le rend vuln&eacute;rable aux erreurs d'utilisation).
+Ou du moins c'est ce qu'en dit l'auteur.
+<P>Je ne vais pas entrer en d&eacute;tail sur la mani&egrave;re de contr&ocirc;ler un
+pare-feu IPchains, car il existe un _BON&nbsp;!!_ HOWTO qui en
+parle sur
+<A HREF="index.php?ref=Firewall-HOWTO-html/http://www.rustcorp.com/linux/ipchains/HOWTO.html">http://www.rustcorp.com/linux/ipchains/HOWTO.html</A>.
+Je finirais juste par le recopier ici.
+En voici les bases.
+<P>On travaille avec les cha&icirc;nes par noms.
+Il existe au d&eacute;but trois cha&icirc;nes pr&eacute;d&eacute;finies input, output et
+forward, qu'il est impossible de supprimer.
+On peut cr&eacute;er des cha&icirc;nes personnelles.
+Des r&egrave;gles peuvent ensuite &ecirc;tre ajout&eacute;es et supprim&eacute;es de ces
+ensembles de r&egrave;gles.
+<P>Les op&eacute;rations n&eacute;cessaires pour travailler sur les cha&icirc;nes sont
+les suivantes&nbsp;:
+<P>
+<OL>
+<LI>cr&eacute;ation d'une nouvelle cha&icirc;ne (-N)&nbsp;;</LI>
+<LI>suppression d'une cha&icirc;ne vide (-X)&nbsp;;</LI>
+<LI>modification de la sp&eacute;cification pour une
+cha&icirc;ne pr&eacute;d&eacute;finie (-P)&nbsp;</LI>
+<LI>liste des r&egrave;gles d'une cha&icirc;ne (-F)&nbsp;;</LI>
+<LI>remise &agrave; z&eacute;ro des compteurs de paquets et
+d'octets de toutes les r&egrave;gles d'une
+cha&icirc;ne (-Z).</LI>
+</OL>
+<P>Il existe diff&eacute;rentes m&eacute;thodes pour manipuler les r&egrave;gles &agrave;
+l'int&eacute;rieur des cha&icirc;nes&nbsp;:
+<P>
+<OL>
+<LI>ajout d'une nouvelle r&egrave;gle dans une
+cha&icirc;ne (-A)&nbsp;;</LI>
+<LI>insertion d'une nouvelle r&egrave;gle &agrave; une
+position donn&eacute;e d'une cha&icirc;ne (-I)&nbsp;;</LI>
+<LI>remplacement d'une r&egrave;gle &agrave; une position
+donn&eacute;e d'une cha&icirc;ne (-R)&nbsp;;</LI>
+<LI>suppression d'une r&egrave;gle &agrave; une position
+donn&eacute;e d'une cha&icirc;ne (-D)&nbsp;;</LI>
+<LI>suppression de la premi&egrave;re r&egrave;gle
+correspondante dans une cha&icirc;ne (-D).</LI>
+</OL>
+<P>Il existe quelques op&eacute;rations pour le masquage qui se trouvent
+dans ipchains dans l'attente d'un bon emplacement pour les
+placer&nbsp;:
+<P>
+<OL>
+<LI>liste des connexions actuellement masqu&eacute;es
+(-M -L)&nbsp;;</LI>
+<LI>positionnement du temps d'expiration du
+masquage (-M -S).</LI>
+</OL>
+<P>Il y a quelques d&eacute;tails de chronologie qui interviennent dans la
+modification des r&egrave;gles de pare-feu.
+Si l'on n'est pas suffisamment prudent, il est possible de laisser
+passer quelques paquets pendant la mise en place des modifications.
+Une approche simpliste est la suivante&nbsp;:
+<P>
+<PRE>
+     # ipchains -I input 1 -j DENY
+     # ipchains -I output 1 -j DENY
+     # ipchains -I forward 1 -j DENY
+</PRE>
+<P>...&nbsp;r&eacute;alisation des modification&nbsp;...
+<P>
+<PRE>
+     # ipchains -D input 1
+     # ipchains -D output 1
+     # ipchains -D forward 1
+     #
+</PRE>
+<P>Cela interdit tout passage de paquet durant les modifications.
+<P>Voici une copie des r&egrave;gles de pare-feu qui pr&eacute;c&egrave;dent dans
+IPChains&nbsp;:
+<P>
+<PRE>
+#!/bin/sh
+#
+# rc.firewall
+#
+## Tout vider et repartir du debut
+  /sbin/ipchains -F input
+  /sbin/ipchains -F output
+  /sbin/ipchains -F forward
+
+## Redirection pour le mandatement transparent de HTTP
+  #$IPCHAINS  -A input -p tcp -s 192.1.2.0/24 -d 0/0 80 -j REDIRECT 8080
+
+## Creation de nos propres chaines
+  /sbin/ipchains -N ma-chaine
+  # On autorise le courriel entrant vers le serveur
+  /sbin/ipchains -A ma-chaine -s 0.0.0.0/0 smtp -d 192.1.2.10 1024:-j ACCEPT
+  # On autorise les connexions courriel vers l'ext&eacute;rieur
+  /sbin/ipchains -A ma-chaine -s 192.1.2.10 -d 0.0.0.0/0 smtp -j ACCEPT
+  # On autorise les connexions web entrantes vers le serveur
+  /sbin/ipchains -A ma-chaine -s 0.0.0.0/0 www -d 192.1.2.11 1024: -j ACCEPT
+  # On autorise les connexions web vers l'ext&eacute;rieur
+  /sbin/ipchains -A ma-chaine -s 192.1.2.0/24 1024: -d 0.0.0.0/0 www -j ACCEPT
+  # On autorise le trafic DNS
+  /sbin/ipchains -A ma-chaine -p UDP -s 0.0.0.0/0 dns -d 192.1.2.0/24 -j ACCEPT
+
+## Si on utilise le masquage
+  # On ne masque pas le trafic interne
+  /sbin/ipchains -A forward -s 192.1.2.0/24 -d 192.1.2.0/24 -j ACCEPT
+  # On ne masque pas l'interface externe directe
+  /sbin/ipchains -A forward -s 199.1.2.0/24 -d 0/0 -j ACCEPT
+  # On masque tout paquet interne qui sort
+  /sbin/ipchains -A forward -s 192.1.2.0/24 -d 0/0 -j MASQ
+
+## On interdit tout le reste
+  /sbin/ipchains -P my-chains input DENY
+</PRE>
+<P>Il ne faut pas s'arr&ecirc;ter l&agrave;.
+Ce n'est pas un pare-feu tr&egrave;s puissant et je suis s&ucirc;r qu'il y a d'autres
+services que vous souhaiteriez fournir.
+&Agrave; nouveau, lisez le IPCHAINS-HOWTO.
+<P>
+<HR>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-8.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-6.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc7"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

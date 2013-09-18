@@ -1,0 +1,434 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+  <title>Design Patterns du Gang of Four appliqués à Java - Club d'entraide des d&#233;veloppeurs francophones</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <meta name="generator" content="developpez-com" />
+  <link rel="stylesheet" type="text/css" media="screen" href="./article.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="./code.css" />
+  <script src="js/fonctions-kit.js" type="text/javascript"></script>
+  
+  <style type="text/css">
+<!--
+body {
+	background-color : #DDEEFF;
+	background: #DDEEFF;
+	font: normal;
+    font-family: Verdana;
+    font-weight: normal;    
+    margin: 0
+}
+
+img {
+    border:0
+}
+form {
+    margin : 0
+}
+td {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size : 10pt;
+	font-weight: normal;
+}
+td.iongl {
+	width : 1px;
+}
+td.bgongl {
+	background-image : url(./images/kitint.gif);
+	text-align : center;
+}
+td.bgmarron{
+    background-image : url(./images/kitMarronInt.gif);
+    background-repeat: repeat-x;  
+    text-align : center;
+
+}
+td.bgjaune{
+    background-image : url(./images/kitJauneInt.gif);
+    background-repeat: repeat-x;
+    text-align : center;
+}
+td.bgvert{
+    background-image : url(./images/kitVertInt.gif);
+    background-repeat: repeat-x;  
+    text-align : center;
+}
+
+.ntdrub:link {
+	color : #000000;
+	font-weight : bold;
+    font-size : 8pt;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.ntdrub:visited {
+    color : #000000;
+    font-weight : bold;
+    font-size : 8pt;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.ntdrub:active {
+	color : #000000;
+	font-weight : bold;
+    font-size : 8pt;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.ntdrub:hover {
+    color : #FF0000;
+    font-weight : bold;
+	font-size : 8pt;
+	text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+td.trbleu {
+	background-color:#6389D8;
+	text-align : center;
+    margin: 0 ;
+	border: 0;
+	padding-top : 3px;
+	padding-bottom : 3px;
+	height : 34px;
+}
+td.fondart {
+    background-color:#FFFFFF;
+    
+}
+
+table.tbnoir{
+	background-color:#000000;
+}
+.titrepied {
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	font-size : 10pt;
+	font: normal;
+	font-weight: normal
+}
+
+-->
+</style>
+  
+  
+</head>
+<body>
+<table width="100%" cellspacing="4">
+	<tr>
+	<td align="center">
+		<table width="100%" cellspacing="0" cellpadding="0">
+			<tr>
+				<td>
+				  <table width="100%" cellspacing="11">
+					<tr>
+						<td>
+						<a href="http://www.developpez.com"><img src="images/kitlogo.gif" alt="Accueil" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+
+  				<tr>
+    				<td>
+    					<table class="cachee" cellpadding="0" cellspacing="0" width="100%">
+    						<tr>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://blog.developpez.com/?blog=18" class="ntdrub">Club</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://emploi.developpez.com" class="ntdrub">Emploi</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://blog.developpez.com" class="ntdrub">Blogs</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://www.developpez.tv" class="ntdrub">&nbsp;&nbsp;TV&nbsp;&nbsp;</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://web.developpez.com" class="ntdrub">Dév.&nbsp;Web</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://php.developpez.com" class="ntdrub">PHP</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://xml.developpez.com" class="ntdrub">XML</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://python.developpez.com" class="ntdrub">Python</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://general.developpez.com/cours/" class="ntdrub">Autres</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://jeux.developpez.com" class="ntdrub">2D-3D-Jeux</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://securite.developpez.com" class="ntdrub">Sécurité</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://windows.developpez.com" class="ntdrub">Windows</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://linux.developpez.com" class="ntdrub">Linux</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://hardware.developpez.com" class="ntdrub">PC</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://mac.developpez.com" class="ntdrub">Mac</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+   							</tr>
+   						</table>
+   					</td>	
+   				</tr>
+   				<tr>
+   					<td>
+    					<table class="cachee" cellpadding="0" cellspacing="0" width="100%">
+  							<tr>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://www.developpez.com" class="ntdrub">Accueil</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://conception.developpez.com" class="ntdrub">Conception</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://java.developpez.com" class="ntdrub">Java</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://dotnet.developpez.com" class="ntdrub">DotNET</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://vb.developpez.com" class="ntdrub">Visual&nbsp;Basic</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://c.developpez.com" class="ntdrub">&nbsp;C&nbsp;</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://cpp.developpez.com" class="ntdrub">C++</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://delphi.developpez.com" class="ntdrub">Delphi</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://eclipse.developpez.com" class="ntdrub">Eclipse</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://office.developpez.com" class="ntdrub">MS-Office</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://sgbd.developpez.com" class="ntdrub">SQL&nbsp;&amp;&nbsp;SGBD</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://oracle.developpez.com" class="ntdrub">Oracle</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://4d.developpez.com" class="ntdrub">&nbsp;4D&nbsp;</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://Business-Intelligence.developpez.com" class="ntdrub">Business&nbsp;Intelligence</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+  							</tr>
+   						</table>
+   					</td>
+   				</tr>
+
+				<tr>
+					<td class="trbleu">
+					</td>
+				</tr>
+
+				<tr valign="top">
+					<td valign="top" class="fondart">
+						<table cellspacing="1" width="100%" class="tbnoir">
+							<tr>
+								<td class="fondart">
+									<div style="text-align:center;">
+									<table class="cadrearticle" width="90%" cellpadding="10" cellspacing="0">
+										<tr>
+											<td align="center" style="text-align:left">
+
+		<br/><h1>Design Patterns du Gang of Four appliqués à Java</h1><div class="soustitre">
+		<a href="http://www.uml.org/"><img src="./images/icone_uml_small.png" alt="UML"/></a>
+	</div><p class="dateArticle">Date de publication : 16/09/2008</p><div class="cachee"><hr/><div class="barreNavigation"><div style="float: left;"><span class="lientelechargement"><a class="lientelechargement" href="sommaire.html">Précédent</a></span>
+			 
+			<span class="lientelechargement"><a class="lientelechargement" href="sommaire.html">Sommaire</a></span>
+			 
+			<span class="lientelechargement"><a class="lientelechargement" href="page_2.html">Suivant</a></span></div><br/>
+			 
+		</div><hr/></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<br /><a class="summaryIndent0" href="#LI">I. INTRODUCTION</a>
+			
+			
+			
+			
+			
+			
+			
+			
+		<br /><a class="summaryIndent0" href="#LII">II. BIBLIOGRAPHIE</a>
+			
+			
+            
+		<br /><a class="summaryIndent0" href="#LIII">III. AUTRES RESSOURCES SUR DEVELOPPEZ.COM</a>
+			
+			
+			
+			
+		
+	
+
+    	
+<br/><br/>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<br /><h2 class="TitreSection1" id="LI">I. INTRODUCTION</h2>
+			
+			<div class="paragraph">
+                A l'origine les <a href="http://dico.developpez.com/html/1574-Conception-design-pattern.php" class="lienDico" title="Dictionnaire des développeurs">Design Patterns</a> (<a href="http://dico.developpez.com/html/1575-Conception-patron-de-conception.php" class="lienDico" title="Dictionnaire des développeurs">Patron de conception</a> en Français) sont issus des travaux de l'architecte Christopher Alexander. 
+                Ces travaux sont une capitalisation d'expérience qui ont mis en évidence des patrons en architecture des bâtiments.
+			</div><br/>
+			<div class="paragraph">
+                Sur le même principe, en 1995, le livre "Design Patterns -- Elements of Reusable Object-Oriented Software" 
+                du GoF, Gang Of Four (<a href="http://en.wikipedia.org/wiki/Erich_Gamma" class="lienArticle">Erich Gamma</a>, <a href="http://en.wikipedia.org/wiki/Richard_Helm" class="lienArticle">Richard Helm</a>, <a href="http://en.wikipedia.org/wiki/Ralph_Johnson" class="lienArticle">Ralph Johnson</a> et <a href="http://en.wikipedia.org/wiki/John_Vlissides" class="lienArticle">John Vlissides</a>), présente 23 Design Patterns. 
+                Dans ce livre, chacun des Design Patterns est accompagné d'exemple en C++ et Smalltalk.
+			</div><br/>
+			<div class="paragraph">
+                En <a href="http://dico.developpez.com/html/2198-Conception-architecture.php" class="lienDico" title="Dictionnaire des développeurs">architecture</a> des logiciels, un Design Pattern est la description d'une solution à un problème de conception. 
+                Pour faire l'objet d'un Design Pattern, une solution doit être réutilisable. On dit que le Design Pattern est "prouvé" 
+                s'il a pu être utilisé dans au moins 3 cas.
+			</div><br/>
+			<div class="paragraph">
+                Les Design Patterns permettent d'améliorer la qualité de développement et d'en diminuer la durée. 
+                En effet, leur application réduit les couplages (points de dépendance) au sein d'une application, 
+                apporte de la souplesse, favorise la maintenance et d'une manière générale aide 
+                à respecter de "<a href="http://dico.developpez.com/html/1573-Conception-best-practices.php" class="lienDico" title="Dictionnaire des développeurs">bonnes pratiques</a>" de développement.
+			</div><br/>
+			<div class="paragraph">
+                Les Design Patterns sont classés en trois catégories :
+			</div><br/>
+			<ul style="list-style-type: disc;">
+				<li>créationnels : qui définissent des mécanismes pour l'instanciation et/ou l'initialisation d'objets</li>
+				<li>structuraux : qui organisent les interfaces/classes entre elles</li>
+				<li>comportementaux : qui définissent la communication entre les classes et leurs responsabilités</li>
+			</ul>
+			<div class="paragraph">
+                Le but de ce document est de présenter succintement chaque Design Pattern du GoF et d'y associer un exemple d'implémentation Java.
+			</div><br/>
+		<br /><h2 class="TitreSection1" id="LII">II. BIBLIOGRAPHIE</h2>
+			
+			<div class="paragraph">
+                <a href="http://conception.developpez.com/livres/?page=livresDP#L0201634988" class="lienArticle">Design Patterns -- Elements of Reusable Object-Oriented Software</a> :
+                il s'agit du livre écrit par le "Gang of Four". Il présente toutes les subtilités des Design Patterns. 
+                C'est sans doute le livre le plus complet sur le sujet. Le lien conduit à la critique de l'édition en Anglais. 
+                Les critiques sur l'édition en Français trouvées par ailleurs sur Internet indiquent des erreurs de traduction.
+                J'ai utilisé le livre en Anglais pour la plupart de mes recherches et vérifications.
+            </div><br/>
+            <div class="paragraph">
+                <a href="http://matthieu-brucher.developpez.com/critiques/conception/patterns/dpplp/" class="lienArticle">Design Patterns par la pratique</a> :
+                livre très facile à lire. Il présente comme inconvénient de ne pas couvrir tous les Design Patterns du GoF.
+                Mis à part cela, il est très clair dans l'explication des Design Patterns qu'il présente.
+                Et il est en Français ;-).
+            </div><br/>
+		<br /><h2 class="TitreSection1" id="LIII">III. AUTRES RESSOURCES SUR DEVELOPPEZ.COM</h2>
+			
+			<div class="paragraph">
+					<a href="http://dico.developpez.com/html/theme17.php" class="lienArticle">Le dictionnaire des développeurs (partie conception)</a>
+            </div><br/>
+			<div class="paragraph">
+					<a href="http://smeric.developpez.com/java/uml/" class="lienArticle">Description de design patterns par Sébastien MERIC</a>
+            </div><br/>
+			<div class="paragraph">
+					<a href="http://pcaboche.developpez.com/article/design-patterns/programmation-modulaire/" class="lienArticle">Souplesse et modularité grâce aux Design Patterns par Pierre Caboche</a>
+            </div><br/>
+		
+	
+
+    	
+<div class="cachee"><hr/><div class="barreNavigation"><div style="float: left;"><span class="lientelechargement"><a class="lientelechargement" href="sommaire.html">Précédent</a></span>
+			 
+			<span class="lientelechargement"><a class="lientelechargement" href="sommaire.html">Sommaire</a></span>
+			 
+			<span class="lientelechargement"><a class="lientelechargement" href="page_2.html">Suivant</a></span></div><br/>
+			 
+		</div><hr/></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<table class="noteBasPage"><tr><td> </td></tr></table>
+	
+
+    	
+<p class="licence">Copyright &copy;2008 Régis POUILLER.
+			Aucune reproduction, même partielle, ne peut être faite
+			de ce site et de l'ensemble de son contenu : textes, documents, images, etc
+			sans l'autorisation expresse de l'auteur. Sinon vous encourez selon la loi jusqu'à 3 ans de prison et jusqu'à 300 000 E
+			de dommages et intérêts. Droits de diffusion permanents accordés à Developpez LLC. Cette page est déposée à la <a href="http://www.sacd.fr/" >SACD</a>.</p>
+												</td>
+										</tr>
+									</table></div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<table width="100%" cellpadding="4" class="cachee">
+				<tr>
+					<td class="titrepied">
+			  Vos questions techniques : <b><a href="http://www.developpez.net/forums/" >forum d'entraide Accueil</a></b> - Publiez vos articles, tutoriels, cours
+			  et rejoignez-nous dans l'&eacute;quipe de r&eacute;daction du club d'entraide des d&eacute;veloppeurs francophones. <a href="http://club.developpez.com/contacts/">Nous contacter</a>
+	
+			  - Copyright 2000..2005 www.developpez.com
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</body>
+</html>
+
+	

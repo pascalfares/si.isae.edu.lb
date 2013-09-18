@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Le HOWTO du pare-feu et des serveurs mandataires: Comprendre les pare-feux</TITLE>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-3.html" REL=next>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-1.html" REL=previous>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc2" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-3.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-1.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc2"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s2">2. Comprendre les pare-feux</A></H2>
+
+<P>Un pare-feu est une structure destin&eacute;e &agrave; emp&ecirc;cher un feu de la traverser.
+Dans un immeuble, il s'agit d'un mur qui divise compl&egrave;tement des parties
+de celui-ci.
+Dans une voiture, un pare-feu est une pi&egrave;ce m&eacute;tallique qui s&eacute;pare
+le moteur du compartiment passagers.
+<P>Les pare-feux Internet sont con&ccedil;us pour isoler votre r&eacute;seau local priv&eacute;
+des flammes de l'Internet, ou de prot&eacute;ger la puret&eacute; des membres de votre
+r&eacute;seau local en leur interdisant l'acc&egrave;s aux tentations d&eacute;moniaques
+de l'Internet. ;-)
+<P>Le premier pare-feu informatique &eacute;tait une machine Unix sans routage
+avec deux connexions &agrave; deux r&eacute;seaux diff&eacute;rents.
+Une carte r&eacute;seau &eacute;tait connect&eacute;e &agrave; Internet et l'autre au r&eacute;seau
+priv&eacute;.
+<P>Pour atteindre Internet depuis le r&eacute;seau priv&eacute;, il fallait se loger
+sur le pare-feu (Unix).
+Ensuite, on utilisait les ressources de ce syst&egrave;me pour acc&eacute;der &agrave;
+Internet.
+Par exemple, on pouvait utiliser X-Window pour lancer le navigateur
+Netscape sur le pare-feu et en avoir l'affichage sur sa station de
+travail.
+Si le navigateur tourne sur le pare-feu, il a acc&egrave;s aux deux r&eacute;seaux.
+<P>Cette sorte de h&ocirc;te &agrave; double r&eacute;seau (un syst&egrave;me &agrave; deux connexions
+r&eacute;seau) est bien si l'on peut faire confiance &agrave; TOUS les utilisateurs.
+On peut configurer simplement un syst&egrave;me Linux et y cr&eacute;er un compte
+pour tout utilisateur souhaitant un acc&egrave;s &agrave; Internet.
+Avec cette configuration, le seul ordinateur du r&eacute;seau priv&eacute; qui
+connaisse quelque chose du monde ext&eacute;rieur est le pare-feu
+proprement dit.
+Personne ne peut t&eacute;l&eacute;charger directement sur un poste de travail
+personnelle&nbsp; il faut d'abord t&eacute;l&eacute;charger un fichier sur le
+pare-feu, puis transf&eacute;rer celui-ci du pare-feu au poste de travail.
+<P>NOTE IMPORTANTE&nbsp;: 99% des intrusions commencent par l'obtention
+d'un acc&egrave;s utilisateur sur le syst&egrave;me attaqu&eacute;.
+Pour cette raison, je ne recommande pas ce type de pare-feu.
+De plus, il est aussi extr&ecirc;mement limit&eacute;.
+<P>
+<P>
+<H2><A NAME="ss2.1">2.1 Politiques de s&eacute;curit&eacute;</A>
+</H2>
+
+<P>Il ne faut pas croire qu'un pare-feu soit la panac&eacute;e.
+Il faut <EM>tout d'abord d&eacute;finir une politique de s&eacute;curit&eacute;</EM>.
+<P>Les pare-feux sont utilis&eacute;s dans deux buts&nbsp;:
+<P>
+<OL>
+<LI>pour maintenir des gens (intrus, vandales...) dehors&nbsp;;</LI>
+<LI>pour maintenir des gens (employ&eacute;s, enfants...) dedans.</LI>
+</OL>
+<P>Lorsque j'ai commenc&eacute; &agrave; travailler sur les pare-feux, j'ai &eacute;t&eacute; surpris
+d'apprendre que l'entreprise pour laquelle je travaillais cherchait plus
+&agrave; "espionner" ses propres employ&eacute;s qu'&agrave; maintenir les intrus
+hors de ses r&eacute;seaux.
+<P>Au moins dans mon &eacute;tat (l'Oklahoma), les employeurs ont le droit de
+surveiller les appels t&eacute;l&eacute;phoniques et l'activit&eacute; Internet &agrave; condition
+d'informer pr&eacute;alablement les employ&eacute;s de cette surveillance
+(NdT&nbsp;: la l&eacute;gislation fran&ccedil;aise est identique de ce point de vue).
+<P>Big Brother n'est pas le gouvernement.
+Big Brother est le Big Businness.
+<P>Ne me m&eacute;jugez pas&nbsp;: les gens sont au travail pour travailler, non
+pour jouer.
+Et il me semble que l'&eacute;thique du travail est en train de s'&eacute;roder.
+N&eacute;anmoins, j'ai aussi observ&eacute; que certains types de directions se
+trouvent aussi les principaux transgresseurs des r&egrave;gles qu'ils
+ont eux-m&ecirc;mes &eacute;dict&eacute;es.
+J'ai vu des vacataires r&eacute;primand&eacute;s car ils avaient utilis&eacute; Internet pour
+chercher le trajet de bus pour venir au travail alos que le m&ecirc;me
+directeur passait des heures au travail &agrave; chercher de bons restaurants
+et bo&icirc;tes de nuit pour y trouver des clients potentiels.
+<P>Mon correctif de ce genre d'abus est de publier les traces du pare-feu
+sur une page web accessible &agrave; tout un chacun.
+<P>Le travail dans la s&eacute;curit&eacute; peut &ecirc;tre difficile.
+Si vous &ecirc;tes gestionnaire de pare-feux, surveillez vos arri&egrave;res.
+<P>
+<H2><A NAME="ss2.2">2.2 Types de pare-feux</A>
+</H2>
+
+<P>Il y a deux types de pare-feux&nbsp;:
+<P>
+<OL>
+<LI>pare-feux IP ou filtrants&nbsp;- ils bloquent tout
+le trafic sauf celui s&eacute;lectionn&eacute;&nbsp;;</LI>
+<LI>serveurs mandataires (parfois appel&eacute;s bastions)&nbsp;-
+ils r&eacute;alisent les connexions r&eacute;seau pour vous.</LI>
+</OL>
+<P>
+<H3>Pare-feux filtrants</H3>
+
+<P>Le filtrage de paquets est le type de pare-feu inclus dans le
+noyau Linux.
+<P>
+<P>Un pare-feu filtrant fonctionne au niveau du r&eacute;seau.
+Les donn&eacute;es ne sont autoris&eacute;es &agrave; quitter le syst&egrave;me que si les r&egrave;gles
+du pare-feu le permettent.
+Lorsque les paquets arrivent, ils sont filtr&eacute;s en fonction de leurs
+type, origine, destination et port qui sont d&eacute;crits dans chacun de ceux-ci.
+<P>De nombreux routeurs comportent un certain nombre de services de
+type pare-feu.
+Les pare-feux filtrants peuvent &ecirc;tre pens&eacute;s comme des types
+particuliers de routeurs.
+Pour cette raison, il faut une profonde compr&eacute;hension de la structure
+des paquets IP pour travailler avec l'un d'eux.
+<P>Puisque tr&egrave;s peu de donn&eacute;es sont analys&eacute;es et trac&eacute;es, les pare-feux
+filtrants consomment peu de temps processeur et cr&eacute;ent moins de
+latence sur un r&eacute;seau.
+<P>Les pare-feux filtrants ne fournissent pas de contr&ocirc;le par mot
+de passe.
+Un utilisateur ne peut s'identifier en tant que tel.
+La seule identit&eacute; connue pour un utilisateur est l'adresse IP de
+son poste de travail.
+Cela peut &ecirc;tre un probl&egrave;me lorsqu'on souhaite utiliser DHCP
+(assignation dynamique d'adresses IP).
+En effet, les r&egrave;gles &eacute;tant fond&eacute;es sur les adresses IP, il faut
+ajuster celles-ci &agrave; chaque fois que de nouvelles adresses sont
+assign&eacute;es.
+Je ne sais pas comment automatiser ce processus.
+<P>Les pare-feux filtrants sont plus transparents pour les utilisateurs.
+Ceux-ci n'ont en effet pas &agrave; configurer des r&egrave;gles dans leurs
+applications pour utiliser Internet.
+Ce n'est pas vrai avec la plupart des serveurs mandataires.
+<P>
+<H2><A NAME="ss2.3">2.3 Serveurs mandataires</A>
+</H2>
+
+<P>Le meilleur exemple du fonctionnement de ceux-ci est celui d'une personne
+se connectant &agrave; un syst&egrave;me puis, depuis celui-ci, au reste du monde.
+C'est seulement avec un serveur mandataire que ce processus est automatique.
+Lorsque vous vous connectez &agrave; l'ext&eacute;rieur, le logiciel client vous
+connecte en fait d'abord au serveur mandataire.
+Le serveur mandataire se connecte alors au serveur que vous cherchez
+&agrave; atteindre (l'ext&eacute;rieur) et vous renvoie les donn&eacute;es re&ccedil;ues.
+NdT&nbsp;: en fran&ccedil;ais, on utilise souvent le terme "bastion"
+pour d&eacute;signer un serveur mandataire situ&eacute; entre le r&eacute;seau local
+interne et l'ext&eacute;rieur. Dans le pr&eacute;sent document, on utilisera plut&ocirc;t
+le terme bastion pour d&eacute;signer la machine qui porte le serveur
+mandataire.
+<P>Puisque les serveurs mandataires g&egrave;rent toutes les communications,
+ils peuvent enregistrer tout ce qu'ils font (donc ce que vous faites).
+Pour les mandataires HTTP (web), cela comprend les URL que vous
+demandez.
+Pour les mandataires FTP, cela inclut chaque fichier t&eacute;l&eacute;charg&eacute;.
+Ils peuvent m&ecirc;me expurger les mots "inappropri&eacute;s" des sites
+que vous visitez ou analyser la pr&eacute;sence de virus.
+<P>Les serveurs mandataires d'applications peuvent authentifier des
+utilisateurs.
+Avant qu'une connexion soit r&eacute;alis&eacute;e vers l'ext&eacute;rieur, le serveur
+peut demander &agrave; l'utilisateur de se connecter pr&eacute;alablement.
+Pour un utilisateur web, cela fonctionnera comme si chaque site
+requ&eacute;rait une connexion.
+<P>
+<H3>Mandataire SOCKS</H3>
+
+<P>Un mandataire SOCKS ressemble beaucoup &agrave; un vieux central
+t&eacute;l&eacute;phonique &agrave; fiches.
+Il interconnecte simplement une machine interne &agrave; une autre
+externe.
+<P>De nombreux serveurs SOCKS fonctionnent uniquement avec les
+connexions de type TCP.
+De m&ecirc;me, comme les pare-feux filtrants, il ne permettent pas
+l'authentification d'utilisateurs.
+En revanche, ils peuvent enregistrer la destination de la
+connexion de chaque utilisateur.
+<P>
+<HR>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-3.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-1.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc2"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    
+<META name="GENERATOR" content="IBM WebSphere Homepage Builder V4.0.0 for Linux">
+<title>L'interface socket</title>
+  <link rel="stylesheet" type="text/css" href="../cofares.css">
+  </head>
+    <body>
+    <h1>L'interface socket</h1>
+<h2 class="titre">L'API de base</h2>
+<H3>socket</H3>
+<p class="code">int <B>socket</B>(int domain, int type, int protocol);<br>
+DESCRIPTION<br>
+       Socket  crée  un  point  de  communication,  et renvoie un
+       descripteur.
+</p>
+<H3>bind</H3>
+<p class="code">int <B>bind</B>(int sockfd, struct sockaddr *my_addr, socklen_t
+addrlen);<br>
+
+DESCRIPTION<br>
+       bind fournit à la socket sockfd, l'adresse locale my_addr.
+       my_addr  est  longue de addrlen octets. Traditionnellement
+       cette operation est appelée "assignation d'un  nom  à  une
+       socket"  (Quand  une socket est créée, par l'appel-système
+       socket(2), elle existe dans l'espace des noms mais n'a pas
+       de nom assigné).
+</p>
+<H3>listen</H3>
+<p>
+int listen(int s, int backlog);<br>
+
+DESCRIPTION<br>
+       listen   est   généralement  utilisé  avec  des  processus
+       serveurs orientés-connexion.
+
+       Pour accepter des connexions, une socket est d'abord  créé
+       avec  socket(2),  puis  le désir d'accepter des connexions
+       entrantes, et la limite de la file d'entrée sont  indiqués
+       avec  listen, ensuite les connexions seront acceptées avec
+       accept(2).  L'appel système  listen  s'applique  seulement
+       aux sockets de type SOCK_STREAM ou SOCK_SEQPACKET.
+
+       Le paramètre backlog définit une longueur maximale pour la
+       file des connexions en attente.  Si une nouvelle connexion
+       arrrive alors que la file est pleine, le client reçoit une
+       erreur indiquant ECONNREFUSED, ou, si le  protocole  sous-
+       jacent  supporte  les retranmissions, la requête peut être
+       ignorée afin qu'un nouvel essai réussisse.
+
+<p><BR>
+int connect(int sockfd, struct sockaddr *serv_addr,
+socklen_t addrlen );<br>
+
+DESCRIPTION<br>
+       Le paramètre sockfd est une socket.
+
+       Cette fonction est principalement utilisée pour  les  pro­
+       cessus clients orientés-connexion.
+
+       Si  la  socket  est  du  type  SOCK_DGRAM,  cette fonction
+       indique le correspondant avec lequel la socket doit commu­
+       niquer,  c'est l'adresse à laquelle les datagrammes seront
+       envoyés, et la seule adresse  depuis  laquelle  les  data­
+       grammes seront reçus.
+
+       Si la socket est du type SOCK_STREAM, cette fonction tente
+       de se connecter à une autre socket. L'adresse  de  l'autre
+       socket  est  indiquée par serv_addr, qui doit être dans le
+       même domaine que la socket initiale.
+
+<p> int  accept(int sock, struct sockaddr *adresse, socklent_t
+       *longueur);<br>
+
+DESCRIPTION<br>
+
+accept  est  utilisé  généralement  avec   des   processus
+       serveurs orientés-connexion.
+
+       L'argument  sock  est  une  socket qui a été créée avec la
+       fonction socket(2).  On lui a  affecté  une  adresse  avec
+       bind(2).   Enfin  on  a indiqué au système, avec listen(2)
+       qu'elle désirait recevoir des connexions entrantes.
+
+       L'appel système accept extrait la première connexion de la
+       file  des  connexions en attente, crée une nouvelle socket
+       avec les mêmes propriétés que sock et  alloue  un  nouveau
+       descripteur de fichier pour cette socket.
+
+<p>ssize_t write(int fd, const void *buf, size_t count);
+
+DESCRIPTION
+       write  écrit  jusqu'à count octets dans le fichier associé
+       au descripteur fd depuis le buffer pointé par buf.   POSIX
+       réclame  qu'une  lecture  avec  read()  effectuée après le
+       retour d'une écriture avec write(), renvoie les  nouvelles
+       données.  Notez  que tous les systèmes de fichiers ne sont
+       pas compatibles avec POSIX.
+
+<p> ssize_t read(int fd, void *buf, size_t count);
+
+DESCRIPTION
+       read  lit  jusqu'à  count  octets depuis le descripteur de
+       fichier fd dans le buffer pointé par buf.
+
+       Si count vaut zéro, read renvoie zéro et n'a pas  d'autres
+       effets.
+
+       Si  count  est  supérieur  à  SSIZE_MAX,  le  résultat est
+       indéfini.
+
+<p>int send(int s, const void *msg, size_t len, int flags);
+
+       int sendto(int s, const void *msg, size_t len, int  flags,
+       const struct sockaddr *to, socklen_t tolen);
+
+       int sendmsg(int s, const struct msghdr *msg, int flags);
+
+DESCRIPTION
+       Send, sendto, et sendmsg permettent de transmettre un mes­
+       sage à destination d'une autre socket.  Send ne peut  être
+       utilisé  qu'avec les sockets connectée alors que sendto et
+       sendmsg peuvent être utilisés tout le temps.
+
+       L'adresse de la cible est donnée par to avec  la  longueur
+       tolen.   la longueur du message est indiquée dans len.  Si
+       le message est trop long pour être transmis  intégralement
+       au   protocole   sous-jacent,   l'erreur   EMSGSIZE   sera
+       déclenchée et rien ne sera émis.
+<p> int recvfrom(int s, void *buf, int len, unsigned int flags
+       struct sockaddr *from, socklen_t *fromlen);
+
+       int  recvmsg(int  s,  struct  msghdr  *msg,  unsigned  int
+       flags);
+
+DESCRIPTION
+       recvfrom et recvmsg sont utilisés pour recevoir  des  mes­
+       sages  depuis une socket s, et peuvent servir à la lecture
+       de données que la socket soit orientée connexion ou non.
+
+       Si from est non nul, et si la socket  n'est  pas  orientée
+       connexion,  l'adresse  de  la  source  du  messages  y est
+       insérée.  Fromlen est un paramètre résultat, initialisé  à
+       la  taille du buffer from, et modifié en retour pour indi­
+       quer la taille réelle de l'adresse enregistrée.
+ Ces  deux  routines  renvoient  la longueur du message si
+       elles réussissent. Si un message est trop long pour  tenir
+       dans  le  buffer,  les octets supplémentaires peuvent être
+       abandonnés  suivant  le  type  de  socket  utilisé   (voir
+       socket(2)).
+    <hr>
+    <address><a href="mailto:auteur@isae.edu.lb">Auteur</a></address>
+<!-- Created: Wed Feb  7 11:06:53 EET 2001 -->
+<!-- hhmts start -->
+Last modified: Wed Feb  7 21:48:16 EET 2001
+<!-- hhmts end -->
+  </body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>R&eacute;seau sous Linux :</TITLE>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-1.html" REL=next>
+
+
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-1.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<IMG SRC="prev.gif" ALT="Page précédente">
+<IMG SRC="toc.gif" ALT="Table des matières">
+<HR>
+<H1>R&eacute;seau sous Linux :</H1>
+
+<H2>Auteur : Joshua Drake 
+<A HREF="index.php?ref=Net-HOWTO-html/mailto:poet@linuxports.com">poet@linuxports.com</A> </H2>v1.6.2, D&eacute;cembre 1999
+<P><HR>
+<EM>(Traduction et trahison de Jacques.Chion@wanadoo.fr, un grand merci &agrave;
+Jean-Albert Ferrez, Bernard Choppy et &Eacute;ric Dumas pour leur aide)
+Un document 
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.linuxports.com/">www.linuxports.com</A> pour le 
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.linuxdoc.org">LDP: Linux Documentation Project</A>.</EM>
+<HR>
+<P>
+<H2><A NAME="toc1">1.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-1.html">Introduction.</A></H2>
+
+<P>
+<H2><A NAME="toc2">2.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-2.html">Histoire de ce document</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-2.html#ss2.1">2.1 Retour d'informations</A>
+</UL>
+<P>
+<H2><A NAME="toc3">3.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-3.html">Comment utiliser ce document.</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-3.html#ss3.1">3.1 Les conventions utilis&eacute;es dans ce document</A>
+</UL>
+<P>
+<H2><A NAME="toc4">4.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-4.html">Informations g&eacute;n&eacute;rales concernant le r&eacute;seau</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-4.html#ss4.1">4.1 Informations sur la couche r&eacute;seau de Linux.</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-4.html#ss4.2">4.2 O&ugrave; obtenir des informations sur le r&eacute;seau,</A>
+</UL>
+<P>
+<H2><A NAME="toc5">5.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html">Informations g&eacute;n&eacute;rales concernant la configuration r&eacute;seau</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html#ss5.1">5.1 De quoi ai-je besoin pour d&eacute;marrer ?</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html#ss5.2">5.2 O&ugrave; mettre les commandes de configuration ?</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html#ss5.3">5.3 Cr&eacute;er vos interfaces r&eacute;seau</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html#ss5.4">5.4 Configurer une interface r&eacute;seau. Noyaux 2.0 et 2.2</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html#ss5.5">5.5 Configurer votre solveur de noms</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html#ss5.6">5.6 Configurer votre interface loopback</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html#ss5.7">5.7 Routage</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html#ss5.8">5.8 Configurer vos serveurs r&eacute;seau et les services.</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html#ss5.9">5.9 Autres fichiers de configuration ayant un rapport avec le r&eacute;seau</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html#ss5.10">5.10 S&eacute;curit&eacute; r&eacute;seau et contr&ocirc;le d'acc&egrave;s</A>
+</UL>
+<P>
+<H2><A NAME="toc6">6.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-6.html">Informations sur Ethernet</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-6.html#ss6.1">6.1 Cartes Ethernet support&eacute;es</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-6.html#ss6.2">6.2 Informations g&eacute;n&eacute;rales sur Ethernet</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-6.html#ss6.3">6.3 Utiliser plusieurs cartes Ethernet sur la m&ecirc;me machine</A>
+</UL>
+<P>
+<H2><A NAME="toc7">7.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html">Informations relatives &agrave; l'IP</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.1">7.1 DHCP et DHCPD</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.2">7.2 R&eacute;glage d'un client DHCP pour les utilisateurs de LinuxConf</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.3">7.3 R&eacute;glage d'un serveur DHCP sous Linux</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.4">7.4 EQL - &eacute;galiseur de charge &agrave; lignes multiples</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.5">7.5 Enregistrement IP (IP Accounting) (pour Linux-2.0)</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.6">7.6 IP Aliasing</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.7">7.7 IP Pare-feu (Firewall) (pour Linux-2.0)</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.8">7.8 Encapsulation IPIP</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.9">7.9 IP Masquerade </A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.10">7.10 IP Transparent Proxy</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.11">7.11 IPv6</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.12">7.12 IP Mobile</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.13">7.13 Multicast</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html#ss7.14">7.14 Mise en forme du trafic - Changer la bande passante allou&eacute;e</A>
+</UL>
+<P>
+<H2><A NAME="toc8">8.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-8.html">Routage avec Linux-2.2</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-8.html#ss8.1">8.1 Les bases</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-8.html#ss8.2">8.2 Ajouter une route avec les nouveaux outils ip</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-8.html#ss8.3">8.3 Utiliser NAT avec le noyau 2.2</A>
+</UL>
+<P>
+<H2><A NAME="toc9">9.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-9.html">Utilisation du mat&eacute;riel courant pour PC</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-9.html#ss9.1">9.1 RNIS</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-9.html#ss9.2">9.2 PLIP pour Linux-2.0</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-9.html#ss9.3">9.3 PPP</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-9.html#ss9.4">9.4 Client SLIP (Antique)</A>
+</UL>
+<P>
+<H2><A NAME="toc10">10.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html">Autres technologies r&eacute;seau</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.1">10.1 ARCNet</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.2">10.2 Appletalk (<CODE>AF_APPLETALK</CODE>)</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.3">10.3 ATM</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.4">10.4 AX25 (<CODE>AF_AX25</CODE>)</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.5">10.5 DECNet</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.6">10.6 FDDI (Fiber Distributed Data Interface)</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.7">10.7 Relais de trames (Frame Relay)</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.8">10.8 IPX (<CODE>AF_IPX</CODE>)</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.9">10.9 NetRom (<CODE>AF_NETROM</CODE>)</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.10">10.10 Protocole Rose (<CODE>AF_ROSE</CODE>)</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.11">10.11 Support SAMBA - `NetBEUI', `NetBios', `CIFS'.</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.12">10.12 Support STRIP (Starmode Radio IP)</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.13">10.13 Token Ring</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.14">10.14 X.25</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html#ss10.15">10.15 Carte WaveLan </A>
+</UL>
+<P>
+<H2><A NAME="toc11">11.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-11.html">C&acirc;bles et c&acirc;blages</A></H2>
+
+<UL>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-11.html#ss11.1">11.1 C&acirc;ble s&eacute;rie NULL Modem </A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-11.html#ss11.2">11.2 C&acirc;ble port parall&egrave;le (c&acirc;ble PLIP)</A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-11.html#ss11.3">11.3 C&acirc;blage Ethernet 10base2 (coaxial fin) </A>
+<LI><A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-11.html#ss11.4">11.4 C&acirc;blage Ethernet &agrave; paires torsad&eacute;es</A>
+</UL>
+<P>
+<H2><A NAME="toc12">12.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-12.html">Glossaire des termes utilis&eacute;s dans ce document.</A></H2>
+
+<P>
+<H2><A NAME="toc13">13.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-13.html">Copyright.</A></H2>
+
+<P>
+<H2><A NAME="toc14">14.</A> <A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-14.html">Note du traducteur</A></H2>
+
+<HR>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-1.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<IMG SRC="prev.gif" ALT="Page précédente">
+<IMG SRC="toc.gif" ALT="Table des matières">
+</BODY>
+</HTML>

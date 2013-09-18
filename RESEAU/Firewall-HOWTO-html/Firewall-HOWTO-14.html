@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Le HOWTO du pare-feu et des serveurs mandataires: Outrepasser un pare-feu mandataire</TITLE>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-13.html" REL=previous>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc14" REL=contents>
+</HEAD>
+<BODY>
+<IMG SRC="next.gif" ALT="Page suivante">
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-13.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc14"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s14">14. Outrepasser un pare-feu mandataire</A></H2>
+
+<P>Juste pour vous g&acirc;cher la journ&eacute;e et vous maintenir dans l'esprit de
+s&eacute;curit&eacute;, je vais d&eacute;crire combien il est facile d'outrepasser un
+pare-feu mandataire.
+<P>Imaginons que vous ayez r&eacute;alis&eacute; tout ce qui se trouve dans le pr&eacute;sent
+document et que vous disposiez d'un r&eacute;seau et d'un serveur tr&egrave;s
+s&eacute;curis&eacute;s.
+Vous disposez d'une zone d&eacute;militaris&eacute;e, personne ne peut entrer dans
+votre r&eacute;seau et vous tracez chaque connexion r&eacute;alis&eacute;e vers le monde
+ext&eacute;rieur.
+Vous obligez tous vos utilisateurs &agrave; passer par un mandataire et le
+seul service que vous autorisiez directement vers l'ext&eacute;rieur est le
+DNS (port 53).
+<P>Un port, c'est tout ce qu'il faut pour rendre un pare-feu inutile.
+Voici comment cela se passe&nbsp;:
+<P>Commencez par configurer une machine Linux quelque part en-dehors de
+votre r&eacute;seau.
+Un bon choix pourrait &ecirc;tre une machine personnelle connect&eacute;e &agrave;
+Internet par un modem-c&acirc;ble.
+<P>Demandez trois adresses IP &agrave; votre FAI.
+De nombreuses entreprises en fournissent jusqu'&agrave; trois.
+<P>Sur cette machine, vous devez installer la partie client d'un r&eacute;seau
+priv&eacute; virtuel (VPN).
+Cherchez sur
+<A HREF="index.php?ref=Firewall-HOWTO-html/http://sunsite.auc.dk/vpnd/">http://sunsite.auc.dk/vpnd/</A>.
+<P>Maintenant, configurez le c&ocirc;t&eacute; serveur du VPN sur une autre machine
+Linux.
+Connectez ce serveur &agrave; son client par le port&nbsp;53.
+Activez le routage et la transmission IP et placez une adresse IP
+inutilis&eacute;e (obtenue de votre FAI) sur son port r&eacute;seau local.
+<P>Finalement, sur un poste du r&eacute;seau priv&eacute;, changez la passerelle par
+d&eacute;faut afin qu'elle pointe sur le serveur du VPN et ajoutez la troisi&egrave;me
+adresse IP sur son port r&eacute;seau local.
+<P>Maintenant, depuis ce poste, vous pouvez aller n'importe o&ugrave;.
+La seule chose que l'administrateur voie est une recherche DNS
+particuli&egrave;rement longue.
+<P>Maintenant, prenez le pouvoir sur le monde&nbsp;!
+<HR>
+<IMG SRC="next.gif" ALT="Page suivante">
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-13.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc14"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

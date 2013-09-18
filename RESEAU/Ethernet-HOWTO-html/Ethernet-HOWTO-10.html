@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Linux Ethernet-Howto: Questions diverses.</TITLE>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html" REL=previous>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc10" REL=contents>
+</HEAD>
+<BODY>
+<IMG SRC="next.gif" ALT="Page suivante">
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc10"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="misc"></A> <A NAME="s10">10. Questions diverses.</A></H2>
+
+<P>Tout ce qui se rapporte &agrave; Ethernet et qui ne rentrait pas ailleurs se
+retrouve ici. Ce n'est peut-&ecirc;tre pas significatif, ni int&eacute;ressant pour
+tout le monde, mais de totue fa&ccedil;on, c'est l&agrave;.
+<P>
+<H2><A NAME="lilo"></A> <A NAME="ss10.1">10.1 Passage des arguments Ethernet au noyau</A>
+</H2>
+
+<P>Voici deux commandes g&eacute;n&eacute;riques du noyau qui peuvent &ecirc;tre pass&eacute;es au
+noyau au moment du d&eacute;marrage (<CODE>ether</CODE> et <CODE>reserve</CODE>). Vous
+pouvez le faire avec LILO, loadlin, ou tout autre utilitaire de
+d&eacute;marrage qui accepte des arguments optionnels.
+<P>Par exemple, si la commande &eacute;tait `blabla' et qu'elle attende trois
+arguments (disons 123, 456 et 789), alors, avec LILO, vous pourriez
+taper au d&eacute;marrage&nbsp;:
+<P><CODE>LILO: linux blabla=123,456,789</CODE>
+<P>Pour plus d'informations, ainsi qu'une liste compl&egrave;te, sur les arguments
+de d&eacute;marrage, veuillez consulter le
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://metalab.unc.edu/mdw/HOWTO/BootPrompt-HOWTO.html">BootPrompt-HOWTO</A></BLOCKQUOTE>
+<P>
+<H3><A NAME="ether"></A> L'argument <CODE>ether</CODE></H3>
+
+<P>La commande <CODE>ether=</CODE> est utilis&eacute;e en conjonction avec le pilote
+compil&eacute; dans le noyau. Le <CODE>ether=</CODE> n'aura <EM>absolument aucun
+effet</EM> sur un pilote modulaire. Sous sa forme la plus g&eacute;n&eacute;rique, elle
+ressemble &agrave; quelque chose comme&nbsp;:
+<P>
+<BLOCKQUOTE><CODE>
+ether=IRQ,ADR_DE_BASE,PARAM_1,PARAM_2,NOM
+</CODE></BLOCKQUOTE>
+<P>Tous les arguments sont optionnels. Le premier argument non-num&eacute;rique
+est consid&eacute;r&eacute; comme le NOM.
+<P><B>IRQ:</B>
+Evident. Une valeur d'IRQ de `0' (habituellement la valeur par d&eacute;faut)
+signifie affectation automatique de l'IRQ. C'est un accident de
+l'Histoire que le param&egrave;tre d'IRQ soit en premier plut&ocirc;t que l'adresse
+de base&nbsp;--&nbsp;cela sera corrig&eacute; lorsque quelque chose d'autre changera.
+<P><B>ADR_DE_BASE:</B>
+Evident aussi. Une valeur de `0' (habituellement la valeur par d&eacute;faut)
+signifie de tester une liste d'adresses sp&eacute;cifiques &agrave; ce type de carte
+pour essayer de d&eacute;tecter une carte Ethernet.
+<P><B>PARAM_1:</B>
+Utilis&eacute; &agrave; l'origine comme une valeur qui passe outre l'adresse de d&eacute;part
+de la zone m&eacute;moire pour une carte Ethernet &agrave; m&eacute;moire partag&eacute;e, comme la
+WD80*3. Certains pilotes utilisent les quatre bits de poids faible de
+cette valeur pour fixer le niveau de message de d&eacute;bogage. 0&nbsp;--&nbsp;d&eacute;faut,
+1-7&nbsp;--&nbsp;niveaux&nbsp;1 &agrave; 7 (7 &eacute;tant le niveau le plus bavard), 8&nbsp;--&nbsp;niveau&nbsp;0
+(pas de messages). Le pilote LANCE utilise les quatre bits de poids
+faible de cette valeur pour s&eacute;lectionner le canal DMA. Sinon il utilise
+l'affectation automatique du DMA.
+<P><B>PARAM_2:</B>
+Le pilote 3c503 l'utilise pour choisir entre le transceiver interne et
+le transceiver externe. 0&nbsp;--&nbsp;d&eacute;faut/interne, 1&nbsp;--&nbsp;AUI externe. Les
+cartes E21XX de Cabletron utilisent les quatre bits de poids faible de
+PARAM_2 pour choisir le support physique. Sinon il est d&eacute;tect&eacute;
+automatiquement.
+<P><B>NOM:</B>
+S&eacute;lectionne le p&eacute;riph&eacute;rique r&eacute;seau auquel les valeurs se r&eacute;f&egrave;rent. Le
+noyau standard utilise les noms `eth0', `eth1', `eth2' et `eth3' pour
+les cartes Ethernet attach&eacute;es au bus, et `atp0' pour l'adaptateur `de
+poche' sur port parall&egrave;le. Le pilote ARCnet utilise le nom `arc0'. Le
+comportement par d&eacute;faut est de tester une seule carte Ethernet pour
+`eth0'. Vous ne pouvez activer plusieurs cartes qu'en fixant de fa&ccedil;on
+explicite leur adresse de base avec les param&egrave;tres de LILO. Le noyau 1.0
+consid&eacute;rait les cartes Ethernet bas&eacute;es sur la puce LANCE comme un cas
+sp&eacute;cial. Les arguments de LILO &eacute;taient ignor&eacute;s, et les cartes LANCE
+recevaient toujours des noms `eth&lt;n&gt;' en commen&ccedil;ant &agrave; `eth0'. Les
+cartes suppl&eacute;mentaires, non-LANCE, devaient &ecirc;tre affect&eacute;es &agrave;
+`eth&lt;n+1&gt;', et le test habituel de `eth0' devait alors &ecirc;tre
+d&eacute;sactiv&eacute; avec quelque chose comme `ether=0,-1,eth0'. (Oui, c'est
+bogu&eacute;.)
+<P>
+<H3><A NAME="reserve"></A> La commande <CODE>reserve</CODE></H3>
+
+<P>Cette autre commande LILO est utilis&eacute;e exactement comme la commande
+`<CODE>ether=</CODE>' ci-dessus, c'est-&agrave;-dire que l'on ajoute son nom aux
+options sp&eacute;cifi&eacute;es dans <CODE>lilo.conf</CODE>&nbsp;:
+<P>
+<BLOCKQUOTE><CODE>
+reserve=IO-base,extent{,IO-base,extent...}
+</CODE></BLOCKQUOTE>
+<P>Sur certaines machines, il peut &ecirc;tre n&eacute;cessaire d'emp&ecirc;cher les pilotes
+de p&eacute;riph&eacute;rique de tester des p&eacute;riph&eacute;riques (auto-d&eacute;tection) dans une
+zone sp&eacute;cifique. Cela peut &ecirc;tre le cas &agrave; cause d'un mat&eacute;riel mal con&ccedil;u
+qui <EM>fige</EM> le d&eacute;marrage (comme certaines cartes Ethernet), qui est
+identifi&eacute; par erreur, dont l'&eacute;tat a &eacute;t&eacute; chang&eacute; par une proc&eacute;dure de
+d&eacute;tection pr&eacute;c&eacute;dente, ou plus encore d'un mat&eacute;riel que vous ne souhaitez
+pas voir initialis&eacute; par le noyau.
+<P>L'argument de d&eacute;marrage <CODE>reserve</CODE> r&eacute;pond &agrave; cette attente en
+sp&eacute;cifiant une r&eacute;gion de port d'E/S qui ne doit pas &ecirc;tre test&eacute;e. Cette
+r&eacute;gion est r&eacute;serv&eacute;e dans la table d'enregistrement des ports du noyau
+comme si un p&eacute;riph&eacute;rique avait d&eacute;j&agrave; &eacute;t&eacute; trouv&eacute; dans cette r&eacute;gion. Notez
+que ce m&eacute;canisme ne devrait pas &ecirc;tre n&eacute;cessaire sur toutes les
+machines. C'est seulement lorsqu'il y a un probl&egrave;me ou un cas sp&eacute;cial
+que son utilisation peut se r&eacute;v&eacute;ler n&eacute;cessaire.
+<P>Les ports d'E/S dans la zone sp&eacute;cifi&eacute;e sont prot&eacute;g&eacute;s contre les
+proc&eacute;dures de d&eacute;tection de p&eacute;riph&eacute;riques. Nous avons montr&eacute; que cela est
+n&eacute;cessaire lorsqu'un pilote se bloque sur une carte NE2000, ou identifie
+de fa&ccedil;on erron&eacute;e un autre p&eacute;riph&eacute;rique comme &eacute;tant le sien. Un pilote de
+p&eacute;riph&eacute;rique correct ne devrait pas tester une zone r&eacute;serv&eacute;e, &agrave; moins
+qu'un autre argument de d&eacute;marrage ne sp&eacute;cifie explicitement qu'il doive
+le faire sur cette zone. Cela implique que <CODE>reserve</CODE> sera le plus
+souvent utilis&eacute; avec un autre argument de d&eacute;marrage. Donc si vous
+sp&eacute;cifiez une zone de <CODE>reserve</CODE> pour prot&eacute;ger un p&eacute;riph&eacute;rique
+donn&eacute;, vous devez g&eacute;n&eacute;ralement sp&eacute;cifier explicitement une d&eacute;tection
+pour ce p&eacute;riph&eacute;rique. La plupart des pilotes ignorent la table
+d'enregistrement des ports si on leur fournit une adresse explicite.
+<P>Par exemple, la ligne de d&eacute;marrage
+<BLOCKQUOTE><CODE>
+LILO: linux  reserve=0x300,32  ether=0,0x300,eth0
+</CODE></BLOCKQUOTE>
+<P>oblige tous les p&eacute;riph&eacute;riques &agrave; l'exception des pilotes Ethernet &agrave; ne
+pas tester la plage <CODE>0x300-0x31f</CODE>.
+<P>Comme d'habitude avec les sp&eacute;cificateurs de d&eacute;marrage, il existe une
+limite de 11 param&egrave;tres, donc vous ne pouvez sp&eacute;cifier que 5 zones
+r&eacute;serv&eacute;es par mot-cl&eacute; <CODE>reserve</CODE>. Plusieurs sp&eacute;cificateurs
+<CODE>reserve</CODE> fonctionneront si vous avez une requ&ecirc;te inhabituellement
+compliqu&eacute;e.
+<P>
+<H2><A NAME="modules"></A> <A NAME="ss10.2">10.2 Utilisation des pilotes Ethernet comme modules</A>
+</H2>
+
+<P>La majorit&eacute; des distributions disponibles ont des noyaux avec tr&egrave;s peu
+de pilotes int&eacute;gr&eacute;s. Les pilotes sont fournis comme modules chargeables
+dynamiquement. Ces pilotes modulaires sont normalement charg&eacute;s par
+l'administrateur via la commande <CODE>modprobe(8)</CODE> dans certains cas,
+ils sont automatiquement charg&eacute;s par le noyau via <CODE>kerneld</CODE> (pour
+les 2.0) ou <CODE>kmod</CODE> (pour les 2.1) qui eux-m&ecirc;mes font appel &agrave;
+<CODE>modprobe</CODE>.
+<P>Votre distribution offre peut &ecirc;tre de jolis outils graphiques pour
+configurer les modules ethernet. Si possible, essayez de les utiliser
+avant tout. La description qui suit explique ce qui se cache derri&egrave;re
+ces jolis petits programmes et ce que'ils changent.
+<P>Les informations qui d&eacute;terminent quels modules doivent &ecirc;tre utilis&eacute;s et
+les options qui leur sont associ&eacute;es sont en principe stock&eacute;es dans le
+fichier <CODE>/etc/conf.modules</CODE>. Les deux options qui y ont le plus
+d'inter&ecirc;t (pour les cartes ethernet) sont <CODE>alias</CODE> et
+<CODE>options</CODE>.  La commande <CODE>modprobe</CODE> consulte ce fichier pour
+obtenir des informations sur les modules.
+<P>Les modules utilis&eacute;s sont normalement stock&eacute;s dans un r&eacute;pertoire nomm&eacute;
+<CODE>/lib/modules/`uname -r`/net</CODE> o&ugrave; la commande <CODE>uname -r</CODE>
+retourne la version du noyau (ex&nbsp;: 2.0.34). Vous pouvez aller y faire un
+tour pour savoir quels modules correspondent &agrave; votre carte.
+<P>La premi&egrave;re chose &agrave; mettre dans votre <CODE>/etc/conf.modules</CODE> est une
+ligne indiquant &agrave; <CODE>modprobe</CODE> o&ugrave; se trouve le pilote &agrave; utiliser avec
+<CODE>eth0</CODE> (et <CODE>eth1</CODE>, ...), ceci gr&acirc;ce &agrave; un alias. Par exemple,
+si vous avez une carte ISA SMC EtherEZ qui utilise le module
+<CODE>smc-ultra.o</CODE>, vous aurez besoin de cr&eacute;er un alias entre ce pilote
+et <CODE>eth0</CODE> en ajoutant cette ligne&nbsp;:
+<P>
+<PRE>
+        alias eth0 smc-ultra
+</PRE>
+<P>Vous pourrez aussi avoir &agrave; ajouter une ligne d'<CODE>options</CODE> indiquant
+lesquelles doivent &ecirc;tre utilis&eacute;es avec tel module (ou alias de
+module). Continuons l'exemple ci-dessus&nbsp;: avec la ligne <CODE>alias</CODE>
+seule, le noyau vous pr&eacute;viendrait (cf. <CODE>dmesg</CODE>) que l'autod&eacute;tection
+des cartes ISA n'est <EM>pas</EM> une bonne id&eacute;e.  Pour supprimer cet
+avertissement, il suffirait d'ajouter une ligne donnant au module
+l'adresse d'E/S de votre carte, dans ce cas, l'adresse hexad&eacute;cimale
+<CODE>0x280</CODE>.
+<P>
+<PRE>
+        options smc-ultra io=0x280
+</PRE>
+<P>La plupart des modules ISA acceptent des arguments comme <CODE>io=0x340</CODE>
+et <CODE>irq=12</CODE> sur la ligne de commande d'<CODE>insmod</CODE>. Il est
+<EM>REQUIS</EM> ou du moins <EM>FORTEMENT RECOMMAND&Eacute;</EM> que vous
+fournissiez ces param&egrave;tres pour &eacute;viter la d&eacute;tection automatique de la
+carte. A la diff&eacute;rence des p&eacute;riph&eacute;riques PCI et EISA, il n'existe pas de
+moyen vraiment s&ucirc;r de r&eacute;aliser une d&eacute;tection automatique de la majorit&eacute;
+des p&eacute;riph&eacute;riques ISA, et cela doit donc &ecirc;tre &eacute;vit&eacute; quand on utilise les
+pilotes sous la forme de modules chargeables.
+<P>Une liste de toutes les options accept&eacute;es par chaque module se trouve
+dans le fichier&nbsp;:
+<P><CODE>/usr/src/linux/Documentation/networking/net-modules.txt</CODE>
+<P>Vous avez int&eacute;r&ecirc;t &agrave; le lire pour trouver les options &agrave; utiliser pour
+votre carte. Notez que quelques modules permettent les listes d'options
+s&eacute;par&eacute;es par des virgules, ils sont capables de g&eacute;rer plusieurs cartes
+depuis un seul module, par exemple les cartes &agrave; base de 8390, ainsi que
+le pilote PLIP.
+<P>
+<HR>
+<PRE>
+        option 3c503 io=0x280,0x300,0x330,0x350 xcvr=0,1,0,1
+</PRE>
+<HR>
+<P>La commande ci-dessus permet &agrave; un seul et m&ecirc;me module de contr&ocirc;ler
+quatre cartes 3c503, les cartes 2 et 4 utilisant le transceiver
+externe. Ne mettez pas d'espace autour des '=' ou des virgules.
+<P>Notez aussi que les modules <CODE>utilis&eacute;s</CODE> ne peuvent &ecirc;tre supprim&eacute;s de
+la m&eacute;moire. Cela signifie que vous aurez &agrave; faire un <CODE>ifconfig eth0
+down</CODE> (arr&ecirc;ter la carte ethernet) avant de pouvoir les supprimer.
+<P>La commande <CODE>lsmod</CODE> vous dira quels sont les modules qui sont
+charg&eacute;s, s'ils sont utilis&eacute;s, et <CODE>rmmod</CODE> les supprimera.
+<P>
+<H2><A NAME="ss10.3">10.3 Documents associ&eacute;s</A>
+</H2>
+
+<P>La plupart des informations que vous trouvez dans ce document
+proviennent de messages sauvegard&eacute;s des groupes de
+<CODE>comp.os.linux.*</CODE>, ce qui montre qu'il s'agit d'une vraie source
+d'informations. D'autres renseignements tr&egrave;s utiles proviennent de tout
+un tas de petits fichiers de Donald lui-m&ecirc;me.
+<P>Bien entendu, si vous configurez une carte Ethernet, vous voudrez
+configurer les logiciels que vous allez utiliser, et vous lirez pour
+cela le <I>Howto NET-3</I>. Ou encore, si vous vous sentez pousser des
+ailes de ``hacker'', vous pourrez toujours grapiller des informations
+suppl&eacute;mentaires directement dans les fichiers sources des pilotes. Ils
+comportent en g&eacute;n&eacute;ral un paragraphe ou deux d&eacute;crivant les points
+importants, avant que le code ne d&eacute;marre...
+<P>Pour ceux d'entre vous qui recherchent des informations qui ne sont pas
+sp&eacute;cifiques &agrave; Linux (comme&nbsp;: qu'est-ce que 10BaseT, qu'est-ce qu'AUI,
+que fait un hub, etc.) je vous recommande fortement d'utiliser le groupe
+de news <CODE>comp.dcom.lans.ethernet</CODE> et/ou
+<EM>comp.sys.ibm.pc.hardware.networking</EM>. Les archives de news tels
+que <CODE>deja.com</CODE> sont aussi une source intarissable de r&eacute;ponses. Vous
+pouvez aussi r&eacute;cup&eacute;rer les FAQ de ces groupes de news sur par exemple&nbsp;:
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/ftp://ftp.lip6.fr/pub/doc/faq/usenet-by-hierarchy/">Les FAQ de Usenet</A></BLOCKQUOTE>
+<P>Vous pouvez aussi consulter la `Page d'accueil d'Ethernet' pour ainsi
+dire, qui se trouve &agrave; l'URL suivante&nbsp;:
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://wwwhost.ots.utexas.edu/ethernet/ethernet-home.html">La page d'accueil d'Ethernet</A></BLOCKQUOTE>
+<P>
+<H2><A NAME="copyright"></A> <A NAME="ss10.4">10.4 D&eacute;sistement de responsabilit&eacute; et Copyright</A>
+</H2>
+
+<P>Ce document <EM>n'est pas</EM> la bible. Toutefois, il s'agit certainement
+de la source d'informations la plus &agrave; jour que vous pourrez
+trouver. Personne n'est responsable de ce qui arrive &agrave; votre mat&eacute;riel
+hormis vous-m&ecirc;me. Si votre carte Ethernet ou tout autre partie
+mat&eacute;rielle de votre ordinateur part en fum&eacute;e (...bien que ce soit
+pratiquement impossible&nbsp;!) nous n'en prenons aucune responsabilit&eacute;. LES
+AUTEURS NE SONT RESPONSABLES D'AUCUN DOMMAGE ENCOURU CONS&Eacute;CUTIF A DES
+ACTIONS EFFECTU&Eacute;ES EN SE BASANT SUR LES INFORMATIONS COMPRISES DANS CE
+DOCUMENT.
+<P>Ce document est Copyright (c) 1993-1997 by Paul Gortmaker. Il est permis
+de faire et de distribuer des copies compl&egrave;tes de ce manuel &agrave; condition
+que la notice de copyright et que cette notice de permission soient
+pr&eacute;serv&eacute;es dans toutes les copies.
+<P>Il est permis de copier et de distribuer des versions modifi&eacute;es de ce
+document sous les m&ecirc;mes conditions que la copie compl&egrave;te, &agrave; condition
+que cette notice de copyright soit incluse exactement telle qu'elle
+l'est dans l'original, et que le travail d&eacute;riv&eacute; r&eacute;sultant, dans son
+int&eacute;gralit&eacute;, soit distribu&eacute; sous les termes d'une notice de permission
+identique &agrave; celle-ci.
+<P>Il est permis de copier et de distribuer des traductions de ce document
+dans d'autres langues, sous les m&ecirc;mes conditions que ci-dessus pour les
+versions modifi&eacute;es.
+<P>Si vous avez l'intention d'int&eacute;grer ce document dans un travail destin&eacute;
+&agrave; la publication, contactez-moi (par courrier &eacute;lectronique) afin de
+pouvoir obtenir les informations les plus &agrave; jour possible. Par le pass&eacute;,
+des versions d&eacute;pass&eacute;es de documents <I>Linux HOWTO</I> ont &eacute;t&eacute; publi&eacute;es,
+causant aux d&eacute;veloppeurs le pr&eacute;judice ind&ucirc; d'&ecirc;tre empoisonn&eacute;s par des
+questions dont les r&eacute;ponses figuraient d&eacute;j&agrave; dans les versions &agrave; jour.
+<P>
+<P>
+<P>En accord avec cette notice, la version originale (en anglais) telle
+qu'elle appara&icirc;t dans l'<I>Ethernet-HOWTO</I> est fournie ici&nbsp;:
+<P>This document is <EM>not</EM> gospel. However, it is probably the most up
+to date info that you will be able to find. Nobody is responsible for
+what happens to your hardware but yourself. If your ethercard or any
+other hardware goes up in smoke (...nearly impossible!)  we take no
+responsibility. ie. THE AUTHORS ARE NOT RESPONSIBLE FOR ANY DAMAGES
+INCURRED DUE TO ACTIONS TAKEN BASED ON THE INFORMATION INCLUDED IN THIS
+DOCUMENT.
+<P>This document is Copyright (c) 1993-1997 by Paul Gortmaker. Permission
+is granted to make and distribute verbatim copies of this manual
+provided the copyright notice and this permission notice are preserved
+on all copies.
+<P>Permission is granted to copy and distribute modified versions of this
+document under the conditions for verbatim copying, provided that this
+copyright notice is included exactly as in the original, and that the
+entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.
+<P>Permission is granted to copy and distribute translations of this
+document into another language, under the above conditions for modified
+versions.
+<P>A hint to people considering doing a translation.  First,
+translate the SGML source (available via FTP from the HowTo
+main site) so that you can then generate other output formats.
+Be sure to keep a copy of the original English SGML source that
+you translated from! When an updated HowTo is released,
+get the new SGML source for that version, and then a simple
+<CODE>diff -u old.sgml new.sgml</CODE> will show you exactly what has
+changed so that you can easily incorporate those changes into
+your translated SMGL source without having to re-read or
+re-translate everything.
+<P>If you are intending to incorporate this document into a published work,
+please make contact (via e-mail) so that you can be supplied with the
+most up to date information available. In the past, out of date versions
+of the Linux HowTo documents have been published, which caused the
+developers undue grief from being plagued with questions that were
+already answered in the up to date versions.
+<P>
+<P>Ce document fait partie des <I>HOWTO Linux</I> traduits en fran&ccedil;ais.
+Vous pouvez trouver une liste &agrave; jour de ces documents &agrave; l'adresse
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://www.freenix.org/unix/linux/HOWTO/Liste-des-HOWTO.html">http://www.freenix.org/unix/linux/HOWTO/Liste-des-HOWTO.html</A><P>Les <I>HOWTO Linux</I> font partie du <I>Linux Documentation Project</I>
+(LDP). Si vous souhaitez participer au LDP ou &agrave; sa traduction en
+fran&ccedil;ais, vous pouvez consulter
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://www.freenix.org/unix/linux/HOWTO/Liste-des-HOWTO.html">http://www.freenix.org/unix/linux/HOWTO/Liste-des-HOWTO.html</A>
+ou contacter Eric Dumas, <CODE>dumas@linux.eu.org</CODE>.
+<P>
+<P>Cette version fran&ccedil;aise a &eacute;t&eacute; r&eacute;alis&eacute;e par Mathieu Arnold
+<CODE>&lt;arn_mat@club-internet.fr&gt;</CODE>, St&eacute;phane Alnet
+<CODE>&lt;alnet@u-picardie.fr&gt;</CODE> &eacute;tait l'ancien traducteur. Elle est
+Copyright (c) 1997-1998, Mathieu Arnold, selon les termes de la notice
+ci-dessus.
+<P>
+<P>Si vous constatez des erreurs <EM>dans la traduction</EM> en fran&ccedil;ais,
+merci d'en informer le traducteur. Vos remarques seront prises en compte
+pour la prochaine version de la traduction.
+<P>
+<H2><A NAME="ss10.5">10.5 Conclusion</A>
+</H2>
+
+<P>
+<P>Si vous avez trouv&eacute; une faute de frappe &eacute;naurme, ou des informations
+d&eacute;pass&eacute;es dans ce document, merci d'envoyer un courrier &eacute;lectronique.
+Il est &eacute;norme, et il est facile de rater certaines choses.  Si vous avez
+envoy&eacute; un courrier &agrave; propos d'une modification, et qu'elle n'a pas &eacute;t&eacute;
+incluse dans la version suivante, n'h&eacute;sitez pas &agrave; la r&eacute;-envoyer, car
+elle a pu se perdre dans le flot habituel de SPAM et de prospectus que
+je re&ccedil;ois.
+<P>Merci&nbsp;!
+<P>Paul Gortmaker, <CODE>p_gortmaker@yahoo.com</CODE>
+<HR>
+<IMG SRC="next.gif" ALT="Page suivante">
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-9.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc10"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

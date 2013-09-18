@@ -1,0 +1,1362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+  <title>Design Patterns du Gang of Four appliqués à Java - Club d'entraide des d&#233;veloppeurs francophones</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <meta name="generator" content="developpez-com" />
+  <link rel="stylesheet" type="text/css" media="screen" href="./article.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="./code.css" />
+  <script src="js/fonctions-kit.js" type="text/javascript"></script>
+  
+  <style type="text/css">
+<!--
+body {
+	background-color : #DDEEFF;
+	background: #DDEEFF;
+	font: normal;
+    font-family: Verdana;
+    font-weight: normal;    
+    margin: 0
+}
+
+img {
+    border:0
+}
+form {
+    margin : 0
+}
+td {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size : 10pt;
+	font-weight: normal;
+}
+td.iongl {
+	width : 1px;
+}
+td.bgongl {
+	background-image : url(./images/kitint.gif);
+	text-align : center;
+}
+td.bgmarron{
+    background-image : url(./images/kitMarronInt.gif);
+    background-repeat: repeat-x;  
+    text-align : center;
+
+}
+td.bgjaune{
+    background-image : url(./images/kitJauneInt.gif);
+    background-repeat: repeat-x;
+    text-align : center;
+}
+td.bgvert{
+    background-image : url(./images/kitVertInt.gif);
+    background-repeat: repeat-x;  
+    text-align : center;
+}
+
+.ntdrub:link {
+	color : #000000;
+	font-weight : bold;
+    font-size : 8pt;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.ntdrub:visited {
+    color : #000000;
+    font-weight : bold;
+    font-size : 8pt;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.ntdrub:active {
+	color : #000000;
+	font-weight : bold;
+    font-size : 8pt;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.ntdrub:hover {
+    color : #FF0000;
+    font-weight : bold;
+	font-size : 8pt;
+	text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+td.trbleu {
+	background-color:#6389D8;
+	text-align : center;
+    margin: 0 ;
+	border: 0;
+	padding-top : 3px;
+	padding-bottom : 3px;
+	height : 34px;
+}
+td.fondart {
+    background-color:#FFFFFF;
+    
+}
+
+table.tbnoir{
+	background-color:#000000;
+}
+.titrepied {
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	font-size : 10pt;
+	font: normal;
+	font-weight: normal
+}
+
+-->
+</style>
+  
+  
+</head>
+<body>
+<table width="100%" cellspacing="4">
+	<tr>
+	<td align="center">
+		<table width="100%" cellspacing="0" cellpadding="0">
+			<tr>
+				<td>
+				  <table width="100%" cellspacing="11">
+					<tr>
+						<td>
+						<a href="http://www.developpez.com"><img src="images/kitlogo.gif" alt="Accueil" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+
+  				<tr>
+    				<td>
+    					<table class="cachee" cellpadding="0" cellspacing="0" width="100%">
+    						<tr>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://blog.developpez.com/?blog=18" class="ntdrub">Club</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://emploi.developpez.com" class="ntdrub">Emploi</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://blog.developpez.com" class="ntdrub">Blogs</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://www.developpez.tv" class="ntdrub">&nbsp;&nbsp;TV&nbsp;&nbsp;</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://web.developpez.com" class="ntdrub">Dév.&nbsp;Web</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://php.developpez.com" class="ntdrub">PHP</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://xml.developpez.com" class="ntdrub">XML</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://python.developpez.com" class="ntdrub">Python</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://general.developpez.com/cours/" class="ntdrub">Autres</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://jeux.developpez.com" class="ntdrub">2D-3D-Jeux</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://securite.developpez.com" class="ntdrub">Sécurité</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://windows.developpez.com" class="ntdrub">Windows</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://linux.developpez.com" class="ntdrub">Linux</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://hardware.developpez.com" class="ntdrub">PC</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitVertBg.gif" alt="" /></td>
+								<td class="bgvert"><a href="http://mac.developpez.com" class="ntdrub">Mac</a></td>
+								<td class="iongl"><img src="images/kitVertBd.gif" alt="" /></td>
+   							</tr>
+   						</table>
+   					</td>	
+   				</tr>
+   				<tr>
+   					<td>
+    					<table class="cachee" cellpadding="0" cellspacing="0" width="100%">
+  							<tr>
+								<td class="iongl"><img src="images/kitMarronBg.gif" alt="" /></td>
+								<td class="bgmarron"><a href="http://www.developpez.com" class="ntdrub">Accueil</a></td>
+								<td class="iongl"><img src="images/kitMarronBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://conception.developpez.com" class="ntdrub">Conception</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://java.developpez.com" class="ntdrub">Java</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://dotnet.developpez.com" class="ntdrub">DotNET</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://vb.developpez.com" class="ntdrub">Visual&nbsp;Basic</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://c.developpez.com" class="ntdrub">&nbsp;C&nbsp;</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://cpp.developpez.com" class="ntdrub">C++</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://delphi.developpez.com" class="ntdrub">Delphi</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://eclipse.developpez.com" class="ntdrub">Eclipse</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://office.developpez.com" class="ntdrub">MS-Office</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://sgbd.developpez.com" class="ntdrub">SQL&nbsp;&amp;&nbsp;SGBD</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://oracle.developpez.com" class="ntdrub">Oracle</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://4d.developpez.com" class="ntdrub">&nbsp;4D&nbsp;</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+								<td class="iongl"><img src="images/kitJauneBg.gif" alt="" /></td>
+								<td class="bgjaune"><a href="http://Business-Intelligence.developpez.com" class="ntdrub">Business&nbsp;Intelligence</a></td>
+								<td class="iongl"><img src="images/kitJauneBd.gif" alt="" /></td>
+  							</tr>
+   						</table>
+   					</td>
+   				</tr>
+
+				<tr>
+					<td class="trbleu">
+					</td>
+				</tr>
+
+				<tr valign="top">
+					<td valign="top" class="fondart">
+						<table cellspacing="1" width="100%" class="tbnoir">
+							<tr>
+								<td class="fondart">
+									<div style="text-align:center;">
+									<table class="cadrearticle" width="90%" cellpadding="10" cellspacing="0">
+										<tr>
+											<td align="center" style="text-align:left">
+
+		<br/><h1>Design Patterns du Gang of Four appliqués à Java</h1><div class="soustitre">
+		<a href="http://www.uml.org/"><img src="./images/icone_uml_small.png" alt="UML"/></a>
+	</div><p class="dateArticle">Date de publication : 16/09/2008</p><div class="cachee"><hr/><div class="barreNavigation"><div style="float: left;"><span class="lientelechargement"><a class="lientelechargement" href="page_1.html">Précédent</a></span>
+			 
+			<span class="lientelechargement"><a class="lientelechargement" href="sommaire.html">Sommaire</a></span>
+			 
+			<span class="lientelechargement"><a class="lientelechargement" href="page_3.html">Suivant</a></span></div><br/>
+			 
+		</div><hr/></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<br /><a class="summaryIndent0" href="#LIV">IV. CREATIONNELS (CREATIONAL PATTERNS)</a>
+			
+    		<br /><a class="summaryIndent1" href="#LIV-A">IV-A. Fabrique abstraite (Abstract Factory ou Kit)</a>
+    			
+				
+        		
+        		
+        		
+        		
+        		
+    			
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+                
+                
+    		
+    		<br /><a class="summaryIndent1" href="#LIV-B">IV-B. Monteur (Builder)</a>
+    			
+				
+        		
+        		
+        		
+        		
+        		
+                
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+                
+    		
+    		<br /><a class="summaryIndent1" href="#LIV-C">IV-C. Fabrique (Factory Method ou Virtual Constructor)</a>
+    			
+				
+        		
+				
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+                
+                
+                
+    		
+    		<br /><a class="summaryIndent1" href="#LIV-D">IV-D. Prototype (Prototype)</a>
+    			
+				
+        		
+				
+				
+				
+				
+				
+				
+				
+				
+        		
+				
+                
+                
+                
+                
+    		
+    		<br /><a class="summaryIndent1" href="#LIV-E">IV-E. Singleton (Singleton)</a>
+    			
+				
+        		
+        		
+        		
+        		
+        		
+        		
+    			
+				
+				
+				
+				
+				
+				
+				
+				
+				
+                
+    		
+		
+	
+
+    	
+<br/><br/>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<br /><h2 class="TitreSection1" id="LIV">IV. CREATIONNELS (CREATIONAL PATTERNS)</h2>
+			
+    		<br /><h3 class="TitreSection2" id="LIV-A">IV-A. Fabrique abstraite (Abstract Factory ou Kit)</h3>
+    			
+				<div class="image"><img src="./images/designPatternCreationalAbstractFactory.png" alt=""/></div>
+        		<div class="paragraph">
+        			<b><span style="text-decoration: underline;">LIEN VERS LE DICTIONNAIRE DES DEVELOPPEURS</span></b> : 
+                </div><br/>
+        		<div class="paragraph">
+					<a href="http://dico.developpez.com/html/3115-Conception-Abstract-Factory.php" class="lienDico" title="Dictionnaire des développeurs">Abstract Factory</a>
+				</div><br/>
+        		<div class="paragraph">
+        			<b><span style="text-decoration: underline;">AUTRE RESSOURCE SUR DEVELOPPEZ.COM</span></b> : 
+                </div><br/>
+        		<div class="paragraph">
+					<a href="http://smeric.developpez.com/java/uml/kit/" class="lienArticle">Le kit par Sébastien MERIC</a>
+				</div><br/>
+        		<div class="paragraph">
+        			<b><span style="text-decoration: underline;">OBJECTIFS</span></b> : 
+                </div><br/>
+    			<div class="paragraph">
+					Fournir une interface pour créer des objets d'une même famille sans préciser leurs <a href="http://dico.developpez.com/html/2295-Conception-classe-concrete.php" class="lienDico" title="Dictionnaire des développeurs">classes concrètes</a>.
+				</div><br/>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RAISONS DE L'UTILISER</span></b> :
+				</div><br/>
+				<div class="paragraph">
+				    Le système utilise des objets qui sont regroupés en famille.
+				    Selon certains critères, le système utilise les objets d'une famille ou d'une autre.
+				    Le système doit utiliser ensemble les objets d'une famille.
+				</div><br/>
+				<div class="paragraph">
+				    Cela peut être le cas des éléments graphiques d'un look and feel : 
+                    pour un look and feel donné, tous les graphiques créés doivent être de la même famille.
+				</div><br/>
+				<div class="paragraph">
+				    La partie cliente manipulera les <a href="http://dico.developpez.com/html/2542-Conception-interface.php" class="lienDico" title="Dictionnaire des développeurs">interfaces</a> des <a href="http://dico.developpez.com/html/2629-Conception-objet.php" class="lienDico" title="Dictionnaire des développeurs">objets</a> ; 
+                    ainsi il y aura une indépendance par rapport aux classes concrètes.
+                    Chaque fabrique concrète permet d'instancier une famille d'objets (éléments graphiques du même look and feel) ;
+                    ainsi la notion de famille d'objets est renforcée.
+				</div><br/>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RESULTAT</span></b> :
+				</div><br/>
+				<div class="paragraph">
+				    Le Design Pattern permet d'isoler l'appartenance à une famille de classes.
+				</div><br/>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RESPONSABILITES</span></b> :
+				</div><br/>
+        		<ul style="list-style-type: disc;">
+                    <li>
+                        <b>AbstractFabrique</b> : définit l'interface des méthodes de création. 
+                        Dans le diagramme, il n'y a qu'une méthode de création pour un objet d'une classe. 
+                        Mais, le diagramme sous-entend un nombre indéfini de méthodes pour un nombre indéfini de classes.
+                    </li>
+                    <li>
+                        <b>ConcreteFabriqueA</b> et <b>ConcreteFabriqueB</b> : implèmentent l'interface et instancient la classe concrète appropriée.
+                    </li>
+                    <li>
+                        <b>AbstractClasse</b> : définit l'interface d'un type d'objet instancié.
+                    </li>
+                    <li>
+                        <b>ClasseA</b> et <b>ClasseB</b> : sont des sous-classes concrètes d'<b>AbstractClasse</b>. 
+                        Elles sont instanciées par les ConcreteFabrique.
+                    </li>
+                    <li>
+                        La partie cliente fait appel à une Fabrique pour obtenir une nouvelle instance d'<b>AbstractClasse</b>. 
+                        L'instanciation est transparente pour la partie cliente. 
+                        Elle manipule une <b>AbstractClasse</b>. 
+                    </li>
+                </ul>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">IMPLEMENTATION JAVA</span></b> :
+				</div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e461"><tr><td class="titre_code">AbstractClasse.java</td></tr><tr><td class="code"><div id="codeWrapperd0e461" class="codeWrapper"><div id="codeOverflowd0e461" style="overflow: auto;"><pre><code id="contenuCoded0e461" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Définit</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">interface</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">type</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">instancié</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">interface</code> AbstractClasse <code class="java_operator">{</code>
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">affichage</code><code class="java_comment3"> </code><code class="java_comment3">du</code><code class="java_comment3"> </code><code class="java_comment3">nom</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">afficherClasse</code>();
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e598"><tr><td class="titre_code">ClasseA.java</td></tr><tr><td class="code"><div id="codeWrapperd0e598" class="codeWrapper"><div id="codeOverflowd0e598" style="overflow: auto;"><pre><code id="contenuCoded0e598" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Sous</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">AbstractClasse</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Cette</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">est</code><code class="java_comment3"> </code><code class="java_comment3">instanciée</code><code class="java_comment3"> </code><code class="java_comment3">par</code><code class="java_comment3"> </code><code class="java_comment3">ConcreteFabriqueA</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> ClasseA <code class="java_keyword1">implements</code> AbstractClasse <code class="java_operator">{</code>
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Implémentation</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">affichage</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">afficherClasse</code>() <code class="java_operator">{</code>
+        System.out.<code class="java_function">println</code>(<code class="java_literal1">"</code><code class="java_literal1">Objet</code><code class="java_literal1"> </code><code class="java_literal1">de</code><code class="java_literal1"> </code><code class="java_literal1">classe</code><code class="java_literal1"> </code><code class="java_literal1">'ClasseA'</code><code class="java_literal1">"</code>);
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e763"><tr><td class="titre_code">ClasseB.java</td></tr><tr><td class="code"><div id="codeWrapperd0e763" class="codeWrapper"><div id="codeOverflowd0e763" style="overflow: auto;"><pre><code id="contenuCoded0e763" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Sous</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">AbstractClasse</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Cette</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">est</code><code class="java_comment3"> </code><code class="java_comment3">instanciée</code><code class="java_comment3"> </code><code class="java_comment3">par</code><code class="java_comment3"> </code><code class="java_comment3">ConcreteFabriqueB</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> ClasseB <code class="java_keyword1">implements</code> AbstractClasse <code class="java_operator">{</code>
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Implémentation</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">affichage</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">afficherClasse</code>() <code class="java_operator">{</code>
+        System.out.<code class="java_function">println</code>(<code class="java_literal1">"</code><code class="java_literal1">Objet</code><code class="java_literal1"> </code><code class="java_literal1">de</code><code class="java_literal1"> </code><code class="java_literal1">classe</code><code class="java_literal1"> </code><code class="java_literal1">'ClasseB'</code><code class="java_literal1">"</code>);
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e928"><tr><td class="titre_code">AbstractFabrique.java</td></tr><tr><td class="code"><div id="codeWrapperd0e928" class="codeWrapper"><div id="codeOverflowd0e928" style="overflow: auto;"><pre><code id="contenuCoded0e928" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Définit</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">interface</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">interface</code> AbstractFabrique <code class="java_operator">{</code>
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">AbstractClasse</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_label">@return</code><code class="java_comment3"> </code><code class="java_comment3">L</code><code class="java_comment3">'</code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">créé</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> AbstractClasse <code class="java_function">creerClasse</code>();
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e1093"><tr><td class="titre_code">ConcreteFabriqueA.java</td></tr><tr><td class="code"><div id="codeWrapperd0e1093" class="codeWrapper"><div id="codeOverflowd0e1093" style="overflow: auto;"><pre><code id="contenuCoded0e1093" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Implémente</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">interface</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">AbstractFabrique</code><code class="java_comment3">"</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> ConcreteFabriqueA <code class="java_keyword1">implements</code> AbstractFabrique <code class="java_operator">{</code>
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">La</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code><code class="java_comment3"> </code><code class="java_comment3">instancie</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">ClasseA</code><code class="java_comment3">"</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_label">@return</code><code class="java_comment3"> </code><code class="java_comment3">Un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">ClasseA</code><code class="java_comment3">"</code><code class="java_comment3"> </code><code class="java_comment3">qui</code><code class="java_comment3"> </code><code class="java_comment3">vient</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">être</code><code class="java_comment3"> </code><code class="java_comment3">créé</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> AbstractClasse <code class="java_function">creerClasse</code>() <code class="java_operator">{</code>
+        <code class="java_keyword1">return</code> <code class="java_keyword1">new</code> <code class="java_function">ClasseA</code>();
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e1288"><tr><td class="titre_code">ConcreteFabriqueB.java</td></tr><tr><td class="code"><div id="codeWrapperd0e1288" class="codeWrapper"><div id="codeOverflowd0e1288" style="overflow: auto;"><pre><code id="contenuCoded0e1288" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Implémente</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">interface</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">AbstractFabrique</code><code class="java_comment3">"</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> ConcreteFabriqueB <code class="java_keyword1">implements</code> AbstractFabrique <code class="java_operator">{</code>
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">La</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code><code class="java_comment3"> </code><code class="java_comment3">instancie</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">ClasseB</code><code class="java_comment3">"</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_label">@return</code><code class="java_comment3"> </code><code class="java_comment3">Un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">ClasseB</code><code class="java_comment3">"</code><code class="java_comment3"> </code><code class="java_comment3">qui</code><code class="java_comment3"> </code><code class="java_comment3">vient</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">être</code><code class="java_comment3"> </code><code class="java_comment3">créé</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> AbstractClasse <code class="java_function">creerClasse</code>() <code class="java_operator">{</code>
+        <code class="java_keyword1">return</code> <code class="java_keyword1">new</code> <code class="java_function">ClasseB</code>();
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e1483"><tr><td class="titre_code">AbstractFactoryPatternMain.java</td></tr><tr><td class="code"><div id="codeWrapperd0e1483" class="codeWrapper"><div id="codeOverflowd0e1483" style="overflow: auto;"><pre><code id="contenuCoded0e1483" class="contenuCode"><code class="java_keyword1">public</code> <code class="java_keyword3">class</code> AbstractFactoryPatternMain <code class="java_operator">{</code>
+
+    <code class="java_keyword1">public</code> <code class="java_keyword1">static</code> <code class="java_keyword3">void</code> <code class="java_function">main</code>(String[] args) <code class="java_operator">{</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Création</code><code class="java_comment2"> </code><code class="java_comment2">des</code><code class="java_comment2"> </code><code class="java_comment2">fabriques</code>
+        AbstractFabrique lFactory1 <code class="java_operator">=</code> <code class="java_keyword1">new</code> <code class="java_function">ConcreteFabriqueA</code>();
+        AbstractFabrique lFactory2 <code class="java_operator">=</code> <code class="java_keyword1">new</code> <code class="java_function">ConcreteFabriqueB</code>();
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Création</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">deux</code><code class="java_comment2"> </code><code class="java_comment2">"AbstractClasse"</code><code class="java_comment2"> </code><code class="java_comment2">à</code><code class="java_comment2"> </code><code class="java_comment2">partir</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">chaque</code><code class="java_comment2"> </code><code class="java_comment2">fabrique</code>
+        AbstractClasse lClasse1 <code class="java_operator">=</code> lFactory1.<code class="java_function">creerClasse</code>();
+        AbstractClasse lClasse2 <code class="java_operator">=</code> lFactory2.<code class="java_function">creerClasse</code>();
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Appel</code><code class="java_comment2"> </code><code class="java_comment2">d'une</code><code class="java_comment2"> </code><code class="java_comment2">méthode</code><code class="java_comment2"> </code><code class="java_comment2">d'"AbstractClasse"</code><code class="java_comment2"> </code><code class="java_comment2">qui</code><code class="java_comment2"> </code><code class="java_comment2">affiche</code><code class="java_comment2"> </code><code class="java_comment2">un</code><code class="java_comment2"> </code><code class="java_comment2">message</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Ce</code><code class="java_comment2"> </code><code class="java_comment2">message</code><code class="java_comment2"> </code><code class="java_comment2">permet</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">vérifier</code><code class="java_comment2"> </code><code class="java_comment2">que</code><code class="java_comment2"> </code><code class="java_comment2">chaque</code><code class="java_comment2"> </code><code class="java_comment2">"AbstractClasse"</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">est</code><code class="java_comment2"> </code><code class="java_comment2">en</code><code class="java_comment2"> </code><code class="java_comment2">fait</code><code class="java_comment2"> </code><code class="java_comment2">une</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">différente</code>
+        lClasse1.<code class="java_function">afficherClasse</code>();
+        lClasse2.<code class="java_function">afficherClasse</code>();
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">--------------------------</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Affichage</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Objet</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">'ClasseA'</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Objet</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">'ClasseB'</code>
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+    		
+    		<br /><h3 class="TitreSection2" id="LIV-B">IV-B. Monteur (Builder)</h3>
+    			
+				<div class="image"><img src="./images/designPatternCreationalBuilder.png" alt=""/></div>
+        		<div class="paragraph">
+        			<b><span style="text-decoration: underline;">LIEN VERS LE DICTIONNAIRE DES DEVELOPPEURS</span></b> : 
+                </div><br/>
+        		<div class="paragraph">
+					<a href="http://dico.developpez.com/html/3116-Conception-Builder.php" class="lienDico" title="Dictionnaire des développeurs">Builder</a>
+				</div><br/>
+        		<div class="paragraph">
+        			<b><span style="text-decoration: underline;">AUTRE RESSOURCE SUR DEVELOPPEZ.COM</span></b> : 
+                </div><br/>
+        		<div class="paragraph">
+					<a href="http://smeric.developpez.com/java/uml/monteur/" class="lienArticle">Le monteur par Sébastien MERIC</a>
+				</div><br/>
+        		<div class="paragraph">
+        			<b><span style="text-decoration: underline;">OBJECTIFS</span></b> : 
+                </div><br/>
+                <ul style="list-style-type: disc;">
+                    <li>
+                        Séparer la construction d'un <a href="http://dico.developpez.com/html/2289-Conception-objet-composite.php" class="lienDico" title="Dictionnaire des développeurs">objet complexe</a> de sa représentation.
+                    </li>
+                    <li>
+                        Permettre d'obtenir des représentations différentes avec le même procédé de construction.
+                    </li>
+                </ul>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RAISONS DE L'UTILISER</span></b> :
+				</div><br/>
+				<div class="paragraph">
+				    Le système doit instancier des objets complexes. Ces objets complexes peuvent avoir des représentations différentes.
+				</div><br/>
+				<div class="paragraph">
+				    Cela peut être le cas des différentes fenêtres d'une IHM. 
+                    Elles comportent des éléments similaires (titre, boutons), mais chacune avec des particularités (libellés, comportements).
+				</div><br/>
+				<div class="paragraph">
+				    Afin d'obtenir des représentations différentes (fenêtres), la partie cliente passe des monteurs différents au directeur.
+				    Le directeur appelera des <a href="http://dico.developpez.com/html/2599-Conception-methode.php" class="lienDico" title="Dictionnaire des développeurs">méthodes</a> du monteur retournant les éléments (titre, bouton). 
+				    Chaque implémentation des méthodes des monteurs retourne des éléments avec des différences (libellés, comportements).
+				</div><br/>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RESULTAT</span></b> :
+				</div><br/>
+				<div class="paragraph">
+				    Le Design Pattern permet d'isoler des variations de représentations d'un objet.
+				</div><br/>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RESPONSABILITES</span></b> :
+				</div><br/>
+        		<ul style="list-style-type: disc;">
+                    <li>
+                        <b>ObjetComplexe</b> : est la classe d'objet complexe à instancier.
+                    </li>
+                    <li>
+                        <b>Monteur</b> : définit l'interface des méthodes permettant de créer les différentes parties de l'objet complexe.
+                    </li>
+                    <li>
+                        <b>ConcreteMonteurA</b> et <b>ConcreteMonteurB</b> : implémentent les méthodes permettant de créer les différentes parties.
+                        Les classes conservent l'objet durant sa construction et fournissent un moyen de récupérer le résultat de la construction.
+                    </li>
+                    <li>
+                        <b>Directeur</b> : construit un objet en appelant les méthodes d'un <b>Monteur</b>.
+                    </li>
+                    <li>
+                        La partie cliente instancie un <b>Monteur</b>. Elle le fournit au <b>Directeur</b>. 
+                        Elle appelle la méthode de contruction du <b>Directeur</b>.
+                    </li>
+                </ul>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">IMPLEMENTATION JAVA</span></b> :
+				</div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e1901"><tr><td class="titre_code">ObjetComplexe.java</td></tr><tr><td class="code"><div id="codeWrapperd0e1901" class="codeWrapper"><div id="codeOverflowd0e1901" style="overflow: auto;"><pre><code id="contenuCoded0e1901" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">L</code><code class="java_comment3">'</code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">complexe</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Dans</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">exemple</code><code class="java_comment3">,</code><code class="java_comment3"> </code><code class="java_comment3">on</code><code class="java_comment3"> </code><code class="java_comment3">pourrait</code><code class="java_comment3"> </code><code class="java_comment3">considérer</code><code class="java_comment3"> </code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">attribut1</code><code class="java_comment3"> </code><code class="java_comment3">comme</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">libellé</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">et</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">attribut2</code><code class="java_comment3"> </code><code class="java_comment3">comme</code><code class="java_comment3"> </code><code class="java_comment3">une</code><code class="java_comment3"> </code><code class="java_comment3">dimension</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">La</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">attribut2</code><code class="java_comment3"> </code><code class="java_comment3">peut</code><code class="java_comment3"> </code><code class="java_comment3">varier</code><code class="java_comment3"> </code><code class="java_comment3">selon</code><code class="java_comment3"> </code><code class="java_comment3">le</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">Monteur</code><code class="java_comment3">"</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> ObjetComplexe <code class="java_operator">{</code>
+
+    <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Les</code><code class="java_comment2"> </code><code class="java_comment2">attributs</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">l'objet</code><code class="java_comment2"> </code><code class="java_comment2">complexe</code>
+    <code class="java_keyword1">private</code> String attribut1;
+    <code class="java_keyword1">private</code> Number attribut2;
+    
+    <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Les</code><code class="java_comment2"> </code><code class="java_comment2">méthodes</code><code class="java_comment2"> </code><code class="java_comment2">permettant</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">fixes</code><code class="java_comment2"> </code><code class="java_comment2">les</code><code class="java_comment2"> </code><code class="java_comment2">attributs</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">setAttribut1</code>(String pAttribut1) <code class="java_operator">{</code>
+        attribut1 <code class="java_operator">=</code> pAttribut1;
+    <code class="java_operator">}</code>
+    
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">setAttribut2</code>(Number pAttribut2) <code class="java_operator">{</code>
+    	attribut2 <code class="java_operator">=</code> pAttribut2;
+    <code class="java_operator">}</code>
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">permettant</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">afficher</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">état</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">objet</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">afin</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">permettre</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">mettre</code><code class="java_comment3"> </code><code class="java_comment3">en</code><code class="java_comment3"> </code><code class="java_comment3">évidence</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">les</code><code class="java_comment3"> </code><code class="java_comment3">différences</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">montage</code><code class="java_comment3">"</code><code class="java_comment3">.</code><code class="java_comment3"> </code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">afficher</code>() <code class="java_operator">{</code>
+        System.out.<code class="java_function">println</code>(<code class="java_literal1">"</code><code class="java_literal1">Objet</code><code class="java_literal1"> </code><code class="java_literal1">Complexe</code><code class="java_literal1"> </code><code class="java_literal1">:</code><code class="java_literal1"> </code><code class="java_literal1">"</code>);
+        System.out.<code class="java_function">println</code>(<code class="java_literal1">"</code><code class="java_literal1">\t-</code><code class="java_literal1"> </code><code class="java_literal1">attribut1</code><code class="java_literal1"> </code><code class="java_literal1">:</code><code class="java_literal1"> </code><code class="java_literal1">"</code> <code class="java_operator">+</code> attribut1);
+        System.out.<code class="java_function">println</code>(<code class="java_literal1">"</code><code class="java_literal1">\t-</code><code class="java_literal1"> </code><code class="java_literal1">attribut2</code><code class="java_literal1"> </code><code class="java_literal1">:</code><code class="java_literal1"> </code><code class="java_literal1">"</code> <code class="java_operator">+</code> attribut2);
+        System.out.<code class="java_function">println</code>(<code class="java_literal1">"</code><code class="java_literal1">\t-</code><code class="java_literal1"> </code><code class="java_literal1">classe</code><code class="java_literal1"> </code><code class="java_literal1">de</code><code class="java_literal1"> </code><code class="java_literal1">l'attribut2</code><code class="java_literal1"> </code><code class="java_literal1">:</code><code class="java_literal1"> </code><code class="java_literal1">"</code> <code class="java_operator">+</code> attribut2.<code class="java_function">getClass</code>());
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e2430"><tr><td class="titre_code">Monteur.java</td></tr><tr><td class="code"><div id="codeWrapperd0e2430" class="codeWrapper"><div id="codeOverflowd0e2430" style="overflow: auto;"><pre><code id="contenuCoded0e2430" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Définit</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">interface</code><code class="java_comment3"> </code><code class="java_comment3">des</code><code class="java_comment3"> </code><code class="java_comment3">méthodes</code><code class="java_comment3"> </code><code class="java_comment3">permettant</code><code class="java_comment3"> </code><code class="java_comment3"> </code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">créer</code><code class="java_comment3"> </code><code class="java_comment3">les</code><code class="java_comment3"> </code><code class="java_comment3">différentes</code><code class="java_comment3"> </code><code class="java_comment3">partie</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">complexe</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword1">abstract</code> <code class="java_keyword3">class</code> Monteur <code class="java_operator">{</code>
+
+    <code class="java_keyword1">protected</code> ObjetComplexe produit;
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Crée</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">nouveau</code><code class="java_comment3"> </code><code class="java_comment3">produit</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Aucune</code><code class="java_comment3"> </code><code class="java_comment3">des</code><code class="java_comment3"> </code><code class="java_comment3">parties</code><code class="java_comment3"> </code><code class="java_comment3">n</code><code class="java_comment3">'</code><code class="java_comment3">est</code><code class="java_comment3"> </code><code class="java_comment3">créée</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">à</code><code class="java_comment3"> </code><code class="java_comment3">ce</code><code class="java_comment3"> </code><code class="java_comment3">moment</code><code class="java_comment3"> </code><code class="java_comment3">là</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">creerObjet</code>() <code class="java_operator">{</code>
+        produit <code class="java_operator">=</code> <code class="java_keyword1">new</code> <code class="java_function">ObjetComplexe</code>();
+    <code class="java_operator">}</code>
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Retourne</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">une</code><code class="java_comment3"> </code><code class="java_comment3">fois</code><code class="java_comment3"> </code><code class="java_comment3">fini</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> ObjetComplexe <code class="java_function">getObjet</code>() <code class="java_operator">{</code>
+        <code class="java_keyword1">return</code> produit;
+    <code class="java_operator">}</code>
+    
+    <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Les</code><code class="java_comment2"> </code><code class="java_comment2">méthodes</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">création</code><code class="java_comment2"> </code><code class="java_comment2">des</code><code class="java_comment2"> </code><code class="java_comment2">parties</code><code class="java_comment2"> </code>
+    
+    <code class="java_keyword1">public</code> <code class="java_keyword1">abstract</code> <code class="java_keyword3">void</code> <code class="java_function">creerAttribut1</code>(String pAttribut1);
+    <code class="java_keyword1">public</code> <code class="java_keyword1">abstract</code> <code class="java_keyword3">void</code> <code class="java_function">creerAttribut2</code>(<code class="java_keyword3">double</code> pAttribut2);
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e2802"><tr><td class="titre_code">ConcreteMonteurA.java</td></tr><tr><td class="code"><div id="codeWrapperd0e2802" class="codeWrapper"><div id="codeOverflowd0e2802" style="overflow: auto;"><pre><code id="contenuCoded0e2802" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Implémente</code><code class="java_comment3"> </code><code class="java_comment3">les</code><code class="java_comment3"> </code><code class="java_comment3">méthodes</code><code class="java_comment3"> </code><code class="java_comment3">permettant</code><code class="java_comment3"> </code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">créer</code><code class="java_comment3"> </code><code class="java_comment3">les</code><code class="java_comment3"> </code><code class="java_comment3">parties</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">complexe</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> ConcreteMonteurA <code class="java_keyword1">extends</code> Monteur <code class="java_operator">{</code>
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">attribut</code><code class="java_comment3"> </code><code class="java_comment3">attribut1</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Précise</code><code class="java_comment3"> </code><code class="java_comment3">que</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">attibut2</code><code class="java_comment3"> </code><code class="java_comment3">représente</code><code class="java_comment3"> </code><code class="java_comment3">une</code><code class="java_comment3"> </code><code class="java_comment3">dimention</code><code class="java_comment3"> </code><code class="java_comment3">en</code><code class="java_comment3"> </code><code class="java_comment3">centimètres</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">creerAttribut1</code>(String pAttribut1) <code class="java_operator">{</code>
+        produit.<code class="java_function">setAttribut1</code>(pAttribut1 <code class="java_operator">+</code> <code class="java_literal1">"</code><code class="java_literal1"> </code><code class="java_literal1">(avec</code><code class="java_literal1"> </code><code class="java_literal1">dimension</code><code class="java_literal1"> </code><code class="java_literal1">en</code><code class="java_literal1"> </code><code class="java_literal1">centimètre)</code><code class="java_literal1">"</code>);
+    <code class="java_operator">}</code>
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">attribut</code><code class="java_comment3"> </code><code class="java_comment3">attribut2</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Stocke</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">valeur</code><code class="java_comment3"> </code><code class="java_comment3">dans</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">Float</code><code class="java_comment3"> </code><code class="java_comment3">sans</code><code class="java_comment3"> </code><code class="java_comment3">modification</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">creerAttribut2</code>(<code class="java_keyword3">double</code> pAttribut2) <code class="java_operator">{</code>
+        produit.<code class="java_function">setAttribut2</code>(<code class="java_keyword1">new</code> <code class="java_function">Float</code>(pAttribut2));
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e3166"><tr><td class="titre_code">ConcreteMonteurB.java</td></tr><tr><td class="code"><div id="codeWrapperd0e3166" class="codeWrapper"><div id="codeOverflowd0e3166" style="overflow: auto;"><pre><code id="contenuCoded0e3166" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Implémente</code><code class="java_comment3"> </code><code class="java_comment3">les</code><code class="java_comment3"> </code><code class="java_comment3">méthodes</code><code class="java_comment3"> </code><code class="java_comment3">permettant</code><code class="java_comment3"> </code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">créer</code><code class="java_comment3"> </code><code class="java_comment3">les</code><code class="java_comment3"> </code><code class="java_comment3">parties</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">complexe</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> ConcreteMonteurB <code class="java_keyword1">extends</code> Monteur <code class="java_operator">{</code>
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">attribut</code><code class="java_comment3"> </code><code class="java_comment3">attribut1</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Précise</code><code class="java_comment3"> </code><code class="java_comment3">que</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">attibut2</code><code class="java_comment3"> </code><code class="java_comment3">représente</code><code class="java_comment3"> </code><code class="java_comment3">une</code><code class="java_comment3"> </code><code class="java_comment3">dimention</code><code class="java_comment3"> </code><code class="java_comment3">en</code><code class="java_comment3"> </code><code class="java_comment3">pouces</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">creerAttribut1</code>(String pAttribut1) <code class="java_operator">{</code>
+        produit.<code class="java_function">setAttribut1</code>(pAttribut1 <code class="java_operator">+</code> <code class="java_literal1">"</code><code class="java_literal1"> </code><code class="java_literal1">(avec</code><code class="java_literal1"> </code><code class="java_literal1">dimension</code><code class="java_literal1"> </code><code class="java_literal1">en</code><code class="java_literal1"> </code><code class="java_literal1">pouces)</code><code class="java_literal1">"</code>);
+    <code class="java_operator">}</code>
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">attribut</code><code class="java_comment3"> </code><code class="java_comment3">attribut2</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Stocke</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">valeur</code><code class="java_comment3"> </code><code class="java_comment3">dans</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">Doucle</code><code class="java_comment3"> </code><code class="java_comment3">en</code><code class="java_comment3"> </code><code class="java_comment3">le</code><code class="java_comment3"> </code><code class="java_comment3">convertissant</code><code class="java_comment3"> </code><code class="java_comment3">en</code><code class="java_comment3"> </code><code class="java_comment3">pouces</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">creerAttribut2</code>(<code class="java_keyword3">double</code> pAttribut2) <code class="java_operator">{</code>
+        produit.<code class="java_function">setAttribut2</code>(<code class="java_keyword1">new</code> <code class="java_function">Double</code>(pAttribut2 <code class="java_operator">*</code> <code class="java_digit">2</code>.<code class="java_digit">54</code>));
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e3551"><tr><td class="titre_code">Directeur.java</td></tr><tr><td class="code"><div id="codeWrapperd0e3551" class="codeWrapper"><div id="codeOverflowd0e3551" style="overflow: auto;"><pre><code id="contenuCoded0e3551" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Contruit</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">en</code><code class="java_comment3"> </code><code class="java_comment3">appelant</code><code class="java_comment3"> </code><code class="java_comment3">les</code><code class="java_comment3"> </code><code class="java_comment3">méthodes</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">Monteur</code><code class="java_comment3">"</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> Directeur <code class="java_operator">{</code>
+    <code class="java_keyword1">private</code> Monteur monteur;
+    
+    <code class="java_function">Directeur</code>(Monteur pMonteur) <code class="java_operator">{</code>
+        monteur <code class="java_operator">=</code> pMonteur;
+    <code class="java_operator">}</code>
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Crée</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Appelle</code><code class="java_comment3"> </code><code class="java_comment3">les</code><code class="java_comment3"> </code><code class="java_comment3">méthodes</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code><code class="java_comment3"> </code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">des</code><code class="java_comment3"> </code><code class="java_comment3">parties</code><code class="java_comment3"> </code><code class="java_comment3">du</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">Monteur</code><code class="java_comment3">"</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> ObjetComplexe <code class="java_function">creerObjet</code>() <code class="java_operator">{</code>
+        monteur.<code class="java_function">creerObjet</code>();
+        
+        monteur.<code class="java_function">creerAttribut1</code>(<code class="java_literal1">"</code><code class="java_literal1">libelle</code><code class="java_literal1"> </code><code class="java_literal1">de</code><code class="java_literal1"> </code><code class="java_literal1">l'objet</code><code class="java_literal1">"</code>);
+        monteur.<code class="java_function">creerAttribut2</code>(<code class="java_digit">12</code>);
+        
+        <code class="java_keyword1">return</code> monteur.<code class="java_function">getObjet</code>();
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e3797"><tr><td class="titre_code">BuilderPatternMain.java</td></tr><tr><td class="code"><div id="codeWrapperd0e3797" class="codeWrapper"><div id="codeOverflowd0e3797" style="overflow: auto;"><pre><code id="contenuCoded0e3797" class="contenuCode"><code class="java_keyword1">public</code> <code class="java_keyword3">class</code> BuilderPatternMain <code class="java_operator">{</code>
+
+    <code class="java_keyword1">public</code> <code class="java_keyword1">static</code> <code class="java_keyword3">void</code> <code class="java_function">main</code>(String[] args) <code class="java_operator">{</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Instancie</code><code class="java_comment2"> </code><code class="java_comment2">les</code><code class="java_comment2"> </code><code class="java_comment2">objets</code><code class="java_comment2"> </code><code class="java_comment2">directeur</code><code class="java_comment2"> </code><code class="java_comment2">et</code><code class="java_comment2"> </code><code class="java_comment2">monteur</code>
+        Monteur lMonteurA <code class="java_operator">=</code> <code class="java_keyword1">new</code> <code class="java_function">ConcreteMonteurA</code>();
+        Directeur lDirecteurA <code class="java_operator">=</code> <code class="java_keyword1">new</code> <code class="java_function">Directeur</code>(lMonteurA);
+        Monteur lMonteurB <code class="java_operator">=</code> <code class="java_keyword1">new</code> <code class="java_function">ConcreteMonteurB</code>();
+        Directeur lDirecteurB <code class="java_operator">=</code> <code class="java_keyword1">new</code> <code class="java_function">Directeur</code>(lMonteurB);
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Appel</code><code class="java_comment2"> </code><code class="java_comment2">des</code><code class="java_comment2"> </code><code class="java_comment2">différentes</code><code class="java_comment2"> </code><code class="java_comment2">méthodes</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">création</code>
+        ObjetComplexe lProduitA <code class="java_operator">=</code> lDirecteurA.<code class="java_function">creerObjet</code>();
+        ObjetComplexe lProduitB <code class="java_operator">=</code> lDirecteurB.<code class="java_function">creerObjet</code>();
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Demande</code><code class="java_comment2"> </code><code class="java_comment2">l'affichage</code><code class="java_comment2"> </code><code class="java_comment2">des</code><code class="java_comment2"> </code><code class="java_comment2">valeurs</code><code class="java_comment2"> </code><code class="java_comment2">des</code><code class="java_comment2"> </code><code class="java_comment2">objets</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">pour</code><code class="java_comment2"> </code><code class="java_comment2">visualiser</code><code class="java_comment2"> </code><code class="java_comment2">les</code><code class="java_comment2"> </code><code class="java_comment2">différences</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">composition</code>
+        lProduitA.<code class="java_function">afficher</code>();
+        lProduitB.<code class="java_function">afficher</code>();
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Affichage</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Objet</code><code class="java_comment2"> </code><code class="java_comment2">Complexe</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2">-</code><code class="java_comment2"> </code><code class="java_comment2">attribut1</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">libelle</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">l'objet</code><code class="java_comment2"> </code><code class="java_comment2">(avec</code><code class="java_comment2"> </code><code class="java_comment2">dimension</code><code class="java_comment2"> </code><code class="java_comment2">en</code><code class="java_comment2"> </code><code class="java_comment2">centimètre)</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2">-</code><code class="java_comment2"> </code><code class="java_comment2">attribut2</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">12.0</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2">-</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">l'attribut2</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">class</code><code class="java_comment2"> </code><code class="java_comment2">java.lang.Float</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Objet</code><code class="java_comment2"> </code><code class="java_comment2">Complexe</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2">-</code><code class="java_comment2"> </code><code class="java_comment2">attribut1</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">libelle</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">l'objet</code><code class="java_comment2"> </code><code class="java_comment2">(avec</code><code class="java_comment2"> </code><code class="java_comment2">dimension</code><code class="java_comment2"> </code><code class="java_comment2">en</code><code class="java_comment2"> </code><code class="java_comment2">pouces)</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2">-</code><code class="java_comment2"> </code><code class="java_comment2">attribut2</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">30.48</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2"> </code><code class="java_comment2">-</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">l'attribut2</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">class</code><code class="java_comment2"> </code><code class="java_comment2">java.lang.Double</code>
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+    		
+    		<br /><h3 class="TitreSection2" id="LIV-C">IV-C. Fabrique (Factory Method ou Virtual Constructor)</h3>
+    			
+				<div class="image"><img src="./images/designPatternCreationalFactoryMethod.png" alt=""/></div>
+        		<div class="paragraph">
+        			<b><span style="text-decoration: underline;">OBJECTIFS</span></b> : 
+                </div><br/>
+				<ul style="list-style-type: disc;">
+					<li>
+						Définir une interface pour la création d'un objet, mais laisser les <a href="http://dico.developpez.com/html/2827-Conception-sous-classe.php" class="lienDico" title="Dictionnaire des développeurs">sous-classes</a> décider quelle classe instancier.
+					</li>
+					<li>						
+	                    Déléguer l'instanciation aux sous-classes.
+	                </li>
+	            </ul>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RAISONS DE L'UTILISER</span></b> :
+				</div><br/>
+				<div class="paragraph">
+				    Dans le fonctionnement d'une <a href="http://dico.developpez.com/html/2261-Conception-classe.php" class="lienDico" title="Dictionnaire des développeurs">classe</a>, il est nécessaire de créer une <a href="http://dico.developpez.com/html/2520-Conception-instance.php" class="lienDico" title="Dictionnaire des développeurs">instance</a>.
+				    Mais, au niveau de cette classe, on ne connaît pas la classe exacte à instancier.
+				</div><br/>
+				<div class="paragraph">
+				    Cela peut être le cas d'une classe réalisant une sauvegarde dans un flux sortant,
+				    mais ne sachant pas s'il s'agit d'un fichier ou d'une sortie sur le réseau.
+				</div><br/>
+				<div class="paragraph">
+				    La classe possède une méthode qui retourne une instance (interface commune au fichier ou à la sortie sur le réseau). 
+                    Les autres méthodes de la classe peuvent effectuer les opérations souhaitées sur l'instance (écriture, fermeture).
+				    Les sous-classes déterminent la classe de l'instance créée (fichier, sortie sur le réseau).
+				    Une variante du Pattern existe : la <a href="http://dico.developpez.com/html/2599-Conception-methode.php" class="lienDico" title="Dictionnaire des développeurs">méthode</a> de création choisit la classe de l'instance à créer
+				    en fonction de <a href="http://dico.developpez.com/html/2657-Conception-parametre.php" class="lienDico" title="Dictionnaire des développeurs">paramètres</a> en entrée de la méthode ou selon des variables de contexte.
+				</div><br/>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RESULTAT</span></b> :
+				</div><br/>
+				<div class="paragraph">
+				    Le Design Pattern permet d'isoler l'instanciation d'une <a href="http://dico.developpez.com/html/2295-Conception-classe-concrete.php" class="lienDico" title="Dictionnaire des développeurs">classe concrète</a>.
+				</div><br/>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RESPONSABILITES</span></b> :
+				</div><br/>
+        		<ul style="list-style-type: disc;">
+                    <li>
+                        <b>AbstractClasse</b> : définit l'interface de l'objet instancié.
+                    </li>
+                    <li>
+                        <b>ClasseA</b> et <b>ClasseB</b> : sont des sous-classes concrètes d'<b>AbstractClasse</b>. 
+						Elles sont instanciées par les classes <b>Fabrique</b>.
+                    </li>
+                    <li>
+                        <b>Fabrique</b> : déclare une méthode de création (<b>creerClasse</b>). 
+                        C'est cette méthode qui a la responsabilité de l'instanciation d'un objet <b>AbstractClasse</b>.
+                        Si d'autres méthodes de la classe ont besoin d'une instance de <b>AbstractClasse</b>, elles font appel à la méthode de création.
+                        Dans l'exemple, la méthode <b>operation()</b> utilise une instance de <b>AbstractClasse</b> 
+                        et fait donc appel à la méthode <b>creerClasse</b>.
+                        La méthode de création peut être paramétrée ou non.
+                        Dans l'exemple, elle est paramétrée, mais le paramètre n'est significative que pour la <b>FabriqueA</b>.
+                    </li>
+                    <li>
+                        <b>FabriqueA</b> et <b>FabriqueB</b> : substituent la méthode de création.
+                        Elles implémentent une version différente de la méthode de création.
+                    </li>
+                    <li>
+                        La partie cliente utilise une sous-classe de <b>Fabrique</b>.
+                    </li>
+                </ul>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">IMPLEMENTATION JAVA</span></b> :
+				</div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e4468"><tr><td class="titre_code">AbstractClasse.java</td></tr><tr><td class="code"><div id="codeWrapperd0e4468" class="codeWrapper"><div id="codeOverflowd0e4468" style="overflow: auto;"><pre><code id="contenuCoded0e4468" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Définit</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">interface</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">instancié</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">interface</code> AbstractClasse <code class="java_operator">{</code>
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">permettant</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">afficher</code><code class="java_comment3"> </code><code class="java_comment3">le</code><code class="java_comment3"> </code><code class="java_comment3">nom</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Cela</code><code class="java_comment3"> </code><code class="java_comment3">permet</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">mettre</code><code class="java_comment3"> </code><code class="java_comment3">en</code><code class="java_comment3"> </code><code class="java_comment3">evidence</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">créée</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">afficherClasse</code>();
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e4652"><tr><td class="titre_code">ClasseA.java</td></tr><tr><td class="code"><div id="codeWrapperd0e4652" class="codeWrapper"><div id="codeOverflowd0e4652" style="overflow: auto;"><pre><code id="contenuCoded0e4652" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Sous</code><code class="java_comment3">-</code><code class="java_comment3">class</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">AbstractClasse</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> ClasseA <code class="java_keyword1">implements</code> AbstractClasse <code class="java_operator">{</code>
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Implémentation</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">affichage</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Indique</code><code class="java_comment3"> </code><code class="java_comment3">qu</code><code class="java_comment3">'</code><code class="java_comment3">il</code><code class="java_comment3"> </code><code class="java_comment3">s</code><code class="java_comment3">'</code><code class="java_comment3">agit</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">ClasseA</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">afficherClasse</code>() <code class="java_operator">{</code>
+        System.out.<code class="java_function">println</code>(<code class="java_literal1">"</code><code class="java_literal1">Objet</code><code class="java_literal1"> </code><code class="java_literal1">de</code><code class="java_literal1"> </code><code class="java_literal1">classe</code><code class="java_literal1"> </code><code class="java_literal1">'ClasseA'</code><code class="java_literal1">"</code>);
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e4849"><tr><td class="titre_code">ClasseB.java</td></tr><tr><td class="code"><div id="codeWrapperd0e4849" class="codeWrapper"><div id="codeOverflowd0e4849" style="overflow: auto;"><pre><code id="contenuCoded0e4849" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Sous</code><code class="java_comment3">-</code><code class="java_comment3">class</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">AbstractClasse</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> ClasseB <code class="java_keyword1">implements</code> AbstractClasse <code class="java_operator">{</code>
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Implémentation</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">affichage</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Indique</code><code class="java_comment3"> </code><code class="java_comment3">qu</code><code class="java_comment3">'</code><code class="java_comment3">il</code><code class="java_comment3"> </code><code class="java_comment3">s</code><code class="java_comment3">'</code><code class="java_comment3">agit</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">ClasseB</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">afficherClasse</code>() <code class="java_operator">{</code>
+        System.out.<code class="java_function">println</code>(<code class="java_literal1">"</code><code class="java_literal1">Objet</code><code class="java_literal1"> </code><code class="java_literal1">de</code><code class="java_literal1"> </code><code class="java_literal1">classe</code><code class="java_literal1"> </code><code class="java_literal1">'ClasseB'</code><code class="java_literal1">"</code>);
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e5046"><tr><td class="titre_code">Fabrique.java</td></tr><tr><td class="code"><div id="codeWrapperd0e5046" class="codeWrapper"><div id="codeOverflowd0e5046" style="overflow: auto;"><pre><code id="contenuCoded0e5046" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Déclare</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword1">abstract</code> <code class="java_keyword3">class</code> Fabrique <code class="java_operator">{</code>
+    
+    <code class="java_keyword1">private</code> <code class="java_keyword3">boolean</code> pIsClasseA <code class="java_operator">=</code> <code class="java_literal2">false</code>;
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword1">abstract</code> AbstractClasse <code class="java_function">creerClasse</code>(<code class="java_keyword3">boolean</code> pIsClasseA);
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">appelant</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Puis</code><code class="java_comment3">,</code><code class="java_comment3"> </code><code class="java_comment3">effectuant</code><code class="java_comment3"> </code><code class="java_comment3">une</code><code class="java_comment3"> </code><code class="java_comment3">opération</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">operation</code>() <code class="java_operator">{</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Change</code><code class="java_comment2"> </code><code class="java_comment2">la</code><code class="java_comment2"> </code><code class="java_comment2">valeur</code><code class="java_comment2"> </code><code class="java_comment2">afin</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">varier</code><code class="java_comment2"> </code><code class="java_comment2">le</code><code class="java_comment2"> </code><code class="java_comment2">paramètre</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">la</code><code class="java_comment2"> </code><code class="java_comment2">méthode</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">création</code>
+        pIsClasseA <code class="java_operator">=</code> <code class="java_operator">!</code>pIsClasseA;
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Récupère</code><code class="java_comment2"> </code><code class="java_comment2">une</code><code class="java_comment2"> </code><code class="java_comment2">instance</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">"AbstractClasse"</code>
+        AbstractClasse lClasse <code class="java_operator">=</code> <code class="java_function">creerClasse</code>(pIsClasseA);
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Appel</code><code class="java_comment2"> </code><code class="java_comment2">la</code><code class="java_comment2"> </code><code class="java_comment2">méthode</code><code class="java_comment2"> </code><code class="java_comment2">d'affichage</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">la</code><code class="java_comment2"> </code><code class="java_comment2">classe</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">afin</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">savoir</code><code class="java_comment2"> </code><code class="java_comment2">la</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">concrète</code>
+        lClasse.<code class="java_function">afficherClasse</code>();
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e5424"><tr><td class="titre_code">FabriqueA.java</td></tr><tr><td class="code"><div id="codeWrapperd0e5424" class="codeWrapper"><div id="codeOverflowd0e5424" style="overflow: auto;"><pre><code id="contenuCoded0e5424" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Substitue</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">creerClasse</code><code class="java_comment3">"</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Instancie</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">ClasseA</code><code class="java_comment3">"</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> FabriqueA <code class="java_keyword1">extends</code> Fabrique <code class="java_operator">{</code>
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">La</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">retourne</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">ClasseA</code><code class="java_comment3">,</code><code class="java_comment3"> </code><code class="java_comment3">si</code><code class="java_comment3"> </code><code class="java_comment3">le</code><code class="java_comment3"> </code><code class="java_comment3">paramètre</code><code class="java_comment3"> </code><code class="java_comment3">est</code><code class="java_comment3"> </code><code class="java_comment3">true</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">La</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">retourne</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">ClasseB</code><code class="java_comment3">,</code><code class="java_comment3"> </code><code class="java_comment3">sinon</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_label">@return</code><code class="java_comment3"> </code><code class="java_comment3">Un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">ClasseA</code><code class="java_comment3"> </code><code class="java_comment3">ou</code><code class="java_comment3"> </code><code class="java_comment3">ClasseB</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> AbstractClasse <code class="java_function">creerClasse</code>(<code class="java_keyword3">boolean</code> pIsClasseA) <code class="java_operator">{</code>
+        <code class="java_keyword1">if</code>(pIsClasseA) <code class="java_operator">{</code>
+            <code class="java_keyword1">return</code> <code class="java_keyword1">new</code> <code class="java_function">ClasseA</code>();
+        <code class="java_operator">}</code>
+        <code class="java_keyword1">else</code> <code class="java_operator">{</code>
+            <code class="java_keyword1">return</code> <code class="java_keyword1">new</code> <code class="java_function">ClasseB</code>();
+        <code class="java_operator">}</code>
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e5748"><tr><td class="titre_code">FabriqueB.java</td></tr><tr><td class="code"><div id="codeWrapperd0e5748" class="codeWrapper"><div id="codeOverflowd0e5748" style="overflow: auto;"><pre><code id="contenuCoded0e5748" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Substitue</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">creerClasse</code><code class="java_comment3">"</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Instancie</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">ClasseB</code><code class="java_comment3">"</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> FabriqueB <code class="java_keyword1">extends</code> Fabrique <code class="java_operator">{</code>
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">création</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">La</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">ne</code><code class="java_comment3"> </code><code class="java_comment3">tient</code><code class="java_comment3"> </code><code class="java_comment3">pas</code><code class="java_comment3"> </code><code class="java_comment3">compte</code><code class="java_comment3"> </code><code class="java_comment3">du</code><code class="java_comment3"> </code><code class="java_comment3">paramètre</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">et</code><code class="java_comment3"> </code><code class="java_comment3">instancie</code><code class="java_comment3"> </code><code class="java_comment3">toujours</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">"</code><code class="java_comment3">ClasseB</code><code class="java_comment3">"</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_label">@return</code><code class="java_comment3"> </code><code class="java_comment3">Un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">ClasseB</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> AbstractClasse <code class="java_function">creerClasse</code>(<code class="java_keyword3">boolean</code> pIsClasseA) <code class="java_operator">{</code>
+        <code class="java_keyword1">return</code> <code class="java_keyword1">new</code> <code class="java_function">ClasseB</code>();
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e6017"><tr><td class="titre_code">FactoryMethodPatternMain.java</td></tr><tr><td class="code"><div id="codeWrapperd0e6017" class="codeWrapper"><div id="codeOverflowd0e6017" style="overflow: auto;"><pre><code id="contenuCoded0e6017" class="contenuCode"><code class="java_keyword1">public</code> <code class="java_keyword3">class</code> FactoryMethodPatternMain <code class="java_operator">{</code>
+
+    <code class="java_keyword1">public</code> <code class="java_keyword1">static</code> <code class="java_keyword3">void</code> <code class="java_function">main</code>(String[] args) <code class="java_operator">{</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Création</code><code class="java_comment2"> </code><code class="java_comment2">des</code><code class="java_comment2"> </code><code class="java_comment2">fabriques</code>
+        Fabrique lFactoryA <code class="java_operator">=</code> <code class="java_keyword1">new</code> <code class="java_function">FabriqueA</code>();
+        Fabrique lFactoryB <code class="java_operator">=</code> <code class="java_keyword1">new</code> <code class="java_function">FabriqueB</code>();
+    
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">L'appel</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">cette</code><code class="java_comment2"> </code><code class="java_comment2">méthode</code><code class="java_comment2"> </code><code class="java_comment2">avec</code><code class="java_comment2"> </code><code class="java_comment2">FabriqueA</code><code class="java_comment2"> </code><code class="java_comment2">provoquera</code><code class="java_comment2"> </code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">l'instanciation</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">deux</code><code class="java_comment2"> </code><code class="java_comment2">classes</code><code class="java_comment2"> </code><code class="java_comment2">différentes</code>
+        System.out.<code class="java_function">println</code>(<code class="java_literal1">"</code><code class="java_literal1">Avec</code><code class="java_literal1"> </code><code class="java_literal1">la</code><code class="java_literal1"> </code><code class="java_literal1">FabriqueA</code><code class="java_literal1"> </code><code class="java_literal1">:</code><code class="java_literal1"> </code><code class="java_literal1">"</code>);
+        lFactoryA.<code class="java_function">operation</code>();
+        lFactoryA.<code class="java_function">operation</code>();
+        lFactoryA.<code class="java_function">operation</code>();
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">L'appel</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">cette</code><code class="java_comment2"> </code><code class="java_comment2">méthode</code><code class="java_comment2"> </code><code class="java_comment2">avec</code><code class="java_comment2"> </code><code class="java_comment2">FabriqueB</code><code class="java_comment2"> </code><code class="java_comment2">provoquera</code><code class="java_comment2"> </code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">toujours</code><code class="java_comment2"> </code><code class="java_comment2">l'instanciation</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">la</code><code class="java_comment2"> </code><code class="java_comment2">même</code><code class="java_comment2"> </code><code class="java_comment2">classe</code>
+        System.out.<code class="java_function">println</code>(<code class="java_literal1">"</code><code class="java_literal1">Avec</code><code class="java_literal1"> </code><code class="java_literal1">la</code><code class="java_literal1"> </code><code class="java_literal1">FabriqueB</code><code class="java_literal1"> </code><code class="java_literal1">:</code><code class="java_literal1"> </code><code class="java_literal1">"</code>);
+        lFactoryB.<code class="java_function">operation</code>();
+        lFactoryB.<code class="java_function">operation</code>();
+        lFactoryB.<code class="java_function">operation</code>();
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Affichage</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Avec</code><code class="java_comment2"> </code><code class="java_comment2">la</code><code class="java_comment2"> </code><code class="java_comment2">FabriqueA</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Objet</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">'ClasseA'</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Objet</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">'ClasseB'</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Objet</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">'ClasseA'</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Avec</code><code class="java_comment2"> </code><code class="java_comment2">la</code><code class="java_comment2"> </code><code class="java_comment2">FabriqueB</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Objet</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">'ClasseB'</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Objet</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">'ClasseB'</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Objet</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">'ClasseB'</code>
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+    		
+    		<br /><h3 class="TitreSection2" id="LIV-D">IV-D. Prototype (Prototype)</h3>
+    			
+				<div class="image"><img src="./images/designPatternCreationalPrototype.png" alt=""/></div>
+        		<div class="paragraph">
+        			<b><span style="text-decoration: underline;">OBJECTIFS</span></b> : 
+                </div><br/>
+				<ul style="list-style-type: disc;">
+					<li>
+						Spécifier les genres d'<a href="http://dico.developpez.com/html/2629-Conception-objet.php" class="lienDico" title="Dictionnaire des développeurs">objet</a> à créer en utilisant une <a href="http://dico.developpez.com/html/2520-Conception-instance.php" class="lienDico" title="Dictionnaire des développeurs">instance</a> comme prototype.
+					</li>
+					<li>
+                		Créer un nouvel objet en copiant ce prototype.
+                	</li>
+                </ul>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RAISONS DE L'UTILISER</span></b> :
+				</div><br/>
+				<div class="paragraph">
+				    Le système doit créer de nouvelles <a href="http://dico.developpez.com/html/2520-Conception-instance.php" class="lienDico" title="Dictionnaire des développeurs">instances</a>, mais il ignore de quelle classe. 
+                    Il dispose cependant d'instances de la classe désirée.
+				</div><br/>
+				<div class="paragraph">
+				    Cela peut être le cas d'un logiciel de DAO comportant un copier-coller.
+				    L'utilisateur sélectionne un élément graphique (cercle, rectangle, ...), 
+				    mais la classe traitant la demande de copier-coller ne connaît pas la classe exacte
+				    de l'élément à copier.
+				</div><br/>
+				<div class="paragraph">
+				    La solution est de disposer d'une duplication des instances (élément à copier : cercle, rectangle).
+				    La duplication peut être également intéressante pour les performances (la duplication est plus rapide que l'instanciation).
+				</div><br/>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RESULTAT</span></b> :
+				</div><br/>
+				<div class="paragraph">
+				    Le Design Pattern permet d'isoler l'appartenance à une classe.
+				</div><br/>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RESPONSABILITES</span></b> :
+				</div><br/>
+        		<ul style="list-style-type: disc;">
+                    <li>
+                        <b>Prototype</b> : définit l'interface de duplication de soi-même.
+                    </li>
+                    <li>
+                        <b>ConcretePrototypeA</b> et <b>ConcretePrototypeB</b> : sont des sous-classes concrètes de <b>Prototype</b>.
+                        Elles implémentent l'inteface de duplication.
+                    </li>
+                    <li>
+                        La partie cliente appelle la méthode <b>clone()</b> de la classe <b>Prototype</b>. 
+                        Cette méthode retourne un double de l'instance.
+                    </li>
+                </ul>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">IMPLEMENTATION JAVA</span></b> :
+				</div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e6536"><tr><td class="titre_code">Prototype.java</td></tr><tr><td class="code"><div id="codeWrapperd0e6536" class="codeWrapper"><div id="codeOverflowd0e6536" style="overflow: auto;"><pre><code id="contenuCoded0e6536" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Définit</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">interface</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">à</code><code class="java_comment3"> </code><code class="java_comment3">dupliquer</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword1">abstract</code> <code class="java_keyword3">class</code> Prototype <code class="java_keyword1">implements</code> Cloneable <code class="java_operator">{</code>
+
+    <code class="java_keyword1">protected</code> String texte;
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Constructeur</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_label">@param</code><code class="java_label"> </code><code class="java_comment4">pTexte</code>
+<code class="java_label"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_function">Prototype</code>(String pTexte) <code class="java_operator">{</code>
+        texte <code class="java_operator">=</code> pTexte;
+    <code class="java_operator">}</code>
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">La</code><code class="java_comment3"> </code><code class="java_comment3">méthode</code><code class="java_comment3"> </code><code class="java_comment3">clone</code><code class="java_comment3"> </code><code class="java_comment3">est</code><code class="java_comment3"> </code><code class="java_comment3">protected</code><code class="java_comment3"> </code><code class="java_comment3">dans</code><code class="java_comment3"> </code><code class="java_comment3">Object</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">On</code><code class="java_comment3"> </code><code class="java_comment3">doit</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">substituer</code><code class="java_comment3"> </code><code class="java_comment3">pour</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">rendre</code><code class="java_comment3"> </code><code class="java_comment3">visible</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">De</code><code class="java_comment3"> </code><code class="java_comment3">plus</code><code class="java_comment3">,</code><code class="java_comment3"> </code><code class="java_comment3">il</code><code class="java_comment3"> </code><code class="java_comment3">faut</code><code class="java_comment3"> </code><code class="java_comment3">que</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">implémente</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">interface</code><code class="java_comment3"> </code><code class="java_comment3">Cloneable</code><code class="java_comment3">.</code><code class="java_comment3"> </code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Depuis</code><code class="java_comment3"> </code><code class="java_comment3">Java5</code><code class="java_comment3">,</code><code class="java_comment3"> </code><code class="java_comment3">on</code><code class="java_comment3"> </code><code class="java_comment3">peut</code><code class="java_comment3"> </code><code class="java_comment3">retourner</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">sous</code><code class="java_comment3">-</code><code class="java_comment3">type</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">Object</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> Prototype <code class="java_function">clone</code>() <code class="java_keyword1">throws</code> CloneNotSupportedException <code class="java_operator">{</code>
+        <code class="java_keyword1">return</code> (Prototype)<code class="java_literal2">super</code>.<code class="java_function">clone</code>();
+    <code class="java_operator">}</code>
+    
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">setTexte</code>(String pTexte) <code class="java_operator">{</code>
+        texte <code class="java_operator">=</code> pTexte;
+    <code class="java_operator">}</code>
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">affichage</code><code class="java_comment3"> </code><code class="java_comment3">des</code><code class="java_comment3"> </code><code class="java_comment3">informations</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">objet</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword1">abstract</code> <code class="java_keyword3">void</code> <code class="java_function">affiche</code>();
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e7032"><tr><td class="titre_code">ConcretePrototypeA.java</td></tr><tr><td class="code"><div id="codeWrapperd0e7032" class="codeWrapper"><div id="codeOverflowd0e7032" style="overflow: auto;"><pre><code id="contenuCoded0e7032" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Sous</code><code class="java_comment3">-</code><code class="java_comment3">class</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">Prototype</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> ConcretePrototypeA <code class="java_keyword1">extends</code> Prototype <code class="java_operator">{</code>
+    
+    <code class="java_keyword1">public</code> <code class="java_function">ConcretePrototypeA</code>(String pTexte) <code class="java_operator">{</code>
+        <code class="java_literal2">super</code>(pTexte);
+    <code class="java_operator">}</code>
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">affichage</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Indique</code><code class="java_comment3"> </code><code class="java_comment3">que</code><code class="java_comment3"> </code><code class="java_comment3">c</code><code class="java_comment3">'</code><code class="java_comment3">est</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">ConcretePrototypeA</code><code class="java_comment3"> </code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">et</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">valeur</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">attribut</code><code class="java_comment3"> </code><code class="java_comment3">texte</code><code class="java_comment3">.</code><code class="java_comment3"> </code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">affiche</code>() <code class="java_operator">{</code>
+        System.out.<code class="java_function">println</code>(<code class="java_literal1">"</code><code class="java_literal1">ConcretePrototypeA</code><code class="java_literal1"> </code><code class="java_literal1">avec</code><code class="java_literal1"> </code><code class="java_literal1">texte</code><code class="java_literal1"> </code><code class="java_literal1">:</code><code class="java_literal1"> </code><code class="java_literal1">"</code> <code class="java_operator">+</code> texte);
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e7276"><tr><td class="titre_code">ConcretePrototypeB.java</td></tr><tr><td class="code"><div id="codeWrapperd0e7276" class="codeWrapper"><div id="codeOverflowd0e7276" style="overflow: auto;"><pre><code id="contenuCoded0e7276" class="contenuCode"><code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Sous</code><code class="java_comment3">-</code><code class="java_comment3">class</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">Prototype</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3">*/</code>
+<code class="java_keyword1">public</code> <code class="java_keyword3">class</code> ConcretePrototypeB <code class="java_keyword1">extends</code> Prototype <code class="java_operator">{</code>
+    
+    <code class="java_keyword1">public</code> <code class="java_function">ConcretePrototypeB</code>(String pTexte) <code class="java_operator">{</code>
+        <code class="java_literal2">super</code>(pTexte);
+    <code class="java_operator">}</code>
+    
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">affichage</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Indique</code><code class="java_comment3"> </code><code class="java_comment3">que</code><code class="java_comment3"> </code><code class="java_comment3">c</code><code class="java_comment3">'</code><code class="java_comment3">est</code><code class="java_comment3"> </code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">objet</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">classe</code><code class="java_comment3"> </code><code class="java_comment3">ConcretePrototypeA</code><code class="java_comment3"> </code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">et</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">valeur</code><code class="java_comment3"> </code><code class="java_comment3">de</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">attribut</code><code class="java_comment3"> </code><code class="java_comment3">texte</code><code class="java_comment3">.</code><code class="java_comment3"> </code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword3">void</code> <code class="java_function">affiche</code>() <code class="java_operator">{</code>
+        System.out.<code class="java_function">println</code>(<code class="java_literal1">"</code><code class="java_literal1">ConcretePrototypeB</code><code class="java_literal1"> </code><code class="java_literal1">avec</code><code class="java_literal1"> </code><code class="java_literal1">texte</code><code class="java_literal1"> </code><code class="java_literal1">:</code><code class="java_literal1"> </code><code class="java_literal1">"</code> <code class="java_operator">+</code> texte);
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e7520"><tr><td class="titre_code">PrototypePatternMain.java</td></tr><tr><td class="code"><div id="codeWrapperd0e7520" class="codeWrapper"><div id="codeOverflowd0e7520" style="overflow: auto;"><pre><code id="contenuCoded0e7520" class="contenuCode"><code class="java_keyword1">public</code> <code class="java_keyword3">class</code> PrototypePatternMain <code class="java_operator">{</code>
+
+    <code class="java_keyword1">public</code> <code class="java_keyword1">static</code> <code class="java_keyword3">void</code> <code class="java_function">main</code>(String[] args) <code class="java_keyword1">throws</code> CloneNotSupportedException <code class="java_operator">{</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Instancie</code><code class="java_comment2"> </code><code class="java_comment2">un</code><code class="java_comment2"> </code><code class="java_comment2">objet</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">ConcretePrototypeA</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">et</code><code class="java_comment2"> </code><code class="java_comment2">un</code><code class="java_comment2"> </code><code class="java_comment2">autre</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">classe</code><code class="java_comment2"> </code><code class="java_comment2">ConcretePrototypeB</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">de</code><code class="java_comment2"> </code><code class="java_comment2">"manière</code><code class="java_comment2"> </code><code class="java_comment2">traditionnelle".</code>
+        Prototype lPrototypeA <code class="java_operator">=</code> <code class="java_keyword1">new</code> <code class="java_function">ConcretePrototypeA</code>(<code class="java_literal1">"</code><code class="java_literal1">Original</code><code class="java_literal1">"</code>);
+        Prototype lPrototypeB <code class="java_operator">=</code> <code class="java_keyword1">new</code> <code class="java_function">ConcretePrototypeB</code>(<code class="java_literal1">"</code><code class="java_literal1">Original</code><code class="java_literal1">"</code>);
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Duplique</code><code class="java_comment2"> </code><code class="java_comment2">les</code><code class="java_comment2"> </code><code class="java_comment2">objets</code><code class="java_comment2"> </code><code class="java_comment2">précédemment</code><code class="java_comment2"> </code><code class="java_comment2">créés/</code>
+        Prototype lPrototypeAClone <code class="java_operator">=</code> lPrototypeA.<code class="java_function">clone</code>();
+        Prototype lPrototypeBClone <code class="java_operator">=</code> lPrototypeB.<code class="java_function">clone</code>();
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Affiche</code><code class="java_comment2"> </code><code class="java_comment2">les</code><code class="java_comment2"> </code><code class="java_comment2">objets</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">les</code><code class="java_comment2"> </code><code class="java_comment2">clones</code><code class="java_comment2"> </code><code class="java_comment2">sont</code><code class="java_comment2"> </code><code class="java_comment2">identiques</code><code class="java_comment2"> </code><code class="java_comment2">aux</code><code class="java_comment2"> </code><code class="java_comment2">originaux</code>
+        lPrototypeA.<code class="java_function">affiche</code>();
+        lPrototypeAClone.<code class="java_function">affiche</code>();
+        lPrototypeB.<code class="java_function">affiche</code>();
+        lPrototypeBClone.<code class="java_function">affiche</code>();
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Modifie</code><code class="java_comment2"> </code><code class="java_comment2">les</code><code class="java_comment2"> </code><code class="java_comment2">clones</code>
+        lPrototypeAClone.<code class="java_function">setTexte</code>(<code class="java_literal1">"</code><code class="java_literal1">Clone</code><code class="java_literal1"> </code><code class="java_literal1">(enfait)</code><code class="java_literal1">"</code>);
+        lPrototypeBClone.<code class="java_function">setTexte</code>(<code class="java_literal1">"</code><code class="java_literal1">Clone</code><code class="java_literal1"> </code><code class="java_literal1">(enfait)</code><code class="java_literal1">"</code>);
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Met</code><code class="java_comment2"> </code><code class="java_comment2">en</code><code class="java_comment2"> </code><code class="java_comment2">évidence</code><code class="java_comment2"> </code><code class="java_comment2">que</code><code class="java_comment2"> </code><code class="java_comment2">les</code><code class="java_comment2"> </code><code class="java_comment2">clones</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">sont</code><code class="java_comment2"> </code><code class="java_comment2">bien</code><code class="java_comment2"> </code><code class="java_comment2">des</code><code class="java_comment2"> </code><code class="java_comment2">instances</code><code class="java_comment2"> </code><code class="java_comment2">à</code><code class="java_comment2"> </code><code class="java_comment2">part.</code>
+        lPrototypeA.<code class="java_function">affiche</code>();
+        lPrototypeAClone.<code class="java_function">affiche</code>();
+        lPrototypeB.<code class="java_function">affiche</code>();
+        lPrototypeBClone.<code class="java_function">affiche</code>();
+        
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">Affichage</code><code class="java_comment2"> </code><code class="java_comment2">:</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">ConcretePrototypeA</code><code class="java_comment2"> </code><code class="java_comment2">avec</code><code class="java_comment2"> </code><code class="java_comment2">texte</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">Original</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">ConcretePrototypeA</code><code class="java_comment2"> </code><code class="java_comment2">avec</code><code class="java_comment2"> </code><code class="java_comment2">texte</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">Original</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">ConcretePrototypeB</code><code class="java_comment2"> </code><code class="java_comment2">avec</code><code class="java_comment2"> </code><code class="java_comment2">texte</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">Original</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">ConcretePrototypeB</code><code class="java_comment2"> </code><code class="java_comment2">avec</code><code class="java_comment2"> </code><code class="java_comment2">texte</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">Original</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">ConcretePrototypeA</code><code class="java_comment2"> </code><code class="java_comment2">avec</code><code class="java_comment2"> </code><code class="java_comment2">texte</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">Original</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">ConcretePrototypeA</code><code class="java_comment2"> </code><code class="java_comment2">avec</code><code class="java_comment2"> </code><code class="java_comment2">texte</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">Clone</code><code class="java_comment2"> </code><code class="java_comment2">(enfait)</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">ConcretePrototypeB</code><code class="java_comment2"> </code><code class="java_comment2">avec</code><code class="java_comment2"> </code><code class="java_comment2">texte</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">Original</code>
+        <code class="java_comment2">//</code><code class="java_comment2"> </code><code class="java_comment2">ConcretePrototypeB</code><code class="java_comment2"> </code><code class="java_comment2">avec</code><code class="java_comment2"> </code><code class="java_comment2">texte</code><code class="java_comment2"> </code><code class="java_comment2">:</code><code class="java_comment2"> </code><code class="java_comment2">Clone</code><code class="java_comment2"> </code><code class="java_comment2">(enfait)</code>
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+    		
+    		<br /><h3 class="TitreSection2" id="LIV-E">IV-E. Singleton (Singleton)</h3>
+    			
+				<div class="image"><img src="./images/designPatternCreationalSingleton.png" alt=""/></div>
+        		<div class="paragraph">
+        			<b><span style="text-decoration: underline;">LIEN VERS LE DICTIONNAIRE DES DEVELOPPEURS</span></b> : 
+                </div><br/>
+        		<div class="paragraph">
+					<a href="http://dico.developpez.com/html/3117-Conception-Singleton.php" class="lienDico" title="Dictionnaire des développeurs">Singleton</a>
+				</div><br/>
+        		<div class="paragraph">
+        			<b><span style="text-decoration: underline;">AUTRES RESSOURCES SUR DEVELOPPEZ.COM</span></b> : 
+                </div><br/>
+        		<div class="paragraph">
+					<a href="http://smeric.developpez.com/java/uml/singleton/" class="lienArticle">Le singleton par Sébastien MERIC</a>
+				</div><br/>
+        		<div class="paragraph">
+					<a href="http://christophej.developpez.com/tutoriel/java/singleton/multithread/" class="lienArticle">Le Singleton en environnement Multithread par Christophe Jollivet</a>
+				</div><br/>
+        		<div class="paragraph">
+        			<b><span style="text-decoration: underline;">OBJECTIFS</span></b> : 
+                </div><br/>
+    			<ul style="list-style-type: disc;">
+    				<li>
+                		Restreindre le nombre d'<a href="http://dico.developpez.com/html/2520-Conception-instance.php" class="lienDico" title="Dictionnaire des développeurs">instances</a> d'une classe à une et une seule.
+                	</li>
+                	<li>
+                		Fournir une <a href="http://dico.developpez.com/html/2599-Conception-methode.php" class="lienDico" title="Dictionnaire des développeurs">méthode</a> pour accéder à cette instance unique.
+                	</li>
+                </ul>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RAISONS DE L'UTILISER</span></b> :
+				</div><br/>
+				<div class="paragraph">
+				    La classe ne doit avoir qu'une seule instance. 
+				</div><br/>
+				<div class="paragraph">
+                    Cela peut être le cas d'une ressource système par exemple.
+				</div><br/>
+				<div class="paragraph">
+				    La classe empêche d'autres classes de l'instancier.
+				    Elle possède la seule instance d'elle-même et fournit la seule méthode permettant d'accéder à cette instance.
+                </div><br/>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RESULTAT</span></b> :
+				</div><br/>
+				<div class="paragraph">
+				    Le Design Pattern permet d'isoler l'unicité d'une instance.
+				</div><br/>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">RESPONSABILITES</span></b> :
+				</div><br/>
+				<div class="paragraph">
+				    <b>Singleton</b> doit restreindre le nombre de ses propres instances à une et une seule.
+				    Son constructeur est privé : cela empêche les autres classes de l'instancier.
+				    La classe fournit la méthode statique <b>getInstance()</b> qui permet d'obtenir l'instance unique.
+                </div><br/>
+				<div class="paragraph">
+				    <b><span style="text-decoration: underline;">IMPLEMENTATION JAVA</span></b> :
+				</div>
+                <div style="text-align:center;"><table style="width:90%;margin:10px auto;border-collapse: collapse; " id="codeTabled0e8174"><tr><td class="titre_code">Singleton.java</td></tr><tr><td class="code"><div id="codeWrapperd0e8174" class="codeWrapper"><div id="codeOverflowd0e8174" style="overflow: auto;"><pre><code id="contenuCoded0e8174" class="contenuCode"><code class="java_keyword1">public</code> <code class="java_keyword3">class</code> Singleton <code class="java_operator">{</code>
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">La</code><code class="java_comment3"> </code><code class="java_comment3">présence</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">un</code><code class="java_comment3"> </code><code class="java_comment3">constructeur</code><code class="java_comment3"> </code><code class="java_comment3">privé</code><code class="java_comment3"> </code><code class="java_comment3">supprime</code><code class="java_comment3"> </code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">le</code><code class="java_comment3"> </code><code class="java_comment3">constructeur</code><code class="java_comment3"> </code><code class="java_comment3">public</code><code class="java_comment3"> </code><code class="java_comment3">par</code><code class="java_comment3"> </code><code class="java_comment3">défaut</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">private</code> <code class="java_function">Singleton</code>() <code class="java_operator">{</code>
+    <code class="java_operator">}</code>
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">SingletonHolder</code><code class="java_comment3"> </code><code class="java_comment3">est</code><code class="java_comment3"> </code><code class="java_comment3">chargé</code><code class="java_comment3"> </code><code class="java_comment3">à</code><code class="java_comment3"> </code><code class="java_comment3">la</code><code class="java_comment3"> </code><code class="java_comment3">première</code><code class="java_comment3"> </code><code class="java_comment3">exécution</code><code class="java_comment3"> </code><code class="java_comment3">de</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Singleton</code><code class="java_comment3">.</code><code class="java_comment3">getInstance</code><code class="java_comment3">(</code><code class="java_comment3">)</code><code class="java_comment3"> </code><code class="java_comment3">ou</code><code class="java_comment3"> </code><code class="java_comment3">au</code><code class="java_comment3"> </code><code class="java_comment3">premier</code><code class="java_comment3"> </code><code class="java_comment3">accès</code><code class="java_comment3"> </code><code class="java_comment3">à</code><code class="java_comment3"> </code><code class="java_comment3">SingletonHolder</code><code class="java_comment3">.</code><code class="java_comment3">instance</code><code class="java_comment3"> </code><code class="java_comment3">,</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">pas</code><code class="java_comment3"> </code><code class="java_comment3">avant</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">private</code> <code class="java_keyword1">static</code> <code class="java_keyword3">class</code> SingletonHolder <code class="java_operator">{</code>
+        <code class="java_keyword1">private</code> <code class="java_keyword1">final</code> <code class="java_keyword1">static</code> Singleton instance <code class="java_operator">=</code> <code class="java_keyword1">new</code> <code class="java_function">Singleton</code>();
+    <code class="java_operator">}</code>
+
+    <code class="java_comment3">/**</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_comment3">Méthode</code><code class="java_comment3"> </code><code class="java_comment3">permettant</code><code class="java_comment3"> </code><code class="java_comment3">d</code><code class="java_comment3">'</code><code class="java_comment3">obtenir</code><code class="java_comment3"> </code><code class="java_comment3">l</code><code class="java_comment3">'</code><code class="java_comment3">instance</code><code class="java_comment3"> </code><code class="java_comment3">unique</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*</code><code class="java_comment3"> </code><code class="java_label">@return</code><code class="java_comment3"> </code><code class="java_comment3">L</code><code class="java_comment3">'</code><code class="java_comment3">instance</code><code class="java_comment3"> </code><code class="java_comment3">du</code><code class="java_comment3"> </code><code class="java_comment3">singleton</code><code class="java_comment3">.</code>
+<code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3"> </code><code class="java_comment3">*/</code>
+    <code class="java_keyword1">public</code> <code class="java_keyword1">static</code> Singleton <code class="java_function">getInstance</code>() <code class="java_operator">{</code>
+        <code class="java_keyword1">return</code> SingletonHolder.instance;
+    <code class="java_operator">}</code>
+<code class="java_operator">}</code>
+</code></pre></div></div></td></tr></table></div>
+    		
+		
+	
+
+    	
+<div class="cachee"><hr/><div class="barreNavigation"><div style="float: left;"><span class="lientelechargement"><a class="lientelechargement" href="page_1.html">Précédent</a></span>
+			 
+			<span class="lientelechargement"><a class="lientelechargement" href="sommaire.html">Sommaire</a></span>
+			 
+			<span class="lientelechargement"><a class="lientelechargement" href="page_3.html">Suivant</a></span></div><br/>
+			 
+		</div><hr/></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<table class="noteBasPage"><tr><td> </td></tr></table>
+	
+
+    	
+<p class="licence">Copyright &copy;2008 Régis POUILLER.
+			Aucune reproduction, même partielle, ne peut être faite
+			de ce site et de l'ensemble de son contenu : textes, documents, images, etc
+			sans l'autorisation expresse de l'auteur. Sinon vous encourez selon la loi jusqu'à 3 ans de prison et jusqu'à 300 000 E
+			de dommages et intérêts. Droits de diffusion permanents accordés à Developpez LLC. Cette page est déposée à la <a href="http://www.sacd.fr/" >SACD</a>.</p>
+												</td>
+										</tr>
+									</table></div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<table width="100%" cellpadding="4" class="cachee">
+				<tr>
+					<td class="titrepied">
+			  Vos questions techniques : <b><a href="http://www.developpez.net/forums/" >forum d'entraide Accueil</a></b> - Publiez vos articles, tutoriels, cours
+			  et rejoignez-nous dans l'&eacute;quipe de r&eacute;daction du club d'entraide des d&eacute;veloppeurs francophones. <a href="http://club.developpez.com/contacts/">Nous contacter</a>
+	
+			  - Copyright 2000..2005 www.developpez.com
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</body>
+</html>
+
+	

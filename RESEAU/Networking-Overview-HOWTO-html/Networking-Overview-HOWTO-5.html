@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.7">
+ <TITLE>Possibilit&eacute;s r&eacute;seau de Linux HOWTO: Partage de fichiers et d'imprimantes</TITLE>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-6.html" REL=next>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-4.html" REL=previous>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc5" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-6.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-4.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc5"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s5">5. Partage de fichiers et d'imprimantes</A></H2>
+
+<P>Le premier but de la majorit&eacute; des r&eacute;seaux locaux (LAN) bas&eacute;s sur des PC est de fournir un service de partage de fichiers et d'imprimantes aux utilisateurs. Linux en tant que serveur de fichiers et d'imprimantes pour l'entreprise appara&icirc;t comme une excellente solution.
+<P>
+<H2><A NAME="ss5.1">5.1 Environnement Apple</A>
+</H2>
+
+<P>Comme il a &eacute;t&eacute; soulign&eacute; dans les sections pr&eacute;c&eacute;dentes, Linux supporte la famille de protocoles Appletalk. Le netatalk de Linux permet &agrave; un client Macintosh de voir les syst&egrave;mes Linux comme des autres Macintosh sur le r&eacute;seau, de partager les fichiers, et d'utiliser les imprimantes connect&eacute;es aux serveurs Linux.
+<P>La FAQ de Netatalk et son HowTo :
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://thehamptons.com/anders/netatalk/">http://thehamptons.com/anders/netatalk/</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.umich.edu/~rsug/netatalk/">http://www.umich.edu/~rsug/netatalk/</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.umich.edu/~rsug/netatalk/faq.html">http://www.umich.edu/~rsug/netatalk/faq.html</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss5.2">5.2 Environnement Windows</A>
+</H2>
+
+<P>Samba est une suite logicielle qui permet &agrave; la majorit&eacute; des Unix (et en particulier Linux) de s'int&eacute;grer &agrave; un r&eacute;seau Microsoft en tant que client et serveur. En tant que serveur, il permet aux clients Windows 95, Windows pour Workgroups, DOS et Windows NT d'acc&eacute;der aux fichiers et aux imprimantes de la machine Linux. Il peut remplacer compl&egrave;tement Windows NT pour le partage de fichiers et les services d'impression, incluant le chargement automatique des pilotes d'impression par les clients. En tant que client, la station Linux est capable de monter des syst&egrave;mes de fichiers export&eacute;s par d'autres machines.
+<P>D'apr&egrave;s la Meta-FAQ SAMBA :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+"Beaucoup d'utilisateurs ont d&eacute;clar&eacute; qu'en comparaison avec d'autres impl&eacute;mentations SMB,
+Samba est plus stable, plus rapide, et compatible avec plus de clients. Les administrateurs
+de grosses installations disent que Samba est le seul serveur SMB disponible qui peut servir
+plusieurs dizaines de milliers d'utilisateurs sans planter."
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<UL>
+<LI>La 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://samba.anu.edu.au/samba/">Page du projet Samba</A></LI>
+<LI>Le 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/SMB-HOWTO.html">HowTo Samba</A></LI>
+<LI>Le 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/Printing-HOWTO.html">Printing How-to</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss5.3">5.3 Environnement Novell</A>
+</H2>
+
+<P>Comme il a &eacute;t&eacute; dit dans les sections pr&eacute;c&eacute;dentes, Linux peut &ecirc;tre configur&eacute; en tant que client ou serveur NCP, et donc, permettre l'acc&egrave;s &agrave; ses fichiers et ses imprimantes &agrave; travers un r&eacute;seau Novell, aussi bien pour les clients Novell que pour les clients Unix.
+<P>
+<UL>
+<LI>Le 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/IPX-HOWTO.html">HowTo IPX</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss5.4">5.4 Environnement UNIX</A>
+</H2>
+
+<P>La fa&ccedil;on la plus simple de partager les fichiers dans un r&eacute;seau UNIX est d'utiliser NFS. NFS signifie Network File Sharing, c'est &agrave; dire, partage de fichiers en r&eacute;seau; son protocole a &eacute;t&eacute; d&eacute;velopp&eacute; &agrave; l'origine par la soci&eacute;t&eacute; Sun Microsystems. C'est un moyen simple de partager des fichiers entre les machines comme s'ils &eacute;taient locaux. Un client "monte" un syst&egrave;me de fichier "export&eacute;" par un serveur NFS. Le syst&egrave;me de fichier mont&eacute; appara&icirc;tra au client comme s'il faisait partie du syst&egrave;me de fichier local.
+<P>Il est possible de monter un syst&egrave;me de fichier racine au d&eacute;marrage, permettant ainsi &agrave; des clients sans disque de d&eacute;marrer et d'acc&eacute;der &agrave; tous les fichiers du serveur. Plus simplement, il est possible d'avoir un ordinateur pleinement fonctionnel bien que n'ayant pas de disque.
+<P>Document en rapport avec NFS :
+<UL>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/NFS-Root.html">http://sunsite.unc.edu/mdw/HOWTO/mini/NFS-Root.html</A></LI>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/Diskless.html">http://sunsite.unc.edu/mdw/HOWTO/mini/Diskless.html</A></LI>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/NFS-Root-Client.html">http://sunsite.unc.edu/mdw/HOWTO/mini/NFS-Root-Client.html</A></LI>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://www.redhat.com/support/docs/rhl/NFS-Tips/NFS-Tips.html">http://www.redhat.com/support/docs/rhl/NFS-Tips/NFS-Tips.html</A></LI>
+<LI> 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/NFS-HOWTO.html">http://sunsite.unc.edu/mdw/HOWTO/NFS-HOWTO.html</A></LI>
+</UL>
+<P>
+<HR>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-6.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-4.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc5"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

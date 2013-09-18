@@ -1,0 +1,299 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Le HOWTO du pare-feu et des serveurs mandataires: Installer le serveur mandataire TIS</TITLE>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-11.html" REL=next>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-9.html" REL=previous>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc10" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-11.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-9.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc10"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s10">10. Installer le serveur mandataire TIS</A></H2>
+
+<H2><A NAME="ss10.1">10.1 Trouver le logiciel</A>
+</H2>
+
+<P>Le TIS fwtk est disponible &agrave;
+<A HREF="index.php?ref=Firewall-HOWTO-html/http://www.tis.com/research/software/">http://www.tis.com/research/software/</A>.
+<P><B>Ne commettez pas l'erreur que j'ai commise&nbsp;:</B>
+lorsque vous t&eacute;l&eacute;chargez les fichiers de TIS, LISEZ LES README.
+Le TIS fwtk est verrouill&eacute; dans un r&eacute;pertoire cach&eacute; sur leur serveur.
+<P>TIS impose que vous lisiez leur accord &agrave;
+<P>
+<A HREF="index.php?ref=Firewall-HOWTO-html/http://www.tis.com/research/software/fwtk_readme.html">http://www.tis.com/research/software/fwtk_readme.html</A>,
+puis que vous
+<B>envoyiez un courriel &agrave;
+<A HREF="index.php?ref=Firewall-HOWTO-html/mailto:fwtk-request@tislabs.com">fwtk-request@tislabs.com</A></B>
+avec le seul mot <B>accepted</B> dans le corps du message pour
+conna&icirc;tre le nom de ce r&eacute;pertoire cach&eacute;.
+Aucun sujet n'est n&eacute;cessaire pour ce message.
+Leur syst&egrave;me vous enverra en retour le nom du r&eacute;pertoire par courriel
+(valaple 12&nbsp;heures) pour charger le source.
+<P>A l'instant o&ugrave; j'&eacute;cris, la version &agrave; jour du FWTK est 2.1.
+<P>
+<H2><A NAME="ss10.2">10.2 Compilation du FWTK TIS</A>
+</H2>
+
+<P>La version 2.1 du FWTK se compile beaucoup plus facilement que les
+pr&eacute;c&eacute;dentes.
+<P>EXPLIQUER ICI&nbsp;!!!
+<P>Maintenant, lancez <B>make</B>.
+<P>
+<H2><A NAME="ss10.3">10.3 Installation du FWTK TIS</A>
+</H2>
+
+<P>Lancez <B>make install</B>.
+<P>Le r&eacute;pertoire d'installation par d&eacute;faut est /usr/local/etc.
+Il est possible de changer cela (ce que je n'ai pas fait) vers un
+r&eacute;pertoire plus s&ucirc;r.
+J'ai choisi de changer l'acc&egrave;s &agrave; ce r&eacute;pertoire pour le mode "0700".
+<P>Tout ce qu'il reste &agrave; faire maintenant est de configurer le pare-feu.
+<P>
+<H2><A NAME="ss10.4">10.4 Configuration du FWTK TIS</A>
+</H2>
+
+<P>Maintenant, le plaisir commence vraiment.
+Nous devons enseigner au syst&egrave;me &agrave; appeler ces nouveaux services et
+cr&eacute;er les tables pour les contr&ocirc;ler.
+<P>Je ne suis pas en train de r&eacute;-&eacute;crire le manuel de TIS fwtk ici.
+Je vais montrer les param&egrave;tres que j'ai fait fonctionner et expliquer
+les probl&egrave;mes que j'ai rencontr&eacute;s et comment je les ai contourn&eacute;s.
+<P>Trois fichiers d&eacute;finissent ces contr&ocirc;les&nbsp;:
+<P>
+<P>
+<P>
+<UL>
+<LI>/etc/services&nbsp;: indique au syst&egrave;me sur quel port
+se trouve un service&nbsp;;</LI>
+<LI>/etc/inetd.conf&nbsp;: indique &agrave; inetd le programme
+&agrave; lancer lorsque quelqu'un appelle un port de service&nbsp;;</LI>
+<LI>/usr/local/etc/netperm-table&nbsp;: indique aux services
+fwtk &agrave; qui autoriser ou interdire l'acc&egrave;s au service.</LI>
+</UL>
+<P>Pour faire fonctionner fwtk, vous devez &eacute;diter ces fichiers de bas en haut.
+Editer le fichier des services sans que les fichiers inetd.conf ou netperm-table soient corrects peut rendre votre syst&egrave;me inaccessible.
+<P>
+<H3>Le fichier netperm-table</H3>
+
+<P>Ce fichier contr&ocirc;le qui a acc&egrave;s aux services de TIS FWTK.
+Vous devez penser au trafic qui passe par le pare-feu depuis les deux c&ocirc;t&eacute;s.
+Les gens de l'ext&eacute;rieur de votre r&eacute;seau doivent s'identifier avant d'obtenir
+l'acc&egrave;s, mais ceux de l'int&eacute;rieur doivent &ecirc;tre autoris&eacute;s simplement &agrave;
+passer au-travers.
+<P>Afin que les gens puissent s'identifier, le pare-feu utilise un
+programme appel&eacute; <B>authsrv</B> pour maintenir une base des
+noms et mots de passe.
+La section authentification de netperm-table contr&ocirc;le l'emplacement
+et l'acc&egrave;s &agrave; la base.
+<P>J'ai eu quelques difficult&eacute;s &agrave; fermer l'acc&egrave;s &agrave; ce service.
+Notez que la ligne permit-hosts que je montre utilise
+un "*" pour donner l'acc&egrave;s &agrave; tout le monde.
+Le param&eacute;trage correct de cette ligne est&nbsp;:
+<CODE>authsrv: permit-hosts localhost</CODE>,
+si vous arrivez &agrave; la faire fonctionner.
+<P>
+<PRE>
+        #
+        # Table de configuration du mandataire
+        #
+        # Regles d'authentification client et serveur
+        authsrv:        database /usr/local/etc/fw-authdb
+        authsrv:        permit-hosts *
+        authsrv:        badsleep 1200
+        authsrv:        nobogus true
+        # Applications client utilisant le serveur d'authentification
+        *:              authserver 127.0.0.1 114
+</PRE>
+<P>Pour initialiser la base, passez root et lancez <B>./authsrv</B>
+dans le r&eacute;pertoire /var/local/etc pour cr&eacute;er l'enregistrement de
+l'utilisateur d'administration.
+<P>La documentation de FWTK indique la mani&egrave;re d'ajouter des
+utilisateurs et des groupes.
+<P>Voici un exemple de session&nbsp;:
+<P>
+<PRE>
+        #
+        # authsrv
+        authsrv# list
+        authsrv# adduser admin "Auth DB admin"
+        ok - user added initially disabled
+        authsrv# ena admin
+        enabled
+        authsrv# proto admin pass
+        changed
+        authsrv# pass admin "plugh"
+        Password changed.
+        authsrv# superwiz admin
+        set wizard
+        authsrv# list
+        Report for users in database
+        user   group  longname           ok?    proto   last 
+        ------ ------ ------------------ -----  ------  -----
+        admin         Auth DB admin      ena    passw   never
+        authsrv# display admin
+        Report for user admin (Auth DB admin)
+        Authentication protocol: password
+        Flags: WIZARD
+        authsrv# ^D
+        EOT
+        #
+</PRE>
+<P>Les contr&ocirc;les de la passerelle telnet (tn-gw) vont de soi et
+sont la premi&egrave;re chose que vous deviez configurer.
+<P>Dans mon exemple, j'autorise une machine du r&eacute;seau priv&eacute; &agrave; passer
+sans s'authentifier (permit-hosts 19961.2.* -passok).
+En revanche, tout autre utilisateur doit entrer ses nom et mot de
+passe pour utiliser le mandataire (permit-hosts * -auth).
+<P>J'autorise aussi un autre syst&egrave;me (192.1.2.202) &agrave; acc&eacute;der au
+pare-feu directement sans passer du tout par celui-ci.
+Les deux lignes inetacl-in.telnetd font cela.
+J'expliquerai plus loin comment ces lignes sont utilis&eacute;es.
+<P>Le timeout de telnet doit rester court&nbsp;:
+<P>
+<PRE>
+        # regles de passerelle telnet :
+        tn-gw:          denial-msg      /usr/local/etc/tn-deny.txt
+        tn-gw:          welcome-msg     /usr/local/etc/tn-welcome.txt
+        tn-gw:          help-msg        /usr/local/etc/tn-help.txt
+        tn-gw:          timeout 90
+        tn-gw:          permit-hosts 192.1.2.* -passok -xok
+        tn-gw:          permit-hosts * -auth
+        # Seul l'administrateur peut telneter directement le pare-feu
+        # sur le port 24
+        netacl-in.telnetd: permit-hosts 192.1.2.202 -exec /usr/sbin/in.telnetd
+</PRE>
+<P>Les commandes "r-" fonctionnent de la m&ecirc;me mani&egrave;re que telnet&nbsp;:
+<P>
+<PRE>
+        # regles de passerelle rlogin :
+        rlogin-gw:      denial-msg      /usr/local/etc/rlogin-deny.txt
+        rlogin-gw:      welcome-msg     /usr/local/etc/rlogin-welcome.txt
+        rlogin-gw:      help-msg        /usr/local/etc/rlogin-help.txt
+        rlogin-gw:      timeout 90
+        rlogin-gw:      permit-hosts 192.1.2.* -passok -xok
+        rlogin-gw:      permit-hosts * -auth -xok
+        # Seul l'administrateur peut telneter directement le pare-feu
+        # sur le port
+        netacl-rlogind: permit-hosts 192.1.2.202 -exec /usr/libexec/rlogind -a
+</PRE>
+<P>Personne ne devrait avoir acc&egrave;s directement au pare-feu, et cela inclut
+FTP, donc ne placez pas de serveur FTP sur votre pare-feu.
+<P>&Agrave; nouveau, la ligne permit-hosts autorise quiconque depuis le
+r&eacute;seau prot&eacute;g&eacute; &agrave; acc&eacute;der librement &agrave; InterNet et tous les autres
+utilisateurs doivent s'authentifier.
+J'ai ajout&eacute; la trace de chaque fichier envoy&eacute; et re&ccedil;u dans mes
+contr&ocirc;les (-log { retr stor }).
+<P>Le timeout FTP contr&ocirc;le le temps mis &agrave; fermer une mauvaise connexion,
+ainsi que le temps d'inactivit&eacute; maximal d'une session ouverte&nbsp;:
+<P>
+<PRE>
+        # regles de passerelle ftp :
+        ftp-gw:         denial-msg      /usr/local/etc/ftp-deny.txt
+        ftp-gw:         welcome-msg     /usr/local/etc/ftp-welcome.txt
+        ftp-gw:         help-msg        /usr/local/etc/ftp-help.txt
+        ftp-gw:         timeout 300
+        ftp-gw:         permit-hosts 192.1.2.* -log { retr stor }
+        ftp-gw:         permit-hosts * -authall -log { retr stor }
+</PRE>
+<P>Le web, gopher et le ftp fond&eacute; sur un butineur sont contr&ocirc;l&eacute;s par le http-gw.
+Les deux premi&egrave;res lignes cr&eacute;ent un r&eacute;pertoire pour stocker les
+documents ftp et web lorsqu'ils passent au-travers du pare-feu.
+Je rends root propri&eacute;taire de ces fichiers et je les place dans un
+r&eacute;pertoire accessible seulement par root.
+<P>La connexion web doit &ecirc;tre maintenue courte.
+Elle contr&ocirc;le le temps durant lequel un utilisateur attendra lors
+d'une mauvaise connexion&nbsp;:
+<P>
+<PRE>
+        # regles de passerelle www et gopher :
+        http-gw:        userid          root
+        http-gw:        directory       /jail
+        http-gw:        timeout 90
+        http-gw:        default-httpd   www.afs.net
+        http-gw:        hosts           192.1.2.* -log { read write ftp }
+        http-gw:        deny-hosts      * 
+</PRE>
+<P>Le ssl-gw est juste une passerelle "gruy&egrave;re".
+Faites-y attention.
+Dans cet exemple, j'autorise quiconque depuis le r&eacute;seau prot&eacute;g&eacute; &agrave;
+se connecter en-dehors du r&eacute;seau sauf les adresses 127.0.0.* et
+192.1.1.*, puis seulement sur les ports 443 &agrave; 563.
+Ces derniers sont les ports SSL connus&nbsp;:
+<P>
+<PRE>
+        # Regles de passerelle SSL :
+        ssl-gw:  timeout 300
+        ssl-gw:  hosts   192.1.2.* -dest { !127.0.0.* !192.1.1.* *:443:563 }
+        ssl-gw:  deny-hosts *
+</PRE>
+<P>Voici un exemple d'utilisation de plug-gw pour autoriser des connexions
+&agrave; un serveur de nouvelles.
+Dans cet exemple j'autorise quiconque depuis le r&eacute;seau prot&eacute;g&eacute; &agrave; se
+connecter seulement &agrave; un syst&egrave;me et seulement sur son port de nouvelles.
+<P>La seconde ligne permet au serveur de renvoyer ses donn&eacute;es au r&eacute;seau prot&eacute;g&eacute;.
+<P>Puisque de nombreux clients s'attendent &agrave; rester connect&eacute;s pendant que
+l'utilisateur lit les nouvelles, le timeout pour un serveur de
+nouvelles doit &ecirc;tre long&nbsp;:
+<P>
+<PRE>
+ 
+        # passerelle plug-in pour les nouvelles :
+        plug-gw: timeout 3600
+        plug-gw: port nntp 192.1.2.* -plug-to 199.5.175.22 -port nntp
+        plug-gw: port nntp 199.5.175.22 -plug-to 192.1.2.* -port nntp
+</PRE>
+<P>La passerelle finger est simple.
+Quiconque depuis le r&eacute;seau prot&eacute;g&eacute; doit se connecter d'abord,
+puis nous l'autorisons &agrave; utiliser le programme finger du pare-feu.
+Tout autre re&ccedil;oit simplement un message&nbsp;:
+<P>
+<PRE>
+        # Autorise le service finger :
+        netacl-fingerd: permit-hosts 192.1.2.* -exec /usr/libexec/fingerd
+        netacl-fingerd: permit-hosts * -exec /bin/cat /usr/local/etc/finger.txt
+</PRE>
+<P>Je n'ai pas configur&eacute; les services courriel ni X-Window, donc je n'inclus
+pas les exemples.
+Si quelqu'un dispose d'un exemple qui fonctionne, qu'il me l'envoie
+par courriel.
+<P>
+<H3>Le fichier /etc/services</H3>
+
+<P>C'est l&agrave; que tout commence.
+Lorsqu'un client se connecte sur le pare-feu, il le fait sur un port
+connu (inf&eacute;rieur &agrave; 1024).
+Par exemple, telnet se connecte sur le port 23.
+Le daemon inetd d&eacute;tecte cette connexion et cherche le nom du service
+dans le fichier /etc/services.
+Ensuite, il lance le programme assign&eacute; au nom dans le fichier /etc/inetd.conf.
+<P>Certains des services que nous cr&eacute;ons ne sont pas normalement dans
+le fichier /etc/services.
+Vous pouvez assigner &agrave; certains d'entre eux le port que vous souhaitez.
+Par exemple, j'ai assign&eacute; le port telnet de l'administrateur
+(telnet-a) sur le port 24.
+Pous pouvez l'assigner au port 2323 si vous voulez.
+Pour que l'administrateur (VOUS) se connecte directement sur
+le pare-feu, il doit utiliser telnet sur le port 24 et non 23 et
+si vous param&eacute;trez votre netperm-table comme je l'ai fait, vous serez
+seulement capable de faire cela depuis un syst&egrave;me situ&eacute; &agrave; l'int&eacute;rieur
+du r&eacute;seau prot&eacute;g&eacute;.
+<P>
+<PRE>
+ 
+        telnet-a   24/tcp
+        ftp-gw     21/tcp          # ce nom est modifie
+        auth       113/tcp  ident  # Verification utilisateur
+        ssl-gw     443/tcp
+</PRE>
+<P>
+<P>
+<HR>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-11.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-9.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc10"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

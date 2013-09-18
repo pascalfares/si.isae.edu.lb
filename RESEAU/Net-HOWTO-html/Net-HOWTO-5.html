@@ -1,0 +1,934 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>R&eacute;seau sous Linux :: Informations g&eacute;n&eacute;rales concernant la configuration r&eacute;seau</TITLE>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-6.html" REL=next>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-4.html" REL=previous>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc5" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-6.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-4.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc5"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s5">5. Informations g&eacute;n&eacute;rales concernant la configuration r&eacute;seau</A></H2>
+
+<P>Vous devez conna&icirc;tre et bien comprendre les paragraphes
+suivants avant d'essayer de configurer votre r&eacute;seau.
+Ce sont des principes de base qui s'appliquent, ind&eacute;pendamment de la 
+nature du r&eacute;seau que vous voulez mettre en place.
+<P>
+<P>
+<H2><A NAME="ss5.1">5.1 De quoi ai-je besoin pour d&eacute;marrer ?</A>
+</H2>
+
+<P>Avant de commencer &agrave; construire ou configurer votre r&eacute;seau, vous
+aurez besoin de certaines choses. Les plus importantes sont :
+<P>
+<P>
+<H3>Sources du noyau r&eacute;cents (Optionnel).</H3>
+
+<P>&Agrave; noter:
+<P>La majorit&eacute; des distributions actuelles sont livr&eacute;es avec l'option r&eacute;seau
+activ&eacute;e, de sorte que vous n'avez pas besoin de recompiler le noyau. Si vous
+utilisez du mat&eacute;riel bien connu, tout ira bien. Par exemple: cartes 3COM,
+cartes NE2000  ou cartes Intel. Cependant si vous devez recompiler le noyau,
+voyez les informations qui suivent.
+<P>
+<P>Si le noyau que vous utilisez actuellement ne g&egrave;re pas les types 
+de r&eacute;seau ou les cartes que vous voulez utiliser, vous aurez 
+besoin des sources du noyau pour pouvoir le recompiler avec 
+les options ad&eacute;quates.
+<P>Pour les utilisateurs des principales distributions comme RedHat, Caldera,
+Debian ou Suse, ce n'est plus vrai. Tant que vous restez avec un mat&eacute;riel
+de grande diffusion, il n'est pas n&eacute;cessaire de recompiler le noyau, &agrave; moins que
+vous n'ayez une exigence tr&egrave;s sp&eacute;cifique.
+<P>
+<P> Vous pouvez toujours obtenir les sources du dernier noyau sur :
+<A HREF="index.php?ref=Net-HOWTO-html/ftp://ftp.cdrom.com/pub/linux/sunsite/kernel.org/pub/linux/kernel/">ftp.cdrom.com</A>.
+Ce n'est pas le site officiel mais ils ont BEAUCOUP de bande passante et
+BEAUCOUP d'utilisateurs peuvent se connecter en m&ecirc;me temps. Le site officiel
+est kernel.org, mais dans la mesure du possible, utilisez s'il vous pla&icirc;t celui
+que je viens de donner.
+Souvenez-vous que ftp.kernel.org est particuli&egrave;rement surcharg&eacute;. Utilisez un
+miroir.
+(NdT : et bien s&ucirc;r 
+<A HREF="index.php?ref=Net-HOWTO-html/ftp://ftp.lip6.fr/pub/linux/kernel/sources/">ftp.lip6.fr</A>) .
+<P>Normalement les sources du noyau doivent &ecirc;tre d&eacute;sarchiv&eacute;es 
+dans le r&eacute;pertoire <CODE>/usr/src/linux</CODE>.
+Pour savoir comment appliquer les patches et compiler le noyau, lisez le
+<A HREF="index.php?ref=Net-HOWTO-html/Kernel-HOWTO.html">Kernel-HOWTO</A>.
+Pour savoir comment configurer les modules du noyau, lisez
+le ``Modules-mini-HOWTO''. Enfin, le fichier <CODE>README</CODE> qui
+se trouve dans les sources du noyau ainsi que le r&eacute;pertoire
+<CODE>Documentation</CODE> donnent de nombreux renseignements au lecteur courageux.
+<P> Sauf indication contraire, je vous recommande de 
+vous en tenir &agrave; une version stable du noyau (celle avec un chiffre 
+pair en seconde place dans le num&eacute;ro de version). Les versions 
+de d&eacute;veloppement (avec un chiffre impair en seconde place dans le 
+num&eacute;ro de version) peuvent avoir une structure ou autre chose 
+qui peut poser probl&egrave;me avec les logiciels de votre 
+syst&egrave;me. Si vous n'&ecirc;tes pas certain de r&eacute;soudre ce type 
+de probl&egrave;mes, avec en plus ceux qui existeraient sur d'autres 
+logiciels, ne les utilisez pas.
+<P>
+<P>
+<H3>Adresses et explications.</H3>
+
+<P>Les adresses de protocole Internet (IP) sont compos&eacute;es de 
+quatre octets. La convention d'&eacute;criture est appel&eacute;e `notation d&eacute;cimale 
+point&eacute;e'. Sous cette forme chaque octet est converti en un nombre 
+d&eacute;cimal (0-255), en omettant les z&eacute;ros de t&ecirc;te 
+(&agrave; moins que ce nombre ne soit lui-m&ecirc;me un z&eacute;ro) et 
+chaque octet est s&eacute;par&eacute; par le caract&egrave;re `.'.
+Par convention, chaque interface d'un h&ocirc;te ou routeur poss&egrave;de une 
+adresse IP. Il est permis, dans certaines circonstances, que la m&ecirc;me 
+adresse IP soit utilis&eacute;e sur diff&eacute;rentes interfaces 
+d'une m&ecirc;me machine, mais, en g&eacute;n&eacute;ral, chaque interface poss&egrave;de 
+sa propre adresse.
+<P>Les r&eacute;seaux IP (Protocole Internet) sont des s&eacute;quences contigu&euml;s 
+d'adresses IP. Toutes les adresses d'un m&ecirc;me
+r&eacute;seau ont des chiffres en commun. 
+La partie d'adresse commune &agrave; toutes les adresses d'un r&eacute;seau 
+s'appelle la `partie r&eacute;seau' de l'adresse. Les chiffres restants 
+s'appellent `partie h&ocirc;te'. Le nombre de bits qui sont partag&eacute;s 
+par toutes les adresses d'un m&ecirc;me r&eacute;seau est appel&eacute; masque 
+de r&eacute;seau (netmask) et c'est le r&ocirc;le du masque de r&eacute;seau 
+de d&eacute;terminer quelles adresses appartiennent &agrave; `son' 
+r&eacute;seau et celles qui ne sont pas concern&eacute;es.
+Par exemple :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+----------------------------------------     ----------------
+Adresse h&ocirc;te (host address)                  192.168.110.23
+Masque de r&eacute;seau (network mask)              255.255.255.0
+Partie r&eacute;seau (network portion)              192.168.110.
+Partie h&ocirc;te (host portion)                              .23
+----------------------------------------     ----------------
+Adresse r&eacute;seau (network address)             192.168.110.0
+Adresse de diffusion (broadcast address)     192.168.110.255
+----------------------------------------     ----------------
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Toute adresse qui est un `AND bit &agrave; bit' avec son masque de 
+r&eacute;seau r&eacute;v&egrave;lera l'adresse du r&eacute;seau auquel elle appartient.
+L'adresse du r&eacute;seau est par cons&eacute;quent l'adresse de plus petit 
+nombre dans l'ensemble des adresses et a toujours la partie h&ocirc;te 
+cod&eacute;e avec des z&eacute;ros.
+<P>L'adresse de diffusion est une adresse sp&eacute;ciale que chaque h&ocirc;te 
+du r&eacute;seau &eacute;coute en m&ecirc;me temps que son adresse personnelle.
+Cette adresse est celle &agrave; laquelle les datagrammes sont envoy&eacute;s 
+si tous les h&ocirc;tes du r&eacute;seau sont en mesure de les recevoir. 
+Certains types de donn&eacute;es telles que les informations de routage et les 
+messages d'alerte sont transmis vers l'adresse de diffusion de telle sorte que 
+tous les h&ocirc;tes du r&eacute;seau peuvent les recevoir en m&ecirc;me temps. 
+Il y a deux standards utilis&eacute;s de mani&egrave;re courante pour 
+d&eacute;finir ce que doit &ecirc;tre l'adresse de diffusion. Le plus largement
+utilis&eacute; est de prendre
+l'adresse la plus haute possible du r&eacute;seau comme adresse de diffusion. 
+Dans l'exemple ci-dessus ce serait
+<CODE>192.168.110.255</CODE>. Pour d'autres raisons, certains sites ont 
+adopt&eacute; la convention d'utiliser l'adresse de r&eacute;seau comme adresse
+de diffusion. En pratique cela n'a pas beaucoup d'importance, mais vous devez
+&ecirc;tre s&ucirc;rs que tous les h&ocirc;tes du r&eacute;seau sont 
+configur&eacute;s avec la m&ecirc;me adresse de diffusion.
+<P>Pour des raisons d'administration, il y a quelque temps, lors du 
+d&eacute;veloppement du protocole IP, des ensembles d'adresses ont 
+&eacute;t&eacute; organis&eacute;s en r&eacute;seaux et ces r&eacute;seaux
+ont &eacute;t&eacute; regroup&eacute;s en ce que l'on a  
+appell&eacute; classes. Ces classes donnent un certain nombre de r&eacute;seaux 
+de tailles standards  
+auxquels on peut assigner des adresses. Ces classes sont :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+----------------------------------------------------------
+|Classe de |Masque de     | Adresses de r&eacute;seau           |
+| r&eacute;seau   |  r&eacute;seau      |                              |
+----------------------------------------------------------
+|    A    | 255.0.0.0     | 0.0.0.0    - 127.255.255.255 |
+|    B    | 255.255.0.0   | 128.0.0.0  - 191.255.255.255 |
+|    C    | 255.255.255.0 | 192.0.0.0  - 223.255.255.255 |
+|Multicast| 240.0.0.0     | 224.0.0.0  - 239.255.255.255 |
+----------------------------------------------------------
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Le type d'adresse que vous devez utiliser d&eacute;pend de ce que vous 
+voulez faire 
+exactement. Vous pouvez utiliser une combinaison des actions suivantes
+pour obtenir l'ensemble des adresses dont vous aurez besoin :
+<P>
+<P>
+<DL>
+<DT><B>Installer une machine Linux sur un r&eacute;seau IP existant </B><DD><P>Vous devez contacter un des administrateurs du r&eacute;seau et lui 
+demander les informations suivantes :
+<UL>
+<LI>Adresse h&ocirc;te;</LI>
+<LI>Adresse r&eacute;seau;</LI>
+<LI>Adresse de diffusion;</LI>
+<LI>Masque de r&eacute;seau;</LI>
+<LI>Adresse de routage;</LI>
+<LI>Adresse du serveur de noms de domaine (DNS).</LI>
+</UL>
+
+Vous configurerez alors votre r&eacute;seau Linux &agrave; l'aide de ces 
+donn&eacute;es.
+Vous ne pouvez pas les inventer vous-m&ecirc;me et esp&eacute;rer que votre 
+configuration fonctionne.
+<DT><B>Construire un r&eacute;seau tout neuf non connect&eacute; &agrave; 
+l'Internet</B><DD><P>Si vous construisez un r&eacute;seau priv&eacute; et que vous n'ayez pas 
+l'intention de vous connecter &agrave; l'Internet, vous pouvez alors choisir 
+n'importe quelle adresse.
+Cependant, pour des raisons de s&eacute;curit&eacute; et de fiabilit&eacute;,
+il y a quelques adresses de r&eacute;seau IP r&eacute;serv&eacute;es &agrave; 
+cet usage. Elles sont sp&eacute;cifi&eacute;es dans la RFC 1597 et sont les 
+suivantes :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+-----------------------------------------------------------
+|         ALLOCATIONS POUR R&Eacute;SEAUX PRIV&Eacute;S                 |
+-----------------------------------------------------------
+| Classe  | Masque de     | Adresses de r&eacute;seau            |
+| r&eacute;seau  |  r&eacute;seau       |                               |
+-----------------------------------------------------------
+|    A    | 255.0.0.0     | 10.0.0.0    - 10.255.255.255  |
+|    B    | 255.255.0.0   | 172.16.0.0  - 172.31.255.255  |
+|    C    | 255.255.255.0 | 192.168.0.0 - 192.168.255.255 |
+-----------------------------------------------------------
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Vous devez d'abord d&eacute;cider de la dimension de votre r&eacute;seau et 
+choisir ensuite les adresses dont vous avez besoin.
+</DL>
+<P>
+<P>
+<H2><A NAME="ss5.2">5.2 O&ugrave; mettre les commandes de configuration ?</A>
+</H2>
+
+<P>Il y a plusieurs possibilit&eacute;s de proc&eacute;dures
+de d&eacute;marrage d'un syst&egrave;me Linux. Apr&egrave;s le 
+d&eacute;marrage du noyau,  
+celui-ci ex&eacute;cute toujours un programme appel&eacute; 
+`<EM>init</EM>'. Ce programme lit le fichier de configuration appel&eacute;
+<CODE>/etc/inittab</CODE> et commence le processus de d&eacute;marrage. Il y a 
+quelques variantes de 
+<EM>init</EM>, bien que maintenant tout le monde se dirige vers la variante
+System V (cinq), d&eacute;velopp&eacute;e par Miguel van Smoorenburg.
+<P>Bien que que le programme <EM>init</EM> soit toujours le m&ecirc;me, les r&eacute;glages
+du processus de d&eacute;marrage se font diff&eacute;remment suivant le type de distribution.
+Habituellement le fichier <CODE>/etc/inittab</CODE> contient une entr&eacute;e 
+telle que :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+si::sysinit:/etc/init.d/boot
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Cette ligne sp&eacute;cifie le nom du fichier script qui prend en charge 
+r&eacute;ellement la s&eacute;quence de d&eacute;marrage. Ce fichier est en 
+quelque sorte &eacute;quivalent au fichier MS-DOS <CODE>AUTOEXEC.BAT</CODE>.
+<P>Il y a aussi d'autres scripts appel&eacute;s par le script de 
+d&eacute;marrage, et souvent le r&eacute;seau est configur&eacute; dans l'un de ceux-ci.
+<P>Le tableau suivant peut &ecirc;tre utilis&eacute; comme guide suivant 
+le syst&egrave;me que vous avez :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+-------------------------------------------------------------------------------
+Distrib. |Interface Config/Routage           | Initialisation serveur
+-------------------------------------------------------------------------------
+Debian   | /etc/init.d/network               | /etc/rc2.d/*     
+-------------------------------------------------------------------------------
+Slackware| /etc/rc.d/rc.inet1                | /etc/rc.d/rc.inet2 
+-------------------------------------------------------------------------------
+RedHat   | /etc/rc.d/init.d/network          | /etc/rc.d/rc3.d/*
+-------------------------------------------------------------------------------
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Notez que les distributions Debian et RedHat utilisent tout un r&eacute;pertoire
+pour les scripts qui mettent en route les services du syst&egrave;me (et 
+habituellement l'information ne se situe pas dans ces fichiers, par exemple 
+les syst&egrave;mes RedHat stockent l'ensemble de la configuration du syst&egrave;me 
+sous <CODE>/etc/sysconfig</CODE>, o&ugrave; elle est r&eacute;cup&eacute;r&eacute;e par les scripts de 
+d&eacute;marrage). Si vous voulez saisir les d&eacute;tails du processus de d&eacute;marrage, 
+je vous conseille de v&eacute;rifier <EM>/etc/inittab</EM> ainsi que la documentation 
+accompagnant <EM>init</EM>. Linux Journal va &eacute;galement publier un article 
+sur l'initialisation des syst&egrave;mes, et nous pointerons sur lui d&egrave;s qu'il sera 
+disponible sur le r&eacute;seau.
+<P>
+<P>La plupart des distributions r&eacute;centes incluent un programme qui  
+permet de configurer de nombreux types d'interfaces r&eacute;seau. Si vous en 
+poss&eacute;dez une, regardez si ce programme vous convient au lieu 
+de tenter une configuration manuelle.
+<P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+-----------------------------------------
+Distrib   | Programme de configuration r&eacute;seau
+-----------------------------------------
+RedHat    | /sbin/netcfg
+Slackware | /sbin/netconfig
+-----------------------------------------
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>
+<H2><A NAME="ss5.3">5.3 Cr&eacute;er vos interfaces r&eacute;seau</A>
+</H2>
+
+<P>Sur un grand nombre de syst&egrave;mes Unix, les p&eacute;riph&eacute;riques 
+r&eacute;seau apparaissent dans le r&eacute;pertoire
+<EM>/dev</EM> . Il n'en est pas de m&ecirc;me avec Linux. Les 
+p&eacute;riph&eacute;riques r&eacute;seau  sont cr&eacute;&eacute;s 
+dynamiquement par les logiciels et ne n&eacute;cessitent donc pas de fichiers de 
+p&eacute;riph&eacute;riques.
+<P>Dans la majorit&eacute; des cas, le p&eacute;riph&eacute;rique r&eacute;seau 
+est automatiquement cr&eacute;&eacute; par le gestionnaire de 
+p&eacute;riph&eacute;rique lors de son initialisation par le noyau.
+Par exemple le pilote Ethernet cr&eacute;e
+les interfaces <CODE>eth[0..n]</CODE> une par une lorsqu'il d&eacute;tecte votre 
+mat&eacute;riel Ethernet. La premi&egrave;re carte Ethernet trouv&eacute;e devient
+<CODE>eth0</CODE>, la deuxi&egrave;me <CODE>eth1</CODE>, etc.
+<P>Cependant, dans certains cas, notamment avec <EM>SLIP</EM> et <EM>PPP</EM>, les 
+p&eacute;riph&eacute;riques r&eacute;seau sont cr&eacute;&eacute;s par un programme utilisateur. Le m&ecirc;me m&eacute;canisme 
+s&eacute;quentiel s'applique sur les p&eacute;riph&eacute;riques, mais ce 
+n'est pas au moment du d&eacute;marrage du syst&egrave;me. La raison en est 
+que, &agrave; l'inverse des dispositifs Ethernet, le nombre de 
+p&eacute;riph&eacute;riques
+<EM>SLIP</EM> ou <EM>PPP</EM> actifs peut varier dans le temps.
+Nous y reviendrons plus tard.
+<P>
+<P>
+<H2><A NAME="ss5.4">5.4 Configurer une interface r&eacute;seau. Noyaux 2.0 et 2.2</A>
+</H2>
+
+<P>Lorsque vous avez tous les programmes requis, votre adresse et les informations 
+r&eacute;seau, vous pouvez alors configurer vos interfaces. Lorsque nous 
+parlons de la configuration d'interface, nous faisons allusion au processus  
+d'assignation des adresses du 
+p&eacute;riph&eacute;rique r&eacute;seau, et au processus de r&eacute;glage des param&egrave;tres configurables.
+Le programme le plus utilis&eacute; pour ce faire est la commande
+<EM>ifconfig</EM> (interface configure).
+<P>Typiquement vous utilisez une commande comme ci-dessous :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# ifconfig eth0 192.168.0.1 netmask 255.255.255.0 up
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Dans ce cas je configure l'interface Ethernet `<CODE>eth0</CODE>' avec l'adresse 
+IP `<CODE>192.168.0.1</CODE>' et un masque de r&eacute;seau `<CODE>255.255.255.0</CODE>'.
+Le `<EM>up</EM>' qui termine la commande enjoint &agrave; l'interface de devenir 
+active, mais il peut &ecirc;tre omis, &eacute;tant par d&eacute;faut. Pour clore une interface,
+vous faites juste ``<CODE>ifconfig eth0 down</CODE>''.
+<P>Le noyau suppose certaines valeurs par d&eacute;faut lorsque l'on configure les 
+interfaces. Par exemple, vous pouvez indiquer une adresse de r&eacute;seau et 
+une adresse de diffusion, mais si vous ne le faites pas comme nous venons
+de le faire dans l'exemple ci-dessus, alors le noyau fera certaines hypoth&egrave;ses  
+fond&eacute;es sur le masque de r&eacute;seau que vous avez fourni, et si vous ne l'avez pas 
+donn&eacute;e, sur la classe de l'adresse IP configur&eacute;e.
+Dans mon exemple, le noyau consid&eacute;rera que c'est un r&eacute;seau de classe C et 
+configurera une adresse r&eacute;seau de
+`<CODE>192.168.0.0</CODE>' et une adresse de diffusion de `<CODE>192.168.0.255</CODE>'. 
+<P>Il y a de nombreuses autres options pour la commande <EM>ifconfig</EM> . Les plus 
+importantes sont :
+<DL>
+<DT><B>up</B><DD><P>active une interface (est fait par d&eacute;faut).
+<DT><B>down</B><DD><P>d&eacute;sactive une interface.
+<DT><B>[-]arp</B><DD><P>active ou d&eacute;sactive le protocole de r&eacute;solution 
+d'adresses sur cette interface.
+<DT><B>[-]allmulti</B><DD><P>active ou d&eacute;sactive la r&eacute;ception de tous les paquets 
+multicast mat&eacute;riel (Ndt : Les adresses multicast sont un genre d'adresses 
+de diffusion limit&eacute;es &agrave; un groupe de machine qui n'ont pas n&eacute;cessairement 
+besoin de se trouver sur le m&ecirc;me sous-r&eacute;seau). Le multicast mat&eacute;riel permet 
+&agrave; des groupes d'h&ocirc;tes de recevoir des paquets adress&eacute;s vers des destinations 
+sp&eacute;ciales. Ce peut &ecirc;tre important si vous utilisez des applications comme la 
+vid&eacute;oconf&eacute;rence, mais la plupart du temps on ne l'utilise pas.
+<DT><B>mtu N</B><DD><P>ce param&egrave;tre permet de r&eacute;gler le <EM>MTU</EM> (Maximum Transfert Unit)
+sur le p&eacute;riph&eacute;rique.
+<DT><B>netmask &lt;addr></B><DD><P>ce param&egrave;tre permet de fixer le masque de r&eacute;seau.
+<DT><B>irq &lt;addr></B><DD><P>ce param&egrave;tre ne fonctionne qu'avec certains types de 
+mat&eacute;riels, mais vous permet d'en fixer l'IRQ.
+<DT><B>[-]broadcast [addr]</B><DD><P>permet d'activer ou de d&eacute;sactiver l'acceptation
+de datagrammes destin&eacute;s &agrave; l'adresse de diffusion.
+<DT><B>(-)pointopoint [addr]</B><DD><P>permet de fixer l'adresse de la machine &agrave; 
+l'extr&eacute;mit&eacute; d'un lien point-&agrave;-point comme pour <EM>slip</EM>
+ou <EM>ppp</EM>.
+<DT><B>hw &lt;type> &lt;addr></B><DD><P>permet de fixer l'adresse mat&eacute;rielle 
+de certains p&eacute;riph&eacute;riques r&eacute;seau. Ce n'est pas souvent 
+utilis&eacute; pour Ethernet, mais utile pour d'autres types de r&eacute;seau 
+tels que AX.25.
+</DL>
+<P>Avec les versions 2.2 du noyau, il y a un certain nombre d'options que
+nous n'avons pas &eacute;num&eacute;r&eacute;es ci-dessus. Parmi les plus int&eacute;ressantes, citons
+le tunneling et les options IPV6. Voici les param&egrave;tres ifconfig pour 
+les noyaux 2.2.
+<DL>
+<DT><B>interface</B><DD><P>Le nom de l'interface. C'est habituellement le nom d'un gestionnaire de p&eacute;riph&eacute;rique suivi
+par un num&eacute;ro d'unit&eacute;, par exemple eth0 pour la premi&egrave;re interface
+Ethernet.
+<DT><B>up</B><DD><P>Ceci provoque l'activation de l'interface. C'est implicitement
+sp&eacute;cifi&eacute; si un adresse est affect&eacute;e &agrave; l'interface.
+<DT><B>down</B><DD><P>Ceci provoque la d&eacute;sactivation de l'interface. 
+<DT><B>[-]arp</B><DD><P>Active ou d&eacute;sactive l'utilisation du protocole ARP sur l'interface
+consid&eacute;r&eacute;e.
+<DT><B>[-]promisc</B><DD><P>Active ou d&eacute;sactive le mode «promiscuous» sur l'interface. Si il
+est choisi, tous les paquets du r&eacute;seau seront re&ccedil;us par
+l'interface.
+<P>
+<DT><B>[-]allmulti</B><DD><P>Active ou d&eacute;sactive le mode «all-multicast».  Si il est choisi
+tous les paquets multicast du r&eacute;seau seront re&ccedil;us par l'interface.
+<P>
+<DT><B>metric N</B><DD><P>Ce param&egrave;tre positionne le param&egrave;tre «metric» de l'interface.
+<P>
+<DT><B>mtu N</B><DD><P>Ce param&egrave;tre positionne le Maximum Transfer Unit (MTU)
+d'une interface.
+<P>
+<DT><B>dstaddr addr</B><DD><P>Positionne l'adresse IP distante d'un lien point-&agrave;-point
+(tel que PPP). Ce mot-cl&eacute; est maintenant obsol&egrave;te; utilisez
+&agrave; la place le mot-cl&eacute; pointopoint.
+<P>
+<DT><B>netmask addr</B><DD><P>Positionne le masque de r&eacute;seau IP de l'interface. Donne les
+valeurs par d&eacute;faut pour les classes habituelles de masque r&eacute;seau
+A, B ou C (provenant de l'adresse IP de l'interface), mais on
+peut donner n'importe quelle valeur.
+<P>
+<DT><B>add addr prefixlen</B><DD><P>Ajoute un adresse IPv6 &agrave; l'interface.
+<P>
+<P>
+<DT><B>del addr prefixlen</B><DD><P>Enl&egrave;ve une adresse IPv6 de l'interface.
+<P>
+<DT><B>tunnel aa.bb.cc.dd</B><DD><P>Cr&eacute;e un nouveau p&eacute;riph&eacute;rique SIT (IPv6-in-IPv4), tunnelling
+vers une destination donn&eacute;e.
+<P>
+<DT><B>irq addr</B><DD><P>Positionne l'interruption utilis&eacute;e par ce p&eacute;riph&eacute;rique.
+Tous les p&eacute;riph&eacute;riques ne sont pas capables de changer
+d'IRQ de mani&egrave;re dynamique.
+<P>
+<DT><B>io_addr addr</B><DD><P>Positionne l'adresse d'entr&eacute;e-sortie du p&eacute;riph&eacute;rique.
+<P>
+<DT><B>mem_start addr</B><DD><P>Positionne l'adresse de d&eacute;but de la m&eacute;moire partag&eacute;e utilis&eacute;e
+par le p&eacute;riph&eacute;rique. Seuls quelques p&eacute;riph&eacute;riques en ont
+besoin.
+<P>
+<DT><B>media type</B><DD><P>Positionne le port physique ou bien le type de mat&eacute;riel
+qui doit &ecirc;tre utilis&eacute; par le p&eacute;riph&eacute;rique. Tous les
+p&eacute;riph&eacute;riques ne peuvent pas changer ce r&eacute;glage, et ceux
+qui peuvent le faire diff&egrave;rent quant aux valeurs qui
+peuvent leur &ecirc;tre assign&eacute;es. Les valeurs typiques pour
+sont 10base2 (thin Ethernet), AUI (transceiver externe) 
+et autres. La valeur sp&eacute;ciale auto peut &ecirc;tre utilis&eacute;e pour
+dire au gestionnaire de p&eacute;riph&eacute;rique de d&eacute;tecter automatiquement
+le p&eacute;riph&eacute;rique. Encore une fois tous les gestionnaires de
+p&eacute;riph&eacute;rique ne peuvent faire ceci.
+<P>
+<DT><B>[-]broadcast [addr]</B><DD><P>Si une adresse est donn&eacute;e en argument, positionne l'adresse
+de protocole de diffusion de l'interface. Autrement, positionne
+(ou efface) le drapeau IFF_BROADCAST de l'interface.
+<P>
+<DT><B>[-]pointopoint [addr]</B><DD><P>Autorise le mode point-&agrave;-point pour l'interface, ce qui
+signifie qu'il existe un lien direct entre deux machines
+sans que quelqu'un d'autre puisse &ecirc;tre &agrave; l'&eacute;coute. Si une
+adresse est donn&eacute;e comme argument, positionne l'adresse
+protocole &agrave; l'autre extr&eacute;mit&eacute; du lien, tout comme le faisait
+la commande dstaddr, devenue obsol&egrave;te. Autrement, positionne
+ou efface le drapeau IFF_POINTTOPOINT de l'interface.
+<P>
+<DT><B>hw class address</B><DD><P>Positionne l'adresse mat&eacute;rielle de l'interface, si le
+gestionnaire de p&eacute;riph&eacute;rique supporte cela. Le mot-cl&eacute; doit
+&ecirc;tre suivi par le nom de la classe mat&eacute;rielle et
+l'&eacute;quivalent ASCII de l'adresse mat&eacute;rielle. Les classes
+mat&eacute;rielles actuellement support&eacute;es sont ether (Ethernet),
+ax25 5AMPR AX.25), ARCnet et netrom (AMPR NET/ROM).
+<P>
+<DT><B>multicast</B><DD><P>Positionne le drapeau multicast de l'interface. Normalement
+on n'en a pas besoin &eacute;tant donn&eacute; que les gestionnaires de p&eacute;riph&eacute;rique
+positionne eux-m&ecirc;mes le drapeau correctement.
+<P>
+<DT><B>address</B><DD><P>L'adresse IP que l'on doit assigner &agrave; l'interface.
+<P>
+<DT><B>txqueuelen length</B><DD><P>Positionne la longueur de la file de transmission du p&eacute;riph&eacute;rique.
+Il est pr&eacute;f&eacute;rable de la mettre &agrave; une valeure faible
+pour les p&eacute;riph&eacute;riques les plus lents ayant une latence (liens
+modem, ISDN) pour emp&ecirc;cher que les grosses masses de transferts
+comme telnet perturbent le trafic sur l'interface.
+<P>
+<P>Vous pouvez utiliser la commande <EM>ifconfig</EM> pour toutes les interfaces 
+r&eacute;seau. Quelques programmes utilisateurs comme
+<EM>pppd</EM> et <EM>dip</EM> configurent automatiquement les 
+p&eacute;riph&eacute;riques en m&ecirc;me temps qu'ils les cr&eacute;ent, 
+d&egrave;s lors l'utilisation manuelle de
+<EM>ifconfig</EM> n'est pas n&eacute;cessaire.
+</DL>
+<P>
+<H2><A NAME="ss5.5">5.5 Configurer votre solveur de noms</A>
+</H2>
+
+<P>Le `<EM>Solveur de Noms</EM>' (Name Resolver) fait partie de la 
+biblioth&egrave;que 
+standard de Linux. Sa premi&egrave;re fonction est de convertir des noms 
+d'h&ocirc;tes compr&eacute;hensibles par l'homme, comme
+`<CODE>ftp.funet.fi</CODE>' , en adresses IP compr&eacute;hensibles par une machine, 
+comme <CODE>128.214.248.6</CODE>.
+<P>
+<H3>Qu'y a-t-il dans un nom ?</H3>
+
+<P>Vous &ecirc;tes probablement familiers avec l'aspect des noms d'h&ocirc;tes 
+Internet, mais vous ne savez pas comment ils sont compos&eacute;s ou 
+d&eacute;compos&eacute;s. Les noms de domaine Internet sont 
+hi&eacute;rarchis&eacute;s par nature, c'est-&agrave;-dire qu'ils ont une 
+structure arborescente.
+Un `<EM>domaine</EM>' est une famille, ou un groupe de noms. Un `<EM>domaine</EM>' 
+peut &ecirc;tre subdivis&eacute; en
+`<EM>sous-domaines</EM>'. Un `<EM>domaine de premier niveau</EM>' est un domaine qui 
+n'est pas un sous-domaine. Les Domaines de Premier Niveau sont 
+sp&eacute;cifi&eacute;s dans la RFC-920. Quelques exemples :
+<P>
+<DL>
+<DT><B>COM</B><DD><P>Organisations Commerciales
+<DT><B>EDU</B><DD><P>Organisations ayant rapport avec l'&Eacute;ducation
+<DT><B>GOV</B><DD><P>Organisations Gouvernementales (NdT: parfois GOUV en France !)
+<DT><B>MIL</B><DD><P>Organisations Militaires
+<DT><B>ORG</B><DD><P>Autres organisations
+<DT><B>NET</B><DD><P>Organisations ayant un rapport avec l'internet
+<DT><B>Nom de Pays</B><DD><P>il existe des codes de deux lettres qui repr&eacute;sentent 
+un pays donn&eacute;.
+</DL>
+<P>
+<P>Pour des raisons historiques la plupart des domaines appartenant &agrave; des
+domaines qui ne sont pas bas&eacute;s sur des noms de pays sont pour les
+organisations situ&eacute;es aux &Eacute;tats-Unis, bien que les &Eacute;tats-Unis aient aussi
+le code de pays `<CODE>.us</CODE>'. Ce n'est plus vrai pour les domaines <CODE>.com</CODE>
+et <CODE>.org</CODE>, qui sont couramment utilis&eacute;s par des soci&eacute;t&eacute;s hors des &Eacute;tats-Unis.
+<P>
+<P>
+<P>Chacun de ces domaines de premier niveau poss&egrave;de des sous-domaines. Les 
+domaines de premier niveau fond&eacute;s sur les noms de pays sont 
+divis&eacute;s ensuite en sous-domaines bas&eacute;s sur les domaines 
+<CODE>com</CODE>, <CODE>edu</CODE>, <CODE>gov</CODE>, <CODE>mil</CODE> et <CODE>org</CODE> . Ainsi par exemple, vous 
+finissez par : <CODE>com.au</CODE> and <CODE>gov.au</CODE> pour des organisations 
+commerciales ou 
+gouvernementales situ&eacute;es en Australie ; notez que ce n'est pas une r&egrave;gle
+absolue, car les politiques r&eacute;elles d&eacute;pendant de l'autorit&eacute; qui donne les noms
+pour chaque domaine.
+<P>Le niveau de division suivant repr&eacute;sente habituellement le nom de 
+l'organisation. Ces sous-domaines sont variables, souvent ils sont  
+fond&eacute;s sur la structure en d&eacute;partements de l'organisation mais ils
+peuvent l'&ecirc;tre &eacute;galement sur d'autres crit&egrave;res 
+consid&eacute;r&eacute;s comme rationnels et compr&eacute;hensibles par les 
+administrateurs r&eacute;seau de l'organisation.
+<P>La partie tout &agrave; fait &agrave; gauche du nom est toujours le nom unique 
+assign&eacute; &agrave; la machine h&ocirc;te et est appel&eacute;e le nom 
+d'h&ocirc;te
+`<EM>hostname</EM>', la partie de droite du nom est le nom de domaine
+`<EM>domainname</EM>' et le nom complet s'appelle le nom de domaine 
+compl&egrave;tement qualifi&eacute;
+`<EM>Fully Qualified Domain Name</EM>' (ou FQDN).
+<P>Si l'on examine l'adresse de la machine de Terry par exemple, 
+le nom pleinement 
+qualifi&eacute; est
+`<CODE>perf.no.itg.telstra.com.au</CODE>'. Cela veut dire que le nom d'h&ocirc;te 
+est `<CODE>perf</CODE>'
+et le nom de domaine `<CODE>no.itg.telstra.com.au</CODE>'. Le nom de domaine est 
+fond&eacute; sur un domaine de premier niveau bas&eacute; sur son pays, 
+l'Australie et comme son adresse &eacute;lectronique appartient &agrave; une 
+organisation commerciale nous avons
+`<CODE>.com</CODE>' comme domaine de niveau adjacent. Le nom de la 
+soci&eacute;t&eacute; est (&eacute;tait) 
+`<CODE>telstra</CODE>' et notre structure interne de noms est bas&eacute; sur la 
+structure organisationnelle, dans mon cas, ma machine appartient &agrave; 
+l'Information Technology Group, section Network Operations.
+<P>Habituellement, les noms sont plut&ocirc;t plus courts ; par exemple, mon
+fournisseur d'acc&egrave;s &agrave; l'internet est ``<CODE>systemy.it</CODE>'' et mon organisation
+&agrave; but non lucratif est ``<CODE>linux.it</CODE>'', sans sous-domaine <CODE>com</CODE> ou
+<CODE>org</CODE>, aussi mon propre h&ocirc;te est simplement appel&eacute; 
+``<CODE>morgana.systemy.it</CODE>'' et <CODE>rubini@linux.it</CODE> est une adresse 
+&eacute;lectronique valide. Notez que le propri&eacute;taire d'un domaine a le droit 
+d'enregistrer les noms d'h&ocirc;tes aussi bien
+que les noms de sous-domaine ; par exemple le Groupe d'Utilisateur Linux auquel
+j'appartiens utilise le domaine <CODE>pluto.linux.it</CODE>, car les propri&eacute;taires
+de <CODE>linux.it</CODE> &eacute;taient d'accord pour cr&eacute;er un sous-domaine pour ce groupe.
+<P>
+<P>
+<H3>Les informations n&eacute;cessaires</H3>
+
+<P>Vous devez conna&icirc;tre le domaine auquel votre nom d'h&ocirc;te 
+appartient. Le solveur de nom effectue la traduction en faisant 
+appel &agrave; un
+`<EM>Serveur de Noms de Domaine</EM>', aussi vous devez conna&icirc;tre l'adresse 
+IP d'un serveur de nom local que vous pouvez utiliser.
+<P>Il y a trois fichiers que vous devez &eacute;diter, nous en parlerons chacun 
+&agrave; leur tour.
+<P>
+<P>
+<H3>/etc/resolv.conf</H3>
+
+<P>Le fichier <CODE>/etc/resolv.conf</CODE> est le fichier principal de configuration 
+de la r&eacute;solution de noms. Son format est tr&egrave;s simple. 
+C'est un fichier texte avec un mot-cl&eacute; par ligne. Il y a trois 
+mots-cl&eacute;s typiquement utilis&eacute;s, qui sont :
+<DL>
+<DT><B>domain</B><DD><P>ce mot-cl&eacute; indique le nom de domaine local.
+<DT><B>search</B><DD><P>ce mot-cl&eacute; sp&eacute;cifie une liste d'autres noms de 
+domaine pour rechercher un nom d'h&ocirc;te.
+<DT><B>nameserver</B><DD><P>ce mot-cl&eacute;, qui peut &ecirc;tre utilis&eacute; 
+plusieurs fois, sp&eacute;cifie l'adresse IP d'un serveur de nom de domaine 
+pour la r&eacute;solution de noms.
+</DL>
+<P>Un exemple de <CODE>/etc/resolv.conf</CODE> pourrait ressembler &agrave; ceci :
+<BLOCKQUOTE><CODE>
+<PRE>
+domain maths.wu.edu.au
+search maths.wu.edu.au wu.edu.au
+nameserver 192.168.10.1
+nameserver 192.168.12.1
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Cet exemple sp&eacute;cifie que le nom de domaine par d&eacute;faut &agrave; 
+ajouter aux noms non qualifi&eacute;s (c'est-&agrave;-dire sans domaine) est
+<CODE>maths.wu.edu.au</CODE>, et que si l'h&ocirc;te n'est pas trouv&eacute; dans ce 
+domaine on peut aussi essayer
+le domaine <CODE>wu.edu.au</CODE> directement. Deux entr&eacute;es de serveurs de noms 
+sont fournies, chacune d'elles pouvant &ecirc;tre appel&eacute;e par le 
+solveur de noms.
+<P>
+<P>
+<H3>/etc/hosts</H3>
+
+<P>Le fichier <CODE>/etc/hosts</CODE> est l'endroit o&ugrave; vous mettez les noms et
+les adresses IP des h&ocirc;tes locaux. Si vous mettez un h&ocirc;te dans ce 
+fichier, alors vous n'avez pas &agrave; interroger le serveur de nom de domaine
+pour obtenir son adresse IP. L'inconv&eacute;nient est que vous devez tenir 
+votre fichier &agrave; jour si l'adresse de cet h&ocirc;te a chang&eacute;.
+Dans un syst&egrave;me bien administr&eacute; les seuls noms d'h&ocirc;tes qui 
+apparaissent habituellement sont l'interface loopback, et le nom des 
+h&ocirc;tes locaux.
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# /etc/hosts
+127.0.0.1      localhost loopback
+192.168.0.1    ma.belle.machine
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Vous pouvez sp&eacute;cifier plus d'un nom d'h&ocirc;te, comme montr&eacute; 
+dans la premi&egrave;re entr&eacute;e (qui est standard pour l'interface 
+loopback).
+<P>
+<P>
+<H3>Faire tourner un serveur de noms</H3>
+
+<P>Si vous voulez faire tourner un serveur de nom local, vous pouvez le
+faire facilement. Voyez le 
+<A HREF="index.php?ref=Net-HOWTO-html/DNS-HOWTO.html">le DNS-HOWTO</A> 
+ainsi que tous les documents inclus dans votre version de <EM>BIND</EM>
+(Berkeley Internet Name Domain).
+<P>
+<P>
+<H2><A NAME="ss5.6">5.6 Configurer votre interface loopback</A>
+</H2>
+
+<P>L'interface `<CODE>loopback</CODE>' est un type sp&eacute;cial d'interface qui permet 
+de vous connecter &agrave; vous-m&ecirc;me. Il y a plusieurs raisons pour 
+faire cela, par exemple si vous voulez faire des essais de logiciel r&eacute;seau 
+sans interf&eacute;rer avec quelqu'un d'autre sur votre r&eacute;seau. Par 
+convention, l'adresse IP 
+`<CODE>127.0.0.1</CODE>' lui a &eacute;t&eacute; assign&eacute;e. Aussi quelle que 
+soit la machine o&ugrave; vous &ecirc;tes, si vous ouvrez une
+connexion telnet vers
+<CODE>127.0.0.1</CODE> vous atteindrez toujours l'h&ocirc;te local.
+<P>Configurer l'interface loopback est simple et vous devez vous assurer de 
+l'avoir fait (mais notez que cette t&acirc;che est habituellement effectu&eacute;e
+par les scripts standards d'initialisation).
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+root# ifconfig lo 127.0.0.1
+root# route add -host 127.0.0.1 lo
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Nous en dirons plus sur la commande <EM>route</EM> dans le prochain paragraphe.
+<P>
+<H2><A NAME="ss5.7">5.7 Routage</A>
+</H2>
+
+<P>Le routage est un vaste sujet. On peut &eacute;crire de grandes 
+quantit&eacute;s de textes sur ce sujet. La plupart d'entre vous ont 
+besoin d'un simple routage, et certains m&ecirc;me de rien du tout. 
+Je ne parlerai 
+que des principes du routage. Si vous voulez plus d'informations je vous 
+sugg&egrave;re de vous reporter aux r&eacute;f&eacute;rences 
+fournies en d&eacute;but du document.
+<P>Commen&ccedil;ons par une d&eacute;finition. Qu'est-ce que le routage IP ? 
+Voici celle que j'utilise :
+<P>
+<BLOCKQUOTE>
+Le routage IP est le processus par lequel un h&ocirc;te, ayant des 
+connexions r&eacute;seau multiples, d&eacute;cide du chemin 
+par lequel d&eacute;livrer les datagrammes IP qu'il a re&ccedil;us.
+</BLOCKQUOTE>
+<P>Il peut &ecirc;tre utile d'illustrer cela par un exemple. Imaginez un routeur 
+dans un bureau : il peut avoir un lien PPP sur l'Internet, un certain nombre de 
+segments Ethernet alimentant les stations de travail et un second lien PPP vers 
+un autre bureau.
+Lorsque le routeur re&ccedil;oit un datagramme de l'une de ses connexions, le 
+routage est le m&eacute;canisme utilis&eacute; pour d&eacute;terminer 
+vers quelle interface il doit renvoyer ce datagramme. De simples h&ocirc;tes ont 
+besoin aussi de routage, tous les h&ocirc;tes Internet ayant deux 
+p&eacute;riph&eacute;riques r&eacute;seau, l'un &eacute;tant l'interface 
+loopback d&eacute;crite auparavant et l'autre est celui qui est utilis&eacute; 
+pour parler avec le reste du monde, soit un lien Ethernet, soit une interface 
+s&eacute;rie PPP ou SLIP.
+<P>Ok, alors comment fonctionne le routage ? Chaque h&ocirc;te poss&egrave;de une 
+liste sp&eacute;ciale de r&egrave;gles de routage, appel&eacute;e une table de 
+routage. Cette table contient des colonnes qui contiennent au moins trois
+champs, le premier &eacute;tant une adresse de destination, le deuxi&egrave;me
+&eacute;tant le nom de l'interface vers lequel le datagramme doit &ecirc;tre 
+rout&eacute; et le troisi&egrave;me, qui est optionnel, l'adresse IP d'une 
+autre machine qui transportera le datagramme vers sa prochaine destination
+sur le r&eacute;seau passerelle. Sur Linux vous pouvez voir cette table en utilisant la 
+commande suivante :
+<BLOCKQUOTE><CODE>
+<PRE>
+user% cat /proc/net/route
+</PRE>
+</CODE></BLOCKQUOTE>
+
+ou bien en utilisant l'une des commandes suivantes :
+<BLOCKQUOTE><CODE>
+<PRE>
+user% /sbin/route -n
+user% /sbin/netstat -r
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Le processus de routage est plut&ocirc;t simple : un datagramme entrant est 
+re&ccedil;u, l'adresse de destination est examin&eacute;e et compar&eacute;e 
+avec chaque entr&eacute;e de la table. L'entr&eacute;e qui correspond le mieux 
+&agrave; cette adresse est choisie, et le datagramme est renvoy&eacute; vers 
+l'interface sp&eacute;cifi&eacute;e. Si le champ passerelle est rempli, alors 
+le datagramme est renvoy&eacute; vers cet h&ocirc;te via l'interface 
+sp&eacute;cifi&eacute;e, sinon l'adresse de destination est 
+suppos&eacute;e comme &eacute;tant sur le r&eacute;seau support&eacute; par 
+l'interface.
+<P>Pour manipuler ce tableau, une commande sp&eacute;ciale est utilis&eacute;e. 
+Cette commande prend des arguments et les convertit en appels syst&egrave;me
+pour demander au noyau d'ajouter, supprimer ou modifier des 
+entr&eacute;es dans la table de routage. Cette commande s'appelle
+`<EM>route</EM>'.
+<P>Un exemple simple. Imaginez que vous ayez un r&eacute;seau Ethernet. On vous a 
+dit que c'est un r&eacute;seau classe C avec une adresse de
+<CODE>192.168.1.0</CODE>. On vous fournit une adresse IP 
+<CODE>192.168.1.10</CODE> pour votre usage et on vous a dit que
+<CODE>192.168.1.1</CODE> est un routeur connect&eacute; &agrave; l'Internet.
+<P>La premi&egrave;re &eacute;tape est de configurer l'interface comme 
+indiqu&eacute; plus haut. Vous utiliserez la commande :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# ifconfig eth0 192.168.1.10 netmask 255.255.255.0 up
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Maintenant vous avez besoin d'ajouter une entr&eacute;e dans la table de 
+routage pour indiquer au noyau que les datagrammes destin&eacute;s aux
+h&ocirc;tes dont 
+les adresses correspondent &agrave;
+<CODE>192.168.1.*</CODE> doivent &ecirc;tre dirig&eacute;s vers le 
+p&eacute;riph&eacute;rique Ethernet. Vous utiliserez une commande comme ceci :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# route add -net 192.168.1.0 netmask 255.255.255.0 eth0
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Notez l'utilisation de l'argument `<CODE>-net</CODE>' pour indiquer au programme route 
+que cette entr&eacute;e est une route r&eacute;seau.
+Un autre choix peut &ecirc;tre `<CODE>-host</CODE>' qui est une route sp&eacute;cifique 
+d'une adresse IP.
+<P>Cette route vous permettra d'&eacute;tablir des connexions IP avec tous les 
+h&ocirc;tes sur votre segment Ethernet. Mais qu'en est-il des h&ocirc;tes IP 
+qui n'y sont pas ?
+<P>Il serait compliqu&eacute; d'ajouter des routes pour chaque r&eacute;seau 
+destinataire, aussi il y a une astuce utilis&eacute;e pour simplifier la 
+t&acirc;che.
+L'astuce est appel&eacute;e route par `<CODE>default</CODE>'. La route par 
+<CODE>default</CODE> 
+s'adapte &agrave; toutes les destinations possibles, mais pas tr&egrave;s 
+bien, de telle sorte que si il y a une entr&eacute;e qui correspond &agrave; 
+l'adresse requise elle sera utilis&eacute;e &agrave; la place de la route par
+<CODE>default</CODE>. L'id&eacute;e de la route par <CODE>default</CODE> est simplement de 
+pouvoir dire `et tout le reste va ici'. Dans l'exemple que j'ai 
+invent&eacute;, on utilisera une entr&eacute;e telle que :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# route add default gw 192.168.1.1 eth0
+</PRE>
+</CODE></BLOCKQUOTE>
+
+L'argument `<CODE>gw</CODE>' indique &agrave; la commande route que le prochain 
+argument est l'adresse IP, ou le nom, d'une passerelle (gateway) ou 
+d'une machine routeur 
+vers qui tous les datagrammes correspondant &agrave; cette entr&eacute;e
+seront dirig&eacute;s pour  routage ult&eacute;rieur.
+<P>Ainsi votre configuration compl&egrave;te sera :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# ifconfig eth0 192.168.1.10 netmask 255.255.255.0 up
+root# route add -net 192.168.1.0 netmask 255.255.255.0 eth0
+root# route add default gw 192.168.1.1 eth0
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Si vous regardez bien vos fichiers `<CODE>rc</CODE>' concernant le r&eacute;seau
+vous en trouverez 
+au moins un tr&egrave;s semblable &agrave; celui-ci. C'est une configuration 
+courante.
+<P>Examinons maintenant une configuration un peu plus compliqu&eacute;e. Imaginons
+que nous configurions le routeur examin&eacute; auparavant, celui qui avait 
+un lien PPP vers l'Internet et des segments LAN alimentant des stations de 
+travail dans le bureau. Supposons que ce routeur ait 3 segments Ethernet et un 
+lien PPP. Notre configuration de routage ressemblerait &agrave; ceci :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# route add -net 192.168.1.0 netmask 255.255.255.0 eth0
+root# route add -net 192.168.2.0 netmask 255.255.255.0 eth1
+root# route add -net 192.168.3.0 netmask 255.255.255.0 eth2
+root# route add default ppp0
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Chacune des stations de travail utilisera le format plus simple 
+d&eacute;crit ci-dessus, seul le routeur aura besoin d'indiquer les 
+routes r&eacute;seau s&eacute;par&eacute;ment car pour les stations de travail 
+le m&eacute;canisme de routage par
+<CODE>defaut</CODE> les capturera toutes, laissant au routeur le soin de les 
+s&eacute;parer de mani&egrave;re appropri&eacute;e. Vous pouvez vous demander 
+pourquoi la route par d&eacute;faut n'utilise pas 
+`<CODE>gw</CODE>'.
+La raison en est tr&egrave;s simple : les protocoles de lien s&eacute;rie comme 
+PPP et SLIP ont seulement deux h&ocirc;tes sur leur r&eacute;seau, un &agrave; 
+chaque bout. Sp&eacute;cifier &agrave; l'h&ocirc;te que l'autre bout de la 
+liaison est une passerelle est sans objet et redondant, car il n'a pas d'autre 
+choix, aussi vous n'avez pas &agrave; indiquer de passerelle pour ce type de 
+connexions r&eacute;seau. Les autres types comme Ethernet, 
+arcnet ou token ring ont besoin que l'on indique une passerelle car ces 
+r&eacute;seaux supportent un grand nombre d'h&ocirc;tes.
+<P>
+<P>
+<H3>Alors, que fait le programme <EM>routed</EM> ?</H3>
+
+<P>La configuration de routage d&eacute;crite ci-dessus est bien adapt&eacute;e 
+aux r&eacute;seaux simples o&ugrave; il n'y a que des chemins 
+uniques entre les destinations. Lorsque vous avez un 
+r&eacute;seau plus complexe les choses deviennent plus compliqu&eacute;es. 
+Heureusement pour la plupart d'entre vous, ce ne sera pas le cas.
+<P>Le gros probl&egrave;me est qu'avec le `routage manuel' ou `routage statique' 
+comme d&eacute;crit ci-dessus, si une machine ou un lien tombe en 
+panne dans le r&eacute;seau, alors la seule fa&ccedil;on de diriger vos 
+datagrammes vers un autre chemin, s'il existe, est d'intervenir manuellement et 
+d'ex&eacute;cuter les commandes ad&eacute;quates. Naturellement c'est lourd, 
+lent, peu pratique et source de risques. Des techniques vari&eacute;es ont 
+&eacute;t&eacute; d&eacute;velopp&eacute;es pour r&eacute;gler automatiquement 
+les tables de routage dans le cas d'incidents sur un r&eacute;seau o&ugrave; 
+il y a plusieurs routes possibles, toutes ces techniques &eacute;tant 
+regroup&eacute;es sous le nom de `protocoles de routage dynamique'.
+<P>Vous avez peut-&ecirc;tre entendu parler des plus courants. Ce sont 
+RIP
+(Routing Information Protocol) et OSPF (Open
+Shortest Path First Protocol). RIP est tr&egrave;s souvent utilis&eacute;
+sur les petits 
+ou moyens r&eacute;seaux d'entreprise. L'OPSF est plus moderne et plus apte 
+&agrave; g&eacute;rer de grands r&eacute;seaux et mieux adapt&eacute; dans le 
+cas o&ugrave; il y a un grand nombre de chemins possibles &agrave; travers le 
+r&eacute;seau. 
+Les impl&eacute;mentations usuelles de ces protocoles sont :
+`<EM>routed</EM>' - RIP, et `<EM>gated</EM>' - RIP, OSPF et autres.
+Le programme `<EM>routed</EM>' est normalement fourni avec votre distribution 
+Linux ou est inclus dans la paquetage
+`NetKit' d&eacute;crit auparavant.
+<P>Un exemple pour vous montrer comment et o&ugrave; vous 
+pouvez utiliser un protocole de routage 
+dynamique ressemblerait &agrave; ceci :
+<BLOCKQUOTE><CODE>
+<PRE>
+    192.168.1.0 /                         192.168.2.0 /
+       255.255.255.0                         255.255.255.0
+     -                                     -
+     |                                     |
+     |   /-----\                 /-----\   |
+     |   |     |ppp0   //    ppp0|     |   |
+eth0 |---|  A  |------//---------|  B  |---| eth0
+     |   |     |     //          |     |   |
+     |   \-----/                 \-----/   |
+     |      \ ppp1             ppp1 /      |
+     -       \                     /       -
+              \                   /
+               \                 /
+                \               /
+                 \             /
+                  \           /
+                   \         /
+                    \       /
+                     \     /
+                  ppp0\   /ppp1
+                     /-----\
+                     |     |
+                     |  C  |
+                     |     |
+                     \-----/
+                        |eth0
+                        |
+                   |---------|
+                   192.168.3.0 /
+                      255.255.255.0
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Nous avons trois routeurs A, B et C. Chacun supporte un segment Ethernet avec 
+un r&eacute;seau IP de classe C
+(masque de r&eacute;seau 255.255.255.0). Chaque routeur a &eacute;galement une 
+liaison PPP vers chacun des autres routeurs. Ce r&eacute;seau forme un triangle.
+<P>Il est &eacute;vident que la table de routage sur le routeur A ressemble 
+&agrave; ceci :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# route add -net 192.168.1.0 netmask 255.255.255.0 eth0
+root# route add -net 192.168.2.0 netmask 255.255.255.0 ppp0
+root# route add -net 192.168.3.0 netmask 255.255.255.0 ppp1
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Cela fonctionnera bien jusqu'&agrave; ce que le lien entre A et B tombe en 
+panne. Si cette liaison est d&eacute;faillante, alors l'entr&eacute;e de 
+routage montre que les h&ocirc;tes sur le segment A ne peuvent pas atteindre 
+les h&ocirc;tes sur le segment B car leurs datagrammes seront dirig&eacute;s 
+sur le lien ppp0 du routeur A qui est rompu.
+Ils pourront encore continuer &agrave; parler aux h&ocirc;tes du segment C, 
+et les h&ocirc;tes du segment C pourront toujours parler &agrave; ceux du 
+segment B car la liaison reste intacte. 
+<P>Mais.., si A peut parler &agrave; C et si C peut toujours parler &agrave; B,  
+pourquoi A ne routerait-il pas ses datagrammes pour B via C, et laisser ensuite 
+C les envoyer &agrave; B ? C'est exactement le type de probl&egrave;mes que les 
+protocoles de routage dynamique comme RIP sont en mesure de r&eacute;soudre. 
+Si chacun des routeurs A, B et C utilisent un d&eacute;mon de routage 
+(NdT: d&eacute;mon est une 
+francisation famili&egrave;re du vocable informatique anglais daemon, qui
+signifie Disk And Extension MONitor, c'est &agrave; dire qui n'est pas invoqu&eacute; 
+manuellement mais attend en t&acirc;che de fond que quelque chose se passe, que 
+quelque condition se produise. Ce terme fut introduit au d&eacute;part sous CTSS 
+(Compatible Time Sharing System), un anc&ecirc;tre du syst&egrave;me MULTICS, lui-m&ecirc;me 
+parent d'UNIX (voir la traduction de Ren&eacute; Cougnenc de `Le syst&egrave;me Linux' de 
+M. Welsh et L. Kaufman chez O'Reilly International Thomson), alors 
+leurs tables de routage seront automatiquement r&eacute;gl&eacute;es pour 
+refl&eacute;ter le nouvel &eacute;tat du r&eacute;seau m&ecirc;me si 
+l'une des liaisons est d&eacute;fectueuse. Configurer un tel 
+r&eacute;seau est simple, sur chaque routeur vous devez seulement faire deux 
+choses. Dans ce cas, pour le routeur A :
+<BLOCKQUOTE><CODE>
+<PRE>
+root# route add -net 192.168.1.0

@@ -1,0 +1,111 @@
+
+
+
+
+
+
+
+
+
+<LINK REL=STYLESHEET HREF="/utils/styles/trstyle.css" media="screen" TYPE="text/css">
+
+     
+
+            
+                  <table width="780" border="0" cellspacing="0" cellpadding="0">
+                     <tr>
+                        <td width="150" class="topNavCell">
+                        
+                           <a href="/tpg/index.jhtml"><img src="/images/tpglogo_color.gif" border="0" width="150" height="75"></a>
+                        
+                        </td>
+                        <td width="480" class="topNavCell">
+                        <center>
+                           <img src="/images/spacer.gif" width="480" height="5"><br>
+                           
+
+
+
+
+
+
+
+
+
+      
+            
+            <A HREF="http://ad.doubleclick.net/jump/techpro.dart/infrastructure;abr=!ie;pos=10;q1=19;q2=30;q3=48;q7=129;q8=137;sz=468x60;tile=1;ord=1009536877413?">
+            <IMG SRC="http://ad.doubleclick.net/ad/techpro.dart/infrastructure;abr=!ie;pos=10;q1=19;q2=30;q3=48;q7=129;q8=137;sz=468x60;tile=1;ord=1009536877413?" BORDER=0 WIDTH="468" HEIGHT="60" ALIGN=""></A>
+         
+
+   
+
+            
+
+                        </center>
+                        </td>
+                        <td width="148" class="topNavCell">
+                        <center>
+                          <img src="/images/spacer.gif" width="148" height="5"><br>
+                           
+
+
+
+
+
+
+
+
+
+      
+            
+            <A HREF="http://ad.doubleclick.net/jump/techpro.dart/infrastructure;abr=!ie;pos=20;q1=19;q2=30;q3=48;q7=129;q8=137;sz=120x60;tile=2;ord=1009536877413?">
+            <IMG SRC="http://ad.doubleclick.net/ad/techpro.dart/infrastructure;abr=!ie;pos=20;q1=19;q2=30;q3=48;q7=129;q8=137;sz=120x60;tile=2;ord=1009536877413?" BORDER=0 WIDTH="120" HEIGHT="60" ALIGN=""></A>
+         
+
+   
+
+            
+
+                        </center>
+                        </td>
+                     </tr>
+                     <tr>
+                  </table>
+                  <p><font class="bodyTitle">Share files and control your domains in a heterogeneous network with Samba 2.2.2</font><br><br>
+
+                  
+                  <font class="bodyText">
+                     Dec 13, 2001
+                  </font><br>
+                  <font class="bodyText">Scott Lowe MCSE</font>
+                  <br>
+                        <font class="bodyListSmall">
+                        &#169; 2001 TechRepublic, Inc.
+                        </font>
+                        <br><br>
+
+                  
+                        <br />Almost every networked environment contains Windows servers and workstations. Many organizations are also actively using Linux, or at least considering it for inclusion in their enterprise. Connecting these seemingly opposite operating systems seems to be a difficult task. You could use NFS for your file sharing, but you would lose a great deal of control and flexibility, as well as security. NFS clients notwithstanding, what can you do?<br /><br />In this Daily Drill Down, I&#8217;ll go over the installation of the Samba software and walk you through a sample configuration. Once that&#8217;s complete, I&#8217;ll test the installation and go over configuring a Samba server to act as a domain controller.<br /><br /><span class="subhead1">Install Samba</span><br />Samba is a set of utilities that provides access between Windows machines and a variety of other operating systems, including Linux. It allows a Windows workstation to transparently access a Linux server and the resources attached to it as if it were a Windows server. Likewise, some of the tools within the Samba distribution (<i>smbmount</i>, for instance) allow you to do the reverse and share Windows files and resources with Linux machines. These resources can include files, folders, and printers.<br /><br />To use Samba, you need to download it from the <a href="http://www.samba.org/">Samba Web site</a> and install it. The latest release of the software is <i>samba-latest.tar.gz</i> and, as of this writing, that was version 2.2.2. Once it&#8217;s downloaded, installed, and configured, you&#8217;ll have a server message block (SMB) server all set up and running that can be used by your Windows clients to share files, printers, and serial ports.<br /><br />For this Daily Drill Down, I installed Samba on the following:<br /><ul><li>A <a href="http://www.vmware.com/">VMware</a> 3.0 partition running under Windows 2000</li><li><a href="http://www.redhat.com/">Red Hat Linux</a> 7.1</li><li>192 MB of RAM</li><li>4 GB of allocated drive space (via VMware)</li></ul><br />Before you begin the installation, make sure of a couple of things so that you don't run into trouble. First, since this is a sample Samba installation, I suggest that you do this work on a lab server rather than a production server. Second, either log in as root or become root before continuing. Finally, copy the <i>samba-latest.tar.gz</i> file to the <i>/usr/local</i> directory so that all of the instructions I&#8217;ll be giving you in this Daily Drill Down will work properly.<br /><br />The first step in the installation of Samba is to expand the distribution you downloaded from the Samba Web site. First, change to the <i>/usr/local</i> directory by typing <i>cd /usr/local</i> at the command line. Then, type <i>gunzip -dc ./samba-latest.tar.gz | tar xvf -</i>and press [Enter]. (That is a dash at the end of the command.) This will expand the distribution and place it in the <i>/usr/local/samba-2.2.2</i> directory on your server. Next, switch to the <i>source</i> directory under this directory, which is where the Samba installation files are located. Type <i>cd /usr/local/samba-2.2.2/source</i>.<br /><br />Now you need to configure your installation to suit your needs. For most people, a standard configuration will suffice. However, I suggest providing the <i>prefix</i> parameter to the <i>configure</i> command to make sure that Samba is installed to <i>/usr/local/samba,</i> which is where you&#8217;ll want it for this example. Additionally, you&#8217;ll enable support for the <i>smbwrapper</i> feature, which allows you to use SMB/CIFS shares on Windows machines like UNIX mounts.<br /><br /><div align="center"><table><tr><td class="tiptitle">Smbwrapper<br /></td></tr><tr><td class="tiptext">If you&#8217;re interested in learning more about <i>smbwrapper,</i> take a look at this <i>Linux Magazine</i> <a href="http://www.linux-mag.com/1999-05/samba_04.html">article</a> on the subject.<br /></td></tr></table></div><br />To begin this process, type <i>./configure - -prefix=/usr/local/samba - -with-smbwrapper</i> and then press [Enter]. You&#8217;ll see the configuration files building for your configuration. Once this is done, you&#8217;ll be back at a prompt.<br /><br />The next step is to make the binaries out of the files that you created in the configuration step. To do this, simply type <i>make</i> at the command line and then press [Enter]. This step will take some time.<br /><br />Now you need to install these binaries so that they can run properly. Type <i>make install</i> and press [Enter]. This step installs the man pages for Samba and also takes quite some time to complete. When it&#8217;s finished, you should be back at your command prompt with Samba installed.<br />
+                     
+                        <br /><span class="subhead1">Configuring Samba for real use</span><br />Once Samba is installed, only the files to make it run are present. It&#8217;s then up to you to build configuration files that actually make Samba do what it was designed to do: make your Linux server understand SMB requests from the network and share its resources with Windows machines.<br /><br />The first file that needs to be created is the SMB configuration file, <i>smb.conf</i>. To start, create the <i>/usr/local/samba/lib/smb.conf</i> file using your favorite text editor. (I use pico, for example.) Place the following lines in this file, save it, and then exit back to the command prompt:<br /><span class="code">[global]<br /> security = user<br /> encrypt passwords = yes<br /> smb passwd file = /usr/local/samba/private/smbpasswd<br /> workgroup = SWG<br /><br />[homes]<br /> guest ok = no<br /> read only = no</span><br /><br />This configuration file will provide you with a very simple Samba setup that allows a user to attach to the server and view the contents of his or her home directory. It uses Windows user-based security, which provides for username/password authentication. Passwords sent from the Windows workstations are likely to be encrypted&#8212;this is the default since Windows NT 4.0 Service Pack 3 and later&#8212;so you need to tell Samba to expect this. Next, you&#8217;ll provide the location for the Samba password file. Samba passwords are kept separate from the UNIX passwords. Next, you&#8217;ll provide the name of the Windows workgroup that this Samba server will join. Finally, in the homes sections, you tell Samba to disallow guests and to provide read/write access to shares.<br /><br />You now need to create a locking directory (where Samba&#8217;s lock files will be stored) for the Samba service to use. Type <i>mkdir /usr/local/samba/var/locks</i> and give it the appropriate permissions for Samba by issuing a <i>chmod 0755 /usr/local/samba/var/locks</i> command.<br /><br />At this point, Samba is installed and you have a basic configuration. Now you need to start the Samba services and create an initial Samba user. It would be useful to have matching Windows and UNIX logins and passwords to make things work a little more smoothly.<br /><br />I&#8217;ll show you how to create a quick script to start Samba. I put this script in my home directory (remember, this is a development/test server) and called it <i>startsamba</i>. Once you&#8217;ve added this script to your installation, and it tests correctly, you should move the script to an appropriate location, such as <i>/usr/local/</i> or <i>/etc/rc.d/.</i><br /><br />In this script, put the following lines:<br /><span class="code">#!/bin/sh<br />/usr/local/samba/sbin/smbd &#8211;D<br />/usr/local/samba/sbin/nmbd -D</span><br /><br />Once you&#8217;re finished with this script, use <i>chmod +x startsamba</i> to add the execute privilege to it.<br /><br />Your script is now executable, so execute it. For my installation, I type <i>/home/slowe/startsamba</i> to do this. If everything starts normally, you&#8217;ll be brought immediately back to a system prompt. If there are errors, such as <i>/usr/local/samba/sbin/smbd command not found</i>, in which case your distribution has located the <i>smbd</i> executable in a different location, you'll find out here.<br /><br />There&#8217;s one last step in this section: Make sure that you&#8217;ve created an SMB user account. Type <i>/usr/local/samba/bin/smbpasswd -A username</i> (where <i>username</i> will be replaced with a real username) and then follow the instructions on the screen. For simplicity in this example, you should use an ID that is common to both your Windows machine and your UNIX machine.<br />
+                     
+                        <br /><span class="subhead1">Testing, testing</span><br />Testing is always important, and with Samba, you can test your installation in a couple of ways to make sure that it's properly configured. For Samba to be declared as working, it must be able to accept an SMB connection from a Windows machine as well as initiate one to a Windows machine.<br /><br />For starters, make sure that you can locally connect to the Samba server. Type <i>/usr/local/samba/bin/smbclient //localhost/slowe</i> at your command line (where <i>slowe</i> is replaced with the name of a user account that you created). If all goes well, you&#8217;ll be presented with a password prompt and end up at an SMB prompt where you can get directory listings, etc.<br /><br />Next, connect from your Windows machine to your Linux/Samba machine. My machine name is pear, so from my Windows 2000 Professional machine, I click Start | Run and type<a> </a><i>\\pear\slowe</i>.<br /><br />As a final test for this step, try to connect from your Linux/Samba server to your Windows machine. At the command prompt on your Linux machine, type <i>/usr/local/samba/bin/smbclient -L slowe-nb</i> (where <i>slowe-nb</i> is the name of your Windows machine). If everything is successful, you&#8217;ll get a password prompt and then <a target="_target" href="http://www.techrepublic.com/utils/sidebar.jhtml?id=t01820011210low01.htm&amp;index=1">a list of details</a> about your Windows machine.<br /><br />In this output, you can see the two workgroups, SWG and WORKGROUP, and details about the SMB server you connected to. The -L parameter in the <i>smbclient</i> utility lists the available shares. You now have a working, tested Samba system that can be used to share files with Windows machines.<br /><!--sidebar1<table width="100%" border="0" cellpadding="0"><tr><td class="subhead1">Successful output of the smbclient command</td></tr><tr bgcolor="#ff0000"><td height="1"><img src="/images/spacer.gif" width="1" height="1" /></td></tr><tr><td height="5"><img src="/images/spacer.gif" width="1" height="5" /></td></tr><tr><td><pre>[root@pear bin]# ./smbclient -L slowe-nb</pre><pre>added interface ip=192.168.59.128 bcast=192.168.59.255 nmask=255.255.255.0</pre><pre>Password:</pre><pre>Domain=[WORKGROUP] OS=[Windows 5.0] Server=[Windows 2000 LAN Manager]</pre><pre> </pre><pre>        Sharename      Type      Comment</pre><pre>        ---------      ----      -------</pre><pre>        IPC$           IPC       Remote IPC</pre><pre>        ADMIN$         Disk      Remote Admin</pre><pre>        C$             Disk      Default share</pre><pre> </pre><pre>        Server              Comment</pre><pre>        ---------            -------</pre><pre>        SLOWE-NB</pre><pre> </pre><pre>        Workgroup            Master</pre><pre>        ---------            -------</pre><pre>        SWG                  PEAR</pre><pre>        WORKGROUP            SLOWE-NB</pre></td></tr></table>sidebarend--><br /><span class="subhead1">Authentication, anyone?</span><br />One of the best new features in recent versions of Samba is its ability to act as an authentication mechanism, or basically as a domain controller. It's not quite as easy to use Samba as a domain controller as it is with a Windows box, but it&#8217;s much less expensive.<br /><br />The type of clients you serve dictates the steps you must take in Samba to properly set it up for domain authentication. I&#8217;m going to focus on Windows NT and Windows 2000 Professional clients as opposed to Windows 95/98 and Me clients. I&#8217;ll also go through the steps required to authenticate Windows NT and 2000 Pro machines; these steps will also work for Windows XP.<br /><br />The first step is to create a computer account on the Samba machine, known in Samba as a <i>trust account</i>, before users from a machine can log on. Once a computer has logged in to the Samba domain controller using this account, Samba then trusts all user connections from that computer.<br /><br /><div align="center"><table><tr><td class="tiptitle">Adding root<br /></td></tr><tr><td class="tiptext">Before I started configuring Samba for domain control, I added my Linux root user as a Samba user by typing <i>/usr/local/samba/bin/smbpasswd root</i> at the command line and providing my root password when prompted. You&#8217;ll want to use the root user with caution because it could open up a wealth of security issues.<br /></td></tr></table></div><br />My Windows 2000 Server machine name is <i>scott-2ks</i>, so that is the name that I&#8217;d use to create the computer account, with a dollar sign ($) appended to it. The rule of thumb is this: account name = machine name$. To create the account, I typed <a target="_target" href="http://www.techrepublic.com/utils/sidebar.jhtml?id=t01820011210low01.htm&amp;index=2">this line</a> on my Linux server. In your environment, you&#8217;ll replace <i>"scott-2ks"</i> with your client's machine name.<br /><!--sidebar2<table width="100%" border="0" cellpadding="0"><tr><td class="subhead1">Creating an account with the useradd command</td></tr><tr bgcolor="#ff0000"><td height="1"><img src="/images/spacer.gif" width="1" height="1" /></td></tr><tr><td height="5"><img src="/images/spacer.gif" width="1" height="5" /></td></tr><tr><td><pre>/usr/sbin/useradd -g 100 -d /dev/null -c "scott-2ks$" -s /bin/false scott-2ks$</pre></td></tr></table>sidebarend--><br />Next, I added this account's encrypted password to the <i>smbpasswd</i> database by typing the following:<br /><span class="code">/usr/local/samba/bin/smbpasswd -a -m slowe-2ks</span><br /><br />The -m parameter specifies a machine trust account. Once you&#8217;ve completed this step, you&#8217;ll get a response from Samba that the user has been added. Notice that I didn&#8217;t put a dollar sign character on the machine name; Samba handles this when it adds the machine name.<br />
+                     
+                        <br />Next, you need to provide a proper <i>smb.conf</i> file. Here&#8217;s a copy of the <i>smb.conf</i> file, which typically resides in <i>/etc/samba/</i>, that I used for a successful installation of a Samba domain controller:<br /><span class="code">[global]<br /> netbios name = pear<br /> netbios aliases = pear<br /> server string = Samba process on Pear<br /> domain logons = yes<br /> security = user<br /> encrypt passwords = yes<br /> smb passwd file = /usr/local/samba/private/smbpasswd<br /> workgroup = SWG<br /> os level = 34<br /> local master = yes<br /> preferred master = yes<br /> domain master = yes<br /><br />[netlogon]<br /> comment = Domain logon<br /> path = /usr/local/samba/netlogon<br /> public = no<br /> writeable = no<br /> browsable = no<br /><br />[homes]<br /> guest ok = no<br /> read only = no<br /><br />[samba-dist]<br /> comment = Samba distribution files<br /> path = /usr/local/samba-2.2.2<br /> guest = no<br /> read only = no<br /> browseable = yes<br /><br />[samba]<br /> comment = Samba installation<br /> path = /usr/local/samba<br /> guest = no<br /> read only = no<br /> browseable = yes</span><br /><br />That's it. Now you need to create the <i>/usr/local/samba/netlogon</i> directory as specified in this configuration file. The netlogon share is used by Windows clients but has no files.<br /><br />Once all of this is done, switch to your Windows NT, 2000, or XP machine and join it to the domain that&#8217;s specified in the <i>workgroup</i> line of your <i>smb.conf</i> file. When prompted for a password, type in your root user and password combination. If everything is set up correctly, you&#8217;ll be greeted with a message welcoming you to the domain.<br /><br /><span class="subhead1">Conclusion</span><br />It&#8217;s impossible to go over the plethora of features available with Samba here. This Daily Drill Down provides you with a basic Samba installation in both a standalone fashion and as a domain controller, along with a few sample configurations.<br /><br />Samba is bridging the divide between Windows and Linux users and is a must-have utility for anyone supporting both environments or for smaller workgroups that need some of the functionality of a Windows domain controller but can't afford the cost of yet another Win2K server license and the larger hardware requirements needed for the Win2K server operating system.<br />
+                     
+                        
+                     
+
+               
+
+         
+      <p>
+      
+
+      <font class="bodyListSmall">
+         <center>Copyright &#169; 1999-2001 TechRepublic, Inc.</center>
+         <center>Visit us at <a href="http://www.techrepublic.com">www.TechRepublic.com</a></center>
+      </font>
+
+   

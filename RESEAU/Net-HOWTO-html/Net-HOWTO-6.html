@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>R&eacute;seau sous Linux :: Informations sur Ethernet</TITLE>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html" REL=next>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html" REL=previous>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc6" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc6"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s6">6. Informations sur Ethernet</A></H2>
+
+<P>Cette section traite d'informations sp&eacute;cifiques sur Ethernet et la 
+configuration des cartes Ethernet.
+<P>
+<H2><A NAME="ss6.1">6.1 Cartes Ethernet support&eacute;es</A>
+</H2>
+
+<P>
+<H3>3Com</H3>
+
+<P>
+<UL>
+<LI>3Com 3c501 - `&agrave; fuir comme la peste' (gestionnaire 3c501)</LI>
+<LI>3Com 3c503 (gestionnaire 3c503), 3c505 (gestionnaire 3c505), 3c507 (gestionnaire 3c507), 3c509/3c509B (ISA) / 3c579
+(EISA)</LI>
+<LI>3Com Etherlink III Vortex Ethercards (3c590, 3c592, 3c595, 3c597)
+(PCI), 3Com Etherlink XL Boomerang (3c900, 3c905) (PCI) et Cyclone
+(3c905B, 3c980) Ethercards (gestionnaire 3c59x) et 3Com Fast EtherLink
+Ethercard (3c515) (ISA) (gestionnaire 3c515)</LI>
+<LI>3Com 3ccfe575 Cyclone Cardbus (gestionnaire 3c59x)</LI>
+<LI>3Com 3c575 series Cardbus (gestionnaire 3c59x) (ALL PCMCIA ??)</LI>
+</UL>
+<H3>AMD, ATT, Allied Telesis, Ansel, Apricot</H3>
+
+<P>
+<UL>
+<LI>AMD LANCE (79C960) / PCnet-ISA/PCI (AT1500, HP J2405A,
+NE1500/NE2100)</LI>
+<LI> ATT GIS WaveLAN </LI>
+<LI> Allied Telesis AT1700 </LI>
+<LI> Allied Telesis LA100PCI-T </LI>
+<LI> Allied Telesyn AT2400T/BT (module "ne") </LI>
+<LI> Ansel Communications AC3200 (EISA) </LI>
+<LI> Apricot Xen-II / 82596 </LI>
+</UL>
+<H3>Cabletron, Cogent, Crystal Lan</H3>
+
+<P>
+<UL>
+<LI> Cabletron E21xx </LI>
+<LI> Cogent EM110 </LI>
+<LI> Crystal Lan CS8920, Cs8900 </LI>
+</UL>
+<H3>Danpex, DEC, Digi, DLink</H3>
+
+<P>
+<UL>
+<LI> Danpex EN-9400 </LI>
+<LI> DEC DE425 (EISA) / DE434/DE435 (PCI) / DE450/DE500 (gestionnaire DE4x5) </LI>
+<LI> DEC DE450/DE500-XA (dc21x4x) (gestionnaire Tulip) </LI>
+<LI> DEC DEPCA et EtherWORKS </LI>
+<LI> DEC EtherWORKS 3 (DE203, DE204, DE205) </LI>
+<LI> DECchip DC21x4x "Tulip" </LI>
+<LI> DEC QSilver's (Gestionnaire Tulip) </LI>
+<LI> Digi International RightSwitch </LI>
+<LI> DLink DE-220P, DE-528CT, DE-530+, DFE-500TX, DFE-530TX </LI>
+</UL>
+<H3>Fujitsu, HP, ICL, Intel</H3>
+
+<P>
+<UL>
+<LI> Fujitsu FMV-181/182/183/184 </LI>
+<LI> HP PCLAN (s&eacute;ries 27245 et 27xxx) </LI>
+<LI> HP PCLAN PLUS (27247B et 27252A) </LI>
+<LI> HP 10/100VG PCLAN (J2577, J2573, 27248B, J2585) (ISA/EISA/PCI) </LI>
+<LI> ICL EtherTeam 16i / 32 (EISA) </LI>
+<LI> Intel EtherExpress </LI>
+<LI> Intel EtherExpress Pro </LI>
+</UL>
+<H3>KTI, Macromate, NCR NE2000/1000, Netgear, New Media</H3>
+
+<P>
+<UL>
+<LI> KTI ET16/P-D2, ET16/P-DC ISA (fonctionne sans cavaliers et avec des options de configuration mat&eacute;rielles) </LI>
+<LI> Macromate MN-220P (PnP or NE2000 mode) </LI>
+<LI> NCR WaveLAN </LI>
+<LI> NE2000/NE1000 (attention aux cl&ocirc;nes) </LI>
+<LI> Netgear FA-310TX (puce Tulip) </LI>
+<LI> New Media Ethernet </LI>
+</UL>
+<H3>PureData, SEEQ, SMC</H3>
+
+<P>
+<UL>
+<LI> PureData PDUC8028, PDI8023 </LI>
+<LI> SEEQ 8005 </LI>
+<LI> SMC Ultra / EtherEZ (ISA) </LI>
+<LI> SMC 9000 series </LI>
+<LI> SMC PCI EtherPower 10/100 (gestionnaire DEC Tulip) </LI>
+<LI> SMC EtherPower II (gestionnaire epic100.c) </LI>
+</UL>
+<H3>Sun Lance, Sun Intel, Schneider, WD, Zenith, IBM, Enyx</H3>
+
+<P>
+<UL>
+<LI> Adaptateurs Sun LANCEs (noyau kernel 2.2 et suivants) </LI>
+<LI> Adaptateurs Sun Intel (noyaux kernel 2.2 et suivants) </LI>
+<LI> Schneider et Koch G16 </LI>
+<LI> Western Digital WD80x3 </LI>
+<LI> Adaptateur int&eacute;gr&eacute; Zenith Z-Note / IBM ThinkPad 300 </LI>
+<LI> Ensemble Znyx 312 (gestionnaire Tulip) </LI>
+</UL>
+<P>
+<P>
+<H2><A NAME="ss6.2">6.2 Informations g&eacute;n&eacute;rales sur Ethernet</A>
+</H2>
+
+<P>Les noms de p&eacute;riph&eacute;riques Ethernet sont `<CODE>eth0</CODE>', `<CODE>eth1</CODE>',
+`<CODE>eth2</CODE>' etc. La premi&egrave;re carte d&eacute;tect&eacute;e par le noyau devient
+`<CODE>eth0</CODE>' et le reste est nomm&eacute; dans l'ordre de d&eacute;tection.
+<P>Une fois que vous avez compil&eacute; convenablement 
+votre noyau pour supporter les 
+cartes Ethernet, la configuration des cartes est ais&eacute;e.
+<P>Typiquement vous faites ainsi (ce que la plupart des distributions font
+automatiquement 
+pour vous, si vous les avez configur&eacute;es pour supporter votre carte ethernet) :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+root# ifconfig eth0 192.168.0.1 netmask 255.255.255.0 up
+root# route add -net 192.168.0.0 netmask 255.255.255.0 eth0
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>La plupart des gestionnaires Ethernet furent d&eacute;velopp&eacute;s par Donald Becker,
+<A HREF="index.php?ref=Net-HOWTO-html/mailto:becker@CESDIS.gsfc.nasa.gov">Donald Becker</A><P>
+<P>
+<H2><A NAME="ss6.3">6.3 Utiliser plusieurs cartes Ethernet sur la m&ecirc;me machine</A>
+</H2>
+
+<P>
+<H3>Si le gestionnaire est sous forme de module (habituellement avec les nouvelles distributions)</H3>
+
+<P>Le module pourra normalement d&eacute;tecter toutes les cartes install&eacute;es.
+<P>Les informations concernant la d&eacute;tection sont stock&eacute;es dans le fichier :
+<P><EM>/etc/conf.modules. </EM>
+<P>
+<P>Supposons qu'un utilisateur poss&egrave;de 3 cartes NE2000, une &agrave; l'adresse 0x300,
+l'autre &agrave; 0x240, et la derni&egrave;re &agrave; 0x220. Il faut ajouter les lignes suivantes au fichier /etc/conf.modules :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+        alias eth0 ne
+        alias eth1 ne
+        alias eth2 ne
+        options ne io=0x220,0x240,0x300
+   
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Ceci enjoint au programme <EM>modprobe</EM> de rechercher 3 cartes NE aux
+adresses sp&eacute;cifi&eacute;es. De plus cela donne l'ordre dans lequel on doit les trouver
+et quel p&eacute;riph&eacute;rique leur est assign&eacute;.
+<P>La plupart des modules ISA acceptent des valeurs d'E/S s&eacute;par&eacute;es par des virgules.
+Par exemple :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+        alias eth0 3c501
+        alias eth1 3c501
+        options eth0 -o 3c501-0 io=0x280 irq=5
+        options eth1 -o 3c501-1 io=0x300 irq=7
+        
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>L'option -o permet d'assigner un nom unique &agrave; chaque module. La raison en est que
+vous ne pouvez charger deux copies du m&ecirc;me module.
+<P>L'option irq= sert &agrave; sp&eacute;cifier l'IRQ mat&eacute;riel et l'option io= &agrave; 
+sp&eacute;cifier les diff&eacute;rents ports entr&eacute;e-sortie.
+<P>
+<P>
+<P>Par d&eacute;faut, le noyau Linux ne peut d&eacute;tecter qu'un seul dispositif Ethernet, et
+vous devez passer des commandes pour forcer la d&eacute;tection des autres
+cartes.
+<P>Pour apprendre &agrave; faire fonctionner vos cartes ethernet sous Linux, voyez le
+<A HREF="index.php?ref=Net-HOWTO-html/Ethernet-HOWTO.html">Ethernet-HOWTO</A>.
+<HR>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-7.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-5.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc6"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

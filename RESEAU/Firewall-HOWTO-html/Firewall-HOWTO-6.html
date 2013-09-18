@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Le HOWTO du pare-feu et des serveurs mandataires: Configuration du filtrage IP (IPFWADM)</TITLE>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-7.html" REL=next>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-5.html" REL=previous>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc6" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-7.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-5.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc6"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s6">6. Configuration du filtrage IP (IPFWADM)</A></H2>
+
+<P>Si vous utilisez un noyau 2.1.102 ou sup&eacute;rieur, passez directement
+&agrave; la section suivante sur IPCHAINS.
+<P>Dans les anciens noyaux, la transmission IP est activ&eacute;e par d&eacute;faut.
+Pour cette raison, votre r&eacute;seau doit commencer par refuser l'acc&egrave;s
+&agrave; tout et vider toutes les r&egrave;gles de transmission (ipfw) en place
+depuis le dernier lancement.
+Le fragment de script suivant doit se trouver dans votre
+script de lancement r&eacute;seau (en g&eacute;n&eacute;ral, /etc/rc.d/init.d/network)&nbsp;:
+<P>
+<PRE>
+        #
+        # configuration de la transmission IP et
+        # de la trace
+        #
+        #   Transmission
+        #
+        # Par defaut INTERDIRE tous les services
+        ipfwadm -F -p deny
+        # Vider toutes les regles de trace
+        ipfwadm -F -f
+        ipfwadm -I -f
+        ipfwadm -O -f
+</PRE>
+<P>Maintenant, nous avons un pare-feu absolu.
+Rien ne peut passer au travers.
+<P>Maintenant, on peut cr&eacute;er le fichier /etc/rc.d/rc.firewall.
+Ce script doit autoriser le passage des trafics courrier, web
+et DNS. ;-)
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+#!/bin/sh
+#
+# rc.firewall
+#
+# Lancement de la bibliotheque de fonctions
+. /etc/rc.d/init.d/functions
+
+# Lecture de la configuration
+. /etc/sysconfig/network
+
+# On controle que le reseau soit actif
+if [ $NETWORKING = "no" ]
+then
+        exit 0
+fi
+case "$1" in
+  start)
+  echo -n "Lancement des services du pare-feu : "
+  # Autorise le courriel a arriver au serveur
+  /sbin/ipfwadm -F -a accept -b -P tcp -S 0.0.0.0/0 1024:65535 -D 192.1.2.10 25
+  # Autorise les connexions aux serveurs courriel externes
+  /sbin/ipfwadm -F -a accept -b -P tcp -S 192.1.2.10 25 -D 0.0.0.0/0 1024:65535
+  # Autorise les connexions a notre serveur web
+  /sbin/ipfwadm -F -a accept -b -P tcp -S 0.0.0.0/0 1024:65535 -D 192.1.2.11 80
+  # Autorise les connexions aux serveurs web externes
+  /sbin/ipfwadm -F -a accept -b -P tcp -S 192.1.2.* 80 -D 0.0.0.0/0 1024:65535
+  # Autorise le trafic DNS
+  /sbin/ipfwadm -F -a accept -b -P udp -S 0.0.0.0/0 53 -D 192.1.2.0/24
+  ;;
+  stop)
+  echo -n "Arret des services du pare-feu : "
+  ipfwadm -F -p deny
+  ;;
+  status)
+  echo -n "Montrez-vous les statistiques du pare-feu ?"
+  ;;
+  restart|reload)
+        $0 stop
+        $0 start
+        ;;
+  *)
+        echo "Usage: firewall {start|stop|status|restart|reload}"
+        exit 1
+esac
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Note&nbsp;: Dans cet exemple, nous avons un serveur courriel (SMTP) qui
+tourne sur 192.1.2.10 qui doit &ecirc;tre capable d'envoyer et recevoir des
+paquets sur le port 25.
+Le serveur web tourne sur 192.1.2.11.
+Nous autorisons quiconque sur le r&eacute;seau local &agrave; acc&eacute;der aux serveurs
+web externes ainsi qu'aux serveurs DNS.
+<P>Cet exemple n'est pas parfaitement s&eacute;curis&eacute;.
+Puisque le port 80 n'est pas obligatoirement utilis&eacute; comme port web,
+un intrus rus&eacute; pourrait utiliser celui-ci pour cr&eacute;er un r&eacute;seau priv&eacute;
+virtuel (VPN&nbsp;: virtual private network) au-travers du pare-feu.
+Pour contourner cela, il faut configurer un mandataire web, et
+n'autoriser que celui-ci &agrave; traverser le pare-feu.
+Les utilisateurs du r&eacute;seau local devront alors passer par le
+mandataire pour atteindre les serveurs web ext&eacute;rieurs.
+<P>On peut aussi s'int&eacute;resser &agrave; la surveillance du trafic qui passe
+au-travers du pare-feu.
+Le script qui suit compte chaque paquet.
+On peut ajouter une ou deux lignes pour compter les paquets qui
+vont vers un syst&egrave;me particulier.
+<P>
+<PRE>
+  # Flush the current accounting rules
+  ipfwadm -A -f
+  # Accounting
+  /sbin/ipfwadm -A -f
+  /sbin/ipfwadm -A out -i -S 192.1.2.0/24 -D 0.0.0.0/0
+  /sbin/ipfwadm -A out -i -S 0.0.0.0/0 -D 192.1.2.0/24
+  /sbin/ipfwadm -A in -i -S 192.1.2.0/24 -D 0.0.0.0/0
+  /sbin/ipfwadm -A in -i -S 0.0.0.0/0 -D 192.1.2.0/24
+</PRE>
+<P>Si tout ce que vous cherchez est un pare-feu filtrant,
+vous pouvez vous arr&ecirc;ter ici.
+Testez-le et amusez-vous bien :-)
+<P>
+<HR>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-7.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-5.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc6"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

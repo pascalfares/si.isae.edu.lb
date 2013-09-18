@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Linux Ethernet-Howto: Configuration logicielle et diagnostics de carte</TITLE>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html" REL=next>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-6.html" REL=previous>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc7" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-6.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc7"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="utils"></A> <A NAME="s7">7. Configuration logicielle et diagnostics de carte</A></H2>
+
+<P>Dans la plupart des cas, si la configuration est faite par logiciel, et
+stock&eacute;e dans une EEPROM, vous devrez d&eacute;marrer DOS, et utiliser le
+programme DOS fourni par le constructeur pour configurer l'IRQ, les
+ports d'E/S, l'adresse m&eacute;moire et autres choses sur la carte. Du reste,
+on peut esp&eacute;rer que c'est quelque chose que vous ne configurerez qu'une
+seule fois. Si vous ne disposez pas du logiciel DOS pour votre carte,
+essayez de chercher sur le site WWW du constructeur de votre carte. Si
+vous ne connaissez pas le nom du site, tentez de le deviner, par exemple
+`www.mon-constructeur.com' o&ugrave; `mon-constructeur' est le nom du fabricant
+de la carte. Cela fonctionne pour SMC, 3Com, et plein <EM>plein</EM>
+d'autres fabricants.
+<P>On trouve certaines cartes pour lesquelles des versions Linux des
+utilitaires de configuration existent, et elles sont list&eacute;es ici. Donald
+a &eacute;crit quelques petits programmes de diagnostic qui fonctionnent sous
+Linux. La plupart d'entre eux sont le r&eacute;sultat d'outils de d&eacute;bogage
+qu'il a cr&eacute;&eacute;s pendant l'&eacute;criture des divers pilotes. Ne vous attendez
+pas &agrave; des interfaces rigolotes avec des menus. Vous aurez besoin de lire
+le code-source pour utiliser la plupart d'entre eux. M&ecirc;me si votre carte
+n'a pas de programme de configuration correspondant, vous pouvez encore
+obtenir un peu d'information juste en tapant <CODE>cat /proc/net/dev</CODE>
+--&nbsp;&agrave; condition que votre carte ait &eacute;t&eacute; au moins d&eacute;tect&eacute;e au d&eacute;marrage.
+<P>Dans tous les cas, vous devrez ex&eacute;cuter la plupart de ces programmes en
+tant que root (pour permettre l'acc&egrave;s aux ports d'E/S) et vous devrez
+certainement d&eacute;sactiver la carte r&eacute;seau avant en tapant <CODE>ifconfig
+eth0 down</CODE> en premier.
+<P>
+<H2><A NAME="config"></A> <A NAME="ss7.1">7.1 Programmes de configuration pour cartes Ethernet</A>
+</H2>
+
+<P>
+<P>
+<H3>Cartes WD80x3</H3>
+
+<P>Pour ceux d'entre vous qui ont des cartes wd80x3, il existe le programme
+<CODE>wdsetup</CODE> qui peut &ecirc;tre trouv&eacute; dans <CODE>wdsetup-0.6a.tar.gz</CODE> sur
+les sites FTP linux. il n'est pas activement maintenu, et n'a pas &eacute;t&eacute;
+mis &agrave; jour depuis d&eacute;j&agrave; pas mal de temps. S'il fonctionne correctement
+pour vous, c'est parfait, sinon, utilisez la version DOS que vous
+devriez avoir obtenue avec votre carte. Si vous n'avez pas la version
+DOS, vous serez heureux d'apprendre que les disquettes de configuration
+et les pilotes SMC sont disponibles sur le site FTP de SMC.
+<P>Bien entendu, vous <EM>devez</EM> avoir une carte avec EEPROM pour
+utiliser cet utilitaire. Les vieilles, <EM>vieilles</EM> cartes wd8003, et
+certains clones de wd8013 utilisent &agrave; la place des cavaliers pour
+configurer la carte.
+<P>
+<H3>Cartes Digital / DEC</H3>
+
+<P>La carte EtherWorks 3 de Digital peut &ecirc;tre configur&eacute;e d'une fa&ccedil;on
+similaire au programme DOS <CODE>NICSETUP.EXE</CODE>. David C. Davies l'a
+&eacute;crit, ainsi que certains autres outils pour l'EtherWorks 3, en
+conjonction avec le pilote. Regardez sur <CODE>metalab.unc.edu</CODE> dans le
+r&eacute;pertoire <CODE>/pub/linux/system/Network/management</CODE> un fichier qui
+s'appelle <CODE>ewrk3tools-X.XX.tar.gz</CODE>.
+<P>(NDT&nbsp;: Le lecteur fran&ccedil;ais aura tout int&eacute;r&ecirc;t &agrave; utiliser un site FTP plus
+proche, comme par exemple&nbsp;:
+<CODE>ftp://ftp.lip6.fr/pub/linux/sunsite/system/Network/management</CODE>)
+<P>
+<H3>Cartes NE2000+ ou AT/LANTIC</H3>
+
+<P>Certaines impl&eacute;mentations de la puce DP83905 de National Semiconductor
+(comme l'AT/LANTIC et la NE2000+) peuvent &ecirc;tre configur&eacute;es par
+logiciel. (Notez que ces cartes peuvent aussi &eacute;muler une carte wd8013&nbsp;!)
+Vous pouvez r&eacute;cup&eacute;rer le fichier <CODE>/pub/linux/setup/atlantic.c</CODE>
+sur le serveur FTP de Donald, <CODE>cesdis.gsfc.nasa.gov</CODE>, pour
+configurer cette carte. De plus, les programmes de configuration pour
+les cartes DP83905 de Kingston semblent fonctionner avec toutes les
+cartes, car ils ne v&eacute;rifient pas une adresse sp&eacute;cifique au constructeur
+avant de vous autoriser &agrave; les utiliser. Suivez l'URL que voici&nbsp;:
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/http://www.kingston.com/download/etherx/etherx.htm">Logiciel Kingston</A></BLOCKQUOTE>
+
+et r&eacute;cup&eacute;rez <CODE>20XX12.EXE</CODE> et <CODE>INFOSET.EXE</CODE>.
+<P>Soyez attentif en configurant des cartes NE2000+, car vous pouvez leur
+fournir des valeurs de param&egrave;trage erron&eacute;es qui causeront des
+probl&egrave;mes. Un exemple classique est d'activer accidentellement la ROM de
+d&eacute;marrage dans l'EEPROM (m&ecirc;me si aucune ROM n'est install&eacute;e) et de
+fournir une valeur qui entre en conflit avec la carte VGA. Le r&eacute;sultat
+est un ordinateur qui se contente de vous envoyer des `bip' quand vous
+l'allumez et o&ugrave; rien n'appara&icirc;t &agrave; l'&eacute;cran.
+<P>Vous pouvez typiquement vous sortir de ce mauvais pas en faisant ce qui
+suit&nbsp;:
+<P>Enlevez la carte de la machine, red&eacute;marrez et entrez dans la
+configuration CMOS. Changez le param&egrave;tre `Display Adapter' (carte vid&eacute;o)
+en `Not Installed' (pas de carte vid&eacute;o) et changez le disque de
+d&eacute;marrage par d&eacute;faut (`Default Boot Drive' ou `Boot Sequence', NDT) en
+`A:' (votre lecteur de disquette). Changez aussi le param&egrave;tre `Wait for
+F1 if any Error' (attendre un appui sur F1 en cas d'erreur) en
+`Disabled' (d&eacute;sactiv&eacute;). De cette fa&ccedil;on, l'ordinateur devrait d&eacute;marrer
+sans intervention de l'utilisateur. Maintenant cr&eacute;ez une disquette DOS
+de d&eacute;marrage (`format a: /s /u') et copiez le programme
+<CODE>default.exe</CODE> de l'archive <CODE>20XX12.EXE</CODE> sur cette
+disquette. Puis tapez <CODE>echo default > a:autoexec.bat</CODE> afin que le
+programme qui remet la carte &agrave; des valeurs par d&eacute;faut coh&eacute;rentes soit
+ex&eacute;cut&eacute; automatiquement quand vous d&eacute;marrez sur cette disquette.
+Eteignez la machine, r&eacute;installez la carte ne2000+, ins&eacute;rez votre
+nouvelle disquette de d&eacute;marrage, et rallumez la machine. Elle devrait
+certainement vous bipper de nouveau &agrave; la figure, mais vous devriez voir
+la lumi&egrave;re du lecteur de disquette s'allumer pendant qu'elle d&eacute;marre &agrave;
+partir de la disquette. Attendez une minute ou deux que le lecteur de
+disquette s'arr&ecirc;te, indiquant ainsi que la machine a fini d'ex&eacute;cuter le
+programme <CODE>default.exe</CODE>, puis &eacute;teignez votre ordinateur. Lorsque
+vous le rallumez, vous pouvez esp&eacute;rer avoir un &eacute;cran qui fonctionne de
+nouveau, ce qui vous permet de remettre les param&egrave;tres CMOS &agrave; leurs
+anciennes valeurs, et de changer de nouveau les param&egrave;tres de l'EEPROM
+de la carte pour les valeurs que vous voulez.
+<P>Notez que si vous n'avez pas de DOS sous la main, vous pouvez utiliser
+la m&eacute;thode ci-dessus avec un disque de d&eacute;marrage Linux qui ex&eacute;cute
+automatiquement le programme <CODE>atlantic</CODE> de Donald (avec les bonnes
+options sur la ligne de commande) au lieu d'une disquette de d&eacute;marrage
+DOS qui ex&eacute;cute automatiquement le programme <CODE>default.exe</CODE>.
+<P>
+<H3>Cartes 3Com</H3>
+
+<P>La famille des cartes Etherlink III de 3Com (c'est-&agrave;-dire les 3c5x9)
+peut &ecirc;tre configur&eacute;e en utilisant un autre utilitaire de configuration
+de Donald. Vous pouvez obtenir le fichier
+<CODE>/pub/linux/setup/3c5x9setup.c</CODE> sur le serveur FTP de Donald,
+<CODE>cesdis.gsfc.nasa.gov</CODE>, afin de configurer ces cartes. (Notez que
+l'utilitaire de configuration DOS 3c5x9B peut comprendre plus d'options
+se rapportant aux nouvelles s&eacute;ries ``B'' de la famille Etherlink III).
+<P>
+<P>
+<H2><A NAME="diag"></A> <A NAME="ss7.2">7.2 Programmes de diagnostic pour cartes Ethernet</A>
+</H2>
+
+<P>Tous les programmes de diagnostic que Donald a &eacute;crit peuvent &ecirc;tre
+obtenus &agrave; partir de cette URL.
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/ftp://cesdis.gsfc.nasa.gov/pub/linux/diag/index.html">Diagnostics pour cartes Ethernet</A></BLOCKQUOTE>
+<P>Allied Telesis AT1700 -- cherchez le fichier
+<CODE>/pub/linux/diag/at1700.c</CODE> sur <CODE>cesdis.gsfc.nasa.gov</CODE>.
+<P>Cabletron E21XX -- cherchez le fichier <CODE>/pub/linux/diag/e21.c</CODE>
+sur <CODE>cesdis.gsfc.nasa.gov</CODE>.
+<P>HP PCLAN+ -- cherchez le fichier <CODE>/pub/linux/diag/hp+.c</CODE> sur
+<CODE>cesdis.gsfc.nasa.gov</CODE>.
+<P>Intel EtherExpress -- cherchez le fichier
+<CODE>/pub/linux/diag/eexpress.c</CODE> sur <CODE>cesdis.gsfc.nasa.gov</CODE>.
+<P>Cartes NE2000 -- cherchez le fichier <CODE>/pub/linux/diag/ne2k.c</CODE> sur
+<CODE>cesdis.gsfc.nasa.gov</CODE>. Il existe aussi une version&nbsp;PCI pour les
+clones NE2000-PCI qui sont maintenant classiques.
+<P>Adaptateur de poche RealTek (ATP) -- cherchez le fichier
+<CODE>/pub/linux/diag/atp-diag.c</CODE> sur <CODE>cesdis.gsfc.nasa.gov</CODE>.
+<P>Toutes les autres cartes -- essayez de taper <CODE>cat /proc/net/dev</CODE>
+et <CODE>dmesg</CODE> pour savoir quelles informations utiles le noyau poss&egrave;de
+sur la carte en question.
+<P>
+<P>
+<HR>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-8.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-6.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc7"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

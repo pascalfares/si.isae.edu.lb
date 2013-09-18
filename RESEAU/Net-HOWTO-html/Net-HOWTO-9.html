@@ -1,0 +1,1207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>R&eacute;seau sous Linux :: Utilisation du mat&eacute;riel courant pour PC</TITLE>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html" REL=next>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-8.html" REL=previous>
+ <LINK HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc9" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-8.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc9"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s9">9. Utilisation du mat&eacute;riel courant pour PC</A></H2>
+
+<P>
+<P>
+<P>
+<P>
+<H2><A NAME="ss9.1">9.1 RNIS</A>
+</H2>
+
+<P>Le R&eacute;seau Num&eacute;rique &agrave; Int&eacute;gration de Service (RNIS) (en anglais ISDN:
+Integrated Services Digital Network) 
+est une s&eacute;rie de normes donnant les sp&eacute;cifications d'un 
+r&eacute;seau de donn&eacute;es num&eacute;riques &agrave; usage 
+g&eacute;n&eacute;ral. Un `appel' RNIS cr&eacute;e un service synchrone de 
+donn&eacute;es point &agrave; point vers la destination. RNIS est 
+g&eacute;n&eacute;ralement d&eacute;livr&eacute; sur une ligne &agrave; haut 
+d&eacute;bit divis&eacute;e en un certain nombre de canaux discrets.
+Il y a deux types de canaux, les `canaux B' qui transportent 
+effectivement les donn&eacute;es utilisateurs, et un canal unique appel&eacute;
+`canal D' qui est utilis&eacute; pour envoyer les informations de 
+contr&ocirc;le pendant l'&eacute;change RNIS en vue d'&eacute;tablir des appels et 
+autres fonctions. En Australie, par exemple, RNIS peut &ecirc;tre fourni sur 
+une liaison 2 Mps qui est divis&eacute;e en 30 canaux B discrets de 
+64 kps et un canal D de 64 kps.
+N'importe quel nombre de canaux peuvent &ecirc;tre utilis&eacute;s en 
+m&ecirc;me temps et ceci dans toutes les combinaisons possibles. 
+Vous pouvez par 
+exemple &eacute;tablir 30 appels diff&eacute;rents de 64 kps vers 30 
+destinations diff&eacute;rentes, ou bien 15 appels de 128 kps chacun vers 15 
+destinations diff&eacute;rentes (2 canaux utilis&eacute;s par appel), ou 
+seulement un petit nombre d'appels, le reste &eacute;tant inactif.
+Un canal peut &ecirc;tre utilis&eacute; pour des appels entrant ou sortant. 
+Le but initial de RNIS &eacute;tait de permettre aux soci&eacute;t&eacute;s de 
+T&eacute;l&eacute;communications de fournir un seul service de donn&eacute;es
+pouvant d&eacute;livrer soit le t&eacute;l&eacute;phone (avec une voix 
+num&eacute;ris&eacute;e) ou bien des services de donn&eacute;es vers votre domicile ou 
+votre bureau sans avoir &agrave; effectuer de changements pour 
+obtenir une configuration sp&eacute;ciale.
+<P>Il y a plusieurs fa&ccedil;ons de connecter votre 
+ordinateur &agrave; un service RNIS. L'une consiste &agrave; utiliser un 
+dispositif appel&eacute; `Adaptateur de Terminal' qui se branche sur 
+l'unit&eacute; de terminal r&eacute;seau que votre op&eacute;rateur de 
+t&eacute;l&eacute;communications a install&eacute; au moment de l'obtention de
+votre service RNIS, et qui pr&eacute;sente des interfaces s&eacute;ries.
+L'une de ces interfaces est utilis&eacute;e pour entrer les commandes pour 
+&eacute;tablir les appels et la configuration, et les autres sont 
+reli&eacute;es aux p&eacute;riph&eacute;riques r&eacute;seau qui utiliseront 
+les circuits de donn&eacute;es quand la connexion sera faite. Linux peut 
+travailler avec ce type de configuration sans modification, vous devez juste 
+traiter le port de l'adaptateur de terminal comme vous traitez tout 
+p&eacute;riph&eacute;rique s&eacute;rie. Une autre fa&ccedil;on, qui est la raison d'&ecirc;tre
+pour le support RNIS dans le noyau, vous permet d'installer une carte RNIS 
+dans votre 
+machine Linux et le logiciel Linux prend en charge les protocoles et fait 
+les appels lui-m&ecirc;me.
+<P><B>Options de compilation noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+ISDN subsystem  --->
+        &lt;*> ISDN support
+        [ ] Support synchronous PPP
+        [ ] Support audio via ISDN
+        &lt; > ICN 2B and 4B support
+        &lt; > PCBIT-D support
+        &lt; > Teles/NICCY1016PC/Creatix support
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>L'impl&eacute;mentation Linux de RNIS supporte diff&eacute;rents types de cartes 
+internes RNIS.
+Il y a celles &eacute;num&eacute;r&eacute;es dans les options de configuration noyau :
+<UL>
+<LI>ICN 2B and 4B</LI>
+<LI>Octal PCBIT-D</LI>
+<LI>Teles ISDN-cards et compatibles</LI>
+</UL>
+
+Certaines de ces cartes ont besoin de logiciels devant &ecirc;tre 
+t&eacute;l&eacute;charg&eacute;s pour les rendre op&eacute;rationnelles. Il y a un 
+utilitaire s&eacute;par&eacute; pour le faire.
+<P>Tous les d&eacute;tails pour configurer le support RNIS Linux se trouvent dans 
+le r&eacute;pertoire 
+<CODE>/usr/src/linux/Documentation/isdn/</CODE> et un document FAQ 
+d&eacute;di&eacute; &agrave;
+<EM>isdn4linux</EM> est disponible sur
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.lrz-muenchen.de/~ui161ab/www/isdn/">www.lrz-muenchen.de</A>
+(vous pouvez cliquer sur le drapeau anglais pour obtenir la version anglaise).
+<P><B>Note au sujet de PPP</B>. L'ensemble des protocoles PPP peut travailler sur 
+des lignes s&eacute;rie synchrone ou asynchrone. Le d&eacute;mon PPP 
+`<EM>pppd</EM>' couramment distribu&eacute; pour Linux ne supporte que le mode 
+asynchrone. Si vous d&eacute;sirez utiliser les protocoles PPP avec votre 
+service RNIS vous aurez besoin d'une version sp&eacute;ciale. Les 
+d&eacute;tails pour la trouver se trouvent dans la documentation 
+mentionn&eacute;e ci-dessus.
+<P>
+<P>
+<H2><A NAME="ss9.2">9.2 PLIP pour Linux-2.0</A>
+</H2>
+
+<P>Les noms de p&eacute;riph&eacute;riques PLIP sont `<CODE>plip0</CODE>', `<CODE>plip1</CODE>', `<CODE>plip2</CODE>'.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Networking options  --->
+    &lt;*> PLIP (parallel port) support
+</PRE>
+</CODE></BLOCKQUOTE>
+                            
+<P><EM>PLIP</EM> (Parallel Line IP) est, comme SLIP,  
+utilis&eacute; pour fournir une connexion r&eacute;seau <EM>point &agrave; 
+point</EM> entre deux machines, sauf qu'il est con&ccedil;u pour 
+utiliser les ports parall&egrave;les de votre machine au lieu des ports 
+s&eacute;ries. Parce qu'il est possible de transmettre plus d'un bit en 
+m&ecirc;me temps avec un port parall&egrave;le, il est possible d'atteindre de 
+plus hautes vitesses avec l'interface
+<EM>PLIP</EM> qu'avec une sortie s&eacute;rie standard (un sch&eacute;ma de
+c&acirc;blage est donn&eacute; plus loin dans ce document).
+De plus, m&ecirc;me 
+le plus simple des ports parall&egrave;les, le port imprimante, peut 
+&ecirc;tre utilis&eacute;, au lieu d'acheter un UART 16550AFN relativement cher
+pour vos ports s&eacute;ries. PLIP utilise beaucoup de CPU en comparaison d'une 
+liaison s&eacute;rie et ce n'est s&ucirc;rement pas un bon choix si vous avez 
+la possibilit&eacute; d'avoir des cartes &eacute;thernet pas ch&egrave;res, mais &ccedil;a fonctionne 
+lorsque rien d'autre n'est disponible, et &ccedil;a fonctionne tr&egrave;s bien.
+<P>Les gestionnaires PLIP entrent en comp&eacute;tition avec les autres gestionnaires du mat&eacute;riel
+branch&eacute; sur le port parall&egrave;le. Si vous voulez utiliser les deux, vous devez alors
+les compiler en tant que modules pour pouvoir choisir quel port vous voulez 
+utiliser pour PLIP et quel port pour l'imprimante.
+Voyez le document ``Modules-mini-HOWTO'' pour plus
+d'informations sur la configuration des modules noyau.
+<P>Attention, notez que certains portables utilisent des circuits qui ne 
+peuvent pas 
+fonctionner avec PLIP car ils n'autorisent pas certaines combinaisons dont 
+PLIP a besoin et que les imprimantes n'utilisent pas.
+<P>L'interface Linux <EM>PLIP</EM> est compatible avec le <EM>Gestionnaire PLIP Crynwyr 
+Packet</EM> et ceci signifie que vous pouvez connecter votre machine Linux avec une 
+machine DOS tournant avec n'importe quel logiciel TCP/IP
+via <EM>PLIP</EM>.
+<P>Dans la s&eacute;rie des noyaux 2.0.* les gestionnaires de p&eacute;riph&eacute;rique PLIP sont affect&eacute;s
+aux ports e/s et IRQ comme suit :
+<BLOCKQUOTE><CODE>
+<PRE>
+device  i/o addr    IRQ
+------  --------    -----
+plip0   0x3BC           5
+plip1   0x378           7
+plip2   0x278           2 
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Si vos ports parall&egrave;les ne correspondent pas aux combinaisons 
+pr&eacute;c&eacute;dentes alors vous pouvez changer les IRQ en utilisant la 
+commande
+<EM>ifconfig</EM> avec le param&egrave;tre 
+`<CODE>irq</CODE>'. N'oubliez pas de valider les IRQ pour vos ports imprimantes dans 
+votre ROM BIOS s'il supporte cette option. Un autre moyen consiste &agrave;
+sp&eacute;cifier les options ``<CODE>io=</CODE>'' et ``<CODE>irq=</CODE>'' sur la ligne de 
+commande de <CODE>insmod</CODE>, si vous utilisez les modules. Par exemple :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+root# insmod plip.o io=0x288 irq=5
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Le fonctionnement de PLIP est contr&ocirc;l&eacute; par deux temporisations de 
+d&eacute;passement de temps, dont les valeurs par d&eacute;faut devraient convenir la
+plupart du temps. Vous devrez peut-&ecirc;tre les augmenter si vous avez un ordinateur
+particuli&egrave;rement lent, auquel cas les valeurs devant &ecirc;tre augment&eacute;es se trouvent
+sur l'<B>autre</B> ordinateur. Il existe un programme appel&eacute; <EM>plipconfig</EM> qui
+permet d'effectuer ces r&eacute;glages sans recompiler le noyau. Il est fourni
+avec de nombreuses distributions Linux.
+<P>Pour configurer une interface <EM>plip</EM>, vous devez invoquer les commandes
+suivantes (ou les <EM>ajouter</EM> &agrave; vos scripts d'initialisation) :
+<BLOCKQUOTE><CODE>
+<PRE>
+ root# /sbin/ifconfig plip1 localplip pointopoint remoteplip
+ root# /sbin/route add remoteplip plip1
+ 
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Dans ce cas, le port utilis&eacute; est celui qui a l'adresse 0x378 ;
+<EM>localplip</EM> et <EM>remoteplip</EM> sont les adresses IP utilis&eacute;es
+sur le c&acirc;ble PLIP. Je les mets personnellement dans la base de donn&eacute;es
+<CODE>/etc/host</CODE> :
+<BLOCKQUOTE><CODE>
+<PRE>
+ # entr&eacute;es plip
+ 192.168.3.1 localplip
+ 192.168.3.2 remoteplip
+ 
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Le param&egrave;tre <EM>pointopoint</EM> a la m&ecirc;me signification que 
+pour  SLIP,
+c'est-&agrave;-dire qu'il sp&eacute;cifie l'adresse de la machine
+&agrave; l'autre bout de la liaison.
+<P>Dans la plupart des cas vous pouvez traiter l'interface <EM>PLIP</EM> comme si elle &eacute;tait une interface
+<EM>SLIP</EM>, sauf que ni <EM>dip</EM> ni
+<EM>slattach</EM> ne doivent, ou ne peuvent, &ecirc;tre utilis&eacute;s.
+<P>Plus d'information sur PLIP peut &ecirc;tre obtenu avec
+le document ``PLIP-mini-HOWTO''.
+<P>
+<P>
+<H3>PLIP pour Linux-2.2</H3>
+
+<P>Durant le d&eacute;veloppement des versions 2.1 du noyau, le support concernant
+les ports parall&egrave;les s'est am&eacute;lior&eacute;.
+<P>
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+General setup --->
+    [*] Parallel port support
+Network device support --->
+    &lt;*> PLIP (parallel port) support
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Le nouveau code concernant PLIP se comporte comme l'ancien (on utilise
+les m&ecirc;mes commandes <EM>ifconfig</EM> et <EM>route</EM> comme dans le paragraphe
+pr&eacute;c&eacute;dent), mais l'initialisation du syst&egrave;me est diff&eacute;rente en raison
+du support port parall&egrave;le am&eacute;lior&eacute;.
+<P>
+<P>Le ``premier'' p&eacute;riph&eacute;rique PLIP est toujours appel&eacute; ``plip0'', premier
+signifiant celui qui est d&eacute;tect&eacute; en premier par le syst&egrave;me, comme
+pour les p&eacute;riph&eacute;riques Ethernet. Le port parall&egrave;le utilis&eacute; de fait est
+l'un de ceux qui sont disponibles, comme indiqu&eacute; dans <CODE>/proc/parport</CODE>.
+Par exemple, si vous n'avez qu'un seul port parall&egrave;le, vous n'aurez qu'un seul
+r&eacute;pertoire appel&eacute; <CODE>/proc/parport/0</CODE>.
+<P>
+<P>Si votre noyau ne d&eacute;tecte pas l'IRQ utilis&eacute;e par votre port parall&egrave;le, 
+``<CODE>insmod plip</CODE>'' &eacute;chouera ; dans ce cas, vous &eacute;crivez juste le chiffre
+ad&eacute;quat dans <CODE>/proc/parport/0/irq</CODE> et vous invoquez de nouveau 
+<EM>insmod</EM>.
+<P>
+<P>Une information compl&egrave;te sur la gestion des ports parall&egrave;les est
+disponible dans le fichier <CODE>Documentation/parport.txt</CODE>, qui se
+trouve dans les sources du noyau.
+<P>
+<P>
+<H2><A NAME="ss9.3">9.3 PPP</A>
+</H2>
+
+<P>Un grand nombre de personnes ont des probl&egrave;mes avec Linux et PPP, en raison 
+de l'augmentation du nombre de technologies d'authentification, et il
+est devenu plus difficile de g&eacute;rer les liens PPP. Bien que l'information qui
+suive soit d&eacute;taill&eacute;e, elle est peut-&ecirc;tre exag&eacute;r&eacute;e si vous ne voulez que
+r&eacute;gler une simple connexion. La majorit&eacute; des fournisseurs d'acc&egrave;s utilise
+PAP (Plain Text Authentification Protocol : Protocole d'Identification en 
+Texte simple). Puisque c'est le cas, je vous recommande <EM>FORTEMENT</EM>
+que vous jetiez un coup d'oeil sur les programmes suivants pour vous aider
+&agrave; g&eacute;rer vos liens.
+<P>
+<UL>
+<LI> 
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.solucorp.qc.ca/linuxconf">Linuxconf</A></LI>
+<LI> 
+<A HREF="index.php?ref=Net-HOWTO-html/http://www.coas.org/">COAS</A></LI>
+</UL>
+<P>Ces deux programmes fournissent des menus pour la configuration pour PPP.
+Encore une fois, je vous <EM>sugg&egrave;re</EM> d'utiliser ces programmes.
+Ils rendront votre vie plus agr&eacute;able. LinuxConf fonctionne avec la plupart
+des distributions et il est distribu&eacute; avec RedHat. COAS est distribu&eacute;
+avec Caldera et SUSE poss&egrave;de un programme appel&eacute; YAST. Je n'ai aucune
+exp&eacute;rience avec YAST, si quelqu'un pouvait m'envoyer une machine (grossi&egrave;re
+allusion) je chargerai SUSE avec le document YAST.
+<P>Les noms de p&eacute;riph&eacute;riques PPP sont `<CODE>ppp0</CODE>', `<CODE>ppp1</CODE>', etc. 
+Les noms sont attribu&eacute;s s&eacute;quentiellement, le premier 
+p&eacute;riph&eacute;rique &eacute;tant
+`<CODE>0</CODE>'.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Networking options  --->
+    &lt;*> PPP (point-to-point) support
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>La configuration de PPP est discut&eacute;e en d&eacute;tail dans le
+<A HREF="index.php?ref=Net-HOWTO-html/PPP-HOWTO.html">PPP-HOWTO</A>. Ce document est vraiment
+vieux et j'essayerai d'avoir plus d'informations &agrave; partir du manuel
+d'installation de PPP d&egrave;s que je peux.
+<P>
+<H3>Maintenance d'une connexion permanente avec le r&eacute;seau &agrave; l'aide de <EM>pppd</EM></H3>
+
+<P>Si vous &ecirc;tes suffisamment fortun&eacute;s pour avoir une connexion 
+semi-permanente avec le net et que vous vouliez que votre machine refasse la 
+connexion PPP en cas de d&eacute;connexion, alors voici une astuce simple.
+<P>Configurer PPP de sorte qu'il soit d&eacute;marr&eacute; par l'utilisateur 
+<CODE>root</CODE> en lan&ccedil;ant la commande :
+<BLOCKQUOTE><CODE>
+<PRE>
+# pppd
+</PRE>
+</CODE></BLOCKQUOTE>
+
+<B>Soyez certains</B> d'avoir l'option `<CODE>-detach</CODE>' dans le fichier
+<CODE>/etc/ppp/options</CODE>. Puis, ins&eacute;rez la ligne suivante dans votre 
+fichier
+<CODE>/etc/inittab</CODE>, avec les d&eacute;finitions des <EM>getty</EM> :
+<BLOCKQUOTE><CODE>
+<PRE>
+pd:23:respawn:/usr/sbin/pppd
+</PRE>
+</CODE></BLOCKQUOTE>
+
+Cela permettra au programme <EM>init</EM> de d&eacute;marrer et de surveiller le 
+programme <EM>pppd</EM> , et de le red&eacute;marrer automatiquement s'il meurt.
+<P>
+<P>
+<P>
+<H2><A NAME="ss9.4">9.4 Client SLIP (Antique)</A>
+</H2>
+
+<P>Les fichiers de p&eacute;riph&eacute;riques SLIP sont nomm&eacute;s 
+`<CODE>sl0</CODE>', `<CODE>sl1</CODE>', etc. Le premier configur&eacute; &eacute;tant
+`<CODE>0</CODE>' et les autres s'incr&eacute;mentant au fur et &agrave; mesure de leur configuration.
+<P><B>Options de compilation du noyau</B> :
+<BLOCKQUOTE><CODE>
+<PRE>
+Network device support  --->
+    [*] Network device support
+    &lt;*> SLIP (serial line) support
+    [ ]  CSLIP compressed headers
+    [ ]  Keepalive and linefill
+    [ ]  Six bit SLIP encapsulation
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>SLIP (Serial Line Internet Protocol) vous permet d'utiliser TCP/IP avec une 
+ligne s&eacute;rie, ce peut &ecirc;tre un t&eacute;l&eacute;phone et un modem,
+ou tout autre ligne d&eacute;di&eacute;e.
+Bien s&ucirc;r pour utiliser SLIP vous devez avoir acc&egrave;s &agrave; un 
+<EM>serveur SLIP</EM> dans votre entourage.
+De nombreuses universit&eacute;s et de soci&eacute;t&eacute;s fournissent des 
+acc&egrave;s SLIP de par le monde.
+<P>SLIP utilise les ports s&eacute;ries de votre machine pour transporter les 
+datagrammes IP. Pour cela il doit prendre le contr&ocirc;le du 
+p&eacute;riph&eacute;rique s&eacute;rie. Les noms de p&eacute;riph&eacute;riques SLIP sont
+<EM>sl0</EM>, <EM>sl1</EM>, etc. Comment ceux-ci correspondent avec vos 
+p&eacute;riph&eacute;riques s&eacute;rie ? Le code r&eacute;seau utilise ce que l'on nomme un appel
+<EM>ioctl</EM> (i/o control) pour transformer les p&eacute;riph&eacute;riques s&eacute;rie en 
+p&eacute;riph&eacute;riques SLIP. Il y a deux programmes qui peuvent faire 
+cela, ce sont <EM>dip</EM> et <EM>slattach</EM>.
+<P>
+<P>
+<P>
+<H3>dip</H3>
+
+<P><EM>dip</EM> (Dialup IP) est un programme &eacute;l&eacute;gant  
+capable de r&eacute;gler la vitesse du dispositif s&eacute;rie, de demander 
+&agrave; votre modem d'appeler l'autre extr&eacute;mit&eacute; de la ligne, de 
+vous connecter automatiquement au serveur distant, de chercher des messages qui
+vous ont &eacute;t&eacute; envoy&eacute;s par le serveur et d'en extraire des 
+informations telles que votre adresse IP et de faire le
+<EM>ioctl</EM> n&eacute;cessaire pour basculer votre port s&eacute;rie en mode SLIP.
+<EM>dip</EM> est tr&egrave;s flexible quant &agrave; l'utilisation de scripts et 
+gr&acirc;ce &agrave; ceci vous pouvez automatiser vos proc&eacute;dures de connexion.
+<P>On peut le trouver sur :
+<A HREF="index.php?ref=Net-HOWTO-html/ftp://metalab.unc.edu/pub/Linux/system/Network/serial/dip/dip337o-uri.tgz">metalab.unc.edu</A>.
+<P>Pour l'installer faites :
+<BLOCKQUOTE><CODE>
+<PRE>
+user% tar xvfz dip337o-uri.tgz
+user% cd dip-3.3.7o
+user% vi Makefile
+root# make install
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Le fichier <CODE>Makefile</CODE> suppose l'existence d'un groupe nomm&eacute; 
+<EM>uucp</EM>,
+mais vous pouvez le changer en <EM>dip</EM> ou <EM>SLIP</EM>, selon votre 
+configuration.
+<P>
+<P>
+<H3>slattach</H3>
+
+<P><EM>slattach</EM> au contraire de <EM>dip</EM> est un programme tr&egrave;s 
+simple, tr&egrave;s facile &agrave; utiliser, mais qui n'a pas la sophistication de
+<EM>dip</EM>.
+Il n'a pas la possiblit&eacute; d'accepter des scripts, tout ce qu'il fait &eacute;tant 
+de configurer votre p&eacute;riph&eacute;rique s&eacute;rie en 
+p&eacute;riph&eacute;rique SLIP. Il suppose que vous avez toutes les 
+informations n&eacute;cessaires et que la liaison s&eacute;rie est 
+&eacute;tablie avant de l'invoquer.
+<EM>slattach</EM> est id&eacute;al quand vous avez une liaison permanente avec
+votre serveur, comme un c&acirc;ble physique ou une ligne d&eacute;di&eacute;e.
+<P>
+<P>
+<H3>Quand utiliser quoi ?</H3>
+
+<P>Vous devriez utiliser <EM>dip</EM> lorsque votre liaison vers la machine qui est 
+votre serveur SLIP est un modem, ou tout autre lien intermittent. Vous devriez 
+utiliser <EM>slattach</EM> quand vous avez une ligne d&eacute;di&eacute;e, 
+peut-&ecirc;tre un c&acirc;ble, entre votre machine et le serveur et qu'il n'y 
+a pas d'action sp&eacute;ciale n&eacute;cessaire pour garder la ligne en 
+activit&eacute;. Voir la section `Connexion SLIP permanente' pour plus de d&eacute;tails.
+<P>
+<P>Configurer SLIP est analogue &agrave; la configuration 
+d'une interface Ethernet (voir la 
+section `Configurer un p&eacute;riph&eacute;rique Ethernet' ci-dessus). 
+Cependant, il existe quelques diff&eacute;rences.
+<P>
+<P>Tout d'abord, les liens SLIP ne sont pas des r&eacute;seaux Ethernet en ce sens
+qu'il n'y a que deux h&ocirc;tes sur le r&eacute;seau, un &agrave; chaque 
+extr&eacute;mit&eacute; de la liaison. &Agrave; la diff&eacute;rence de l'Ethernet qui
+est disponible d&egrave;s que vous &ecirc;tes c&acirc;bl&eacute;, avec SLIP, 
+en fonction du type de lien que vous avez, vous serez amen&eacute; &agrave; 
+initialiser votre connexion r&eacute;seau d'une mani&egrave;re sp&eacute;ciale.
+<P>
+<P>Si vous utilisez <EM>dip</EM>, alors cela ne sera pas fait au moment du 
+d&eacute;marrage de la machine, mais plus tard, quand vous serez pr&ecirc;t &agrave;
+utiliser la liaison.
+Il est possible d'automatiser la proc&eacute;dure. Si vous utilisez 
+<EM>slattach</EM> vous voudrez probablement ajouter une section dans votre 
+fichier
+<EM>rc.inet1</EM>.
+Ceci sera d&eacute;crit bient&ocirc;t.
+<P>
+<P>Il y a deux types principaux de serveurs SLIP : serveurs avec adressage IP 
+dynamique et serveurs avec adressage IP statique. Presque tous les serveurs 
+SLIP vous demanderont &agrave; la connexion d'utiliser un nom d'utilisateur et 
+un mot de passe quand vous composez le num&eacute;ro.
+<EM>dip</EM> peut prendre en charge la connexion automatiquement.
+<P>
+<P>
+<H3>Serveur SLIP statique avec une ligne t&eacute;l&eacute;phonique et DIP</H3>
+
+<P>Le serveur SLIP statique est celui qui vous fournit une adresse IP qui reste
+exclusivement la v&ocirc;tre. &Agrave; chaque fois que vous vous connectez &agrave; ce
+serveur, vous configurez votre port SLIP avec cette adresse. Le serveur SLIP
+statique r&eacute;pond &agrave; votre appel par modem, vous demande probablement 
+un nom d'utilisateur et un mot de passe, et ensuite dirige tous
+les datagrammes destin&eacute;s &agrave; votre adresse au travers de
+cette connexion. Si vous avez un serveur statique, alors vous mettez des
+entr&eacute;es pour votre nom d'h&ocirc;te et votre adresse IP (puisque vous 
+savez ce qu'elle sera) dans votre fichier
+<CODE>/etc/hosts</CODE>. Vous devez aussi configurer d'autres fichiers
+comme :
+<CODE>rc.inet2</CODE>, <CODE>host.conf</CODE>, <CODE>resolv.conf</CODE>,
+<CODE>/etc/HOSTNAME</CODE> et <CODE>rc.local</CODE>. N'oubliez pas qu'en configurant
+<CODE>rc.inet1</CODE>, vous n'avez pas besoin d'ajouter de commandes 
+sp&eacute;ciales pendant la connexion SLIP puisque c'est
+<EM>dip</EM> qui fait tout le dur labeur &agrave; votre place en configurant 
+votre interface. Vous avez besoin de donner &agrave;
+<EM>dip</EM> les informations ad&eacute;quates et il configure l'interface 
+pour vous apr&egrave;s avoir demand&eacute; au modem d'&eacute;tablir 
+l'appel et de vous connecter au serveur.
+<P>
+<P>Si votre serveur SLIP fonctionne comme cela alors vous pouvez directement 
+aller &agrave; la section `Utiliser Dip' pour apprendre &agrave; configurer
+<EM>dip</EM> convenablement.
+<P>
+<P>
+<H3>Serveur SLIP dynamique avec une ligne t&eacute;l&eacute;phonique et DIP</H3>
+
+<P>Le serveur SLIP <EM>dynamique</EM> vous alloue une adresse IP de
+mani&egrave;re al&eacute;atoire, &agrave; partir d'un groupe d'adresses,
+&agrave; chaque fois que vous vous connectez. Cela signifie qu'il n'y a
+aucune garantie d'avoir la m&ecirc;me adresse &agrave; chaque fois, et que
+celle-ci peut &ecirc;tre utilis&eacute;e par quelqu'un d'autre
+apr&egrave;s la d&eacute;connexion. L'administrateur r&eacute;seau qui a
+configur&eacute; le serveur SLIP a assign&eacute; un groupe d'adresses que 
+le serveur SLIP peut utiliser quand il re&ccedil;oit un appel entrant. Il
+prend alors la premi&egrave;re adresse inutilis&eacute;e, guide l'appelant au
+travers du processus de connexion et envoie un message de bienvenue contenant 
+l'adresse IP qu'il a allou&eacute;e et continue d'utiliser cette adresse tout
+le temps de l'appel.
+<P>
+<P>Configurer ce type de serveur revient &agrave; configurer un serveur statique, 
+sauf que vous devez ajouter une &eacute;tape pour obtenir 
+l'adresse IP allou&eacute;e par le serveur puis configurer le 
+p&eacute;riph&eacute;rique SLIP avec celle-ci.
+<P>
+<P>Encore une fois, <EM>dip</EM> fait le sale boulot et les nouvelles versions 
+sont suffisamment &eacute;l&eacute;gantes pour non seulement &eacute;tablir la 
+connexion, mais aussi pour lire l'adresse IP inscrite dans le message de 
+bienvenue et la stocker de telle sorte que vous puissiez configurer votre 
+p&eacute;riph&eacute;rique SLIP avec.
+<P>Si votre serveur SLIP fonctionne ainsi, alors vous 
+pouvez aller &agrave; la section `Utiliser DIP' pour savoir comment configurer
+<EM>dip</EM> de mani&egrave;re ad&eacute;quate.
+<P>
+<P>
+<H3>Utiliser DIP</H3>
+
+<P>Comme expliqu&eacute; plus haut, <EM>dip</EM> est un programme puissant
+qui simplifie et automatise le processus de composition d'un num&eacute;ro
+vers un serveur SLIP, se connecte dessus, d&eacute;marre la connexion et
+configure les p&eacute;riph&eacute;riques SLIP &agrave; l'aide des commandes
+<EM>ifconfig</EM> et <EM>route</EM> appropri&eacute;es.
+<P>
+<P>Essentiellement, pour utiliser <EM>dip</EM> vous &eacute;crivez un `script dip'
+qui est tout simplement une liste de commandes que
+<EM>dip</EM> comprend et qui lui dit
+comment r&eacute;aliser chacune des actions que vous voulez qu'il
+fasse. Voyez le fichier
+<CODE>sample.dip</CODE> fourni avec <EM>dip</EM> pour avoir une id&eacute;e de
+la mani&egrave;re dont il travaille.
+<EM>dip</EM> est vraiment un programme puissant, avec beaucoup d'options.
+Au lieu de regarder chacune d'elles, il vaut mieux jeter un coup d'oeil dans
+la page de manuel, le fichier README et les fichiers d'exemple qui sont fournis
+avec votre version de <EM>dip</EM>.
+<P>
+<P>Vous pouvez noter que le script <CODE>sample.dip</CODE> suppose que vous utilisez
+un serveur SLIP statique, aussi vous connaissez votre adresse IP &agrave;
+l'avance. Pour les serveurs SLIP dynamiques, les nouvelles versions de 
+<EM>dip</EM> incluent une commande que vous pouvez utiliser pour lire
+et configurer automatiquement votre p&eacute;riph&eacute;rique SLIP avec
+l'adresse IP donn&eacute;e par le serveur dynamique. L'exemple suivant
+est une version modifi&eacute;e du fichier
+<CODE>sample.dip</CODE> fourni avec
+<EM>dip337j-uri.tgz</EM> et qui est probablement un bon point de d&eacute;part
+pour vous. Vous pouvez le sauvegarder sous le nom de
+<CODE>/etc/dipscript</CODE> et l'&eacute;diter pour l'adapter &agrave; votre
+configuration :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+#
+# sample.dip    Programme de support pour connexion IP.
+#
+#       Ce programme (devrait montrer) montre comment utiliser DIP
+#       Il devrait fonctionner avec des serveurs dynamiques de type Annex,
+#       et si vous utilsez un serveur avec adresse statique utilsez alors le
+#       fichier sample.dip livr&eacute; avec le paquetage dip337-uri.tgz.
+#
+#
+# Version:      @(#)sample.dip  1.40    07/20/93
+#
+# Auteur:       Fred N. van Kempen, &lt;waltje@uWalt.NL.Mugnet.ORG>
+#
+
+main:
+# Apr&egrave;s, postionner l'adresse et le nom de l'h&ocirc;te distant.
+# Ma machine s'appelle 'xs4all.hacktic.nl' (== 193.78.33.42)
+get $remote xs4all.hacktic.nl
+# Positionne le masque de r&eacute;seau sur sl0 &agrave; 255.255.255.0
+netmask 255.255.255.0
+# R&egrave;gle le port s&eacute;rie et la vitesse.
+port cua02
+speed 38400
+
+# Reset le modem et la ligne de terminal.
+# Cela semble poser probl&egrave;me &agrave; certains!
+reset
+
+# Notez! Valeurs "standards" pr&eacute;d&eacute;finies de "errlevel":
+#  0 - OK
+#  1 - CONNECT
+#  2 - ERROR
+#
+# Vous pouvez les changer en faisant un grep dans *.c avec "addchat()"...
+
+# On se pr&eacute;pare pour num&eacute;roter.
+send ATQ0V1E1X4\r
+wait OK 2
+if $errlvl != 0 goto modem_trouble
+dial 555-1234567
+if $errlvl != 1 goto modem_trouble
+
+# Nous sommes connect&eacute;s. Nous nous enregistrons sur le syst&egrave;me.
+login:
+sleep 2
+wait ogin: 20
+if $errlvl != 0 goto login_trouble
+send MYLOGIN\n
+wait ord: 20
+if $errlvl != 0 goto password_error
+send MYPASSWD\n
+loggedin:
+
+# Maintenant nous sommes enregistr&eacute;s.
+wait SOMEPROMPT 30
+if $errlvl != 0 goto prompt_error
+
+# Demande au serveur de basculer en mode SLIP
+send SLIP\n
+wait SLIP 30
+if $errlvl != 0 goto prompt_error
+
+# Obtenir et ajuster notre adresse IP gr&acirc;ce au serveur.  
+# Ici nous supposons qu'apr&egrave;s le basculement du serveur en mode SLIP, celui-ci
+# nous donne l'adresse IP
+#   mode that it prints your IP address
+get $locip remote 30
+if $errlvl != 0 goto prompt_error
+
+# r&eacute;glage des param&egrave;tres SLIP.
+get $mtu 296
+# S'assurer que "route add -net default xs4all.hacktic.nl" sera fait
+default
+
+# Dire bonjour, et en avant!
+done:
+print CONNECTED $locip ---> $rmtip
+mode CSLIP
+goto exit
+
+prompt_error:
+print TIME-OUT waiting for sliplogin to fire up...
+goto error
+
+login_trouble:
+print Trouble waiting for the Login: prompt...
+goto error
+
+password:error:
+print Trouble waiting for the Password: prompt...
+goto error
+
+modem_trouble:
+print Trouble occurred with the modem...
+error:
+print CONNECT FAILED to $remote
+quit
+
+exit:
+exit
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>L'exemple pr&eacute;c&eacute;dent suppose que vous appeliez un serveur SLIP
+<EM>dynamique</EM> ; si vous appelez un serveur SLIP
+<EM>statique</EM>,  alors le fichier <CODE>sample.dip</CODE> fourni avec
+<EM>dip337j-uri.tgz</EM> devrait vous convenir.
+<P>Quand on donne &agrave; <EM>dip</EM> la commande <EM>get $local</EM>, 
+il cherche dans le texte venant de l'extr&eacute;mit&eacute; de la ligne
+une cha&icirc;ne de caract&egrave;res ressemblant &agrave; une adresse IP,
+c'est &agrave; dire des ensembles de nombres s&eacute;par&eacute;s par des
+caract&egrave;res `.'. Cette modification fut mise en place plus 
+sp&eacute;cialement pour les serveurs SLIP 
+<EM>dynamiques</EM>, afin que le processus de lecture de l'adresse IP
+fournie par le serveur soit automatis&eacute;.
+<P>L'exemple ci-dessus cr&eacute;e automatiquement une route par d&eacute;faut
+via votre liaison SLIP, et si ce n'est pas ce que vous voulez, car vous
+avez une connexion Ethernet qui devrait &ecirc;tre votre route par
+d&eacute;faut, alors enlevez la commande
+<EM>default</EM> du script.
+Apr&egrave;s que le script ait fini de tourner, tapez la commande 
+<EM>ifconfig</EM>, et vous verrez que vous avez un p&eacute;riph&eacute;rique
+<EM>sl0</EM>. C'est votre p&eacute;riph&eacute;rique SLIP. Si le besoin s'en 
+fait sentir, vous pouvez modifier manuellement sa configuration, apr&egrave;s
+que la commande <EM>dip</EM> soit finie, en utilisant les commandes
+<EM>ifconfig</EM> et
+<EM>route</EM>.
+<P>Notez que <EM>dip</EM> vous permet de choisir parmi diff&eacute;rents
+protocoles en utilisant la commande <CODE>mode</CODE>, l'exemple le plus
+courant &eacute;tant <EM>cSLIP</EM> pour utiliser SLIP avec compression.
+Notez encore que les deux extr&eacute;mit&eacute;s de la liaison doivent
+&ecirc;tre d'accord, aussi assurez-vous que ce que vous avez choisi est
+en accord avec les r&eacute;glages du serveur.
+<P>L'exemple montr&eacute; ci-dessus est plut&ocirc;t robuste et devrait
+faire face &agrave; la plupart des erreurs. R&eacute;f&eacute;rez-vous
+&agrave; la page de manuel de <EM>dip</EM> pour plus d'informations.
+Naturellement, vous pouvez, par exemple, modifier le script pour r&eacute;aliser
+des choses comme recomposer le num&eacute;ro vers le serveur si la connexion 
+n'a pas &eacute;t&eacute; faite au bout d'un certain temps, ou m&ecirc;me
+essayer une s&eacute;rie de serveurs si vous avez acc&egrave;s &agrave;
+plus d'un d'entre eux.
+<P>
+<P>
+<H3>Connexion permanente SLIP utilisant une ligne et slattach</H3>
+
+<P>Si vous avez deux machines reli&eacute;es par un c&acirc;ble, ou si vous
+&ecirc;tes suffisamment riche pour avoir une ligne d&eacute;di&eacute;e,
+ou un autre type de connexion permanente entre votre machine et une autre,
+alors vous n'avez pas besoin de vous casser la t&ecirc;te avec <EM>dip</EM>
+pour r&eacute;gler votre liaison s&eacute;rie.
+<EM>slattach</EM> est un utilitaire tr&egrave;s simple &agrave; utiliser
+et vous permet d'avoir les fonctionnalit&eacute;s juste n&eacute;cessaires
+pour configurer votre connexion.
+<P>Puisque votre connexion est permanente, vous ajoutez quelques commandes
+dans votre fichier <CODE>rc.inet1</CODE>. Tout ce dont vous avez besoin pour
+une connexion permanente est de vous assurer que vous avez configur&eacute;
+votre p&eacute;riph&eacute;rique s&eacute;rie &agrave; la bonne vitesse et
+basculer votre p&eacute;riph&eacute;rique s&eacute;rie en mode SLIP.
+<EM>slattach</EM> vous permet de faire ceci avec une seule commande.
+Ajoutez ce qui suit &agrave; votre fichier
+<CODE>rc.inet1</CODE> :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+#
+# Attache une connexion SLIP statique sur une ligne d&eacute;di&eacute;e
+#
+#  configure /dev/cua0 &agrave; la vitesse de 19.2kbps et cslip
+/sbin/slattach -p cslip -s 19200 /dev/cua0 &amp;
+/sbin/ifconfig sl0 IPA.IPA.IPA.IPA pointopoint IPR.IPR.IPR.IPR up
+#
+# Fin de SLIP statique.
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>O&ugrave; :
+<DL>
+<DT><B>IPA.IPA.IPA.IPA</B><DD><P>repr&eacute;sente votre adresse IP.
+<DT><B>IPR.IPR.IPR.IPR</B><DD><P>repr&eacute;sente l'adresse IP de 
+l'h&ocirc;te distant.
+</DL>
+<P>
+<P><EM>slattach</EM> alloue le premier p&eacute;riph&eacute;rique SLIP disponible
+au p&eacute;riph&eacute;rique s&eacute;rie sp&eacute;cifi&eacute;.
+<EM>slattach</EM> d&eacute;marre avec <EM>sl0</EM>. Par cons&eacute;quent la 
+premi&egrave;re commande <EM>slattach</EM> relie le p&eacute;riph&eacute;rique
+<EM>sl0</EM> au p&eacute;riph&eacute;rique sp&eacute;cif&eacute;, puis <EM>sl1</EM> la fois suivante, etc.
+<P>
+<P><EM>slattach</EM> vous permet de configurer un certain nombre de protocoles
+gr&acirc;ce &agrave; l'argument <CODE>-p</CODE>. Dans votre cas vous utilisez
+soit <EM>SLIP</EM> soit <EM>cSLIP</EM> suivant que vous voulez utiliser la 
+compression ou non.
+Note : les deux extr&eacute;mit&eacute;s doivent &ecirc;tre d'accord sur
+l'utilisation de la compression.
+<P>
+<P>
+<H3>Serveur SLIP</H3>
+
+<P>Vous avez peut-&ecirc;tre une machine connect&eacute;e au r&eacute;seau
+et vous aimeriez que d'autres personnes puissent s'y connecter pour y chercher
+des services de r&eacute;seau, alors vous devez configurer votre machine
+comme serveur. Si vous voulez utiliser SLIP comme protocole de ligne
+s&eacute;rie, vous avez trois possiblit&eacute;s pour configurer votre
+machine Linux comme serveur SLIP. Ma pr&eacute;f&eacute;rence est la 
+premi&egrave;re pr&eacute;sent&eacute;e, <EM>sliplogin</EM>, car elle semble
+la plus facile &agrave; configurer et &agrave; comprendre, mais je
+pr&eacute;senterai un r&eacute;sum&eacute; pour chacune, ainsi vous pourrez
+d&eacute;cider par vous-m&ecirc;me.
+<P>
+<P>
+<H3>Serveur SLIP utilisant <EM>sliplogin</EM></H3>
+
+<P><EM>sliplogin</EM> est un programme que vous pouvez utiliser &agrave; la place
+du shell normal de connexion pour les utilisateurs SLIP, et qui convertit
+la ligne terminal en ligne SLIP. Il vous permet de configurer votre
+machine Linux soit en <EM>serveur &agrave; adresse statique</EM> (les utilisateurs
+obtiennent toujours la m&ecirc;me adresse &agrave; chaque connexion), soit
+en <EM>serveur &agrave; adresse dynamique</EM> (les utilisateurs obtiennent
+une adresse qui n'est pas forc&eacute;ment la m&ecirc;me 
+que lors de la connexion pr&eacute;c&eacute;dente).
+<P>L'appelant se connecte comme sur un terminal standard, en donnant son
+nom d'utilisateur et son mot de passe, mais au lieu d'avoir une invite de
+shell apr&egrave;s la connexion, <EM>sliplogin</EM> est ex&eacute;cut&eacute; 
+et cherche dans son fichier de configuration une entr&eacute;e dont le nom
+correspond &agrave; celui de l'appelant. S'il en d&eacute;tecte
+une, il configure la ligne avec 8 bits de donn&eacute;es,
+et utilise un appel <EM>ioctl</EM> pour basculer celle-ci en ligne SLIP.
+Quand ce processus est fini, la derni&egrave;re &eacute;tape de la
+configuration prend place, <EM>sliplogin</EM> invoquant un script qui configure
+l'interface SLIP avec l'adresse IP ad&eacute;quate, ainsi que le masque de
+r&eacute;seau et positionne le routage appropri&eacute;. Ce script est
+appel&eacute; habituellement <CODE>/etc/slip.login</CODE>, mais tout comme
+<EM>getty</EM>, si certains appelants n&eacute;cessitent une initialisation
+sp&eacute;ciale, alors vous pouvez cr&eacute;er des scripts de configuration
+appel&eacute;s <CODE>/etc/slip.login.loginname</CODE> qui seront utilis&eacute;s
+&agrave; la place du script par d&eacute;faut.
+<P>Il y a quelques fichiers que vous devez configurer pour que
+<EM>sliplogin</EM> travaille pour vous. Je d&eacute;crirai comment et o&ugrave;
+obtenir les logiciels et comment chacun est configur&eacute;. Ces fichiers sont :
+<P>
+<UL>
+<LI><CODE>/etc/passwd</CODE>, pour l'acceptation des utilisateurs entrants;</LI>
+<LI><CODE>/etc/slip.hosts</CODE>, qui contient une information sp&eacute;cifique de chaque utilisateur entrant;</LI>
+<LI><CODE>/etc/slip.login</CODE>, qui s'occupe de la configuration du routage; </LI>
+<LI><CODE>/etc/slip.tty</CODE>, requis uniquement si vous configurez votre
+serveur avec <EM>allocation d'adresse dynamique</EM> : il contient une 
+table des adresses &agrave; allouer.</LI>
+<LI><CODE>/etc/slip.logout</CODE>, qui contient les commandes de `nettoyage' 
+apr&egrave;s une d&eacute;connexion volontaire ou intempestive.</LI>
+</UL>
+<P>
+<P>
+<H3>O&ugrave; obtenir <EM>sliplogin</EM></H3>
+
+<P>Votre distribution contient peut-&ecirc;tre d&eacute;j&agrave; le paquetage;
+si ce n'est pas le cas alors <EM>sliplogin</EM> peut &ecirc;tre obtenu sur
+<A HREF="index.php?ref=Net-HOWTO-html/ftp://metalab.unc.edu/pub/linux/system/Network/serial/sliplogin-2.1.1.tar.gz">metalab.unc.edu</A>.
+Le fichier tar contient &agrave; la fois les sources, les binaires 
+pr&eacute;compil&eacute;s et une page de manuel.
+<P>Pour s'assurer que seuls les utilisateurs autoris&eacute;s pourront faire
+tourner le programme <EM>sliplogin</EM>, vous devez ajouter une entr&eacute;e
+dans votre fichier <CODE>/etc/group</CODE> similaire &agrave; la suivante :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+ ..
+slip::13:radio,fred
+ ..
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Lorsque vous installez le paquetage <EM>sliplogin</EM>, <CODE>Makefile</CODE> 
+change le groupe du programme <EM>sliplogin</EM> en <CODE>slip</CODE>, et cela
+signifie que seuls les utilisateurs qui appartiennent &agrave; ce groupe
+pourront l'ex&eacute;cuter. L'exemple donn&eacute; ci-dessus ne permet
+qu'aux utilisateurs <CODE>radio</CODE> et <CODE>fred</CODE> de pouvoir faire tourner
+le programme <EM>sliplogin</EM>.
+<P>Pour installer les binaires dans le r&eacute;pertoire <CODE>/sbin</CODE> 
+et les pages de manuel dans la section 8, faites :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+root# cd /usr/src
+root# gzip -dc .../sliplogin-2.1.1.tar.gz | tar xvf -
+root# cd sliplogin-2.1.1
+root# &lt;..editez le Makefile si vous n'utilisez pas les shadow passwords..>
+root# make install
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Si vous voulez recompiler les binaires avant de les installer, faites
+<CODE>make clean</CODE> avant de faire <CODE>make install</CODE>. Si vous voulez installer
+les binaires autre part, vous devez &eacute;diter le fichier <CODE>Makefile</CODE>
+et le modifier en cons&eacute;quence.
+<P>
+<P>
+<P>
+<H3>Configurer <CODE>/etc/passwd</CODE> pour utiliser SLIP</H3>
+
+<P>Normalement vous devez cr&eacute;er des noms d'utilisateurs sp&eacute;ciaux,
+pour ceux qui appellent avec SLIP, dans votre fichier <CODE>/etc/passwd</CODE>.
+Une convention souvent suivie est d'utiliser le <EM>nom d'utilisateur</EM> de
+l'appelant pr&eacute;fix&eacute;e avec la lettre capitale `S'.
+Ainsi, par exemple, si l'appelant s'appelle <CODE>radio</CODE> alors
+vous pouvez cr&eacute;er une entr&eacute;e dans le fichier <CODE>/etc/passwd</CODE>
+ressemblant &agrave; ceci :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+Sradio:FvKurok73:1427:1:radio SLIP login:/tmp:/sbin/sliplogin
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Le nom du compte n'a pas r&eacute;ellement d'importance, du moment qu'il
+ait une signification pour vous.
+<P>Note : l'appelant n'a pas besoin de r&eacute;pertoire home sp&eacute;cial
+car il n'utilisera pas de shell sur la machine, d&egrave;s lors <CODE>/tmp</CODE>
+est un bon choix. Notez bien que <EM>sliplogin</EM> est utilis&eacute;
+&agrave; la place du shell de connexion normal.
+<P>
+<P>
+<H3>Configurer <CODE>/etc/slip.hosts</CODE></H3>
+
+<P>Le fichier <CODE>/etc/slip.hosts</CODE>  est le fichier o&ugrave; <EM>sliplogin</EM>
+cherche les entr&eacute;es correspondant au nom de connexion pour obtenir
+les d&eacute;tails de configuration. C'est le fichier
+o&ugrave; sont indiqu&eacute;s l'adresse IP et le masque de r&eacute;seau qui
+seront assign&eacute;s &agrave; l'appelant et configur&eacute;s pour leur
+usage. Des exemples d'entr&eacute;es pour deux utilisateurs, une 
+statique pour  <CODE>radio</CODE> et l'autre dynamique pour <CODE>albert</CODE> ressemblent 
+&agrave; ceci :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+#
+Sradio   44.136.8.99   44.136.8.100  255.255.255.0  normal      -1
+Salbert  44.136.8.99   DYNAMIC       255.255.255.0  compressed  60
+#
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Les entr&eacute;es du fichier <CODE>/etc/slip.hosts</CODE> sont :
+<P>
+<OL>
+<LI>Le nom de connexion de l'appelant.</LI>
+<LI>L'adesse IP de la machine serveur, donc de la machine contenant ce fichier.</LI>
+<LI>L'adresse IP qui sera attribu&eacute;e &agrave; l'appelant. Si le champ vaut
+<CODE>DYNAMIC</CODE> alors l'adresse IP sera allou&eacute;e suivant les informations
+contenues dans le fichier 
+<CODE>/etc/slip.tty</CODE> d&eacute;crit plus loin. <B>Note :</B>
+vous devez utiliser au moins la version 1.3 de sliplogin pour que cela 
+fonctionne.</LI>
+<LI>Le masque de r&eacute;seau assign&eacute; &agrave; la machine
+appelante, en notation d&eacute;cimale, par exemple 255.255.255.0 pour un
+masque de r&eacute;seau de classe C.</LI>
+<LI>Un r&eacute;glage du mode SLIP qui active/d&eacute;sactive la compression. Les valeurs autoris&eacute;es sont "<CODE>normal</CODE>" et "<CODE>compressed</CODE>".</LI>
+<LI>Un param&egrave;tre de d&eacute;lai qui sp&eacute;cifie 
+combien de temps la ligne
+peut rester inactive (aucun datagramme re&ccedil;u) avant une
+d&eacute;connexion automatique. Une valeur n&eacute;gative d&eacute;sactive
+cette possiblit&eacute;.</LI>
+<LI>arguments optionnels.</LI>
+</OL>
+<P>Note : Vous pouvez mettre soit les noms d'h&ocirc;tes soit les adresses IP en
+notation d&eacute;cimale point&eacute;e pour les champs 2 et3.
+Si vous utilisez les noms d'h&ocirc;tes, alors ces h&ocirc;tes doivent
+&ecirc;tre r&eacute;solubles, c'est &agrave; dire que votre machine
+est capable de d&eacute;terminer une adresse IP pour ces noms d'h&ocirc;tes,
+autrement le script &eacute;chouera pendant l'appel. Vous pouvez le tester
+en faisant telnet vers un nom d'h&ocirc;te : si vous obtenez le message
+`<EM>Trying nnn.nnn.nnn...</EM>' alors votre machine est capable de trouver une 
+adresse ip pour ce nom d'h&ocirc;te. Si vous obtenez le message 
+`<EM>Unknown host</EM>', alors il n'en a pas. Dans ce cas essayez d'utiliser
+l'adress IP en notation d&eacute;cimale point&eacute;e ; ou bien voyez
+du c&ocirc;t&eacute; de votre configuration de solveur de noms (voir
+la section <CODE>R&eacute;solution de noms</CODE>).
+<P>Les modes les plus courants de SLIP sont :
+<DL>
+<DT><B>normal </B><DD><P>mode SLIP normal non compress&eacute;.
+<DT><B>compressed </B><DD><P>mode avec compression van Jacobsen des en-t&ecirc;tes (cSLIP)
+</DL>
+<P>Bien s&ucirc;r ils sont mutuellement exclusifs, vous devez utiliser l'un ou
+l'autre. Pour plus d'informations sur les options disponibles, voir les pages
+de manuels.
+<P>
+<P>
+<H3>Configurer le fichier <CODE>/etc/slip.login</CODE>.</H3>
+
+<P>Apr&egrave;s que <EM>sliplogin</EM> ait explor&eacute; le fichier 
+<CODE>/etc/slip.hosts</CODE> et ait trouv&eacute; une entr&eacute;e qui
+convient, il essaye d'ex&eacute;cuter le fichier
+<CODE>/etc/slip.login</CODE> pour effectivement configurer l'interface SLIP avec
+son adresse IP et son masque de r&eacute;seau.
+<P>L'exemple de fichier <CODE>/etc/slip.login</CODE> fourni avec le paquetage
+<EM>sliplogin</EM> ressemble &agrave; ceci :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+#!/bin/sh -
+#
+#       @(#)slip.login  5.1 (Berkeley) 7/1/90
+#
+# fichier g&eacute;n&eacute;rique de connexion pour une ligne SLIP. Invoqu&eacute; par sliplogin
+# avec les param&egrave;tres:
+#     $1       $2       $3    $4, $5, $6 ...
+# unit&eacute; SLIP vitesse    pid   arguments tir&eacute;s de slip.host
+#
+/sbin/ifconfig $1 $5 pointopoint $6 mtu 1500 -trailers up
+/sbin/route add $6
+arp -s $6 &lt;hw_addr> pub
+exit 0
+#
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Notez que ce script utilise seulement les commandes <EM>ifconfig</EM> 
+et <EM>route</EM> pour configurer le p&eacute;riph&eacute;rique SLIP
+avec sa propre adresse IP, l'adresse IP de l'h&ocirc;te distant
+, le masque de r&eacute;seau puis cr&eacute;e une route vers l'adresse distante
+via le p&eacute;riph&eacute;rique SLIP. C'est-&agrave;-dire la m&ecirc;me
+chose que si vous utilisiez la commande <EM>slattach</EM>.
+<P>Notez aussi l'utilisation de <EM>Proxy ARP</EM> pour s'assurer que les 
+h&ocirc;tes plac&eacute;s sur le m&ecirc;me segment &eacute;thernet que la machine serveur
+sauront comment atteindre l'h&ocirc;te qui s'est connect&eacute;.
+Le champ <CODE>&lt;hw_addr&gt;</CODE> doit &ecirc;tre l'adresse mat&eacute;rielle
+de la carte Ethernet de la machine. Si votre machine serveur n'est pas sur un
+r&eacute;seau Ethernet, vous pouvez ignorer cette ligne. 
+<P>
+<P>
+<H3>Configurer le fichier <CODE>/etc/slip.logout</CODE></H3>
+
+<P>Quand la connexion s'est arr&ecirc;t&eacute;e, assurez-vous que le
+p&eacute;riph&eacute;rique s&eacute;rie soit revenu &agrave; son &eacute;tat
+normal de telle sorte que les appelants suivants puissent se connecter
+correctement. Ceci est accompli en utilisant le fichier
+<CODE>/etc/slip.logout</CODE>. Il est de format tr&egrave;s simple et est
+appel&eacute; avec le m&ecirc;me argument que le fichier
+<CODE>/etc/slip.login</CODE>.
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+#!/bin/sh -
+#
+#               slip.logout
+#
+/sbin/ifconfig $1 down
+arp -d $6
+exit 0
+#
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Tout ce qu'il fait est de `mettre &agrave; z&eacute;ro' l'interface
+qui supprimera la route pr&eacute;c&eacute;demment cr&eacute;&eacute;e.
+Il utilise aussi la commande <EM>arp</EM> pour supprimer tout arp proxy en
+place, encore une fois vous n'avez pas besoin de la commande <EM>arp</EM>
+dans le script si votre machine serveur ne poss&egrave;de pas de port Ethernet.
+<P>
+<P>
+<H3>Configurer le fichier <CODE>/etc/slip.tty</CODE></H3>
+
+<P>Si vous utilisez une allocation d'adresse ip dynamique (tous les h&ocirc;tes
+configur&eacute;s avec le mot-cl&eacute;
+<CODE>DYNAMIC</CODE> dans le fichier <CODE>/etc/slip.hosts</CODE>) alors vous devez
+configurer le fichier
+<CODE>/etc/slip.tty</CODE> pour afficher les adresses qui seront
+assign&eacute;es aux ports. Vous n'aurez besoin de ce fichier
+que si vous voulez que votre serveur alloue des adresses aux utilisateurs
+de mani&egrave;re dynamique.
+<P>Ce fichier est un tableau qui liste les p&eacute;riph&eacute;riques
+<EM>tty</EM> supportant les connexions SLIP entrantes et l'adresse
+ip qui sera assign&eacute;e aux utilisateurs se connectant &agrave; ceux-ci.
+<P>Son format est le suivant :
+<BLOCKQUOTE><CODE>
+<PRE>
+# slip.tty    mappage d'adresses tty -> IP pour SLIP dynamique
+# format: /dev/tty?? xxx.xxx.xxx.xxx
+#
+/dev/ttyS0      192.168.0.100
+/dev/ttyS1      192.168.0.101
+#
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Ce que dit ce tableau est que les appelants qui se connectent sur le port
+<CODE>/dev/ttyS0</CODE> et dont le champ adresse dans le fichier
+<CODE>/etc/slip.hosts</CODE> vaut sur
+<CODE>DYNAMIC</CODE> auront l'adresse <CODE>192.168.0.100</CODE>.
+<P>De cette mani&egrave;re vous n'avez besoin d'allouer qu'une seule adresse
+par port pour tous les utilisateurs n'ayant pas besoin d'adresse 
+fixe. Ceci vous permet d'avoir le nombre minimum
+d'adresses
+n&eacute;cessaires pour &eacute;viter du gaspillage.
+<P>
+<P>
+<H3>Serveur Slip utilisant <EM>dip</EM></H3>
+
+<P>Tout d'abord laissez-moi dire que certaines informations ci-dessous
+proviennent des pages de manuel de <EM>dip</EM>, o&ugrave; la mani&egrave;re
+de faire tourner Linux comme serveur SLIP est bri&egrave;vement
+d&eacute;crite. Faites attention aussi que ce qui suit est fond&eacute;
+sur le paquetage
+<EM>dip337o-uri.tgz</EM> et ne s'applique vraisemblablement pas &agrave;
+d'autres versions de <EM>dip</EM>.
+<P><EM>dip</EM> poss&egrave;de un mode de traitement des donn&eacute;es 
+d'entr&eacute;e qui permet de localiser automatiquement
+un utilisateur entrant
+et qui configure la ligne s&eacute;rie comme lien SLIP
+suivant les informations trouv&eacute;es dans le fichier
+<CODE>/etc/diphosts</CODE>.
+Ce mode est activ&eacute; en invoquant <EM>dip</EM>
+avec <EM>diplogin</EM>. Voil&agrave; donc comment utiliser <EM>dip</EM> comme
+serveur SLIP, en cr&eacute;ant des comptes sp&eacute;ciaux o&ugrave;
+<EM>diplogin</EM> est utilis&eacute; comme shell de connexion.
+<P>La premi&egrave;re chose &agrave; faire est de cr&eacute;er un lien 
+symbolique comme suit :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# ln -sf /usr/sbin/dip /usr/sbin/diplogin
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Ensuite vous devez ajouter des entr&eacute;es &agrave; la fois dans vos
+fichiers <CODE>/etc/passwd</CODE> et
+<CODE>/etc/diphosts</CODE>. Les entr&eacute;es que vous devez 
+y mettre sont format&eacute;es comme suit :
+<P>Pour configurer Linux comme serveur SLIP avec <EM>dip</EM>, vous devez
+cr&eacute;er quelques comptes SLIP sp&eacute;ciaux pour les utilisateurs,
+o&ugrave; <EM>dip</EM> (en mode d'entr&eacute;e) est utilis&eacute; comme
+shell de connexion. Une convention sugg&eacute;r&eacute;e est d'avoir
+tous les comptes SLIP commen&ccedil;ant avec la lettre 
+`S' majuscule, par exemple `Sfredm'.
+<P>Un exemple d'entr&eacute;e dans <CODE>/etc/passwd</CODE> pour un utilisateur
+SLIP ressemble &agrave; ceci :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+Sfredm:ij/SMxiTlGVCo:1004:10:Fred:/tmp:/usr/sbin/diplogin
+^^         ^^        ^^  ^^   ^^   ^^   ^^
+|          |         |   |    |    |    \__ diplogin comme shell de connexion
+|          |         |   |    |    \_______ R&eacute;pertoire personnel 
+|          |         |   |    \____________ Nom complet d'utilisateur
+|          |         |   \_________________ GID
+|          |         \_____________________ UID
+|          \_______________________________ Mot de passe chiffr&eacute;
+\__________________________________________ Nom de connexion Slip 
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Apr&egrave;s la connexion de l'utilisateur, le programme <EM>login</EM>
+(s'il trouve et accepte l'utilisateur) ex&eacute;cute la commande
+<EM>diplogin</EM>. <EM>dip</EM>, lorsqu'il est invoqu&eacute; en tant que
+<EM>diplogin</EM> sait qu'il sera automatiquement 
+utilis&eacute; comme shell de connexion.
+Quand il est d&eacute;marr&eacute; comme <EM>diplogin</EM> la
+premi&egrave;re chose qu'il fait est d'utiliser l'appel de la fonction
+<EM>getuid()</EM> pour obtenir l'identificateur de l'utilisateur
+appelant. Il regarde ensuite dans le fichier
+<CODE>/etc/diphosts</CODE> pour trouver la premi&egrave;re entr&eacute;e
+qui corresponde soit &agrave; l'utilisateur soit au 
+p&eacute;riph&eacute;rique <EM>tty</EM> o&ugrave; l'appel est entr&eacute;
+et se configure lui-m&ecirc;me de mani&egrave;re appropri&eacute;e.
+Par un choix judicieux : soit de donner &agrave; l'utilisateur
+une entr&eacute;e dans le fichier
+<CODE>diphosts</CODE>, soit de laisser &agrave; l'utilisateur la
+configuration par d&eacute;faut, vous pouvez construire votre serveur de telle
+mani&egrave;re que vous puissiez faire cohabiter des utilisateurs ayant
+des adresses allou&eacute;es statiquement ou dynamiquement.
+<P><EM>dip</EM> ajoutera automatiquement une entr&eacute;e `Proxy-ARP' si elle
+est invoqu&eacute;e en mode d'entr&eacute;e, aussi vous n'avez pas &agrave;
+vous soucier d'ajouter de telles entr&eacute;es manuellement.
+<P>
+<P>
+<H3>Configurer <CODE>/etc/diphosts</CODE></H3>
+
+<P><CODE>/etc/diphosts</CODE> est utilis&eacute; par <EM>dip</EM> pour
+examiner des configurations pr&eacute;&eacute;tablies concernant
+des h&ocirc;tes &eacute;loign&eacute;s. Ceux-ci peuvent &ecirc;tre des
+h&ocirc;tes se connectant sur votre machine, ou bien des machines sur
+lesquelles vous vous connectez.
+<P>Le format g&eacute;n&eacute;ral de <CODE>/etc/diphosts</CODE> est :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+ ..
+Suwalt::145.71.34.1:145.71.34.2:255.255.255.0:SLIP uwalt:CSLIP,1006
+ttyS1::145.71.34.3:145.71.34.2:255.255.255.0:Dynamic ttyS1:CSLIP,296
+ ..
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Les champs sont :
+<OL>
+<LI><CODE>nom de connexion</CODE> : comme retourn&eacute; par getpwuid(getuid()) 
+ou bien le nom de tty.</LI>
+<LI><CODE>inutilis&eacute;</CODE> : pour compatibilit&eacute; avec passwd</LI>
+<LI><CODE>Adresse distante</CODE> : adresse IP de l'appelant, soit 
+num&eacute;rique soit nominative</LI>
+<LI><CODE>Adresse locale</CODE> : adresse IP de cette machine, soit 
+num&eacute;rique soit nominative.</LI>
+<LI><CODE>Masque de r&eacute;seau</CODE> : en notation d&eacute;cimale 
+point&eacute;e</LI>
+<LI><CODE>Commentaires</CODE> : vous y mettez ce que vous voulez.</LI>
+<LI><CODE>protocole</CODE> : Slip, CSlip, etc.</LI>
+<LI><CODE>MTU</CODE> : nombre d&eacute;cimal</LI>
+</OL>
+<P>Un exemple d'entr&eacute;e <CODE>/etc/net/diphosts</CODE> pour un h&ocirc;te 
+distant peut &ecirc;tre :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+Sfredm::145.71.34.1:145.71.34.2:255.255.255.0:SLIP uwalt:SLIP,296
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>qui sp&eacute;cifie une liaison SLIP avec une adresse distante de 145.71.34.1 
+et un MTU de 296,
+ou :
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+Sfredm::145.71.34.1:145.71.34.2:255.255.255.0:SLIP uwalt:CSLIP,1006
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>qui sp&eacute;cifie une liaison compatible cSLIP avec une adresse distante
+de 145.71.34.1 et un MTU de 1006.
+<P>D&egrave;s lors, tous les utilisateurs &agrave; qui vous permettez
+d'avoir une connexion avec allocation d'adresse IP statique auront une
+entr&eacute;e dans <CODE>/etc/diphosts</CODE>. Si vous voulez que des
+utilisateurs qui appellent sur un port particulier aient leur adresse
+allou&eacute;e dynamiquement, vous devez avoir une entr&eacute;e pour
+le p&eacute;riph&eacute;rique <CODE>tty</CODE>, mais pas d'entr&eacute;e
+pour l'utilisateur lui-m&ecirc;me. Vous devez vous souvenir de configurer
+au moins une entr&eacute;e pour chaque p&eacute;riph&eacute;rique <CODE>tty</CODE>
+que vos utilisateurs entrants utiliseront pour &ecirc;tre s&ucirc;rs
+qu'une configuration ad&eacute;quate soit disponible, ind&eacute;pendamment
+du modem sur lequel ils se connectent.
+<P>Quand un utilisateur se connecte, il recevra une invite normal de login
+et une demande de mot de passe, pour lesquels il devra entrer son 
+identificateur SLIP et son mot de passe. Si tout est correct, l'utilisateur
+ne verra pas de message sp&eacute;cial, il devra juste basculer en mode SLIP
+chez lui et ensuite il sera connect&eacute; et configur&eacute; avec
+les param&egrave;tres contenus dans le fichier <CODE>diphosts</CODE>.
+<P>
+<P>
+<H3>Serveur SLIP utilisant l'ensemble <EM>dSLIP</EM></H3>
+
+<P>Matt Dillon <CODE>&lt;dillon@apollo.west.oic.com&gt;</CODE> a &eacute;crit
+un paquetage qui permet des liaisons SLIP non seulement entrantes mais aussi
+sortantes. Le paquetage de Matt est une combinaison de petits programmes
+et de scripts qui prennent en charge les connexions &agrave; votre place.
+Vous aurez besoin de <EM>tcsh</EM> car au moins l'un des scripts en a
+besoin. Matt fournit une copie binaire de l'utilitaire <EM>expect</EM>
+car il est aussi n&eacute;cessaire pour l'un des scripts. 
+Il serait pr&eacute;f&eacute;rable
+d'avoir une certaine exp&eacute;rience de <EM>expect</EM> pour que ce 
+paquetage soit utile pour vous, mais que cela ne vous d&eacute;courage pas.
+<P>Matt a &eacute;crit une bonne proc&eacute;dure d'installation dans le fichier
+README, aussi je ne me fatiguerai pas &agrave; la r&eacute;p&eacute;ter.
+<P>Vous pouvez r&eacute;cup&eacute;rer le paquetage <EM>dSLIP</EM> sur son site
+d'origine :
+<P><B>apollo.west.oic.com</B>
+<BLOCKQUOTE><CODE>
+<PRE>
+/pub/linux/dillon_src/dSLIP203.tgz
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>ou bien sur :
+<P><B>metalab.unc.edu</B>
+<BLOCKQUOTE><CODE>
+<PRE>
+/pub/Linux/system/Network/serial/dSLIP203.tgz
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Lisez le fichier <CODE>README</CODE> et cr&eacute;ez les entr&eacute;es 
+<CODE>/etc/passwd</CODE> et
+<CODE>/etc/group</CODE> <B>avant</B> de faire <CODE>make install</CODE>.
+<P>
+<P>
+<HR>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-10.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO-8.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Net-HOWTO-html/Net-HOWTO.html#toc9"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

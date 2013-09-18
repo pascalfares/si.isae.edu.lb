@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.7">
+ <TITLE>Possibilit&eacute;s r&eacute;seau de Linux HOWTO: R&eacute;seaux d'entreprises sous Linux</TITLE>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-11.html" REL=next>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-9.html" REL=previous>
+ <LINK HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc10" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-11.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-9.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc10"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s10">10. R&eacute;seaux d'entreprises sous Linux</A></H2>
+
+<P>Dans certaines situations, il est n&eacute;cessaire d'avoir une infrastructure r&eacute;seau comprenant des m&eacute;canismes lui permettant d'&ecirc;tre disponible quasiment 100% du temps. Certaines de ces techniques sont d&eacute;crites plus loin. La majorit&eacute; des documents suivants peuvent &ecirc;tre trouv&eacute;s sur l'excellent site web de Linas : 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://linas.org/linux/index.html">http://linas.org/linux/index.html</A> et dans le 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/pub/Linux/ALPHA/linux-ha/High-Availability-HOWTO.html">HowTo Linux High-Availability</A><P>
+<H2><A NAME="ss10.1">10.1 Haute disponibilit&eacute;</A>
+</H2>
+
+<P>La redondance est utilis&eacute;e pour &eacute;viter qu'Internet dans sa globalit&eacute; ait un point faible. Un serveur avec une seule carte r&eacute;seau ou un seul disque SCSI a deux points faibles. L'objectif est de cacher aux utilisateurs les probl&egrave;mes impr&eacute;vus de fa&ccedil;on &agrave; ce qu'ils puissent continuer &agrave; travailler rapidement. Les logiciels de haute disponibilit&eacute; sont un groupe de scripts et d'outils qui surveillent et d&eacute;tectent les probl&egrave;mes, suivent une m&eacute;thode appropri&eacute;e pour restaurer l'&eacute;tat normal et pr&eacute;viennent les administrateurs syst&egrave;mes.
+<P>
+<H2><A NAME="ss10.2">10.2 RAID</A>
+</H2>
+
+<P>RAID est l'abr&eacute;viation de Redundant Array of Inexpensive Disks, c'est &agrave; dire Grappe redondante de disques, c'est une m&eacute;thode gr&acirc;ce &agrave; laquelle les informations sont r&eacute;parties sur plusieurs disques, utilisant des techniques telles que la mise bout &agrave; bout des disques (RAID niveau 0), la mise en miroirs (RAID niveau 1) pour obtenir la redondance, des temps d'attente plus faibles et/ou une plus grande bande passante pour la lecture et/ou l'&eacute;criture, et la r&eacute;cup&eacute;ration apr&egrave;s un crash disque. 6 niveaux RAID diff&eacute;rents ont &eacute;t&eacute; d&eacute;finis. Il y &agrave; 3 solutions RAID possibles pour les utilisateurs de Linux : RAID logiciel, bo&icirc;tiers DASD externes, et contr&ocirc;leurs de disques RAID.
+<P>
+<UL>
+<LI>RAID Logiciel : Impl&eacute;mentation RAID purement logicielle, permet l'utilisation des diff&eacute;rents niveaux RAID dans le code de gestion des disques du noyau (les bloc devices)</LI>
+<LI>Bo&icirc;tiers DASD externes : les DASD (Direct Access Storage Device, c-a-d p&eacute;riph&eacute;rique de stockage &agrave; acc&egrave;s direct) sont des bo&icirc;tiers s&eacute;par&eacute;s ayant leur propre alimentation &eacute;lectrique, fournissent un ch&acirc;ssis pour ranger les disques, et sont consid&eacute;r&eacute;s par Linux comme un p&eacute;riph&eacute;rique SCSI comme un autre. D'une fa&ccedil;on g&eacute;n&eacute;rale, c'est la solution RAID la plus fiable.</LI>
+<LI>Contr&ocirc;leurs de disques RAID : Les contr&ocirc;leurs de disques sont des cartes qui se mettent dans les bus ISA/EISA/PCI. Un c&acirc;ble les rattache aux disques, comme pour les contr&ocirc;leurs normaux. Mais contrairement aux contr&ocirc;leurs normaux, les contr&ocirc;leurs RAID impl&eacute;mentent le RAID sur la carte elle-m&ecirc;me, avec tout ce qu'il faut pour fournir les diff&eacute;rents niveaux RAID.</LI>
+</UL>
+<P>HowTo en relation :
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/DPT-Hardware-RAID.html">http://sunsite.unc.edu/mdw/HOWTO/mini/DPT-Hardware-RAID.html</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/Root-RAID-HOWTO.html">http://sunsite.unc.edu/mdw/HOWTO/Root-RAID-HOWTO.html</A></LI>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/mdw/HOWTO/mini/Software-RAID.html">http://sunsite.unc.edu/mdw/HOWTO/mini/Software-RAID.html</A></LI>
+</UL>
+<P>Le RAID &agrave; linas.org:
+<UL>
+<LI>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://linas.org/linux/raid.html">http://linas.org/linux/raid.html</A></LI>
+</UL>
+<P>
+<H2><A NAME="ss10.3">10.3 Redondance r&eacute;seau</A>
+</H2>
+
+<P>Le takeover d'adresse IP (IPAT) :
+<P>Quand une interface r&eacute;seau tombe en panne, son adresse IP devrait &ecirc;tre prise par une carte en &eacute;tat de marche sur le m&ecirc;me noeud du r&eacute;seau, ou sur un autre noeud. 
+<P>Le takeover d'adresse MAC :
+<P>Quand un takeover d'adresses IP survient, il faut s'assurer que tous les noeuds du r&eacute;seau mettent &agrave; jour les caches de leurs tables ARP (les correspondances entre adresses IP et les adresses MAC).
+<P>Pour plus de d&eacute;tails, r&eacute;f&eacute;rez vous au : 
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/http://sunsite.unc.edu/pub/Linux/ALPHA/linux-ha/High-Availability-HOWTO.html">HowTo High-Availability</A><P>
+<HR>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-11.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO-9.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Networking-Overview-HOWTO-html/Networking-Overview-HOWTO.html#toc10"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

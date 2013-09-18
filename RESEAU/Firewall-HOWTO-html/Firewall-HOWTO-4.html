@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Le HOWTO du pare-feu et des serveurs mandataires: Configurer le pare-feu filtrant Linux</TITLE>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-5.html" REL=next>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-3.html" REL=previous>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc4" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-5.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-3.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc4"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s4">4. Configurer le pare-feu filtrant Linux</A></H2>
+
+<H2><A NAME="ss4.1">4.1 Mat&eacute;riel n&eacute;cessaire</A>
+</H2>
+
+<P>Les pare-feux filtrants ne n&eacute;cessitent pas de mat&eacute;riel haut de gamme.
+Ils ne sont pas grand'chose de plus que de simples routeurs.
+<P>Tout ce qu'il faut est&nbsp;:
+<P>
+<OL>
+<LI>un 486-DX66 avec 16&nbsp;Mo de m&eacute;moire vive&nbsp;;</LI>
+<LI>un disque dur de 200&nbsp;Mo (500&nbsp;Mo sont
+tout de m&ecirc;me recommand&eacute;s)&nbsp;;</LI>
+<LI>des connexions r&eacute;seau (cartes Ethernet, ports s&eacute;rie,
+connexions sans fil&nbsp;?)&nbsp;;</LI>
+<LI>un moniteur et un clavier.</LI>
+</OL>
+<P>Avec certains syst&egrave;mes, on peut m&ecirc;me &eacute;liminer le moniteur et le clavier
+en utilisant une console sur port s&eacute;rie.
+<P>Si l'on a besoin d'un serveur mandataire qui doive g&eacute;rer un fort trafic,
+il faut prendre le syst&egrave;me le plus puissant qui soit possible.
+En effet, pour chaque utilisateur qui se connectera par le bastion, il
+se cr&eacute;era un nouveau processus.
+Si l'on a 50 utilisateurs simultan&eacute;s ou plus, je pense qu'il faut&nbsp;:
+<P>
+<OL>
+<LI>un Pentium&nbsp;II avec 64&nbsp;Mo de m&eacute;moire vive&nbsp;;</LI>
+<LI>un disque dur de 2&nbsp;Go pour contenir toutes les
+traces&nbsp;;</LI>
+<LI>deux connexions r&eacute;seau &nbsp;;</LI>
+<LI>un moniteur et un clavier.</LI>
+</OL>
+<P>Les connexions r&eacute;seau peuvent &ecirc;tre de n'importe quel type (cartes NIC,
+RNIS ou m&ecirc;me des modems).
+<P>
+<H2><A NAME="ss4.2">4.2 Logiciel n&eacute;cessaire</A>
+</H2>
+
+<H3>Pare-feu filtrant</H3>
+
+<P>Pour cr&eacute;er un pare-feu filtrant, aucun logiciel sp&eacute;cifique n'est n&eacute;cessaire.
+Linux suffit.
+<P>Si l'on utilise un _TRES_ vieux noyau Linux (1.0.x ou plus ancien), il faut
+une copie de ipfwadm (NdT&nbsp;: il faut surtout passer &agrave; un noyau plus
+r&eacute;cent, car ces noyaux sont obsol&egrave;tes, et risquent de plus de contenir
+des points faibles dont il sera difficile de retrouver trace).
+<P>Si l'on utilise un noyau 2.1.102 ou plus r&eacute;cent, il faut utiliser un
+ipchaining comme par exemple celui d&eacute;velopp&eacute; par
+<A HREF="index.php?ref=Firewall-HOWTO-html/http://www.rustcorp.com/linux/ipchains/">http://www.rustcorp.com/linux/ipchains/</A>.
+<P>
+<H3>Serveur mandataire</H3>
+
+<P>
+<P>Si l'on veut configurer un serveur mandataire, il faut l'un des
+paquetages suivants&nbsp;:
+<P>
+<UL>
+<LI>Squid&nbsp;;</LI>
+<LI>la bo&icirc;te &agrave; outils TIS Firewall (FWTK)&nbsp;;</LI>
+<LI>SOCKS.</LI>
+</UL>
+<P>
+<P>Squid est un beau paquetage et fonctionne avec la fonctionnalit&eacute;
+de Linux de mandataire transparent.
+Je vais d&eacute;crire comment configurer ce serveur.
+<P>&Agrave; l'heure o&ugrave; j'&eacute;cris ces lignes,
+<A HREF="index.php?ref=Firewall-HOWTO-html/http://www.networkassociates.com/">Network Associates</A>
+et Trusted Information System's (TIS) ont fusionn&eacute;.
+Il faut donc continuer &agrave; consulter leurs sites web pour toute
+information sur les modifications.
+Dans l'intervalle, la bo&icirc;te &agrave; outils TIS est toujours
+disponible sur&nbsp;:
+<A HREF="index.php?ref=Firewall-HOWTO-html/http://www.tis.com/research/software/">http://www.tis.com/research/software/</A>.
+<P>Trusted Information System fournit une collection de programmes
+con&ccedil;ue pour faciliter la gestion de pare-feux.
+Avec cette bo&icirc;te &agrave; outils, on configure un daemon pour chaque
+service (web, telnet, etc.) qui sera utilis&eacute;.
+<P>
+<HR>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-5.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-3.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc4"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

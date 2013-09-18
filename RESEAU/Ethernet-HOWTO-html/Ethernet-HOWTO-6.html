@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Linux Ethernet-Howto: C&acirc;bles, Coaxial, Paire Torsad&eacute;e</TITLE>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-7.html" REL=next>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html" REL=previous>
+ <LINK HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc6" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-7.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc6"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="cable"></A> <A NAME="s6">6. C&acirc;bles, Coaxial, Paire Torsad&eacute;e</A></H2>
+
+<P>Si vous d&eacute;marrez un r&eacute;seau &agrave; partir de rien, vous aurez a choisir entre
+l'Ethernet fin (du c&acirc;ble RG-58 co-axial avec des connecteurs BNC) ou le
+10BaseT (des c&acirc;bles &agrave; paire torsad&eacute;e avec des connecteurs RJ-45
+rectangulaires). Quant au `gros' Ethernet (thick Ethernet), du c&acirc;ble
+RG-5 avec des connecteurs N, tomb&eacute; en d&eacute;su&eacute;tude, on ne le rencontre
+pratiquement plus.
+<P>R&eacute;f&eacute;rez vous &agrave; 
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-2.html#cable-intro">Type de cable...</A> pour une
+introduction sur les c&acirc;bles. Notez aussi que la Foire Aux Questions
+(FAQ) du groupe <I>comp.dcom.lans.ethernet</I> contient un tas
+d'informations utiles sur les c&acirc;bles et tout ce genre de choses. Jetez
+un coup d'oeil &agrave;&nbsp;:
+<P>
+<BLOCKQUOTE>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/ftp://rtfm.mit.edu/pub/usenet-by-hierarchy/">Usenet FAQs</A></BLOCKQUOTE>
+<P>pour la FAQ de ce groupe de news.
+<P>(NDT&nbsp;: Le lecteur francophone utilisera bien entendu un site miroir
+comme
+<A HREF="index.php?ref=Ethernet-HOWTO-html/ftp://ftp.lip6.fr/faq/...">URL sur ibp &agrave; compl&eacute;ter..</A>
+ou tout site &eacute;quivalent proche de chez lui).
+<P>
+<H2><A NAME="bnc"></A> <A NAME="ss6.1">6.1 Ethernet fin (thinnet)</A>
+</H2>
+
+<P>Le cable Ethernet fin n'est pas cher. Si vous fabriquez vos c&acirc;bles
+vous-m&ecirc;me, le c&acirc;ble RG58A &agrave; &acirc;me monobrin est &agrave; $0.27/m et le
+c&acirc;ble multibrins RG58AU est &agrave; 3,40F/m. (NDT&nbsp;: Le prix du RG58A est en
+dollar car je n'ai pas pu trouver de prix pour ce type de c&acirc;ble en
+France&nbsp;!)  Les connecteurs BNC &agrave; ba&iuml;onnette sont &agrave; moins de deux dollars
+chacun. (NDT&nbsp;: A sertir, environ 10 francs pi&egrave;ces, &agrave; souder un peu plus
+cher mais vous n'avez pas besoin d'un outil sp&eacute;cial).
+<P>Les autres pi&egrave;ces diverses sont tout aussi bon march&eacute;.
+<P>Il est important que vous terminiez chaque extr&eacute;mit&eacute; du c&acirc;ble avec un
+`bouchon' de 50&nbsp;ohms (NDT&nbsp;: bouchon ou terminateur..), donc pr&eacute;voyez 70
+francs pour une paire. Il est aussi vital que votre c&acirc;ble ne comporte
+pas de `patte qui pend' -- les connecteurs en `T' doivent &ecirc;tre raccord&eacute;s
+directement aux cartes Ethernet, sans c&acirc;ble entre le `T' et la carte.
+<P>
+<P>Il y a quelques inconv&eacute;nients &agrave; utiliser l'Ethernet fin. Le premier est
+qu'il est limit&eacute; a 10&nbsp;Mbps&nbsp;--&nbsp;pour 100&nbsp;Mbps, il faut de la paire
+torsad&eacute;e. Le second point noir est que si vous avez un grand nombre de
+machines raccord&eacute;es entre elles, il suffit qu'un imb&eacute;cile coupe le
+r&eacute;seau en d&eacute;branchant un des c&acirc;bles qui se trouvent sur les c&ocirc;t&eacute;s de son
+`T', et tout le r&eacute;seau se retrouve par terre parce qu'il voit une
+imp&eacute;dance infinie (circuit ouvert) au lieu de la terminaison &agrave; 50&nbsp;ohms
+qui est n&eacute;cessaire. Notez que vous pouvez enlever la pi&egrave;ce en forme de
+`T' de la carte Ethernet elle-m&ecirc;me sans tuer tout le sous-r&eacute;seau, pour
+autant que vous n'enleviez pas les c&acirc;bles du `T' lui-m&ecirc;me. Bien entendu
+cela perturbera la machine d'o&ugrave; vous venez d'enlever le `T'. 8-) Et
+notez aussi que si vous cr&eacute;ez un petit r&eacute;seau constitu&eacute; de seulement
+deux machines, vous devez <EM>quand m&ecirc;me</EM> mettre en place les `T' et
+les bouchons de 50 ohms. -- vous <EM>ne pouvez pas</EM> juste c&acirc;bler les
+deux machines entre elles&nbsp;!
+<P>NDT&nbsp;: Notez aussi que vous ne devez pas cr&eacute;er une boucle avec le c&acirc;ble
+non plus, en reliant toutes les machines entre elles et en reliant la
+derni&egrave;re machine avec la premi&egrave;re. La pr&eacute;sence d'un bouchon de 50 ohms &agrave;
+<EM>chaque</EM> extr&eacute;mit&eacute; du c&acirc;ble (et il ne doit y avoir que deux
+extr&eacute;mit&eacute;s 8-) ) est indispensable pour qu'Ethernet fonctionne
+correctement. (Fin de la note)
+<P>
+<P>Il existe aussi des syst&egrave;mes de c&acirc;blage rigolos qui <EM>font comme si</EM>
+un seul fil arrivait &agrave; la carte, mais en fait les deux longueurs de
+c&acirc;ble reposant c&ocirc;te-&agrave;-c&ocirc;te, recouvertes par une protection ext&eacute;rieure,
+ce qui donne au fil une section de forme ovale. A l'extr&eacute;mit&eacute; de cette
+boucle est ins&eacute;r&eacute; un connecteur BNC sur lequel se connecte votre
+carte. Vous avez donc l'&eacute;quivalent d'un aller-retour de c&acirc;ble et d'un
+`T' BNC, mais avec ce type de c&acirc;blage, il est impossible pour
+l'utilisateur d'enlever un c&acirc;ble d'un seul c&ocirc;t&eacute; du `T' et donc de
+perturber le r&eacute;seau.
+<P>(NDT&nbsp;: C'est une bonne id&eacute;e, mais la r&eacute;alisation du c&acirc;blage entre les
+prises de raccordement est d&eacute;licate, et le moindre d&eacute;faut amplifie
+rapidement les probl&egrave;mes de l'Ethernet fin.  )
+<P>
+<P>
+<P>
+<H2><A NAME="utp"></A> <A NAME="ss6.2">6.2 Paire torsad&eacute;e</A>
+</H2>
+
+<P>Les r&eacute;seaux &agrave; paire torsad&eacute;e n&eacute;cessitent des hubs actifs, dont les prix
+d&eacute;marrent aux environ de 300 francs, et le prix du c&acirc;ble brut peut &ecirc;tre
+en fait sup&eacute;rieur &agrave; celui du Thinnet. Vous devriez ignorer ceux qui
+disent que vous pouvez utiliser votre c&acirc;blage t&eacute;l&eacute;phonique existant, car
+il est rare de trouver une installation o&ugrave; c'est le cas.
+<P>(NdT&nbsp;: Ca c'est du pessimisme av&eacute;r&eacute;. J'ai d&eacute;j&agrave; fait pire.&nbsp;:])
+<P>
+<P>D'un autre c&ocirc;t&eacute;, les prix des hubs sont en chute libre, toutes les
+propositions Ethernet 100&nbsp;Mbps utilisent la paire torsad&eacute;e, et la
+plupart des installations professionnelles neuves utilisent la paire
+torsad&eacute;e.
+<P>(NDT&nbsp;: Euh, c'est peut-&ecirc;tre aussi parce qu'avec un c&acirc;blage banalis&eacute; on
+peut faire de la voix (entendez&nbsp;: du t&eacute;l&eacute;phone), de la donn&eacute;e
+(entendez&nbsp;: du r&eacute;seau), et de la vid&eacute;o, sur le m&ecirc;me c&acirc;ble, ce qui co&ucirc;te
+quand m&ecirc;me moins cher que trois c&acirc;blages diff&eacute;rents&nbsp;!)
+<P>De plus, Russ Nelson ajoute que `Les nouvelles installations devraient
+utiliser du c&acirc;blage Cat&eacute;gorie 5. Toute autre chose est une perte de
+temps de votre installateur, car le 100Base-ce-que-vous-voulez
+n&eacute;cessitera du Cat. 5.'
+<P>(NDT&nbsp;: Pour &ecirc;tre pr&eacute;cis, c'est du Cat&eacute;gorie 5, Classe D qu'il faut
+exiger. Un pour le type de c&acirc;ble, un pour la plage de fr&eacute;quence.&nbsp;:))
+<P>Si vous n'avez que deux machines &agrave; raccorder, il est possible d'&eacute;viter
+l'utilisation d'un hub, en croisant les paires &eacute;missions et r&eacute;ception
+(1-2 et 3-6).
+<P>Si vous tenez le connecteur RJ-45 face &agrave; vous (comme si vous alliez le
+brancher dans votre bouche) avec le petit clip de fixation vers le haut,
+alors les broches sont num&eacute;rot&eacute;es de 1 &agrave; 8 de la gauche vers la
+droite. L'utilisation des broches est la suivante&nbsp;:
+<P>
+<PRE>
+        Num&eacute;ro de broche Utilisation
+        ----------              ----------
+        1                       Sortie des Donn&eacute;es (+)
+        2                       Sortie des Donn&eacute;es (-)
+        3                       Entr&eacute;e des Donn&eacute;es (+)
+        4                       R&eacute;serv&eacute; pour le t&eacute;l&eacute;phone
+        5                       R&eacute;serv&eacute; pour le t&eacute;l&eacute;phone
+        6                       Entr&eacute;e des Donn&eacute;es (-)
+        7                       R&eacute;serv&eacute; pour le t&eacute;l&eacute;phone
+        8                       R&eacute;serv&eacute; pour le t&eacute;l&eacute;phone
+</PRE>
+<P>Si vous souhaitez fabriquer un c&acirc;ble, ce qui suit devrait vous fournir
+tous les d&eacute;tails voulus. Les paires de signaux diff&eacute;rentiels doivent se
+trouver sur la m&ecirc;me paire torsad&eacute;e afin d'obtenir l'imp&eacute;dance et les
+pertes minimales requises d'un c&acirc;ble UTP. Si vous consultez la table
+ci-dessus, vous constatez que 1+2 et 3+6 sont les ensembles de paires de
+signaux diff&eacute;rentiels. Pas 1+3 et 2+6&nbsp;!!!!!!  A 10&nbsp;MHz, avec des
+distances courtes, vous &eacute;chapperez *peut-&ecirc;tre* aux cons&eacute;quences de
+telles erreurs, si c'est vraiment sur une courte distance. Mais n'y
+pensez m&ecirc;me pas &agrave; 100&nbsp;MHz.
+<P>Pour un cordon de brassage normal, avec les extr&eacute;mit&eacute;s `A' et `B', vous
+avez besoin d'un raccordement `droit', broche par broche, l'entr&eacute;e et la
+sortie utilisant chacune une paire de fils (pour des probl&egrave;mes
+d'imp&eacute;dance). Cela signifie donc que le 1 de A va au 1 de B, que le 2 de
+A va au 2 de B, que le 3 de A va au 3 de B et que le 6 de A va au 6 de
+B. Les fils qui joignent 1A-1B et 2A-2B doivent &ecirc;tre sur la m&ecirc;me paire
+torsad&eacute;e. De m&ecirc;me, les fils qui joignent 3A-3B et 6A-6B doivent &ecirc;tre sur
+une autre paire torsad&eacute;e.
+<P>Maintenant, si vous n'avez pas de hub, mais que vous voulez fabriquer un
+`c&acirc;ble null' (ou c&acirc;ble crois&eacute;, NDT), ce que vous souhaitez faire est que
+l'entr&eacute;e de `A' devienne la sortie de `B', et que la sortie de `A'
+devienne l'entr&eacute;e de `B', sans changer la polarit&eacute;. Cela signifie donc
+raccorder 1A &agrave; 3B (sortie+ de A vers entr&eacute;e+ de B) et 2A &agrave; 6B (sortie-
+de A vers entr&eacute;e- de B). Ces deux fils doivent &ecirc;tre sur une paire
+torsad&eacute;e. Ils transportent ce que la carte/le connecteur `A' consid&egrave;re
+comme la sortie, et ce qui est vu comme l'entr&eacute;e par la carte/le
+connecteur `B'. Puis raccordez 3A &agrave; 1B (entr&eacute;e+ de A sur sortie+ de B)
+et 6A &agrave; 2B (entr&eacute;e- de A sur sortie- de B). Ces deux-l&agrave; aussi doivent
+&ecirc;tre sur une paire torsad&eacute;e. Ils transportent ce que la carte/le
+connecteur `A' consid&egrave;re comme son entr&eacute;e, et ce que la carte/le
+connecteur `B' consid&egrave;re comme sa sortie.
+<P>Donc, si vous consid&eacute;rez un cordon de brassage normal, enlevez l'une de
+ses extr&eacute;mit&eacute;s, &eacute;changez les emplacements des paires de r&eacute;ception et
+d'&eacute;mission dans le nouveau connecteur, sertissez-le, et vous avez un
+c&acirc;ble `null' (enfin, crois&eacute;, quoi&nbsp;! NDT). Rien de bien compliqu&eacute;. Vous
+voulez juste que le signal transmis par une carte soit envoy&eacute; sur le
+r&eacute;cepteur de la seconde, et vice versa.
+<P>Notez qu'avant que 10BaseT soit ratifi&eacute; en tant que norme, il existait
+d'autres formats de r&eacute;seau qui utilisaient des connecteurs RJ-45, avec
+le m&ecirc;me principe de c&acirc;blage que ci-dessus. Des exemples sont le
+LattisNet de SynOptics et le StarLAN d'AT&amp;T. Dans certains cas
+(comme les premi&egrave;res cartes 3C503) vous pouvez positionner des cavaliers
+pour que la carte puisse dialoguer avec des hubs de diff&eacute;rents types,
+mais dans la plupart des cas les cartes con&ccedil;ues pour ces anciens types
+de r&eacute;seaux ne fonctionneront pas avec un hub/un r&eacute;seau 10BaseT
+standard. (Notez que si les cartes ont aussi un port AUI, il n'y a
+aucune raison que vous ne puissiez pas l'utiliser, combin&eacute; avec un
+transceiver AUI / 10BaseT).
+<P>
+<P>
+<H2><A NAME="ss6.3">6.3 Thick Ethernet - Le `gros' Ethernet</A>
+</H2>
+
+<P>Le `Thick ethernet' est pratiquement obsol&egrave;te, et n'est g&eacute;n&eacute;ralement
+utilis&eacute; que pour rester compatible avec une impl&eacute;mentation
+existante. Vous pouvez outrepasser les r&egrave;gles et connecter des brins
+courts d'Ethernet fin (ThinNet 10Base2) et &eacute;pais (ThickNet 10Base5)
+ensemble avec un connecteur passif N-vers-BNC &agrave; 15 francs, et c'est
+souvent la meilleure solution pour &eacute;tendre un r&eacute;seau ThickNet
+existant. Une solution correcte (mais plus ch&egrave;re) est d'utiliser un
+r&eacute;p&eacute;teur dans ce cas.
+<HR>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-7.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO-5.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Ethernet-HOWTO-html/Ethernet-HOWTO.html#toc6"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>

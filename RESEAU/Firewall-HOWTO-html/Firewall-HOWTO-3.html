@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Le HOWTO du pare-feu et des serveurs mandataires: Architecture de pare-feu</TITLE>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-4.html" REL=next>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-2.html" REL=previous>
+ <LINK HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc3" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-4.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-2.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc3"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+<HR>
+<H2><A NAME="s3">3. Architecture de pare-feu</A></H2>
+
+<P>Il existe de nombreuses mani&egrave;res de structurer un r&eacute;seau pour
+prot&eacute;ger des syst&egrave;mes &agrave; l'aide d'un pare-feu.
+<P>Si l'on dispose de connexions d&eacute;di&eacute;es &agrave; Internet par un
+routeur, on peut connecter directement celui-ci au syst&egrave;me
+pare-feu.
+Au contraire, on peut passer par un hub pour permettre un
+acc&egrave;s complet aux serveurs &agrave; l'ext&eacute;rieur du pare-feu.
+<P>On peut configurer un certain nombre de r&egrave;gles de filtrage
+mat&eacute;rielles dans le routeur.
+N&eacute;anmoins, ce routeur peut &ecirc;tre la propri&eacute;t&eacute; d'un FAI
+(fournisseur d'acc&egrave;s Internet), auquel cas on ne dispose
+pas du contr&ocirc;le de celui-ci.
+Il faut demander au FAI d'y inclure des filtres (NdT&nbsp;:
+et avoir pleine confiance dans son FAI&nbsp;!).
+<P>
+<PRE>
+                  _________           __________
+   _/\__/\_      | Routeur |         |          |          ___________
+  |        |     | sans    |  (DMZ)  | Systeme  |  (LAN)  | Postes de |
+ / Internet \----| filtre  |--(HUB)--| pare-feu |--(HUB)--|  travail  |
+ \_  _  _  _/    |_________|    |    |__________|         |___________|
+   \/ \/ \/                     |
+                           (Serveur pour)
+                           (l'exterieur)
+</PRE>
+<P>On peut aussi utiliser un service commut&eacute; comme une ligne RNIS.
+Dans ce cas on peut utiliser une troisi&egrave;me carte r&eacute;seau pour cr&eacute;er
+une DMZ (De-Militarized Zone, ou "zone d&eacute;militaris&eacute;e") filtr&eacute;e.
+Cela donne un contr&ocirc;le total sur les services Internet et maintient
+la s&eacute;paration avec le r&eacute;seau local normal.
+<P>
+<PRE>
+                            __________
+              _/\__/\_      |          |          ___________
+             |        |     | Systeme  |  (LAN)  | Postes de |
+            / Internet \----| pare-feu |--(HUB)--|  travail  |
+            \_  _  _  _/    |__________|         |___________|
+              \/ \/ \/           |
+                               (DMZ)
+                               (HUB)
+</PRE>
+<P>Si l'on ne fournit pas soi-m&ecirc;me des services Internet mais que l'on
+souhaite surveiller o&ugrave; vont les utilisateurs, on voudra utiliser
+un serveur mandataire (bastion).
+Cela peut &ecirc;tre intr&eacute;gr&eacute; dans le pare-feu.
+<P>
+<PRE>
+                             __________
+              _/\__/\_      | Systeme  |          ___________
+             |        |     | pare-feu/|  (LAN)  | Postes de |
+            / Internet \----| bastion  |--(HUB)--|  travail  |
+            \_  _  _  _/    |__________|         |___________|
+              \/ \/ \/
+</PRE>
+<P>On peut aussi placer le serveur mandataire sur le r&eacute;seau local.
+Dans ce cas, les r&egrave;gles du pare-feu ne doivent autoriser que le
+bastion &agrave; se connecter &agrave; Internet pour les services que celui-ci
+fournit.
+Ainsi les utilisateurs ne peuvent acc&eacute;der &agrave; Internet que par le
+mandataire.
+<P>
+<PRE>
+                            __________
+             _/\__/\_      |          |          ___________
+            |        |     | Systeme  |  (LAN)  | Postes de |
+           / Internet \----| pare-feu |--(HUB)--|  travail  |
+           \_  _  _  _/    |__________|    |    |___________|
+             \/ \/ \/                      |     ____________
+                                           |    |  Serveur   |
+                                           +----| mandataire |
+                                                |____________|
+</PRE>
+<P>Si l'on souhaite r&eacute;aliser un service comme ceux de Yahoo! ou
+peut-&ecirc;tre SlashDot, on peut souhaiter r&eacute;aliser une architecture
+redondante de routeurs et pare-feux (<EM>cf.</EM> High Availability
+HOWTO).
+<P>En utilisant une technique de DNS &agrave; jeton tournant ou &agrave; l'aide
+de serveurs d'application &agrave; &eacute;quilibrage de charge, on peut cr&eacute;er
+un service &agrave; 100% de disponibilit&eacute;.
+<P>
+<PRE>
+   _/\__/\_                                      _/\__/\__/\
+  |        |                                    |           |
+ / FAI No 1 \______                  (WAN)_____/ Partenaires \
+ \_  _  _  _/      |                 (HUB)     \_  _  _  _  _/
+   \/ \/ \/        |                ___|____     \/ \/ \/ \/
+                 __|____           |_______ |
+   _/\__/\_     |______ |         |        ||          ______
+  |        |   |       ||  (DMZ)  |Systeme ||  (LAN)  |      |
+ / FAI No 2 \--|Routeur||--(HUB)--|pare-feu||--(HUB)--|Postes|
+ \_  _  _  _/  |_______|     |    |________|     |    |______|
+   \/ \/ \/                  |         |         |     ______
+                         (Serveur)  (Serveur)    |    |Manda-|
+                        (exterieur) (commun)     +----|taire |
+                                                      |______|
+</PRE>
+<P>Il est facile de voir corrompre son r&eacute;seau local.
+Il faut conserver le contr&ocirc;le de chaque connexion.
+Il suffit d'un utilisateur avec un modem pour compromettre
+tout un r&eacute;seau local.
+<P>
+<HR>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-4.html"><IMG SRC="next.gif" ALT="Page suivante"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO-2.html"><IMG SRC="prev.gif" ALT="Page précédente"></A>
+<A HREF="index.php?ref=Firewall-HOWTO-html/Firewall-HOWTO.html#toc3"><IMG SRC="toc.gif" ALT="Table des matières"></A>
+</BODY>
+</HTML>
