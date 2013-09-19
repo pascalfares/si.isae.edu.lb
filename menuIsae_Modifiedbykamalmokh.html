@@ -1,0 +1,367 @@
+﻿<html>
+<head>
+<style>
+#menu, #menu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#menu {
+	width: 960px;
+	margin: 60px auto;
+	border: 1px solid #222;
+	background-color: #111;
+	background-image: linear-gradient(#444, #111);
+	border-radius: 6px;
+	box-shadow: 0 1px 1px #777;
+}
+#menu:before,
+#menu:after {
+	content: "";
+	display: table;
+}
+
+#menu:after {
+	clear: both;
+}
+
+#menu {
+	zoom:1;
+}
+#menu li {
+	float: left;
+	border-right: 1px solid #222;
+	box-shadow: 1px 0 0 #444;
+	position: relative;
+}
+
+#menu a {
+	float: left;
+	padding: 12px 30px;
+	color: #999;
+	text-transform: uppercase;
+	font: bold 12px Arial, Helvetica;
+	text-decoration: none;
+	text-shadow: 0 1px 0 #000;
+}
+
+#menu li:hover > a {
+	color: #fafafa;
+}
+
+*html #menu li a:hover { /* IE6 only */
+	color: #fafafa;
+}
+#menu ul {
+	margin: 20px 0 0 0;
+	_margin: 0; /*IE6 only*/
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	top: 38px;
+	left: 0;
+	z-index: 1;    
+	background: #444;	
+	background: linear-gradient(#444, #111);
+	box-shadow: 0 -1px 0 rgba(255,255,255,.3);	
+	border-radius: 3px;
+	transition: all .2s ease-in-out;  
+}
+
+#menu li:hover > ul {
+	opacity: 1;
+	visibility: visible;
+	margin: 0;
+}
+
+#menu ul ul {
+	top: 0;
+	left: 150px;
+	margin: 0 0 0 20px;
+	_margin: 0; /*IE6 only*/
+	box-shadow: -1px 0 0 rgba(255,255,255,.3);		
+}
+
+#menu ul li {
+	float: none;
+	display: block;
+	border: 0;
+	_line-height: 0; /*IE6 only*/
+	box-shadow: 0 1px 0 #111, 0 2px 0 #666;
+}
+
+#menu ul li:last-child {   
+	box-shadow: none;    
+}
+
+#menu ul a {    
+	padding: 10px;
+	width: 130px;
+	_height: 10px; /*IE6 only*/
+	display: block;
+	white-space: nowrap;
+	float: none;
+	text-transform: none;
+}
+
+#menu ul a:hover {
+	background-color: #0186ba;
+	background-image: linear-gradient(#04acec, #0186ba);
+}
+#menu ul li:first-child > a {
+	border-radius: 3px 3px 0 0;
+}
+
+#menu ul li:first-child > a:after {
+	content: '';
+	position: absolute;
+	left: 40px;
+	top: -6px;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-bottom: 6px solid #444;
+}
+
+#menu ul ul li:first-child a:after {
+	left: -6px;
+	top: 50%;
+	margin-top: -6px;
+	border-left: 0;	
+	border-bottom: 6px solid transparent;
+	border-top: 6px solid transparent;
+	border-right: 6px solid #3b3b3b;
+}
+
+#menu ul li:first-child a:hover:after {
+	border-bottom-color: #04acec; 
+}
+
+#menu ul ul li:first-child a:hover:after {
+	border-right-color: #0299d3; 
+	border-bottom-color: transparent; 	
+}
+
+#menu ul li:last-child > a {
+	border-radius: 0 0 3px 3px;
+}
+
+#menu-trigger { /* Hide it initially */
+	display: none;
+}
+
+@media screen and (max-width: 600px) {
+
+	#menu-wrap {
+		position: relative;
+	}
+
+	#menu-wrap * {
+		box-sizing: border-box;
+	}
+
+	#menu-trigger {
+		display: block; /* Show it now */
+		height: 40px;
+		line-height: 40px;
+		cursor: pointer;		
+		padding: 0 0 0 35px;
+		border: 1px solid #222;
+		color: #fafafa;
+		font-weight: bold;
+		background-color: #111;
+                /* Multiple backgrounds here, the first is base64 encoded */
+		background: url(data:image/png;base64,iVBOR...) no-repeat 10px center, linear-gradient(#444, #111);
+		border-radius: 6px;
+		box-shadow: 0 1px 1px #777, 0 1px 0 #666 inset;
+	}
+
+	#menu {
+		margin: 0; padding: 10px;
+		position: absolute;
+		top: 40px;
+		width: 100%;
+		z-index: 1;
+		display: none;
+		box-shadow: none;		
+	}
+
+	#menu:after {
+		content: '';
+		position: absolute;
+		left: 25px;
+		top: -8px;
+		border-left: 8px solid transparent;
+		border-right: 8px solid transparent;
+		border-bottom: 8px solid #444;
+	}	
+
+	#menu ul {
+		position: static;
+		visibility: visible;
+		opacity: 1;
+		margin: 0;
+		background: none;
+		box-shadow: none;				
+	}
+
+	#menu ul ul {
+		margin: 0 0 0 20px !important;
+		box-shadow: none;		
+	}
+
+	#menu li {
+		position: static;
+		display: block;
+		float: none;
+		border: 0;
+		margin: 5px;
+		box-shadow: none;			
+	}
+
+	#menu ul li{
+		margin-left: 20px;
+		box-shadow: none;		
+	}
+
+	#menu a{
+		display: block;
+		float: none;
+		padding: 0;
+		color: #999;
+	}
+
+	#menu a:hover{
+		color: #fafafa;
+	}	
+
+	#menu ul a{
+		padding: 0;
+		width: auto;		
+	}
+
+	#menu ul a:hover{
+		background: none;	
+	}
+
+	#menu ul li:first-child a:after,
+	#menu ul ul li:first-child a:after {
+		border: 0;
+	}		
+
+}
+
+@media screen and (min-width: 600px) {
+	#menu {
+		display: block !important;
+	}
+}	
+
+/* iPad */
+.no-transition {
+	transition: none;
+	opacity: 1;
+	visibility: visible;
+	display: none;  		
+}
+
+#menu li:hover > .no-transition {
+	display: block;
+}
+</style>
+<script>
+$(function() {
+  if ($.browser.msie && $.browser.version.substr(0,1)<7)
+  {
+	$('li').has('ul').mouseover(function(){
+		$(this).children('ul').css('visibility','visible');
+		}).mouseout(function(){
+		$(this).children('ul').css('visibility','hidden');
+		})
+  }
+});
+
+
+/* Mobile */
+$('#menu-wrap').prepend('<div id="menu-trigger">Menu</div>');		
+$("#menu-trigger").on("click", function(){
+	$("#menu").slideToggle();
+});
+
+// iPad
+var isiPad = navigator.userAgent.match(/iPad/i) != null;
+if (isiPad) $('#menu ul').addClass('no-transition');
+
+</script>
+<meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<ul id="menu"">
+	<li class="topfirst"><a href="#" title="Chefs de centre ou chef de départements" style="height:18px;line-height:18px;"><span>Responsables</span></a>
+	<ul>
+		<li><a href="http://ulserver.cofares.net/chefDepartement" target="_blank" title="Chefs de départements ISAE Cnam Liban">Chef de département</a></li>
+		<li><a href="http://ulserver.cofares.net/chefCentre" title="Chefs de centres  d'enseignements ISAE">Chef de centre</a></li>
+		<li><a href="http://ulserver.cofares.net/HoraireIsaeTC/" title="Gestion horaire par le chef de dé[artement">Gestion horaire</a></li>
+	</ul>
+
+	</li>
+	<li class="topmenu"><a href="#" title="Enseignants" style="height:18px;line-height:18px;"><span>Enseignants</span></a>
+	<ul>
+		<li><a href="http://ulserver.cofares.net/intProfesseur" title="Interface et profil de l'rnseignant ISAE Cnam Liban">Interface de l'enseignant</a></li>
+                <li><a href="http://ulserver.cofares.net/HoraireProfs/" title="Horaire par professeur (il faut connaitre l'id du prof)">Horaire</a></li>
+	</ul>
+
+	</li>
+	<li class="topmenu"><a href="#" title="Service scolarité" style="height:18px;line-height:18px;"><span>Service scolarité</span></a>
+	<ul>
+		<li><a href="http://ulserver.cofares.net/chefScolarite" title="Scolarité (reponsable à Beyrouth)">Scolarité</a></li>
+		<li><a href="http://ulserver.cofares.net/admissionTDetail" title="L'admission (Beyrouth et centres)">L'admission</a></li>
+		<li><a href="http://ulserver.cofares.net/inscription" title="Inscription (beyrouth et centres)">Inscription</a></li>
+	</ul>
+
+	</li>
+	<li class="topmenu"><a href="#" title="Auditeurs" style="height:18px;line-height:18px;"><span>Auditeurs</span></a>
+	<ul>
+		<li><a href="http://ulserver.cofares.net/intEtudiant" target="_blank" title="Interface auditeur (pré inscription, inscription, informations et horaire)">Interface auditeur</a></li>
+		<li><a href="http://www.isae.edu.lb/" title="ISAE Cnam Liban">ISAE Cnam Liban</a></li>
+		<li><a href="http://depinfo.isae.edu.lb/" title="Département informatique">Département informatique</a></li>
+	</ul>
+
+	</li>
+	<li class="topmenu"><a href="#" title="Administratifs" style="height:18px;line-height:18px;"><span>Administratif</span></a>
+	<ul>
+		<li><a href="http://ulserver.cofares.net/catalogueDip" target="_blank" title="Gestion catalogue des diplomes ouverst au Cnam Liban">Gestion catalogue des diplomes</a></li>
+		<li><a href="http://ulserver.cofares.net/Resultat" title="Voir les résultats">Voir résultats</a></li>
+		<li><a href="http://ulserver.cofares.net/HoraireIsaeTC/" title="Gestion Horaire par les administratifs">Gestion Horaire</a></li>
+	</ul>
+
+	</li>
+	<li class="topmenu"><a href="#" title="Tous" style="height:18px;line-height:18px;"><span>Tous</span></a>
+	<ul>
+		<li><a href="http://mail.isae.edu.lb/" title="Webmail de l'ISAE Cnam Liban">Webmail</a></li>
+		<li><a href="http://cours.isae.edu.lb/" title="Cours en lignes : Moodle">Cours en lignes</a></li>
+		<li><a href="http://cours.isae.edu.lb" title="Autres cours">Autres cours</a></li>
+		<li><a href="http://ulserver.cofares.net/catalogueDipPublic" title="Voir le catalogue des diplômes au Cnam Liban">Voir le catalogue</a></li>
+		<li><a href="http://ulserver.cofares.net/HorairePublic/" target="_blank" title="Horaire publique">Horaire</a></li>
+	</ul>
+
+	</li>
+	<li class="toplast"><a href="#" title="Liens utiles" style="height:18px;line-height:18px;"><span>Liens utiles</span></a>
+	<ul>
+		<li><a href="http://rdtic.isae.edu.lb" target="_blank" title="STIC Isae Cnam le serveur d'application de l'ISAE aide et manuel d' utilisation">Documentation et aide</a></li>
+		<li><a href="http://www.isae.edu.lb/Licence" title="Expérience et stage">Expérience et stage</a></li>
+		<li><a href="http://ulserver.cofares.net/Resultat" title="Voir les résultats">Voir résultats</a></li>
+	</ul>
+	</li>
+<li class="toplast"><a href="#" title="Google Apps"  style="height:18px;line-height:18px;">ISAE Apps</a>
+   <ul>
+     <li><a href="http://docs.isae.edu.lb/" title="Documents partagé">Documents partagés</a></li>
+     <li><a href="http://groups.isae.edu.lb/" title="Groupes et mailing listes">Groupes de discutions</a></li>
+     <li><a href="http://sites.isae.edu.lb/" title="Sites de l'ISAE Cnam Liban">Sites d'utilisateurs</a></li>
+     <li><a href="" title=""></a></li>
+   </ul>
+</li>
+</ul>
+
+</body>
+</html>
