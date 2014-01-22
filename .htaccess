@@ -1,4 +1,3 @@
-# $Id: _htaccess 32965 2011-02-21 15:19:43Z nyloth $ [This line is used to check that this htaccess file is up to date. Do not edit this line and leave it as the first line.]
 # These are suggested Rewrite Rules for use with Tiki.
 # They enhance security and permit short URLs.
 # In your Tiki instance, visit admin.php?page=sefurl
