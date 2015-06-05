@@ -8,8 +8,8 @@
         <meta name="keywords"
               content="universite, cours, inscription, Fares, ISAE, CNAM, Liban, portal, informatique, Pascal, java, j2ee, j2me" />
         <meta name="robots" content="All" />
-        <link rel="stylesheet" type="text/css" href="http://si.cofares.net/themes/isae.css" type="text/css" />
-        <link rel="stylesheet" href="http://si.cofares.net/menuIsae/css3menu1/style.css" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/themes/isae.css" type="text/css" />
+        <link rel="stylesheet" href="/menuIsae/css3menu1/style.css" type="text/css" />
     </HEAD>
     <body>
             <div id='index-content'>
