@@ -25,7 +25,7 @@
             <div id='index-content'>
                 <table  cellpadding="0" cellspacing="0" width="100%" border="0">
 <tr><td colspan="2">
-                <a href="http://depinfo.isae.edu.lb" alt="Applications ISAE Cnam Liban" title="Département informaitque ISSAE Cnam Liban"> <img alt="Banière ISAE Cnam Liban" src="http://si.cofares.net/images/ISAE/depinfo-header.jpg" /></a> 
+                <a href="http://depinfo.isae.edu.lb" alt="Applications ISAE Cnam Liban" title="Département informaitque ISSAE Cnam Liban"> <img alt="Banière ISAE Cnam Liban" src="http://si.cofares.net/images/ISAE/si-header.jpg" /></a> 
 </td></tr>
                     <tr>
                         <td border=1 width="119px"  valign="top">
