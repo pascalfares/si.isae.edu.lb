@@ -7,7 +7,7 @@
 }
 
 #index-wrapper {
-    background-image:url(http://si.isae.edu.lb/images/ciel.gif);
+    background-image:url(/resources/images/ciel.gif);
     background-repeat:repeat;
     width:970px;
     margin:0px auto;
@@ -24,7 +24,7 @@
 }
 
 #index-content {
-    background: url(http://si.isae.edu.lb/images/ciel.gif) repeat;
+    background: url(/resources/images/ciel.gif) repeat;
     top:0;
     margin: 0 auto;
     padding: 0;
@@ -32,7 +32,7 @@
     border: 3px solid #a9a;
 }
 #index-pub {
-    background: url(http://images.cofares.info/ciel.gif) repeat;
+    background: url(/resources/images/ciel.gif) repeat;
     top:0;
     margin: auto;
     padding: 10px;
@@ -80,7 +80,6 @@ body{
 }
 
 #index-sidebar .imgfloat {
-    background:url(http://www.zdnet.fr/zdnet/x/i/m/rss_icon.gif) no-repeat;
     background-position:0;
     padding-left:41px;
     width:75px;
@@ -112,7 +111,7 @@ body{
 
 .chanel .title {
     border: 1px solid #d0d0f8;
-    background-image:url(http://si.isae.edu.lb/images/mer.gif); background-repeat:repeat;
+    background-image:url(/resources/images/mer.gif); background-repeat:repeat;
 
     margin-top:-1em;
 }
@@ -140,7 +139,6 @@ body{
 }
 
 .rss-box {
-    background:url(http://images.cofares.info/feed2js_badge.gif) no-repeat;
     margin: 2px;
     padding: 1px 4px;
     background-color: #ededed;
@@ -192,7 +190,7 @@ body{
 
 
 li.title, td.title, div.title, H2.section {
-    background-image:url(http://images.cofares.info/mer.gif); background-repeat:repeat;
+    background-image:url(/resources/images/mer.gif); background-repeat:repeat;
     color: maroon;
     font-family: Verdana, Impact, Arial, Helvetica, sans-serif;
     font-weight: bold;
@@ -334,7 +332,7 @@ ul#onglets li a {
 #navlist
 {
     color: white;
-    background-image:url(http://images.cofares.info/mer.gif); background-repeat:repeat;
+    background-image:url(/resources/images/mer.gif); background-repeat:repeat;
     border-bottom: 1px solid #17a;
     border-right: 1pxem solid #17a;
     padding: 0 1px;
@@ -389,7 +387,7 @@ ul#onglets li a {
 
 #navlist a:active, #navlist a#current:active
 {
-    background-image:url(http://images.cofares.info/mer.gif); background-repeat:repeat;
+    background-image:url(/resources/images/mer.gif); background-repeat:repeat;
     border-color: #069 #6cf #5bd white;
     padding:  2px 20px 2px 30px;
 }
