@@ -22,7 +22,7 @@ Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 }
 
 #index-wrapper {
-    background-image:url(http://documents.cofares.net/images/ISAE/ciel.gif);
+    background-image:url(/images/ISAE/ciel.gif);
     background-repeat:repeat;
     width: 757px;
     margin:0px auto;
@@ -39,7 +39,7 @@ Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 }
 
 #index-content {
-    background: url(http://documents.cofares.net/images/ISAE/ciel.gif) repeat;
+    background: url(/images/ISAE/ciel.gif) repeat;
     top:0;
     margin: 0 auto;
     padding: 0;

@@ -8,7 +8,7 @@
 }
 /** OLD  border: 5px solid #aab; */
 #index-wrapper {
-	background-image:url(http://si.cofares.net/images/ISAE/ciel.gif);
+	background-image:url(/images/ISAE/ciel.gif);
         background-repeat:repeat;
         width: 1000px;
         margin:0px auto;
@@ -32,7 +32,7 @@
 	border: 3px solid #f55;
 }
 #index-pub {
-	background: url(http://si.cofares.net/images/ISAE/ciel.gif) repeat;
+	background: url(/images/ISAE/ciel.gif) repeat;
         top:0;
 	margin: auto; 
 	padding: 10px;
@@ -61,7 +61,7 @@
 body{
 	font: normal normal 14px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
 	color: #222222;
-	background: #cfe7d1 url(http://si.cofares.net/images/ISAE/siBackgroud.png) repeat fixed top center /* Credit: gaffera (http://www.istockphoto.com/googleimages.php?id=4072573&amp;platform=blogger) */;
+	background: #cfe7d1 url(/images/ISAE/siBackgroud.png) repeat fixed top center /* Credit: gaffera (http://www.istockphoto.com/googleimages.php?id=4072573&amp;platform=blogger) */;
 	padding: 0 0 0 0;
 	background-attachment: fixed;
 }
@@ -147,7 +147,7 @@ body{
 }
 
 li.title, td.title, div.title, H2.section {
-        background-image:url(http://si.cofares.net/images/ISAE/mer.gif); background-repeat:repeat;
+        background-image:url(/images/ISAE/mer.gif); background-repeat:repeat;
         color: maroon;
         font-family: Verdana, Impact, Arial, Helvetica, sans-serif;
         font-weight: bold;
@@ -175,7 +175,7 @@ div#header{
 #navlist
 {
 	color: white;
-	background-image:url(http://si.cofares.net/images/ISAE/mer.gif); background-repeat:repeat;
+	background-image:url(/images/ISAE/mer.gif); background-repeat:repeat;
 	padding: 0 1px;
         border: 0px;
 	margin: 0;
