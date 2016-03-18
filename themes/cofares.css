@@ -116,7 +116,7 @@ body{
 
 .chanel .title {
   border: 1px solid #d0d0f8;
-  background-image:url(http://si.cofares.net/images/ISAE/mer.gif); 
+  background-image:url(/images/ISAE/mer.gif); 
   background-repeat:repeat;
   margin-top:-1em;
   /* opacity: 0.5; */

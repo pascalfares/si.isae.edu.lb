@@ -85,6 +85,9 @@ Syntax recommendation http://www.w3.org/TR/REC-CSS2/
     color: #66BBCC ;
     font-size : 80%;
 }
+.titleBig{
+     font-size: 25px;
+}
 
 .ident       { list-style-position: outside;
     list-style-type: disc;
@@ -436,13 +439,13 @@ P.blocktext {
     font: normal 0.8em Verdana, sans-serif;
 }
 
-#navlist li
+#navlist li, button
 {
     list-style: none;
     margin: 0;
 }
 
-#navlist a
+#navlist a, button
 {
     display: block;
     text-decoration: none;
@@ -457,20 +460,20 @@ P.blocktext {
     padding:  1px 1px 1px 2px;
     width:115px;
 }
-#navlist a
+a
 {
     width:115px;
 }
-#navcontainer>#navlist a
+#navcontainer>#navlist a, button
 {
     width: 115px;
     /* only necessary if you use the hacks above for the Internet Explorer */
 }
 
-#navlist a#current { border-color: #5bd #f35 #068 #6cf; }
+#navlist a#current, button#current{ border-color: #5bd #f35 #068 #6cf; }
 
 
-#navlist a:hover, #navlist a#current:hover
+#navlist a:hover, #navlist a#current:hover,#navlist button:hover,#navlist button#current:hover
 {
     background: #28b;
     border-color: #069 #6cf #5bd #fc0;
@@ -479,7 +482,7 @@ P.blocktext {
     margin-left: -2px;
 }
 
-#navlist a:active, #navlist a#current:active
+#navlist a:active, #navlist a#current:active, #navlist button:active, #navlist button#current:active
 {
     background-image:url(/resources/images/ISAE/mer.gif); background-repeat:repeat;
     border-color: #069 #6cf #5bd white;

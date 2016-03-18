@@ -1,0 +1,52 @@
+/*300 Light*/
+@font-face {
+	font-family: 'Open Sans';
+    src: url('fonts/OpenSans-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/*300 Light Italic*/
+@font-face {
+	font-family: 'Open Sans';
+    src: url('fonts/OpenSans-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+
+/*400 Normal*/
+@font-face {
+	font-family: 'Open Sans';
+    src: url('fonts/OpenSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-weight:400;
+    font-style: normal;
+}
+
+/*400 Normal Italic*/
+@font-face {
+	font-family: 'Open Sans';
+    src: url('fonts/OpenSans-Italic.woff') format('woff');
+    font-weight: normal;
+    font-weight:400;
+    font-style: italic;   
+}
+
+/*700 Gras*/
+@font-face {
+	font-family: 'Open Sans';
+    src: url('fonts/OpenSans-Bold.woff') format('woff');
+    font-weight: 700;
+    font-weight: bold;
+    font-style: normal;
+}
+
+/*700 Gras Italic*/
+@font-face {
+	font-family: 'Open Sans';
+    src: url('fonts/OpenSans-BoldItalic.woff') format('woff');
+    font-weight: 700;
+    font-weight: bold;
+    font-style: italic;
+}
+

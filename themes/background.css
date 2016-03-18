@@ -51,7 +51,7 @@ Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 
 }
 #index-pub {
-    background: url(http://documents.cofares.net/images/ISAE/ciel.gif) repeat;
+    background: url(/images/ISAE/ciel.gif) repeat;
     top:0;
     margin: auto;
     padding: 10px;
@@ -131,7 +131,7 @@ body{
 
 .chanel .title {
     border: 1px solid #d0d0f8;
-    background-image:url(http://documents.cofares.net/images/ISAE/ciel.gif);
+    background-image:url(/images/ISAE/ciel.gif);
     background-repeat:repeat;
 
     margin-top:-1em;
@@ -160,7 +160,7 @@ body{
 }
 /* url(http://images.cofares.info/feed2js_badge.gif)  */
 .rss-box {
-    background:url(http://si.isae.edu.lb/images/feed2js_badge.gif) no-repeat;
+    background:url(/images/feed2js_badge.gif) no-repeat;
     margin: 2px;
     padding: 1px 4px;
     background-color: #ededed;
@@ -212,7 +212,7 @@ body{
 
 
 li.title, td.title, div.title, H2.section {
-    background-image:url(http://documents.cofares.net/images/ISAE/mer.gif);
+    background-image:url(/images/ISAE/mer.gif);
     background-repeat:repeat;
     color: maroon;
     font-family: Verdana, Impact, Arial, Helvetica, sans-serif;
@@ -361,7 +361,7 @@ td#horaire
 #navlist
 {
     color: white;
-    background-image:url(http://documents.cofares.net/images/ISAE/mer.gif); background-repeat:repeat;
+    background-image:url(/images/ISAE/mer.gif); background-repeat:repeat;
     border-bottom: 1px solid #17a;
     border-right: 1px solid #17a;
     padding: 0 1px;
@@ -415,7 +415,7 @@ td#horaire
 
 #navlist a:active, #navlist a#current:active
 {
-    background-image:url(http://documents.cofares.net/images/ISAE/mer.gif); background-repeat:repeat;
+    background-image:url(/images/ISAE/mer.gif); background-repeat:repeat;
     border-color: #069 #6cf #5bd white;
     padding:  2px 20px 2px 30px;
 }
