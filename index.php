@@ -2,11 +2,11 @@
 <HTML>
     <HEAD>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>ISAE Cnam liban : Portail Système d'information</title>
+        <title>ISSAE Cnam liban : Environnement numérique et Système d'information</title>
         <meta name="description"
-              content="Cellule recherche et développement TIC TICE : Système d'information ISAE Cnam Liban cours et développement Open source et orienté objet java html xml sous linux à l'ISAE CNAM par Pascal Fares. Composant et j2ee" />
+              content="Recherche et développement TIC TICE : Environnement numérique et Système d'information ISSAE Cnam Liban. Cours et développements Open source et orienté objet java html xml sous linux à l'ISSAE CNAM par Pascal Fares. Composant et j2ee" />
         <meta name="keywords"
-              content="universite, cours, inscription, Fares, ISAE, CNAM, Liban, portal, informatique, Pascal, java, j2ee, j2me, stic" />
+              content="universite, cours, inscription, Fares, ISAE, CNAM, Liban, portal, informatique, ISSAE, Pascal, java, j2ee, stic" />
         <meta name="robots" content="All" />
         <link rel="stylesheet" type="text/css" href="/themes/isae.css" type="text/css" />
         <link rel="stylesheet" href="/menuIsae/css3menu1/style.css" type="text/css" />
