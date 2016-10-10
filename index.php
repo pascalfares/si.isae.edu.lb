@@ -7,6 +7,7 @@
               content="Recherche et développement TIC TICE : Environnement numérique et Système d'information ISSAE Cnam Liban. Cours et développements Open source et orienté objet java html xml sous linux à l'ISSAE CNAM par Pascal Fares. Composant et j2ee" />
         <meta name="keywords"
               content="universite, cours, inscription, Fares, ISAE, CNAM, Liban, portal, informatique, ISSAE, Pascal, java, j2ee, stic" />
+<meta name="google-site-verification" content="FOVhkl8fGVZjjjp2GwRBRF2brL7JFnlguQio_Svb_f0" />
         <meta name="robots" content="All" />
         <link rel="stylesheet" type="text/css" href="/themes/isae.css" type="text/css" />
         <link rel="stylesheet" href="/menuIsae/css3menu1/style.css" type="text/css" />
