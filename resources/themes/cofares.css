@@ -15,9 +15,21 @@
         border: 5px solid #f55;
   /* opacity: 0.5; */
 }
+.titleMedium {    
+    font-family: sans-serif;
+    font-size: medium;
+    font-weight:bold;
+    margin: 14px 0;
+    padding: 0;
+    letter-spacing: 1px;
+}
 #wrap {
    margin:0;
    width:1000px;
+}
+
+.minWidth{
+    width: 800px;
 }
 .nextblock {
 	clear:both;
@@ -230,7 +242,7 @@ div#header{
 	padding:6px 24px;
 	text-decoration:none;
 	text-shadow:1px 1px 0px #ffffff;
-        width="118px";
+        width: 118px;
 }
 .boutonA:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );

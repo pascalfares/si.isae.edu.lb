@@ -1,4 +1,9 @@
-﻿#index-banner {
+﻿#banniere {
+  background: #c1002a;
+  padding: 1.3em 1em 0.8em 1.1em;
+}
+
+#index-banner {
         background-color:#c1002a;
     	width:1000px;
 	/* height:79px; */
