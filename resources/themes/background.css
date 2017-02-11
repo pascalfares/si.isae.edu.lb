@@ -13,6 +13,22 @@ Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 
 
+.app_signin_google_button_link {
+    display: block;
+    width: 290px;
+    box-sizing: border-box;
+    margin: 1.5rem auto;
+    text-decoration: none;
+    text-align: center;
+    color: #757575;
+    height: 42px;
+    border-radius: 3px;
+    box-shadow: 0px 1px #BDBDBD;
+    border: 1px solid #F3F3F3;
+    background: #ffffff url(/resources/images/google_signin_logo.svg) no-repeat 10px 12px;
+    line-height: 42px;
+    font-size: 14px;
+}
 
 #index-banner {
     width:757px;
